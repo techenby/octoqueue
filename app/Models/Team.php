@@ -32,6 +32,11 @@ class Team extends JetstreamTeam
         return $this->hasMany(Printer::class);
     }
 
+    public function spools()
+    {
+        return $this->hasMany(Spool::class);
+    }
+
     public function printJobs()
     {
         return $this->hasMany(PrintJob::class);

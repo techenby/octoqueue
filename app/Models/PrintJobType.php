@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PrintJobType extends Model
 {
-    use HasFactory, SoftDeletes, ForTeam;
+    use HasFactory;
+    use SoftDeletes;
+    use ForTeam;
 
     protected $guarded = [];
 

@@ -1,0 +1,7 @@
+.draggable {
+    @apply flex items-center justify-between px-3 py-2 text-gray-600 border border-gray-300 rounded-md cursor-move dark:border-gray-700 dark:text-gray-400;
+}
+
+.draggable.over {
+    @apply border-dashed;
+}

@@ -1,4 +1,5 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
+const colors = require('tailwindcss/colors')
+const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
     content: [
@@ -10,11 +11,26 @@ module.exports = {
 
     theme: {
         extend: {
+            colors: {
+                gray: {
+                    850: '#231F1E',
+                    ...colors.stone
+                },
+                purple: colors.violet,
+                blue: colors.cyan,
+                green: colors.emerald,
+            },
+            minHeight: {
+                96: '24rem',
+            },
             fontFamily: {
-                sans: ['Nunito', ...defaultTheme.fontFamily.sans],
+                sans: ['Open Sans', ...defaultTheme.fontFamily.sans],
             },
         },
     },
 
-    plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+    plugins: [
+        require('@tailwindcss/forms'),
+        require('@tailwindcss/typography')
+    ],
 };

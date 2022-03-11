@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class PrintJob extends Model
 {
-    use HasFactory, ForTeam;
+    use HasFactory;
+    use ForTeam;
 
     protected $guarded = [];
 

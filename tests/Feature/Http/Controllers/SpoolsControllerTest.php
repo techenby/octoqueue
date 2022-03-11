@@ -16,7 +16,8 @@ use Tests\TestCase;
  */
 class SpoolsControllerTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
 
     /** @test */
@@ -28,8 +29,7 @@ class SpoolsControllerTest extends TestCase
         $this->actingAs($user)->get('/spools')
             ->assertInertia(fn (Assert $page) => $page
             ->component('Spools/Index')
-            ->has('spools', 3)
-        );
+            ->has('spools', 3));
     }
 
     /** @test */
@@ -41,8 +41,7 @@ class SpoolsControllerTest extends TestCase
         $this->actingAs($user)->get('/spools/create')
             ->assertInertia(fn (Assert $page) => $page
             ->component('Spools/Create')
-            ->has('colors', 3)
-        );
+            ->has('colors', 3));
     }
 
     /** @test */
@@ -81,9 +80,7 @@ class SpoolsControllerTest extends TestCase
                 ->has('spool', fn (Assert $page) => $page
                     ->where('id', $spool->id)
                     ->where('team_id', $spool->team_id)
-                    ->etc()
-                )
-            );
+                    ->etc()));
     }
 
     /** @test */
@@ -99,10 +96,8 @@ class SpoolsControllerTest extends TestCase
                 ->has('spool', fn (Assert $page) => $page
                     ->where('id', $spool->id)
                     ->where('team_id', $spool->team_id)
-                    ->etc()
-                )
-                ->has('colors', 3)
-            );
+                    ->etc())
+                ->has('colors', 3));
     }
 
     /** @test */

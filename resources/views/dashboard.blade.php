@@ -1,15 +1,17 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+    <x-slot name="header">{{ __('Dashboard') }}</x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <x-jet-welcome />
-            </div>
-        </div>
+    @if(auth()->user()->currentTeam->showWelcomeWizard)
+    <div class="overflow-hidden bg-white shadow-xl dark:bg-gray-800 sm:rounded-lg">
+        <x-jet-welcome />
     </div>
+    @else
+        <div class="grid grid-cols-2 gap-8">
+            @foreach($printers as $printer)
+            <div wire:key="$printer->id">
+                <livewire:bit.printer :printer="$printer" />
+            </div>
+            @endforeach
+        </div>
+    @endif
 </x-app-layout>

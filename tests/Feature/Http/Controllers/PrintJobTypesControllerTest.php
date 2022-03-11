@@ -15,7 +15,8 @@ use Tests\TestCase;
  */
 class PrintJobTypesControllerTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
     /** @test */
     public function index_displays_view()
@@ -26,8 +27,7 @@ class PrintJobTypesControllerTest extends TestCase
         $this->actingAs($user)->get('/job-types')
             ->assertInertia(fn (Assert $page) => $page
             ->component('PrintJobTypes/Index')
-            ->has('types', 3)
-        );
+            ->has('types', 3));
     }
 
     /** @test */
@@ -37,8 +37,7 @@ class PrintJobTypesControllerTest extends TestCase
 
         $this->actingAs($user)->get('/job-types/create')
             ->assertInertia(fn (Assert $page) => $page
-            ->component('PrintJobTypes/Create')
-        );
+            ->component('PrintJobTypes/Create'));
     }
 
     /** @test */
@@ -72,9 +71,7 @@ class PrintJobTypesControllerTest extends TestCase
                 ->has('type', fn (Assert $page) => $page
                     ->where('id', $type->id)
                     ->where('team_id', $type->team_id)
-                    ->etc()
-                )
-            );
+                    ->etc()));
     }
 
     /** @test */
@@ -89,9 +86,7 @@ class PrintJobTypesControllerTest extends TestCase
                 ->has('type', fn (Assert $page) => $page
                     ->where('id', $type->id)
                     ->where('team_id', $type->team_id)
-                    ->etc()
-                )
-            );
+                    ->etc()));
     }
 
     /** @test */

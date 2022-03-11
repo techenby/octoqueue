@@ -15,7 +15,8 @@ use Tests\TestCase;
  */
 class PrintersControllerTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
     /** @test */
     public function index_displays_view()
@@ -26,8 +27,7 @@ class PrintersControllerTest extends TestCase
         $this->actingAs($user)->get('/printers')
             ->assertInertia(fn (Assert $page) => $page
             ->component('Printers/Index')
-            ->has('printers', 3)
-        );
+            ->has('printers', 3));
     }
 
     /** @test */
@@ -37,8 +37,7 @@ class PrintersControllerTest extends TestCase
 
         $this->actingAs($user)->get('/printers/create')
             ->assertInertia(fn (Assert $page) => $page
-            ->component('Printers/Create')
-        );
+            ->component('Printers/Create'));
     }
 
     /** @test */
@@ -74,9 +73,7 @@ class PrintersControllerTest extends TestCase
                 ->has('printer', fn (Assert $page) => $page
                     ->where('id', $printer->id)
                     ->where('team_id', $printer->team_id)
-                    ->etc()
-                )
-            );
+                    ->etc()));
     }
 
     /** @test */
@@ -91,9 +88,7 @@ class PrintersControllerTest extends TestCase
                 ->has('printer', fn (Assert $page) => $page
                     ->where('id', $printer->id)
                     ->where('team_id', $printer->team_id)
-                    ->etc()
-                )
-            );
+                    ->etc()));
     }
 
     /** @test */
@@ -142,5 +137,4 @@ class PrintersControllerTest extends TestCase
 
         $this->assertNull($printer->deleted_at);
     }
-
 }
