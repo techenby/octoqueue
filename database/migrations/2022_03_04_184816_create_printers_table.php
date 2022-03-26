@@ -6,16 +6,12 @@ use Illuminate\Support\Facades\Schema;
 
 class CreatePrintersTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('printers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('team_id');
+            $table->unsignedBigInteger('spool_id')->nullable();
             $table->string('name');
             $table->string('model')->nullable();
             $table->string('url')->nullable();
@@ -25,11 +21,6 @@ class CreatePrintersTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('printers');

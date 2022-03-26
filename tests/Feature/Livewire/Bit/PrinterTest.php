@@ -3,8 +3,6 @@
 namespace Tests\Feature\Livewire\Bit;
 
 use App\Http\Livewire\Bit\Printer;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 

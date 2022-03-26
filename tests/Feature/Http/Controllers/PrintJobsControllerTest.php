@@ -6,7 +6,6 @@ use App\Models\Color;
 use App\Models\Printer;
 use App\Models\PrintJob;
 use App\Models\PrintJobType;
-use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;

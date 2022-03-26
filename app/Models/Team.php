@@ -14,11 +14,13 @@ class Team extends JetstreamTeam
 
     protected $casts = [
         'personal_team' => 'boolean',
+        'settings' => 'array',
     ];
 
     protected $fillable = [
         'name',
         'personal_team',
+        'settings',
     ];
 
     protected $dispatchesEvents = [

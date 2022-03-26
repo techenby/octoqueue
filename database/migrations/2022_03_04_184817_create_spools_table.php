@@ -11,11 +11,13 @@ class CreateSpoolsTable extends Migration
         Schema::create('spools', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('team_id');
+            $table->string('color')->nullable();
             $table->string('color_hex')->nullable();
             $table->string('brand')->nullable();
             $table->string('cost')->nullable();
             $table->string('material')->nullable();
             $table->string('diameter')->nullable();
+            $table->string('empty')->nullable();
             $table->json('weights');
             $table->timestamps();
             $table->softDeletes();

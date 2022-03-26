@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Calculator;
 use App\Traits\ForTeam;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,20 +17,12 @@ class Spool extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'weights' => 'array',
+        'weights' => 'collection',
     ];
 
-    public static function rules()
+    public function printer()
     {
-        return [
-            'team_id' => ['required'],
-            'color_id' => ['required'],
-            'brand' => ['nullable'],
-            'cost' => ['nullable'],
-            'material' => ['nullable'],
-            'diameter' => ['nullable'],
-            'weights' => ['nullable'],
-        ];
+        return $this->hasOne(Printer::class);
     }
 
     public function team()
@@ -37,13 +30,65 @@ class Spool extends Model
         return $this->belongsTo(Team::class);
     }
 
-    public function color()
-    {
-        return $this->belongsTo(Color::class);
-    }
-
-    public function printJobs()
+    public function jobs()
     {
         return $this->hasMany(PrintJob::class);
+    }
+
+    public function getCurrentWeightAttribute()
+    {
+        $spoolWeight = $this->empty;
+        $last = $this->weights->last();
+        $filamentUsed = $this->jobs()->where('completed_at', '>', $last['timestamp'])->sum('filament_used');
+
+        if ($filamentUsed > 0) {
+            return $last['weight'] - $spoolWeight - $filamentUsed;
+        } else {
+            return $last['weight'] - $spoolWeight;
+        }
+    }
+
+    public function getCurrentLengthAttribute()
+    {
+        return (new Calculator())->gramsToLength($this->material, $this->currentWeight);
+    }
+
+    public function getFormattedCurrentWeightAttribute()
+    {
+        if ($this->jobs()->where('completed_at', '>', $this->weights->last()['timestamp'])->count() > 0) {
+            return '~' . $this->currentWeight . 'g';
+        } else {
+            return $this->currentWeight . 'g';
+        }
+    }
+
+    public function getFormattedCurrentLengthAttribute()
+    {
+        if ($this->jobs()->where('completed_at', '>', $this->weights->last()['timestamp'])->count() > 0) {
+            return '~' . $this->currentLength . 'm';
+        } else {
+            return $this->currentLength . 'm';
+        }
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->color . ' - ' . $this->brand;
+    }
+
+    public function getLocationAttribute()
+    {
+        return $this->printer->name ?? 'Storage';
+    }
+
+    public function addWeight($weight, $save = true)
+    {
+        $weights = $this->weights;
+        $weights[] = ['weight' => $weight, 'timestamp' => now()];
+        $this->weights = $weights;
+
+        if ($save) {
+            $this->save();
+        }
     }
 }

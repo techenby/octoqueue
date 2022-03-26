@@ -1,5 +1,7 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
 
-@import 'components/draggable.css';
+@import 'components/buttons.css';
+@import 'components/coloris.css';
+
+@import 'tailwindcss/utilities';

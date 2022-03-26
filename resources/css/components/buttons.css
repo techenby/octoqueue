@@ -1,0 +1,35 @@
+.btn {
+    @apply inline-flex items-center font-medium border border-transparent shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+
+.btn-xs {
+    @apply px-1.5 py-1 text-xs rounded ;
+}
+.btn-sm {
+    @apply px-3 py-2 text-sm leading-4 rounded-md;
+}
+.btn-base {
+    @apply px-4 py-2 text-sm rounded-md;
+}
+.btn-lg {
+    @apply px-4 py-2 text-base rounded-md;
+}
+.btn-xl {
+    @apply px-6 py-3 text-base rounded-md;
+}
+
+.btn-link {
+    @apply hover:text-gray-900 hover:bg-blue-200 dark:hover:bg-blue-900 dark:hover:text-gray-200;
+}
+
+.btn:disabled, .table-btn:disabled {
+    @apply cursor-not-allowed opacity-70;
+}
+
+.btn-block {
+    @apply justify-center w-full;
+}
+
+.disabled {
+    @apply cursor-not-allowed opacity-70;
+}

@@ -15,6 +15,7 @@ class Form extends Component
         'printer.model' => ['nullable', 'string'],
         'printer.url' => ['required', 'url'],
         'printer.api_key' => ['required', 'string'],
+        'printer.spool_id' => ['nullable'],
     ];
 
     public function mount($printer = null)

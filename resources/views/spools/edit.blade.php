@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-slot name="header">{{ __('Edit Printer') }}</x-slot>
+    <x-slot name="header">{{ __('Edit Spool') }}</x-slot>
 
-    <livewire:printers.form :printer="$printer" />
+    <livewire:spools.form :spool="$spool" />
 </x-app-layout>

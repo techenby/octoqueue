@@ -3,8 +3,6 @@
 namespace Tests\Feature\Livewire\PrintJobTypes;
 
 use App\Http\Livewire\PrintJobTypes\Form;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 

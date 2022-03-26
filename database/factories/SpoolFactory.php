@@ -2,11 +2,9 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 use App\Models\Color;
 use App\Models\Spool;
-use App\Models\Team;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SpoolFactory extends Factory
 {

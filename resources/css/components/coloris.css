@@ -1,0 +1,11 @@
+.coloris-square .clr-field button, .coloris-circle .clr-field button {
+    @apply right-auto w-8 h-8 rounded left-1.5;
+}
+
+.coloris-square input, .coloris-circle input {
+    @apply pl-12;
+}
+
+.clr-field {
+    @apply block w-full;
+}

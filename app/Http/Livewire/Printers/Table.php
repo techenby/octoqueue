@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Printers;
 
-use App\Models\Printer;
 use Livewire\Component;
 
 class Table extends Component

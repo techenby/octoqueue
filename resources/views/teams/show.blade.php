@@ -14,4 +14,6 @@
     @endif
 
     @livewire('teams.job-type-manager', ['team' => $team])
+
+    @livewire('teams.preferences', ['team' => $team])
 </x-app-layout>

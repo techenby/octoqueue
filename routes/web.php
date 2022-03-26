@@ -1,18 +1,17 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PrintersController;
+use App\Http\Controllers\QueueController;
 use App\Http\Controllers\SpoolsController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard')->with(['printers' => App\Models\Printer::forCurrentTeam()->get()]);
-    })->name('dashboard');
-
+    Route::get('/dashboard', DashboardController::class)->name('dashboard');
 
     Route::controller(PrintersController::class)->group(function () {
         Route::get('/printers', 'index')->name('printers');
@@ -28,7 +27,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::controller(QueueController::class)->group(function () {
         Route::get('/queue', 'index')->name('queue');
-        Route::get('/queue/create', 'create')->name('queue.create');
-        Route::get('/queue/{job}/edit', 'edit')->name('queue.edit');
+        Route::get('/jobs/create', 'create')->name('jobs.create');
+        Route::get('/jobs/{job}/edit', 'edit')->name('jobs.edit');
     });
 });

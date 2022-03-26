@@ -26,8 +26,8 @@
 
         @if(!$spools->isEmpty())
         <div class="col-span-6 sm:col-span-4">
-            <x-jet-label for="spool_id" value="{{ __('Spool') }}" />
-            <x-jet-input id="spool_id" type="password" class="block w-full mt-1" wire:model.defer="printer.spool_id" />
+            <x-jet-label for="spool_id" value="{{ __('Loaded Spool') }}" />
+            <x-form.select id="spool_id" class="block w-full mt-1" wire:model.defer="printer.spool_id" placeholder="No spool" :options="$spools" />
             <x-jet-input-error for="spool_id" class="mt-2" />
         </div>
         @endif
@@ -35,7 +35,7 @@
 
     <x-slot name="actions">
         <x-jet-button>
-            {{ __('Create') }}
+            {{ $printer->id === null ? __('Create') : __('Save') }}
         </x-jet-button>
     </x-slot>
 </x-jet-form-section>

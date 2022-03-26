@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Color;
 use App\Models\Spool;
 use Illuminate\Routing\Controller;
 
@@ -17,16 +16,13 @@ class SpoolsController extends Controller
 
     public function create()
     {
-        return view('spools.create', [
-            'colors' => Color::all(),
-        ]);
+        return view('spools.create');
     }
 
     public function edit(Spool $spool)
     {
         return view('spools.edit', [
             'spool' => $spool,
-            'colors' => Color::all(),
         ]);
     }
 }

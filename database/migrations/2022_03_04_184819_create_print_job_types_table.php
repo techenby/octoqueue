@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreatePrintJobTypesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('print_job_types', function (Blueprint $table) {
@@ -23,11 +18,6 @@ class CreatePrintJobTypesTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('print_job_types');
