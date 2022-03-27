@@ -18,7 +18,7 @@ class DashboardController extends Controller
         return view('dashboard')->with([
             'printers' => $currentTeam->printers,
             'completed' => $completed,
-            'showWelcome' => count(array_unique(array_values($completed))) > 1,
+            'showWelcome' => in_array(false, $completed),
             'team' => $currentTeam,
         ]);
     }
