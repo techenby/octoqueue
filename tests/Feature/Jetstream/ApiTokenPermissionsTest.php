@@ -35,7 +35,7 @@ class ApiTokenPermissionsTest extends TestCase
                             'delete',
                             'missing-permission',
                         ],
-                    ]])
+                    ],])
                     ->call('updateApiToken');
 
         $this->assertTrue($user->fresh()->tokens->first()->can('delete'));

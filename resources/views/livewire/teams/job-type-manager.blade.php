@@ -13,11 +13,11 @@
 
                 <x-slot name="content">
                     <div class="w-2/3 space-y-1">
-                        @foreach($types as $type)
+                        @foreach ($types as $type)
                             <div class="flex items-center justify-between px-3 py-2 text-gray-600 border border-gray-300 rounded-md dark:border-gray-700 dark:text-gray-400">
                                 <div>
                                     <span>{{ $type->priority }}.</span>
-                                    @if(isset($editing) && $editing->id === $type->id)
+                                    @if (isset($editing) && $editing->id === $type->id)
                                     <form class="inline" wire:submit.prevent="save">
                                         <input type="text" class="inline px-1 py-0 text-base border-0 rounded appearance-none dark:text-gray-200 dark:bg-gray-800" autofocus wire:model="editing.name"/>
                                     </form>

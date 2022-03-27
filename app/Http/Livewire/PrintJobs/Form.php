@@ -9,10 +9,10 @@ use Livewire\Component;
 
 class Form extends Component
 {
-    protected $listeners = ['selectFile'];
-
     public $job;
     public $quantity = 1;
+
+    protected $listeners = ['selectFile'];
 
     protected $rules = [
         'job.name' => ['required', 'string'],

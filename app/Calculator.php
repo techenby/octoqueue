@@ -20,7 +20,6 @@ class Calculator
     public function gramsToLength($material, $grams)
     {
         $variables = $this->materials[$material];
-        ray($grams, round($grams / $variables['density'] / $variables['cross-section'] / 100, 2));
         return round($grams / $variables['density'] / $variables['cross-section'] / 100, 2);
     }
 }

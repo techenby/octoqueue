@@ -3,7 +3,7 @@
         <div class="flex items-center space-x-2">
             <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-200">{{ $printer->name }}</h3>
             <span class="text-sm text-gray-700 dark:text-gray-400">({{ $status }})</span>
-            @if($printer->spool_id)
+            @if ($printer->spool_id)
             <x-icon-filament class="w-8 h-8" style="fill: {{ $printer->spool->color_hex }}" />
             @endif
         </div>

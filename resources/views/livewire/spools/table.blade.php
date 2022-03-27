@@ -15,7 +15,7 @@
             </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-800">
-            @forelse($spools as $spool)
+            @forelse ($spools as $spool)
             <tr>
                 <td class="w-full py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-gray-200 max-w-0 sm:w-auto sm:max-w-none sm:pl-6">
                 {{ $spool->location }}

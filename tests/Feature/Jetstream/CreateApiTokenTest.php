@@ -28,7 +28,7 @@ class CreateApiTokenTest extends TestCase
                             'read',
                             'update',
                         ],
-                    ]])
+                    ],])
                     ->call('createApiToken');
 
         $this->assertCount(1, $user->fresh()->tokens);

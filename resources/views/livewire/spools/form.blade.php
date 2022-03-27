@@ -39,7 +39,7 @@
             <x-jet-input-error for="spool.diameter" class="mt-2" />
         </div>
 
-        @if($spool->id === null)
+        @if ($spool->id === null)
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="initial-weight" value="{{ __('Initial Weight') }}" />
             <x-form.input id="initial-weight" type="text" class="block w-full" wire:model="initialWeight" :trailing="$teamSettings['unit'] ?? 'g'" />

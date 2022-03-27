@@ -12,25 +12,6 @@ class Form extends Component
     public $initialWeight;
     public $teamSettings;
 
-    protected function rules()
-    {
-        $rules = [
-            'spool.color' => ['nullable'],
-            'spool.color_hex' => ['nullable'],
-            'spool.brand' => ['nullable'],
-            'spool.cost' => ['nullable'],
-            'spool.material' => ['required'],
-            'spool.diameter' => ['required'],
-            'spool.empty' => ['required'],
-        ];
-
-        if ($this->spool->id === null) {
-            $rules['initialWeight'] = ['required'];
-        }
-
-        return $rules;
-    }
-
     public function mount($spool = null)
     {
         if ($spool === null) {
@@ -68,5 +49,24 @@ class Form extends Component
         $this->spool->save();
 
         return redirect()->route('spools');
+    }
+
+    protected function rules()
+    {
+        $rules = [
+            'spool.color' => ['nullable'],
+            'spool.color_hex' => ['nullable'],
+            'spool.brand' => ['nullable'],
+            'spool.cost' => ['nullable'],
+            'spool.material' => ['required'],
+            'spool.diameter' => ['required'],
+            'spool.empty' => ['required'],
+        ];
+
+        if ($this->spool->id === null) {
+            $rules['initialWeight'] = ['required'];
+        }
+
+        return $rules;
     }
 }

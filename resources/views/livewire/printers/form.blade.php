@@ -33,7 +33,7 @@
             <x-jet-input-error for="printer.api_key" class="mt-2" />
         </div>
 
-        @if(!$spools->isEmpty())
+        @if (!$spools->isEmpty())
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="spool_id" value="{{ __('Loaded Spool') }}" />
             <x-form.select id="spool_id" class="block w-full mt-1" wire:model.defer="printer.spool_id" placeholder="No spool" :options="$spools" />

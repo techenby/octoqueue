@@ -15,7 +15,7 @@ class DashboardController extends Controller
             'has_types' => $currentTeam->jobTypes()->count() > 0,
         ];
 
-        return view('dashboard')->with([
+        return view('dashboard', [
             'printers' => $currentTeam->printers,
             'completed' => $completed,
             'showWelcome' => in_array(false, $completed),
