@@ -5,7 +5,7 @@
     <x-slot name="form">
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="brand" value="{{ __('Brand') }}" />
-            <x-jet-input id="brand" type="text" class="block w-full mt-1" wire:model="spool.brand" autofocus />
+            <x-form.input id="brand" type="text" class="block w-full mt-1" wire:model="spool.brand" autofocus />
             <x-jet-input-error for="spool.brand" class="mt-2" />
         </div>
 
@@ -17,25 +17,25 @@
 
         <div wire:ignore class="col-span-6 sm:col-span-3 coloris-square">
             <x-jet-label for="color_hex" value="{{ __('Color Hex') }}" />
-            <x-jet-input id="color_hex" type="text" data-coloris class="block w-full mt-1" wire:model.lazy="spool.color_hex" />
+            <x-form.input id="color_hex" type="text" data-coloris class="block w-full mt-1" wire:model.lazy="spool.color_hex" />
             <x-jet-input-error for="spool.color_hex" class="mt-2" />
         </div>
 
         <div class="col-span-6 sm:col-span-3">
             <x-jet-label for="color" value="{{ __('Color Name') }}" />
-            <x-jet-input id="color" type="text" class="block w-full mt-1" wire:model="spool.color" />
+            <x-form.input id="color" type="text" class="block w-full mt-1" wire:model="spool.color" />
             <x-jet-input-error for="spool.color" class="mt-2" />
         </div>
 
         <div class="col-span-6 sm:col-span-3">
             <x-jet-label for="material" value="{{ __('Material') }}" />
-            <x-jet-input id="material" type="text" class="block w-full mt-1" wire:model="spool.material" />
+            <x-form.input id="material" type="text" class="block w-full mt-1" wire:model="spool.material" />
             <x-jet-input-error for="spool.material" class="mt-2" />
         </div>
 
         <div class="col-span-6 sm:col-span-3">
             <x-jet-label for="diameter" value="{{ __('Diameter') }}" />
-            <x-jet-input id="diameter" type="text" class="block w-full mt-1" wire:model="spool.diameter" />
+            <x-form.input id="diameter" type="text" class="block w-full mt-1" wire:model="spool.diameter" />
             <x-jet-input-error for="spool.diameter" class="mt-2" />
         </div>
 
