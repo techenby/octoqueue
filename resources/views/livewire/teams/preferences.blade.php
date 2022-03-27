@@ -15,7 +15,7 @@
                 <div class="col-span-6 sm:col-span-4">
                     <x-jet-label for="currency" value="{{ __('Currency Symbol') }}" />
 
-                    <x-jet-input id="currency" type="text" class="block w-full mt-1" placeholder="$" wire:model.defer="team.settings.currency" />
+                    <x-form.input id="currency" type="text" class="block w-full mt-1" placeholder="$" wire:model.defer="team.settings.currency" />
 
                     <x-jet-input-error for="currency" class="mt-2" />
                 </div>
@@ -23,7 +23,7 @@
                 <div class="col-span-6 sm:col-span-4">
                     <x-jet-label for="unit" value="{{ __('Weight Unit') }}" />
 
-                    <x-jet-input id="unit" type="text" class="block w-full mt-1" placeholder="g" wire:model.defer="team.settings.unit" />
+                    <x-form.input id="unit" type="text" class="block w-full mt-1" placeholder="g" wire:model.defer="team.settings.unit" />
 
                     <x-jet-input-error for="unit" class="mt-2" />
                 </div>

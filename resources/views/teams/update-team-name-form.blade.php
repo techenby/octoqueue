@@ -26,7 +26,7 @@
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="name" value="{{ __('Team Name') }}" />
 
-            <x-jet-input id="name"
+            <x-form.input id="name"
                         type="text"
                         class="block w-full mt-1"
                         wire:model.defer="state.name"

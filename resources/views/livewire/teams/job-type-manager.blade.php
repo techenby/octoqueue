@@ -42,7 +42,7 @@
 
                         <form wire:submit.prevent="saveNewType">
                             <x-jet-label for="job-type" value="{{ __('Job Type') }}" class="sr-only" />
-                            <x-jet-input id="job-type" type="text" class="block w-full mt-4" :disabled="$editing !== null" placeholder="New Job Type" wire:model.defer="newType" />
+                            <x-form.input id="job-type" type="text" class="block w-full mt-4" :disabled="$editing !== null" placeholder="New Job Type" wire:model.defer="newType" />
                             <x-jet-input-error for="job-type" class="mt-2" />
                         </form>
                     </div>
