@@ -92,7 +92,7 @@
                     The print queue is a list of jobs that need to be printed, each job can have a color, type, and selected files for one or all of the printers on the team.
                 </div>
 
-                <a href="/queue/create">
+                <a href="/jobs/create">
                     <div class="flex items-center mt-3 text-sm font-semibold text-blue-700 dark:text-blue-400">
                         <div>{{ $completed['has_jobs'] ? 'Add more jobs' : 'Add a job to the queue' }}</div>
 
