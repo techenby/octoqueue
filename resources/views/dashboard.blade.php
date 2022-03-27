@@ -5,7 +5,7 @@
         <x-jet-welcome :completed="$completed" :team="$team" />
     @endif
 
-    <div class="grid grid-cols-2 gap-8">
+    <div class="grid grid-cols-2 gap-6">
         @foreach ($printers as $printer)
         <div wire:key="$printer->id">
             <livewire:bit.printer :printer="$printer" />
