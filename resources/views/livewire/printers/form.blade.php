@@ -1,4 +1,7 @@
 <x-jet-form-section submit="save">
+    <x-slot name="title">Printer Configuration</x-slot>
+    <x-slot name="description">Configure a printer that OctoQueue can control.</x-slot>
+
     <x-slot name="form">
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="name" value="{{ __('Printer Name') }}" />

@@ -1,4 +1,7 @@
 <x-jet-form-section submit="save">
+    <x-slot name="title">Spool Configuration</x-slot>
+    <x-slot name="description">Configure a spool of filament that the printers can use to print.</x-slot>
+
     <x-slot name="form">
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="brand" value="{{ __('Brand') }}" />
