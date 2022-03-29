@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use ParsedownExtra;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 class DocsController extends Controller
@@ -12,14 +12,14 @@ class DocsController extends Controller
     {
         $file = Storage::disk('docs')->get($slug . '.md');
 
-        if(!$file) {
+        if (! $file) {
             return response(404);
         }
 
         $page = YamlFrontMatter::parse($file);
 
         return view('docs', [
-            'copy' => (new \ParsedownExtra())->text($page->body()),
+            'copy' => (new ParsedownExtra())->text($page->body()),
         ]);
     }
 }
