@@ -4,28 +4,29 @@ OctoQueue is a wrapper for OctoPrint, adds the ability to connect multiple print
 
 ## ToDo
 
-- [] Next print for printer on dashboard
-- [] Print from Queue
-- [] Mark job as complete
-- [] Show status of current job
-- [] Upload new files to printers
-- [] Search files in `printer-files` component
-- [] Accordian in `printer-files` component
-- [] Manipulate files on printers (upload, move, view, delete)
-- [] Document setting up via ngrok
-- [] Document getting API Key
-- [] Update spool weight
-- [] Quick switch filament on dashboard
-- [] Quick switch printer on spools table
-- [] Quick switch filament on printers table
-- [] Search/order queue
-- [] Delete from queue
-- [] Search/order printers
-- [] Delete printers
-- [] Search/order spools
-- [] Hide empty spools
-- [] Delete spools
-- [] Add Laravel Spark
+- [ ] Add more tests
+- [ ] Next print for printer on dashboard
+- [ ] Print from Queue
+- [ ] Mark job as complete
+- [ ] Show status of current job
+- [ ] Upload new files to printers
+- [ ] Search files in `printer-files` component
+- [ ] Accordian in `printer-files` component
+- [ ] Manipulate files on printers (upload, move, view, delete)
+- [ ] Document setting up via ngrok
+- [ ] Document getting API Key
+- [ ] Update spool weight
+- [ ] Quick switch filament on dashboard
+- [ ] Quick switch printer on spools table
+- [ ] Quick switch filament on printers table
+- [ ] Search/order queue
+- [ ] Delete from queue
+- [ ] Search/order printers
+- [ ] Delete printers
+- [ ] Search/order spools
+- [ ] Hide empty spools
+- [ ] Delete spools
+- [ ] Add Laravel Spark
 
 ## Security Vulnerabilities
 
