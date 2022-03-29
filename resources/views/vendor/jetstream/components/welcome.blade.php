@@ -1,7 +1,7 @@
 @props(['completed', 'team'])
 
 <div class="mb-6 overflow-hidden bg-white rounded-md shadow-xl dark:shadow dark:border dark:border-gray-700 dark:bg-gray-800">
-    <div class="p-6 bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 sm:px-20">
+    <div class="p-6 border-b border-gray-200 dark:border-gray-700 sm:px-20">
         <div>
             <x-jet-application-logo class="block w-auto h-12 text-gray-900 dark:text-gray-200" />
         </div>
@@ -11,8 +11,11 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-1 bg-gray-200 dark:bg-gray-800 md:grid-cols-2">
-        <div class="p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2">
+        <div class="relative p-6 overflow-hidden">
+            @if($completed['has_printers'])
+            <x-heroicon-s-badge-check class="absolute top-0 right-0 w-20 h-20 -mt-5 -mr-5 text-green-300 opacity-25 dark:text-green-700" />
+            @endif
             <div class="flex items-center">
                 <x-icon-printer class="w-8 h-8 text-gray-400"/>
                 <div class="ml-4 text-lg font-semibold leading-7 text-gray-600 dark:text-gray-300"><a href="/printers">Printers</a></div>
@@ -35,7 +38,10 @@
             </div>
         </div>
 
-        <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:border-l">
+        <div class="relative p-6 overflow-hidden border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:border-l">
+            @if($completed['has_spools'])
+            <x-heroicon-s-badge-check class="absolute top-0 right-0 w-20 h-20 -mt-5 -mr-5 text-green-300 opacity-25 dark:text-green-700" />
+            @endif
             <div class="flex items-center">
                 <x-icon-filament class="w-8 h-8 text-gray-400"/>
                 <div class="ml-4 text-lg font-semibold leading-7 text-gray-600 dark:text-gray-300"><a href="/spools">Spools</a></div>
@@ -58,7 +64,10 @@
             </div>
         </div>
 
-        <div class="p-6 border-t border-gray-200 dark:border-gray-700">
+        <div class="relative p-6 overflow-hidden border-t border-gray-200 dark:border-gray-700">
+            @if($completed['has_types'])
+                <x-heroicon-s-badge-check class="absolute top-0 right-0 w-20 h-20 -mt-5 -mr-5 text-green-300 opacity-25 dark:text-green-700" />
+            @endif
             <div class="flex items-center">
                 <x-icon-box class="w-8 h-8 text-gray-400"/>
                 <div class="ml-4 text-lg font-semibold leading-7 text-gray-600 dark:text-gray-300"><a href="/job-types">Job Types</a></div>
@@ -81,7 +90,10 @@
             </div>
         </div>
 
-        <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-l">
+        <div class="relative p-6 overflow-hidden border-t border-gray-200 dark:border-gray-700 md:border-l">
+            @if($completed['has_jobs'])
+                <x-heroicon-s-badge-check class="absolute top-0 right-0 w-20 h-20 -mt-5 -mr-5 text-green-300 opacity-25 dark:text-green-700" />
+            @endif
             <div class="flex items-center">
                 <x-icon-hotend class="w-8 h-8 text-gray-400"/>
                 <div class="ml-4 text-lg font-semibold leading-7 text-gray-600 dark:text-gray-300"><a href="/queue">Print Queue</a></div>
