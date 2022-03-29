@@ -11,6 +11,8 @@ class PrintJob extends Model
     use HasFactory;
     use ForTeam;
 
+    public $friendly = 'job';
+
     protected $guarded = [];
 
     protected $casts = [
@@ -53,5 +55,10 @@ class PrintJob extends Model
     public function jobType()
     {
         return $this->belongsTo(PrintJobTypes::class);
+    }
+
+    public function safeDelete()
+    {
+        $this->delete();
     }
 }

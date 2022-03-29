@@ -3,20 +3,25 @@
 namespace App\Http\Livewire\PrintJobs;
 
 use App\Models\PrintJob;
+use App\Traits\WithDelete;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Table extends Component
 {
+    use WithDelete;
+    use WithPagination;
+
     public function render()
     {
         return view('livewire.print-jobs.table')
             ->with([
-                'jobs' => $this->jobs,
+                'rows' => $this->rows,
             ]);
     }
 
-    public function getJobsProperty()
+    public function getRowsProperty()
     {
-        return PrintJob::forCurrentTeam()->get();
+        return PrintJob::forCurrentTeam()->paginate();
     }
 }

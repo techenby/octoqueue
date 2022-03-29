@@ -12,7 +12,7 @@
             </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-800">
-            @forelse ($jobs as $job)
+            @forelse ($rows as $job)
             <tr>
                 <td class="w-full py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-gray-200 max-w-0 sm:w-auto sm:max-w-none sm:pl-6">
                 {{ $job->name }}
@@ -28,6 +28,7 @@
                 <td class="hidden px-3 py-4 text-sm text-gray-500 dark:text-gray-400 lg:table-cell">{{ $job->status }}</td>
                 <td class="py-4 pl-3 pr-4 text-sm font-medium text-right sm:pr-6">
                     <a href="{{ route('jobs.edit', $job) }}" class="text-blue-600 hover:text-blue-900">Edit<span class="sr-only"> {{ $job->name }}</span></a>
+                    <button type="button" wire:click="delete({{ $job->id }})" class="text-blue-600 hover:text-blue-900">Delete<span class="sr-only"> {{ $job->name }}</span></a>
                 </td>
             </tr>
             @empty
