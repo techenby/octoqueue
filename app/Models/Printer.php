@@ -50,4 +50,9 @@ class Printer extends Model
     {
         return $this->url . '/webcam/?action=stream';
     }
+
+    public function files()
+    {
+        return (new OctoPrint($this->url, $this->api_key))->files();
+    }
 }

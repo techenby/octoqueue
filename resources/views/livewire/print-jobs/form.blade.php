@@ -11,7 +11,7 @@
 
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="color" value="{{ __('Color') }}" />
-            <x-form.select id="color" class="block w-full mt-1" placeholder="Select Color" wire:model="job.color" :options="$colors" />
+            <x-form.select id="color" class="block w-full mt-1" placeholder="Select Color" wire:model="job.color_hex" :options="$colors" />
             <x-jet-input-error for="job.color" class="mt-2" />
         </div>
 
@@ -19,6 +19,15 @@
             <x-jet-label for="job-type" value="{{ __('Job Type') }}" />
             <x-form.select id="job-type" class="block w-full mt-1" wire:model="job.job_type_id" placeholder="Select Job Type" :options="$types" />
             <x-jet-input-error for="job.job_type_id" class="mt-2" />
+        </div>
+
+        <div class="col-span-6 space-y-4">
+            @foreach ($printers as $printer)
+            <div wire:key="printer-files-section-{{ $printer->id }}">
+                <x-jet-label class="mb-1" value="{{ __('File for') }} {{ $printer->name }}" />
+                <livewire:bit.printer-files :printer="$printer" wire:key="printer-files-{{ $printer->id }}" />
+            </div>
+            @endforeach
         </div>
 
         <div class="col-span-6 sm:col-span-4">

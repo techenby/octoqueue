@@ -15,8 +15,8 @@ class CreatePrintJobsTable extends Migration
             $table->unsignedBigInteger('job_type_id')->index()->nullable();
             $table->unsignedBigInteger('printer_id')->index()->nullable();
             $table->unsignedBigInteger('spool_id')->index()->nullable();
-            $table->unsignedBigInteger('color_id')->index()->nullable();
             $table->unsignedBigInteger('user_id')->index()->nullable();
+            $table->string('color_hex')->nullable();
             $table->json('files')->nullable();
             $table->text('notes')->nullable();
             $table->dateTime('started_at')->nullable();
