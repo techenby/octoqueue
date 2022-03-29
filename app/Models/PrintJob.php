@@ -45,11 +45,6 @@ class PrintJob extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function color()
-    {
-        return $this->belongsTo(Color::class);
-    }
-
     public function spool()
     {
         return $this->belongsTo(Spool::class);
