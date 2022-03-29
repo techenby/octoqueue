@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DocsController;
 use App\Http\Controllers\PrintersController;
 use App\Http\Controllers\QueueController;
 use App\Http\Controllers\SpoolsController;
@@ -9,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('', function () {
     return view('welcome');
 });
+
+Route::get('docs/{slug}', DocsController::class)->name('docs');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('dashboard', DashboardController::class)->name('dashboard');
