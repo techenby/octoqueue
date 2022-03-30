@@ -52,9 +52,14 @@ class PrintJob extends Model
         return $this->belongsTo(Spool::class);
     }
 
-    public function jobType()
+    public function type()
     {
-        return $this->belongsTo(PrintJobTypes::class);
+        return $this->belongsTo(PrintJobType::class, 'job_type_id');
+    }
+
+    public function getCompletedAttribute()
+    {
+        return $this->completed_at !== null;
     }
 
     public function safeDelete()

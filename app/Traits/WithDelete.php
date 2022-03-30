@@ -8,10 +8,10 @@ trait WithDelete {
     {
         $model = $this->rows->firstWhere($column, $id);
 
+        $modelName = $model->friendly;
         $model->safeDelete();
 
-        $this->notification()->success(
-            "Successfully deleted {$model->firiendly}"
-        );
+        $this->notify('success',  "Successfully deleted {$modelName}");
+        $this->emit('refresh');
     }
 }

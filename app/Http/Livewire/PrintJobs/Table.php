@@ -12,6 +12,11 @@ class Table extends Component
     use WithDelete;
     use WithPagination;
 
+    public $perPage = 10;
+    public $search;
+
+    protected $listeners = ['refresh' => '$refresh'];
+
     public function render()
     {
         return view('livewire.print-jobs.table')
@@ -22,6 +27,6 @@ class Table extends Component
 
     public function getRowsProperty()
     {
-        return PrintJob::forCurrentTeam()->paginate();
+        return PrintJob::forCurrentTeam()->paginate($this->perPage);
     }
 }
