@@ -1,6 +1,4 @@
 <x-app-layout>
-    <x-slot name="header">{{ __('Dashboard') }}</x-slot>
-
     @if ($showWelcome)
         <x-jet-welcome :completed="$completed" :team="$team" />
     @endif
