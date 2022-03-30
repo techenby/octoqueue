@@ -27,6 +27,8 @@ class Table extends Component
 
     public function getRowsProperty()
     {
-        return PrintJob::forCurrentTeam()->paginate($this->perPage);
+        return PrintJob::forCurrentTeam()
+            ->when($this->search, fn($query) => $query->where('name', 'LIKE', '%'.trim($this->search).'%'))
+            ->paginate($this->perPage);
     }
 }
