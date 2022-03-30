@@ -7,42 +7,40 @@
             <x-bit.per-page />
         </div>
     </div>
-    <div class="px-2 md:px-0">
-        <table class="min-w-full overflow-hidden divide-y divide-gray-300 rounded-md dark:divide-gray-700">
-            <thead class="bg-gray-50 dark:bg-gray-850">
+    <div>
+        <x-bit.table>
+            <x-slot:head>
                 <tr>
-                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-300 sm:pl-6">Name</th>
-                    <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-300 lg:table-cell">Type</th>
-                    <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-300 sm:table-cell">Printer</th>
-                    <th scope="col" class="hidden lg:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-300">Creator</th>
-                    <th scope="col" class="hidden lg:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-300">Color</th>
-                    <th scope="col" class="hidden lg:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-300">Completed At</th>
-                    <th scope="col" class="hidden lg:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-300">Filament Used</th>
-                    <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                    <x-bit.th>Name</x-bit.th>
+                    <x-bit.th>Type</x-bit.th>
+                    <x-bit.th>Printer</x-bit.th>
+                    <x-bit.th>Creator</x-bit.th>
+                    <x-bit.th>Color</x-bit.th>
+                    <x-bit.th>Completed At</x-bit.th>
+                    <x-bit.th>Filament Used</x-bit.th>
+                    <x-bit.th>
                         <span class="sr-only">Edit</span>
                         <span class="sr-only">Delete</span>
-                    </th>
+                    </x-bit.th>
                 </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-800">
+            </x-slot>
+            <x-slot:body>
                 @forelse ($rows as $job)
                 <tr>
-                    <td class="w-full py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-gray-200 max-w-0 sm:w-auto sm:max-w-none sm:pl-6">
-                        {{ $job->name }}
-                    </td>
-                    <td class="hidden px-3 py-4 text-sm text-gray-500 dark:text-gray-400 lg:table-cell">{{ $job->type->name }}</td>
-                    <td class="hidden px-3 py-4 text-sm text-gray-500 dark:text-gray-400 sm:table-cell">{{ $job->printer->name ?? 'Any' }}</td>
-                    <td class="hidden px-3 py-4 text-sm text-gray-500 dark:text-gray-400 lg:table-cell">{{ $job->user->name }}</td>
-                    <td class="hidden px-3 py-4 text-sm text-gray-500 dark:text-gray-400 lg:table-cell">
+                    <x-bit.td>{{ $job->name }}</x-bit.th>
+                    <x-bit.td muted>{{ $job->type->name }}</x-bit.td>
+                    <x-bit.th muted>{{ $job->printer->name ?? 'Any' }}</x-bit.td>
+                    <x-bit.td muted>{{ $job->user->name }}</x-bit.td>
+                    <x-bit.td>
                         <div class="w-4 h-4 border border-gray-300 rounded dark:border-gray-700" style="background:{{ $job->color_hex }}">
                         </div>
-                    </td>
-                    <td class="hidden px-3 py-4 text-sm text-gray-500 dark:text-gray-400 lg:table-cell">{{ $job->completed_at }}</td>
-                    <td class="hidden px-3 py-4 text-sm text-gray-500 dark:text-gray-400 lg:table-cell">{{ $job->completed ? $job->filament_used : '' }}</td>
-                    <td class="py-4 pl-3 pr-4 space-x-2 text-sm font-medium text-right sm:pr-6">
+                    </x-bit.td>
+                    <x-bit.td muted>{{ $job->completed_at }}</x-bit.td>
+                    <x-bit.td muted>{{ $job->completed ? $job->filament_used : '' }}</x-bit.td>
+                    <x-bit.td class="space-x-2">
                         <a href="{{ route('jobs.edit', $job) }}" class="text-blue-600 hover:text-blue-900 dark:hover:text-blue-400">Edit<span class="sr-only"> {{ $job->name }}</span></a>
                         <button type="button" wire:click="delete({{ $job->id }})" class="text-red-600 hover:text-red-900 dark:hover:text-red-400">Delete<span class="sr-only"> {{ $job->name }}</span></a>
-                    </td>
+                    </x-bit.td>
                 </tr>
                 @empty
                 <tr>
@@ -61,8 +59,8 @@
                     </td>
                 </tr>
                 @endforelse
-            </tbody>
-        </table>
+            </x-slot>
+        </x-bit.table>
     </div>
 
     <div>

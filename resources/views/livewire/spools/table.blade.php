@@ -1,44 +1,36 @@
-<div class="px-2 md:px-0">
-    <table class="min-w-full overflow-hidden divide-y divide-gray-300 rounded-md dark:divide-gray-700">
-        <thead class="bg-gray-50 dark:bg-gray-850">
+<div>
+    <x-bit.table>
+        <x-slot:head>
             <tr>
-                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-300 sm:pl-6">Location</th>
-                <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-300 lg:table-cell">Brand</th>
-                <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-300 sm:table-cell">Material</th>
-                <th scope="col" class="hidden lg:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-300">Color</th>
-                <th scope="col" class="hidden lg:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-300">Cost</th>
-                <th scope="col" class="hidden lg:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-300">Weight</th>
-                <th scope="col" class="hidden lg:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-300">Length</th>
-                <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                <x-bit.th>Location</x-bit.th>
+                <x-bit.th>Brand</x-bit.th>
+                <x-bit.th>Material</x-bit.th>
+                <x-bit.th>Color</x-bit.th>
+                <x-bit.th>Cost</x-bit.th>
+                <x-bit.th>Weight</x-bit.th>
+                <x-bit.th>Length</x-bit.th>
+                <x-bit.th>
                     <span class="sr-only">Edit</span>
-                </th>
+                </x-bit.th>
             </tr>
-        </thead>
-        <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-800">
+        </x-slot>
+        <x-slot:body>
             @forelse ($spools as $spool)
             <tr>
-                <td class="w-full py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-gray-200 max-w-0 sm:w-auto sm:max-w-none sm:pl-6">
-                {{ $spool->location }}
-                <dl class="font-normal lg:hidden">
-                    <dt class="sr-only">Brand</dt>
-                    <dd class="mt-1 text-gray-700 truncate dark:text-gray-400">{{ $spool->brand }}</dd>
-                    <dt class="sr-only sm:hidden">Material</dt>
-                    <dd class="mt-1 text-gray-500 truncate dark:text-gray-200 sm:hidden">{{ $spool->material }}</dd>
-                </dl>
-                </td>
-                <td class="hidden px-3 py-4 text-sm text-gray-500 dark:text-gray-400 lg:table-cell">{{ $spool->brand }}</td>
-                <td class="hidden px-3 py-4 text-sm text-gray-500 dark:text-gray-400 lg:table-cell">{{ $spool->material }}</td>
-                <td class="hidden px-3 py-4 text-sm text-gray-500 dark:text-gray-400 lg:table-cell">
+                <x-bit.td>{{ $spool->location }}</x-bit.td>
+                <x-bit.td>{{ $spool->brand }}</x-bit.td>
+                <x-bit.td>{{ $spool->material }}</x-bit.td>
+                <x-bit.td>
                     <div class="w-4 h-4 border border-gray-300 rounded dark:border-gray-700" style="background:{{ $spool->color_hex }}">
                         <span class="sr-only">{{ $spool->color }}</span>
                     </div>
-                </td>
-                <td class="hidden px-3 py-4 text-sm text-gray-500 dark:text-gray-400 sm:table-cell">{{ $spool->cost }}</td>
-                <td class="hidden px-3 py-4 text-sm text-gray-500 dark:text-gray-400 lg:table-cell">{{ $spool->formattedCurrentWeight }}</td>
-                <td class="hidden px-3 py-4 text-sm text-gray-500 dark:text-gray-400 lg:table-cell">{{ $spool->formattedCurrentLength }}</td>
-                <td class="py-4 pl-3 pr-4 text-sm font-medium text-right sm:pr-6">
+                </x-bit.td>
+                <x-bit.td>{{ $spool->cost }}</x-bit.td>
+                <x-bit.td>{{ $spool->formattedCurrentWeight }}</x-bit.td>
+                <x-bit.td>{{ $spool->formattedCurrentLength }}</x-bit.td>
+                <x-bit.td>
                     <a href="{{ route('spools.edit', $spool) }}" class="text-blue-600 hover:text-blue-900">Edit<span class="sr-only"> {{ $spool->name }}</span></a>
-                </td>
+                </x-bit.td>
             </tr>
             @empty
             <tr>
@@ -57,6 +49,6 @@
                 </td>
             </tr>
             @endforelse
-        </tbody>
-    </table>
+        </x-slot>
+    </x-bit.table>
 </div>
