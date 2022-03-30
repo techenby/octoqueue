@@ -44,7 +44,7 @@ class Form extends Component
 
     public function getColorsProperty()
     {
-        return Spool::forCurrentTeam()->select('color')->distinct()->get()->pluck('color');
+        return Spool::forCurrentTeam()->select('color', 'color_hex')->distinct()->get()->pluck('color', 'color_hex');
     }
 
     public function getPrintersProperty()
