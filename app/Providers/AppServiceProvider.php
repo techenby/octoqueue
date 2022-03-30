@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Livewire\Component;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,13 +17,10 @@ class AppServiceProvider extends ServiceProvider
         //
     }
 
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
     public function boot()
     {
-        //
+        Component::macro('notify', function ($type, $message) {
+            $this->emit('notify', ['type' => $type, 'message' => $message]);
+        });
     }
 }

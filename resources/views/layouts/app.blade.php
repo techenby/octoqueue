@@ -24,6 +24,7 @@
 </head>
 
 <body class="h-full font-sans antialiased">
+    @livewire('notifications')
     <x-jet-banner />
 
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
