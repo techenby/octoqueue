@@ -53,8 +53,8 @@ class JetstreamServiceProvider extends ServiceProvider
                     config('fortify.limiters.login') ? null : EnsureLoginIsNotThrottled::class,
                     RedirectIfTwoFactorAuthenticatable::class,
                     AttemptToAuthenticate::class,
-                    PrepareAuthenticatedSession::class,
                     AddTimezoneToSession::class,
+                    PrepareAuthenticatedSession::class,
             ]);
         });
     }
