@@ -43,6 +43,10 @@ class Printer extends Model
 
     public function getNextJobAttribute()
     {
+        if (!$this->spool_id) {
+            return;
+        }
+        
         return PrintJob::query()
             ->where('color_hex', $this->spool->color_hex)
             ->whereNull('started_at')
