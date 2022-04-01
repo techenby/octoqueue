@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Bit;
 
 use App\Models\Printer as Model;
 use Livewire\Component;
+use TechEnby\OctoPrint\OctoPrint;
 
 class Printer extends Component
 {
@@ -17,6 +18,7 @@ class Printer extends Component
             ->with([
                 'bed' => $this->bed,
                 'currentJob' => $this->currentJob,
+                'currentJobStatus' => $this->currentJobStatus,
                 'hotend' => $this->hotend,
                 'nextJob' => $this->nextJob,
                 'status' => $this->status,
@@ -31,6 +33,13 @@ class Printer extends Component
     public function getCurrentJobProperty()
     {
         return $this->printer->currentJob;
+    }
+
+    public function getCurrentJobStatusProperty()
+    {
+        // if($this->status === 'Printing') {
+            return (new OctoPrint($this->printer->url, $this->printer->api_key))->job();
+        // }
     }
 
     public function getHardwareTempsProperty()

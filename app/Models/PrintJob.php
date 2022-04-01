@@ -76,7 +76,7 @@ class PrintJob extends Model
         return $this->completed_at !== null;
     }
 
-    public function getHasStartedAttribute()
+    public function getStartedAttribute()
     {
         return $this->started_at !== null;
     }
