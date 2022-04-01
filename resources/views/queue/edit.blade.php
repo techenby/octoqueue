@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-slot name="header">{{ __('Edit Printer') }}</x-slot>
+    <x-slot name="header">{{ __('Edit Print Job') }}</x-slot>
 
-    <livewire:printers.form :printer="$printer" />
+    <livewire:print-jobs.form :job="$job" />
 </x-app-layout>
