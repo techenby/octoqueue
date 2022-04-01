@@ -16,11 +16,11 @@ class PrintJob extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'files' => 'array',
+        'completed_at' => 'datetime',
+        'files' => 'collection',
         'filament_used' => 'double',
+        'started_at' => 'datetime',
     ];
-
-    protected $date = ['started_at', 'completed_at'];
 
     public static function rules()
     {
