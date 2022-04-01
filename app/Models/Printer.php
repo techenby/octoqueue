@@ -16,9 +16,9 @@ class Printer extends Model
 
     protected $guarded = [];
 
-    public function team()
+    public function currentJob()
     {
-        return $this->belongsTo(Team::class);
+        return $this->hasOne(PrintJob::class)->whereNotNull('started_at')->whereNull('completed_at');
     }
 
     public function printJobs()
@@ -29,6 +29,11 @@ class Printer extends Model
     public function spool()
     {
         return $this->belongsTo(Spool::class);
+    }
+
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
     }
 
     public function getHardwareStateAttribute()
@@ -54,5 +59,10 @@ class Printer extends Model
     public function files()
     {
         return (new OctoPrint($this->url, $this->api_key))->files();
+    }
+
+    public function printFile($file)
+    {
+        return (new OctoPrint($this->url, $this->api_key))->selectFile('local', $file)->start();
     }
 }

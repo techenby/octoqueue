@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire\PrintJobs;
 
+use App\Models\Printer;
 use App\Models\PrintJob;
+use App\Models\Spool;
 use App\Traits\WithDelete;
 use App\Traits\WithSorting;
 use Livewire\Component;
@@ -38,7 +40,24 @@ class Table extends Component
             ->paginate($this->perPage);
     }
 
-    public function print()
+    public function getSpoolsProperty()
     {
+        return Spool::forCurrentTeam()->create();
+    }
+
+    public function print($id)
+    {
+        $job = $this->rows->firstWhere('id', $id);
+
+        if($job->printer_id) {
+            $job->start($job->printer);
+        } else {
+            $printers = Printer::whereIn('id', $job->files->keys())->whereIn('spool_id', $job->availableSpools()->select('id')->pluck('id'))->get();
+
+            if($printers->count() === 1) {
+                $job->start($printers->first());
+            }
+            // dd($printers);
+        }
     }
 }

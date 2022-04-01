@@ -21,4 +21,8 @@
         </div>
         <img id="{{ $printer->id }}-webcam'" src="{{ $printer->webcam }}" />
     </div>
+    <div class="px-4 py-5 space-y-2 text-gray-700 sm:px-6 dark:text-gray-400">
+        <p>Current Job: <span class="text-gray-900 dark:text-gray-200">{{ $currentJob->name }}</span></p>
+        <p>Started At: <span class="text-gray-900 dark:text-gray-200">{{ $currentJob->started_at->format('d/m/Y h:ia') }} UTC</span></p>
+    </div>
 </div>

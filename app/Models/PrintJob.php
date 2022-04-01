@@ -32,9 +32,9 @@ class PrintJob extends Model
         ];
     }
 
-    public function team()
+    public function availableSpools()
     {
-        return $this->belongsTo(Team::class);
+        return $this->hasMany(Spool::class, 'color_hex', 'color_hex');
     }
 
     public function printer()
@@ -42,14 +42,14 @@ class PrintJob extends Model
         return $this->belongsTo(Printer::class);
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
     public function spool()
     {
         return $this->belongsTo(Spool::class);
+    }
+
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
     }
 
     public function type()
@@ -57,13 +57,56 @@ class PrintJob extends Model
         return $this->belongsTo(PrintJobType::class, 'job_type_id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function getAvailablePrintersAttribute()
+    {
+        if($this->printer_id) {
+            return $this->printer->name;
+        }
+
+        return $this->files->keys()->map(fn($name) => ucfirst($name))->implode(', ');
+    }
+
     public function getCompletedAttribute()
     {
         return $this->completed_at !== null;
     }
 
+    public function getHasStartedAttribute()
+    {
+        return $this->started_at !== null;
+    }
+
+    public function completed()
+    {
+        $this->completed_at = now();
+        $this->save();
+    }
+
+    public function cancel()
+    {
+        $this->started_at = null;
+        $this->save();
+    }
+
     public function safeDelete()
     {
         $this->delete();
+    }
+
+    public function start($printer)
+    {
+        $printer->printFile($this->files[$printer->id]);
+
+        if($printer->status === 'Printing') {
+            $this->started_at = now();
+            $this->printer_id = $printer->id;
+            $this->spool_id = $printer->spool_id;
+            $this->save();
+        }
     }
 }
