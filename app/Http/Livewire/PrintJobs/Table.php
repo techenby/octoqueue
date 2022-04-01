@@ -49,12 +49,12 @@ class Table extends Component
     {
         $job = $this->rows->firstWhere('id', $id);
 
-        if($job->printer_id) {
+        if ($job->printer_id) {
             $job->start($job->printer);
         } else {
             $printers = Printer::whereIn('id', $job->files->keys())->whereIn('spool_id', $job->availableSpools()->select('id')->pluck('id'))->get();
 
-            if($printers->count() === 1) {
+            if ($printers->count() === 1) {
                 $job->start($printers->first());
             }
             // dd($printers);

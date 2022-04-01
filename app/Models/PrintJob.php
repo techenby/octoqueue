@@ -64,7 +64,7 @@ class PrintJob extends Model
 
     public function getAvailablePrintersAttribute()
     {
-        if($this->printer_id) {
+        if ($this->printer_id) {
             return $this->printer->name;
         }
 
@@ -102,7 +102,7 @@ class PrintJob extends Model
     {
         $printer->printFile($this->files[$printer->id]);
 
-        if($printer->status === 'Printing') {
+        if ($printer->status === 'Printing') {
             $this->started_at = now();
             $this->printer_id = $printer->id;
             $this->spool_id = $printer->spool_id;
