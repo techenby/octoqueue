@@ -57,7 +57,6 @@ class JetstreamServiceProvider extends ServiceProvider
                     AddTimezoneToSession::class,
             ]);
         });
-
     }
 
     /**
