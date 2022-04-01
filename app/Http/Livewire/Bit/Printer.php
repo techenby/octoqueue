@@ -12,6 +12,8 @@ class Printer extends Component
 
     public $loaded = false;
 
+    protected $listeners = ['refresh' => '$refresh'];
+
     public function render()
     {
         return view('livewire.bit.printer')
@@ -65,6 +67,13 @@ class Printer extends Component
     public function completed()
     {
         $this->currentJob->completed();
+        $this->emit('refresh');
+    }
+
+    public function print()
+    {
+        $this->nextJob->start($this->printer);
+        $this->emit('refresh');
     }
 
     public function load()
