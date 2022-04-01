@@ -53,6 +53,11 @@ class Printer extends Component
         return $this->loaded ? $this->printer->status : 'Connecting';
     }
 
+    public function completed()
+    {
+        $this->currentJob->completed();
+    }
+
     public function load()
     {
         $this->loaded = true;

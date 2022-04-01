@@ -7,6 +7,11 @@
             <x-icon-filament class="w-8 h-8" style="fill: {{ $printer->spool->color_hex }}" />
             @endif
         </div>
+        @if ($currentJob)
+        <div>
+            <x-jet-button type="button" wire:click="completed">Mark as Completed</x-jet-button>
+        </div>
+        @endif
     </div>
     <div class="relative min-h-96">
         <div class="absolute right-0 z-10 space-y-2 bottom-2">
