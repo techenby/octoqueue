@@ -31,4 +31,9 @@ class Table extends Component
             ->when($this->search, fn($query) => $query->where('name', 'LIKE', '%'.trim($this->search).'%'))
             ->paginate($this->perPage);
     }
+
+    public function print()
+    {
+
+    }
 }
