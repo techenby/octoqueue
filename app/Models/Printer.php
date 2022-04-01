@@ -41,6 +41,17 @@ class Printer extends Model
         return (new OctoPrint($this->url, $this->api_key))->printer();
     }
 
+    public function getNextJobAttribute()
+    {
+        return PrintJob::query()
+            ->where('color_hex', $this->spool->color_hex)
+            ->whereNull('started_at')
+            ->whereNull('completed_at')
+            ->orderBy('job_type_id')
+            ->limit(1)
+            ->first();
+    }
+
     public function getSlugAttribute()
     {
         return strtolower($this->name);

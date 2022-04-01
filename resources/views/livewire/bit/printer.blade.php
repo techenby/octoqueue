@@ -32,4 +32,10 @@
         <p>Started At: <x-date :date="$currentJob->started_at" format="m/d/y h:ia" class="text-gray-900 dark:text-gray-200" />
     </div>
     @endif
+    @if ($nextJob)
+    <div class="flex items-center justify-between px-4 py-5 space-y-2 text-gray-700 sm:px-6 dark:text-gray-400">
+        <p>Next Job: <span class="text-gray-900 dark:text-gray-200">{{ $nextJob->name }}</span></p>
+        <x-jet-button type="button" wire:click="print">Print</x-jet-button>
+    </div>
+    @endif
 </div>
