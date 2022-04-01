@@ -1,4 +1,4 @@
-<div wire:init="load" class="overflow-hidden bg-white rounded-md shadow dark:bg-gray-800 dark:border dark:border-gray-700">
+<div wire:init="load" class="overflow-hidden bg-white divide-y divide-gray-300 rounded-md shadow dark:bg-gray-800 dark:border dark:border-gray-700 dark:divide-gray-700">
     <div class="flex items-center justify-between px-4 py-5 space-x-4 sm:px-6">
         <div class="flex items-center space-x-2">
             <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-200">{{ $printer->name }}</h3>
