@@ -5,10 +5,10 @@
         <x-slot:head>
             <tr>
                 <x-table.th>Location</x-table.th>
-                <x-table.th>Brand</x-table.th>
-                <x-table.th>Material</x-table.th>
-                <x-table.th>Color</x-table.th>
-                <x-table.th>Cost</x-table.th>
+                <x-table.th sortable wire:click="sortBy('brand')" :direction="$sortField === 'brand' ? $sortDirection : null">Brand</x-table.th>
+                <x-table.th sortable wire:click="sortBy('material')" :direction="$sortField === 'material' ? $sortDirection : null">Material</x-table.th>
+                <x-table.th sortable wire:click="sortBy('color')" :direction="$sortField === 'color' ? $sortDirection : null">Color</x-table.th>
+                <x-table.th sortable wire:click="sortBy('cost')" :direction="$sortField === 'cost' ? $sortDirection : null">Cost</x-table.th>
                 <x-table.th>Weight</x-table.th>
                 <x-table.th>Length</x-table.th>
                 <x-table.th>

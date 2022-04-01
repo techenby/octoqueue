@@ -4,9 +4,9 @@
     <x-table>
         <x-slot:head>
             <tr>
-                <x-table.th>Name</x-table.th>
-                <x-table.th>Model</x-table.th>
-                <x-table.th>Spool</x-table.th>
+                <x-table.th sortable wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null">Name</x-table.th>
+                <x-table.th sortable wire:click="sortBy('model')" :direction="$sortField === 'model' ? $sortDirection : null">Model</x-table.th>
+                <x-table.th sortable wire:click="sortBy('spool_id')" :direction="$sortField === 'spool_id' ? $sortDirection : null">Spool</x-table.th>
                 <x-table.th>Status</x-table.th>
                 <x-table.th>
                     <span class="sr-only">Edit</span>

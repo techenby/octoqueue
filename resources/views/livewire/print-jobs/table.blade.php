@@ -4,10 +4,10 @@
     <x-table>
         <x-slot:head>
             <tr>
-                <x-table.th>Name</x-table.th>
-                <x-table.th>Type</x-table.th>
-                <x-table.th>Printer</x-table.th>
-                <x-table.th>Creator</x-table.th>
+                <x-table.th sortable wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null">Name</x-table.th>
+                <x-table.th sortable wire:click="sortBy('job_type_id')" :direction="$sortField === 'job_type_id' ? $sortDirection : null">Type</x-table.th>
+                <x-table.th sortable wire:click="sortBy('printer_id')" :direction="$sortField === 'printer_id' ? $sortDirection : null">Printer</x-table.th>
+                <x-table.th sortable wire:click="sortBy('user_id')" :direction="$sortField === 'user_id' ? $sortDirection : null">Creator</x-table.th>
                 <x-table.th>Color</x-table.th>
                 <x-table.th>Completed At</x-table.th>
                 <x-table.th>Filament Used</x-table.th>
@@ -31,7 +31,7 @@
                 <x-table.td muted>{{ $job->completed_at }}</x-table.td>
                 <x-table.td muted>{{ $job->completed ? $job->filament_used : '' }}</x-table.td>
                 <x-table.td class="space-x-2">
-                    <x-table.link wire:click="print({{ $job->id }})">Print<span class="sr-only"> {{ $job->name }}</x-table.link>
+                    <x-table.link wire:click="print({{ $job->id }})" color="green">Print<span class="sr-only"> {{ $job->name }}</x-table.link>
                     <x-table.link href="{{ route('jobs.edit', $job) }}">Edit<span class="sr-only"> {{ $job->name }}</x-table.link>
                     <x-table.link wire:click="delete({{ $job->id }})" danger>Delete<span class="sr-only"> {{ $job->name }}</x-table.link>
                 </x-table.td>

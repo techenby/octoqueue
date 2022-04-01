@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Printers;
 
 use App\Models\Printer;
 use App\Traits\WithDelete;
+use App\Traits\WithSorting;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -11,9 +12,12 @@ class Table extends Component
 {
     use WithDelete;
     use WithPagination;
+    use WithSorting;
 
     public $perPage = 10;
     public $search = '';
+    public $sortField = 'name';
+    public $sortDirection = 'asc';
 
     public function render()
     {
@@ -28,6 +32,7 @@ class Table extends Component
             ->when($this->search !== '', fn($query) => $query
                 ->where('name', 'LIKE', '%'.$this->search.'%')
                 ->orWhere('model', 'LIKE', '%'.$this->search.'%'))
+            ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }
 }

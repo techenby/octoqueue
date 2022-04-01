@@ -4,6 +4,7 @@ namespace App\Http\Livewire\PrintJobs;
 
 use App\Models\PrintJob;
 use App\Traits\WithDelete;
+use App\Traits\WithSorting;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -11,9 +12,12 @@ class Table extends Component
 {
     use WithDelete;
     use WithPagination;
+    use WithSorting;
 
     public $perPage = 10;
-    public $search;
+    public $search = '';
+    public $sortField = 'name';
+    public $sortDirection = 'asc';
 
     protected $listeners = ['refresh' => '$refresh'];
 
@@ -29,6 +33,7 @@ class Table extends Component
     {
         return PrintJob::forCurrentTeam()
             ->when($this->search, fn($query) => $query->where('name', 'LIKE', '%'.trim($this->search).'%'))
+            ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }
 
