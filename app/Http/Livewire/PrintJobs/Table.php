@@ -32,13 +32,13 @@ class Table extends Component
     public function getRowsProperty()
     {
         return PrintJob::forCurrentTeam()
-            ->when($this->search, fn($query) => $query->where('name', 'LIKE', '%'.trim($this->search).'%'))
+            ->when($this->search, fn($query) => $query
+                ->where('name', 'LIKE', '%' . trim($this->search) . '%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }
 
     public function print()
     {
-
     }
 }

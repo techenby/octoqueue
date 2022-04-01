@@ -30,11 +30,11 @@ class Table extends Component
     {
         return Spool::forCurrentTeam()
             ->when($this->search, fn($query) => $query
-                ->where('brand', 'LIKE', '%'.trim($this->search).'%')
-                ->orWhere('color', 'LIKE', '%'.trim($this->search).'%')
-                ->orWhere('color_hex', 'LIKE', '%'.trim($this->search).'%')
-                ->orWhere('cost', 'LIKE', '%'.trim($this->search).'%')
-                ->orWhere('material', 'LIKE', '%'.trim($this->search).'%'))
+                ->where('brand', 'LIKE', '%' . trim($this->search) . '%')
+                ->orWhere('color', 'LIKE', '%' . trim($this->search) . '%')
+                ->orWhere('color_hex', 'LIKE', '%' . trim($this->search) . '%')
+                ->orWhere('cost', 'LIKE', '%' . trim($this->search) . '%')
+                ->orWhere('material', 'LIKE', '%' . trim($this->search) . '%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

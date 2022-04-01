@@ -9,6 +9,6 @@
     $classes = "whitespace-nowrap {$padding} text-sm {$color} first:pl-4 first:sm:pl-6 last:text-right last:pr-4 last:sm:pr-6";
 @endphp
 
-<td {{ $attributes->merge(['class' => $classes])}} >
+<td {{ $attributes->merge(['class' => $classes]) }} >
     {{ $slot }}
 </td>

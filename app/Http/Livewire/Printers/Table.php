@@ -22,7 +22,7 @@ class Table extends Component
     public function render()
     {
         return view('livewire.printers.table', [
-            'rows' => $this->rows
+            'rows' => $this->rows,
         ]);
     }
 
@@ -30,8 +30,8 @@ class Table extends Component
     {
         return Printer::forCurrentTeam()
             ->when($this->search !== '', fn($query) => $query
-                ->where('name', 'LIKE', '%'.$this->search.'%')
-                ->orWhere('model', 'LIKE', '%'.$this->search.'%'))
+                ->where('name', 'LIKE', '%' . trim($this->search) . '%')
+                ->orWhere('model', 'LIKE', '%' . trim($this->search) . '%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }
