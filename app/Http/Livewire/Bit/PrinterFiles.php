@@ -26,6 +26,6 @@ class PrinterFiles extends Component
     public function select($path)
     {
         $this->path = $path;
-        $this->emit('selectFile', [strtolower($this->printer->name), $path]);
+        $this->emit('selectFile', [$this->printer->id, $path]);
     }
 }
