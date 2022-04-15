@@ -6,15 +6,22 @@ use App\Models\Printer;
 use App\Models\PrintJob;
 use App\Models\PrintJobType;
 use App\Models\Spool;
+use Illuminate\Support\Str;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Form extends Component
 {
+    use WithFileUploads;
+
     public $files = [];
     public $job;
     public $quantity = 1;
+    public $showUploadModal = false;
 
-    protected $listeners = ['selectFile'];
+    public $gcode;
+    public $uploadPath;
+    public $uploadPrinter;
 
     protected $rules = [
         'job.name' => ['required', 'string'],
@@ -66,6 +73,11 @@ class Form extends Component
         }
     }
 
+    public function resetUploadModal()
+    {
+        $this->reset('gcode', 'showUploadModal', 'uploadPath', 'uploadPrinter');
+    }
+
     public function save()
     {
         $this->validate();
@@ -99,5 +111,43 @@ class Form extends Component
     {
         $label = strtolower($data[0]);
         $this->files[$label] = $data[1];
+    }
+
+    public function showUpload($printerId)
+    {
+        if (! isset($this->files[$printerId])) {
+            return $this->notify('error', 'Where do you want to upload the file? Please select a sibling file and click upload again.');
+        }
+
+
+        $this->showUploadModal = true;
+        $this->uploadPath = $this->getPathFromSelected($this->files[$printerId]);
+        $this->uploadPrinter = $printerId;
+    }
+
+    public function uploadFile()
+    {
+        $this->validate([
+            'gcode' => ['required', 'max:12000'],
+            'uploadPath' => ['required'],
+        ]);
+
+        $filename = $this->uploadPath . '/' . $this->gcode->getClientOriginalName() ?? basename($this->uploadPath);
+        $this->printers->find($this->uploadPrinter)->upload($filename, $this->gcode->get());
+
+        $this->emit('notify', ['message' => 'Uploaded file to OctoPi', 'type' => 'success']);
+
+        $this->selectFile([$this->uploadPrinter, $filename]);
+
+        $this->resetUploadModal();
+    }
+
+    private function getPathFromSelected($string)
+    {
+        if(Str::endsWith($string, '.gcode')) {
+            return Str::replace(basename($string), '', $string);
+        }
+
+        return Str::finish($string, '/');
     }
 }
