@@ -14,10 +14,13 @@ class Table extends Component
     use WithPagination;
     use WithSorting;
 
+    public $currentSpool;
+    public $currentWeight;
     public $perPage = 10;
     public $search = '';
     public $sortField = 'created_at';
     public $sortDirection = 'desc';
+    public $weightModal = false;
 
     public function render()
     {
@@ -37,5 +40,28 @@ class Table extends Component
                 ->orWhere('material', 'LIKE', '%' . trim($this->search) . '%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
+    }
+
+    public function updateWeight()
+    {
+        $data = $this->validate([
+            'currentWeight' => ['required', 'integer', 'max:' . $this->currentSpool->currentWeight + $this->currentSpool->empty]
+        ]);
+
+        $this->currentSpool->addWeight($this->currentWeight);
+
+        $this->resetWeightModal();
+    }
+
+    public function resetWeightModal()
+    {
+        $this->reset('currentSpool', 'currentWeight', 'weightModal');
+    }
+
+    public function showWeightModal($id)
+    {
+        $this->currentSpool = $this->rows->find($id);
+        $this->currentWeight = 0;
+        $this->weightModal = true;
     }
 }
