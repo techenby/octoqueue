@@ -27,8 +27,8 @@
                         <span class="sr-only">{{ $spool->color }}</span>
                     </div>
                 </x-table.td>
-                <x-table.td>{{ $spool->cost }}</x-table.td>
                 <x-table.td>{{ $spool->formattedCurrentWeight }}</x-table.td>
+                <x-table.td>{{ $spool->formattedCost }}</x-table.td>
                 <x-table.td>{{ $spool->formattedCurrentLength }}</x-table.td>
                 <x-table.td>
                     <x-table.link href="{{ route('spools.edit', $spool) }}">Edit<span class="sr-only"> {{ $spool->name }}</x-table.link>
