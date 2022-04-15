@@ -33,9 +33,9 @@
                 <x-table.td muted>{{ $job->completed_at }}</x-table.td>
                 <x-table.td muted>{{ $job->completed ? $job->filament_used : '' }}</x-table.td>
                 <x-table.td class="space-x-2">
-                    <x-table.link wire:click="print({{ $job->id }})" color="green">Print<span class="sr-only"> {{ $job->name }}</x-table.link>
-                    <x-table.link href="{{ route('jobs.edit', $job) }}">Edit<span class="sr-only"> {{ $job->name }}</x-table.link>
-                    <x-table.link wire:click="delete({{ $job->id }})" danger>Delete<span class="sr-only"> {{ $job->name }}</x-table.link>
+                    <x-table.link wire:click="print({{ $job->id }})" color="green" :disabled="$job->started">Print<span class="sr-only" > {{ $job->name }}</x-table.link>
+                    <x-table.link :disabled="$job->started">Edit<span class="sr-only" > {{ $job->name }}</x-table.link>
+                    <x-table.link wire:click="delete({{ $job->id }})" :disabled="$job->started && !$job->completed" danger>Delete<span class="sr-only"> {{ $job->name }}</x-table.link>
                 </x-table.td>
             </tr>
             @empty
