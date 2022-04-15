@@ -21,7 +21,7 @@
     $classes .= ' disabled:opacity-75 disabled:cursor-not-allowed';
 @endphp
 
-@if ($attributes->has('href') && $attribute->hasNot('disabled'))
+@if ($attributes->has('href') && ! $attributes->has('disabled'))
 <a {{ $attributes->merge(['class' => $classes]) }} >
     {{ $slot }}
 </a>
