@@ -6,7 +6,7 @@
 
 @php
     $label = 'inline-flex items-center px-3 text-gray-500 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 bg-gray-50 dark:text-gray-400';
-    $classes = 'block w-full dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 shadow-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300';
+    $classes = 'block w-full border-gray-300 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 shadow-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300';
     $margin = $noMargin ? '' : 'mt-1';
 @endphp
 
