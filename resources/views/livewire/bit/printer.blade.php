@@ -1,4 +1,4 @@
-<div wire:init="load" class="overflow-hidden bg-white divide-y divide-gray-300 rounded-md shadow dark:bg-gray-800 dark:border dark:border-gray-700 dark:divide-gray-700">
+<div wire:init="load" wire:poll.25s="$refresh" class="overflow-hidden bg-white divide-y divide-gray-300 rounded-md shadow dark:bg-gray-800 dark:border dark:border-gray-700 dark:divide-gray-700">
     <div class="flex items-center justify-between px-4 py-5 space-x-4 sm:px-6">
         <div class="flex items-center space-x-2">
             <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-200">{{ $printer->name }}</h3>
@@ -36,7 +36,7 @@
     @if ($nextJob)
     <div class="flex items-center justify-between px-4 py-5 space-y-2 text-gray-700 sm:px-6 dark:text-gray-400">
         <p>Next Job: <span class="text-gray-900 dark:text-gray-200">{{ $nextJob->name }}</span></p>
-        <x-jet-button type="button" wire:click="print">Print</x-jet-button>
+        <x-jet-button type="button" wire:click="print" :disabled="$printer->status === 'Printing'">Print</x-jet-button>
     </div>
     @endif
 </div>
