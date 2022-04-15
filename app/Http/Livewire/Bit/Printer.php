@@ -39,7 +39,7 @@ class Printer extends Component
 
     public function getCurrentJobStatusProperty()
     {
-        if($this->status === 'Printing') {
+        if ($this->status === 'Printing') {
             return (new OctoPrint($this->printer->url, $this->printer->api_key))->job();
         }
     }
