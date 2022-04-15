@@ -7,7 +7,6 @@
                 <x-table.th sortable wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null">Name</x-table.th>
                 <x-table.th sortable wire:click="sortBy('model')" :direction="$sortField === 'model' ? $sortDirection : null">Model</x-table.th>
                 <x-table.th sortable wire:click="sortBy('spool_id')" :direction="$sortField === 'spool_id' ? $sortDirection : null">Spool</x-table.th>
-                <x-table.th>Status</x-table.th>
                 <x-table.th>
                     <span class="sr-only">Edit</span>
                 </x-table.th>
@@ -19,7 +18,6 @@
                 <x-table.td>{{ $printer->name }}</x-table.td>
                 <x-table.td muted>{{ $printer->model }}</x-table.td>
                 <x-table.td muted>{{ $printer->spool->name ?? 'None loaded' }}</x-table.td>
-                <x-table.td muted>{{ true ? 'loading' : $printer->status }}</x-table.td>
                 <x-table.td>
                     <x-table.link href="{{ route('printers.edit', $printer) }}">Edit<span class="sr-only"> {{ $printer->name }}</x-table.link>
                 </x-table.td>
