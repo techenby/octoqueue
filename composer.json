@@ -17,6 +17,8 @@
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.5",
         "spatie/yaml-front-matter": "^2.0",
+        "symfony/http-client": "^6.0",
+        "symfony/postmark-mailer": "^6.0",
         "techenby/octoprint-sdk": "^1.0"
     },
     "require-dev": {
