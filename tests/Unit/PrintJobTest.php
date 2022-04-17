@@ -6,9 +6,6 @@ use App\Models\Printer;
 use App\Models\PrintJob;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Http;
-use TechEnby\OctoPrint\OctoPrint;
 use Tests\TestCase;
 
 class PrintJobTest extends TestCase
@@ -23,7 +20,7 @@ class PrintJobTest extends TestCase
         $user = User::factory()->withPersonalTeam()->create();
         $printer = Printer::factory()->for($user->currentTeam)->create(['name' => 'Rubber Ducky']);
         $job = PrintJob::factory()->for($printer)->for($user->currentTeam)->create([
-            'files' => [$printer->id => 'Testing/leveling-squares.gcode']
+            'files' => [$printer->id => 'Testing/leveling-squares.gcode',]
         ]);
 
         $job->completed();

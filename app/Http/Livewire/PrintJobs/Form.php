@@ -144,7 +144,7 @@ class Form extends Component
 
     private function getPathFromSelected($string)
     {
-        if(Str::endsWith($string, '.gcode')) {
+        if (Str::endsWith($string, '.gcode')) {
             return Str::replace(basename($string), '', $string);
         }
 

@@ -1,5 +1,5 @@
-@foreach($files as $file)
-    @if($file['type'] === 'folder' && isset($file['children']))
+@foreach ($files as $file)
+    @if ($file['type'] === 'folder' && isset($file['children']))
     <div x-data="{open : false}">
         <button type="button" @click="open = !open" class="flex space-x-2 text-gray-900 dark:text-gray-200">
             <x-heroicon-o-folder class="w-6 h-6 text-gray-700 dark:text-gray-400" />
