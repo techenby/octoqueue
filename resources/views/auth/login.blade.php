@@ -14,7 +14,9 @@
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
-
+            <div x-data="{timezone: Intl.DateTimeFormat().resolvedOptions().timeZone}">
+                <input type="hidden" name="timezone" x-model="timezone">
+            </div>
             <div>
                 <x-jet-label for="email" value="{{ __('Email') }}" />
                 <x-form.input id="email" class="block w-full mt-1" type="email" name="email" :value="old('email')" required autofocus />

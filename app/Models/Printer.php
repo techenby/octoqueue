@@ -16,9 +16,9 @@ class Printer extends Model
 
     protected $guarded = [];
 
-    public function team()
+    public function currentJob()
     {
-        return $this->belongsTo(Team::class);
+        return $this->hasOne(PrintJob::class)->whereNotNull('started_at')->whereNull('completed_at');
     }
 
     public function printJobs()
@@ -31,9 +31,29 @@ class Printer extends Model
         return $this->belongsTo(Spool::class);
     }
 
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
+    }
+
     public function getHardwareStateAttribute()
     {
         return (new OctoPrint($this->url, $this->api_key))->printer();
+    }
+
+    public function getNextJobAttribute()
+    {
+        if (! $this->spool_id) {
+            return;
+        }
+
+        return PrintJob::query()
+            ->where('color_hex', $this->spool->color_hex)
+            ->whereNull('started_at')
+            ->whereNull('completed_at')
+            ->orderBy('job_type_id')
+            ->limit(1)
+            ->first();
     }
 
     public function getSlugAttribute()
@@ -54,5 +74,20 @@ class Printer extends Model
     public function files()
     {
         return (new OctoPrint($this->url, $this->api_key))->files();
+    }
+
+    public function file($path, $location = 'local')
+    {
+        return (new OctoPrint($this->url, $this->api_key))->file($location, $path);
+    }
+
+    public function printFile($file)
+    {
+        return (new OctoPrint($this->url, $this->api_key))->selectFile('local', $file)->start();
+    }
+
+    public function upload($path, $contents, $location = 'local')
+    {
+        return (new OctoPrint($this->url, $this->api_key))->uploadFile($location, $path, $contents);
     }
 }

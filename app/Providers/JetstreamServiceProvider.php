@@ -9,7 +9,14 @@ use App\Actions\Jetstream\DeleteUser;
 use App\Actions\Jetstream\InviteTeamMember;
 use App\Actions\Jetstream\RemoveTeamMember;
 use App\Actions\Jetstream\UpdateTeamName;
+use App\Http\Pipeline\AddTimezoneToSession;
+use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Fortify\Actions\AttemptToAuthenticate;
+use Laravel\Fortify\Actions\EnsureLoginIsNotThrottled;
+use Laravel\Fortify\Actions\PrepareAuthenticatedSession;
+use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
+use Laravel\Fortify\Fortify;
 use Laravel\Jetstream\Jetstream;
 
 class JetstreamServiceProvider extends ServiceProvider
@@ -40,6 +47,16 @@ class JetstreamServiceProvider extends ServiceProvider
         Jetstream::removeTeamMembersUsing(RemoveTeamMember::class);
         Jetstream::deleteTeamsUsing(DeleteTeam::class);
         Jetstream::deleteUsersUsing(DeleteUser::class);
+
+        Fortify::authenticateThrough(function (Request $request) {
+            return array_filter([
+                    config('fortify.limiters.login') ? null : EnsureLoginIsNotThrottled::class,
+                    RedirectIfTwoFactorAuthenticatable::class,
+                    AttemptToAuthenticate::class,
+                    AddTimezoneToSession::class,
+                    PrepareAuthenticatedSession::class,
+            ]);
+        });
     }
 
     /**

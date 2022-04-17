@@ -35,6 +35,11 @@ class Spool extends Model
         return $this->hasMany(PrintJob::class);
     }
 
+    public function getFormattedCostAttribute()
+    {
+        return '$' . $this->cost;
+    }
+
     public function getCurrentWeightAttribute()
     {
         $spoolWeight = $this->empty;

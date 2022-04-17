@@ -17,12 +17,16 @@
 
     @livewireStyles
 
+    <!-- Fathom - beautiful, simple website analytics -->
+    <script src="https://cdn.usefathom.com/script.js" data-site="HHGDRTTQ" defer></script>
+    <!-- / Fathom -->
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
     @stack('scripts')
 </head>
 
 <body class="h-full font-sans antialiased">
+    @livewire('notifications')
     <x-jet-banner />
 
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -30,15 +34,15 @@
 
         <!-- Page Heading -->
         @isset ($header)
-            <header class="bg-white shadow dark:bg-gray-800 dark:border-b dark:border-gray-700">
-                <div class="flex items-center justify-between px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <h1 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">{{ $header }}</h1>
+            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+                <header class="flex items-center justify-between h-16 px-4 bg-white shadow rounded-b-md dark:bg-gray-800 dark:border dark:border-t-0 dark:border-gray-700">
+                    <h1 class="text-3xl font-semibold leading-tight text-gray-800 dark:text-gray-200">{{ $header }}</h1>
 
                     @isset($action)
                     {{ $action }}
                     @endif
-                </div>
-            </header>
+                </header>
+            </div>
         @endif
 
         <!-- Page Content -->

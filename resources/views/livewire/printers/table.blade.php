@@ -1,52 +1,60 @@
-<div class="px-2 md:px-0">
-    <table class="min-w-full overflow-hidden divide-y divide-gray-300 rounded-md dark:divide-gray-700">
-        <thead class="bg-gray-50 dark:bg-gray-850">
+<div class="space-y-4">
+    <x-table.header />
+
+    <x-table>
+        <x-slot:head>
             <tr>
-                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-300 sm:pl-6">Name</th>
-                <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-300 lg:table-cell">Model</th>
-                <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-300 sm:table-cell">Spool</th>
-                <th scope="col" class="hidden lg:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-300">Status</th>
-                <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                <x-table.th sortable wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null">Name</x-table.th>
+                <x-table.th sortable wire:click="sortBy('model')" :direction="$sortField === 'model' ? $sortDirection : null">Model</x-table.th>
+                <x-table.th sortable wire:click="sortBy('spool_id')" :direction="$sortField === 'spool_id' ? $sortDirection : null">Spool</x-table.th>
+                <x-table.th>
                     <span class="sr-only">Edit</span>
-                </th>
+                </x-table.th>
             </tr>
-        </thead>
-        <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-800">
-            @forelse ($printers as $printer)
+        </x-slot>
+        <x-slot:body>
+            @forelse ($rows as $printer)
             <tr>
-                <td class="w-full py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-gray-200 max-w-0 sm:w-auto sm:max-w-none sm:pl-6">
-                {{ $printer->name }}
-                <dl class="font-normal lg:hidden">
-                    <dt class="sr-only">Model</dt>
-                    <dd class="mt-1 text-gray-700 truncate dark:text-gray-400">{{ $printer->model }}</dd>
-                    <dt class="sr-only sm:hidden">Spool</dt>
-                    <dd class="mt-1 text-gray-500 truncate dark:text-gray-200 sm:hidden">{{ $printer->spool }}</dd>
-                </dl>
-                </td>
-                <td class="hidden px-3 py-4 text-sm text-gray-500 dark:text-gray-400 lg:table-cell">{{ $printer->model }}</td>
-                <td class="hidden px-3 py-4 text-sm text-gray-500 dark:text-gray-400 sm:table-cell">{{ $printer->spool->name ?? 'None loaded' }}</td>
-                <td class="hidden px-3 py-4 text-sm text-gray-500 dark:text-gray-400 lg:table-cell">{{ $printer->status }}</td>
-                <td class="py-4 pl-3 pr-4 text-sm font-medium text-right sm:pr-6">
-                    <a href="{{ route('printers.edit', $printer) }}" class="text-blue-600 hover:text-blue-900">Edit<span class="sr-only"> {{ $printer->name }}</span></a>
-                </td>
+                <x-table.td>{{ $printer->name }}</x-table.td>
+                <x-table.td muted>{{ $printer->model }}</x-table.td>
+                <x-table.td muted>
+                    <button type="button" class="flex space-x-2 items-center group rounded px-1.5 py-1 -mx-1.5 -my-1 hover:bg-gray-50 dark:hover:bg-gray-850" wire:click="showSpoolModal({{ $printer->id }})">
+                        <span>{{ $printer->spool->name ?? 'None loaded' }}</span>
+                        <x-heroicon-o-chevron-down class="invisible w-4 h-4 group-hover:visible" />
+                    </button>
+                </x-table.td>
+                <x-table.td>
+                    <x-table.link href="{{ route('printers.edit', $printer) }}">Edit<span class="sr-only"> {{ $printer->name }}</x-table.link>
+                </x-table.td>
             </tr>
             @empty
             <tr>
-                <td colspan="5">
-                    <div class="flex items-center justify-center w-full px-3 py-4">
-                        <a href="/printers/create">
-                            <div class="flex items-center text-lg font-semibold text-blue-700 group dark:text-blue-400 dark:hover:text-blue-300 hover:text-blue-500">
-                                <div>Create your first printer</div>
-
-                                <div class="ml-1">
-                                    <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </td>
+                <x-table.empty route="printers.create" label="Create a Printer" colspan="5" />
             </tr>
             @endforelse
-        </tbody>
-    </table>
+        </x-slot>
+    </x-table>
+
+    {{ $rows->links() }}
+
+    <x-jet-dialog-modal wire:model="spoolModal">
+        <x-slot name="title">
+            {{ __('Swap Spool') }}
+        </x-slot>
+
+        <x-slot name="content">
+            <x-form.label for="current-spool" value="Choose Spool" sr-only />
+            <x-form.select id="current-spool" wire:model="currentSpool" :options="$spools" />
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="resetSpoolModal" wire:loading.attr="disabled">
+                {{ __('Cancel') }}
+            </x-jet-secondary-button>
+
+            <x-jet-button class="ml-3" wire:click="updateSpool" wire:loading.attr="disabled">
+                {{ __('Save') }}
+            </x-jet-button>
+        </x-slot>
+    </x-jet-dialog-modal>
 </div>

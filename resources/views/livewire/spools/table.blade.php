@@ -1,62 +1,76 @@
-<div class="px-2 md:px-0">
-    <table class="min-w-full overflow-hidden divide-y divide-gray-300 rounded-md dark:divide-gray-700">
-        <thead class="bg-gray-50 dark:bg-gray-850">
+<div class="space-y-4">
+    <x-table.header />
+
+    <x-table>
+        <x-slot:head>
             <tr>
-                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-300 sm:pl-6">Location</th>
-                <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-300 lg:table-cell">Brand</th>
-                <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-300 sm:table-cell">Material</th>
-                <th scope="col" class="hidden lg:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-300">Color</th>
-                <th scope="col" class="hidden lg:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-300">Cost</th>
-                <th scope="col" class="hidden lg:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-300">Weight</th>
-                <th scope="col" class="hidden lg:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-300">Length</th>
-                <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                <x-table.th>Location</x-table.th>
+                <x-table.th sortable wire:click="sortBy('brand')" :direction="$sortField === 'brand' ? $sortDirection : null">Brand</x-table.th>
+                <x-table.th sortable wire:click="sortBy('material')" :direction="$sortField === 'material' ? $sortDirection : null">Material</x-table.th>
+                <x-table.th sortable wire:click="sortBy('color')" :direction="$sortField === 'color' ? $sortDirection : null">Color</x-table.th>
+                <x-table.th sortable wire:click="sortBy('cost')" :direction="$sortField === 'cost' ? $sortDirection : null">Cost</x-table.th>
+                <x-table.th>Weight</x-table.th>
+                <x-table.th>Length</x-table.th>
+                <x-table.th>
                     <span class="sr-only">Edit</span>
-                </th>
+                </x-table.th>
             </tr>
-        </thead>
-        <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-800">
-            @forelse ($spools as $spool)
+        </x-slot>
+        <x-slot:body>
+            @forelse ($rows as $spool)
             <tr>
-                <td class="w-full py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-gray-200 max-w-0 sm:w-auto sm:max-w-none sm:pl-6">
-                {{ $spool->location }}
-                <dl class="font-normal lg:hidden">
-                    <dt class="sr-only">Brand</dt>
-                    <dd class="mt-1 text-gray-700 truncate dark:text-gray-400">{{ $spool->brand }}</dd>
-                    <dt class="sr-only sm:hidden">Material</dt>
-                    <dd class="mt-1 text-gray-500 truncate dark:text-gray-200 sm:hidden">{{ $spool->material }}</dd>
-                </dl>
-                </td>
-                <td class="hidden px-3 py-4 text-sm text-gray-500 dark:text-gray-400 lg:table-cell">{{ $spool->brand }}</td>
-                <td class="hidden px-3 py-4 text-sm text-gray-500 dark:text-gray-400 lg:table-cell">{{ $spool->material }}</td>
-                <td class="hidden px-3 py-4 text-sm text-gray-500 dark:text-gray-400 lg:table-cell">
+                <x-table.td>{{ $spool->location }}</x-table.td>
+                <x-table.td>{{ $spool->brand }}</x-table.td>
+                <x-table.td>{{ $spool->material }}</x-table.td>
+                <x-table.td>
                     <div class="w-4 h-4 border border-gray-300 rounded dark:border-gray-700" style="background:{{ $spool->color_hex }}">
                         <span class="sr-only">{{ $spool->color }}</span>
                     </div>
-                </td>
-                <td class="hidden px-3 py-4 text-sm text-gray-500 dark:text-gray-400 sm:table-cell">{{ $spool->cost }}</td>
-                <td class="hidden px-3 py-4 text-sm text-gray-500 dark:text-gray-400 lg:table-cell">{{ $spool->formattedCurrentWeight }}</td>
-                <td class="hidden px-3 py-4 text-sm text-gray-500 dark:text-gray-400 lg:table-cell">{{ $spool->formattedCurrentLength }}</td>
-                <td class="py-4 pl-3 pr-4 text-sm font-medium text-right sm:pr-6">
-                    <a href="{{ route('spools.edit', $spool) }}" class="text-blue-600 hover:text-blue-900">Edit<span class="sr-only"> {{ $spool->name }}</span></a>
-                </td>
+                </x-table.td>
+                <x-table.td>{{ $spool->formattedCost }}</x-table.td>
+                <x-table.td>
+                    <button type="button" wire:click="showWeightModal({{ $spool->id }})"
+                        class="flex space-x-2 items-center group rounded px-1.5 py-1 -mx-1.5 -my-1 hover:bg-gray-50 dark:hover:bg-gray-850"
+                    >
+                        <span>{{ $spool->formattedCurrentWeight }}</span>
+                        <x-heroicon-o-plus class="invisible w-4 h-4 group-hover:visible" />
+                    </button>
+                </x-table.td>
+                <x-table.td>{{ $spool->formattedCurrentLength }}</x-table.td>
+                <x-table.td>
+                    <x-table.link href="{{ route('spools.edit', $spool) }}">Edit<span class="sr-only"> {{ $spool->name }}</x-table.link>
+                </x-table.td>
             </tr>
             @empty
             <tr>
-                <td colspan="6">
-                    <div class="flex items-center justify-center w-full px-3 py-4">
-                        <a href="/spools/create">
-                            <div class="flex items-center text-lg font-semibold text-blue-700 group dark:text-blue-400 dark:hover:text-blue-300 hover:text-blue-500">
-                                <div>Create your first Spool</div>
-
-                                <div class="ml-1">
-                                    <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </td>
+                <x-table.empty route="spools.create" label="Create a Spool" colspan="8" />
             </tr>
             @endforelse
-        </tbody>
-    </table>
+        </x-slot>
+    </x-table>
+
+    {{ $rows->links() }}
+
+    <x-jet-dialog-modal max-width="md" wire:model="weightModal">
+        <x-slot name="title">
+            {{ __('Add Current Weight') }}
+        </x-slot>
+
+        <x-slot name="content">
+            <x-form.label for="current-weight" value="Current Weight" sr-only />
+            <x-form.input trailing="g" id="current-weight" wire:model="currentWeight" />
+            <x-form.help>Weigh the spool and input the result here or use a best guess.</x-form.help>
+            <x-form.error :error="$errors->first('currentWeight')" />
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="resetWeightModal" wire:loading.attr="disabled">
+                {{ __('Cancel') }}
+            </x-jet-secondary-button>
+
+            <x-jet-button class="ml-3" wire:click="updateWeight" wire:loading.attr="disabled">
+                {{ __('Save') }}
+            </x-jet-button>
+        </x-slot>
+    </x-jet-dialog-modal>
 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Calculator;
 use App\Traits\ForTeam;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,14 +12,16 @@ class PrintJob extends Model
     use HasFactory;
     use ForTeam;
 
+    public $friendly = 'job';
+
     protected $guarded = [];
 
     protected $casts = [
-        'files' => 'array',
+        'completed_at' => 'datetime',
+        'files' => 'collection',
         'filament_used' => 'double',
+        'started_at' => 'datetime',
     ];
-
-    protected $date = ['started_at', 'completed_at'];
 
     public static function rules()
     {
@@ -30,9 +33,9 @@ class PrintJob extends Model
         ];
     }
 
-    public function team()
+    public function availableSpools()
     {
-        return $this->belongsTo(Team::class);
+        return $this->hasMany(Spool::class, 'color_hex', 'color_hex');
     }
 
     public function printer()
@@ -40,23 +43,78 @@ class PrintJob extends Model
         return $this->belongsTo(Printer::class);
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function color()
-    {
-        return $this->belongsTo(Color::class);
-    }
-
     public function spool()
     {
         return $this->belongsTo(Spool::class);
     }
 
-    public function jobType()
+    public function team()
     {
-        return $this->belongsTo(PrintJobTypes::class);
+        return $this->belongsTo(Team::class);
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(PrintJobType::class, 'job_type_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function getAvailablePrintersAttribute()
+    {
+        if ($this->printer_id) {
+            return $this->printer->name;
+        }
+
+        return $this->files->keys()->map(fn($name) => ucfirst($name))->implode(', ');
+    }
+
+    public function getCompletedAttribute()
+    {
+        return $this->completed_at !== null;
+    }
+
+    public function getStartedAttribute()
+    {
+        return $this->started_at !== null;
+    }
+
+    public function completed()
+    {
+        $this->completed_at = now();
+
+        $data = $this->printer->file($this->files[$this->printer_id]);
+        $data['gcodeAnalysis']['filament']['tool0']['length'];
+        $length = $data['gcodeAnalysis']['filament']['tool0']['length'] / 1000;
+
+        $this->filament_used = (new Calculator())->lengthToGrams($this->spool->material, $length);
+
+        $this->save();
+    }
+
+    public function cancel()
+    {
+        $this->started_at = null;
+        $this->save();
+    }
+
+    public function safeDelete()
+    {
+        $this->delete();
+    }
+
+    public function start($printer)
+    {
+        $printer->printFile($this->files[$printer->id]);
+
+        if ($printer->status === 'Printing') {
+            $this->started_at = now();
+            $this->printer_id = $printer->id;
+            $this->spool_id = $printer->spool_id;
+            $this->save();
+        }
     }
 }

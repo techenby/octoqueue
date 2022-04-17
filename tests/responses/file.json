@@ -1,0 +1,56 @@
+{
+    "date": 1638904674,
+    "display": "level_squares.gcode",
+    "gcodeAnalysis": {
+      "dimensions": {
+        "depth": 180.0,
+        "height": 1.96,
+        "width": 184.65
+      },
+      "estimatedPrintTime": 802.47823693663,
+      "filament": {
+        "tool0": {
+          "length": 1050.03636,
+          "volume": 2.5256334252239
+        }
+      },
+      "printingArea": {
+        "maxX": 184.75,
+        "maxY": 200.0,
+        "maxZ": 1.96,
+        "minX": 0.1,
+        "minY": 20.0,
+        "minZ": 0.0
+      }
+    },
+    "hash": "9a00091b98b42174c273249639d3c83789c31f5c",
+    "name": "level_squares.gcode",
+    "origin": "local",
+    "path": "Testing/level_squares.gcode",
+    "prints": {
+      "failure": 34,
+      "last": {
+        "date": 1648832839.8237,
+        "success": false
+      },
+      "success": 3
+    },
+    "refs": {
+      "download": "http://printer.local/downloads/files/local/Testing/level_squares.gcode",
+      "resource": "http://printer.local/api/files/local/Testing/level_squares.gcode"
+    },
+    "size": 32784,
+    "statistics": {
+      "averagePrintTime": {
+        "_default": 804.02223159635
+      },
+      "lastPrintTime": {
+        "_default": 794.06805662601
+      }
+    },
+    "type": "machinecode",
+    "typePath": [
+      "machinecode",
+      "gcode"
+    ]
+}
