@@ -14,13 +14,9 @@
                         </div>
                         <div class="mt-20">
                             <div>
-                                <a href="#" class="inline-flex space-x-4">
-                                    <span class="rounded bg-blue-50 px-2.5 py-1 text-xs font-semibold text-blue-500 tracking-wide uppercase"> What's new </span>
-                                    <span class="inline-flex items-center space-x-1 text-sm font-medium text-blue-500">
-                                        <span>Just shipped version 1.0</span>
-                                        <x-heroicon-s-chevron-right class="w-5 h-5" />
-                                    </span>
-                                </a>
+                                <span class="inline-flex items-center space-x-1 text-sm font-medium text-blue-500">
+                                    <span>Just shipped version 1.0</span>
+                                </span>
                             </div>
                             <div class="mt-6 sm:max-w-xl">
                                 <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-gray-200 sm:text-5xl">Print queue management for 3D printers</h1>
