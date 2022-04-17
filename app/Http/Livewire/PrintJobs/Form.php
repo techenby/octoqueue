@@ -89,7 +89,7 @@ class Form extends Component
         $this->job->filament_used = 0;
 
         if (count($this->files) === 1) {
-            $this->job->printer_id = $this->printers->where('name', ucfirst(array_key_first($this->files)))->first()->id;
+            $this->job->printer_id = array_key_first($this->files);
         }
 
         $this->job->save();
