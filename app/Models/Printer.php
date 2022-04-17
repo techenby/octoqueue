@@ -76,6 +76,11 @@ class Printer extends Model
         return (new OctoPrint($this->url, $this->api_key))->files();
     }
 
+    public function file($path, $location = 'local')
+    {
+        return (new OctoPrint($this->url, $this->api_key))->file($location, $path);
+    }
+
     public function printFile($file)
     {
         return (new OctoPrint($this->url, $this->api_key))->selectFile('local', $file)->start();

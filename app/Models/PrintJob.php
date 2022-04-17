@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Calculator;
 use App\Traits\ForTeam;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -84,6 +85,13 @@ class PrintJob extends Model
     public function completed()
     {
         $this->completed_at = now();
+
+        $data = $this->printer->file($this->files[$this->printer_id]);
+        $data['gcodeAnalysis']['filament']['tool0']['length'];
+        $length = $data['gcodeAnalysis']['filament']['tool0']['length']/1000;
+
+        $this->filament_used = (new Calculator)->lengthToGrams($this->spool->material, $length);
+
         $this->save();
     }
 
