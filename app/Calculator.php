@@ -29,9 +29,12 @@ class Calculator
         return round($length * 100 * $variables['cross-section'] * $variables['density'], 2);
     }
 
-    public function gramsToLength($material, $grams)
+    public function gramsToLength($material, $diameter, $grams)
     {
-        $variables = $this->materials[$material];
-        return round($grams / $variables['density'] / $variables['cross-section'] / 100, 2);
+        $cm = $diameter/10;
+        $cross = (($cm/2)*($cm/2))*pi();
+        $filament = $grams/$this->materials[$material];
+
+        return round($filament / $cross / 100, 2);
     }
 }
