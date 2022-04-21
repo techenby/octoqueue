@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Spools;
 
+use App\Calculator;
 use App\Models\Spool;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
@@ -34,7 +35,14 @@ class Form extends Component
 
     public function render()
     {
-        return view('livewire.spools.form');
+        return view('livewire.spools.form', [
+            'materials' => $this->materials,
+        ]);
+    }
+
+    public function getMaterialsProperty()
+    {
+        return array_keys((new Calculator())->materials);
     }
 
     public function save()

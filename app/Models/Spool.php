@@ -55,7 +55,7 @@ class Spool extends Model
 
     public function getCurrentLengthAttribute()
     {
-        return (new Calculator())->gramsToLength($this->material, $this->currentWeight);
+        return (new Calculator())->gramsToLength($this->material, $this->diameter, $this->currentWeight);
     }
 
     public function getFormattedCurrentWeightAttribute()
