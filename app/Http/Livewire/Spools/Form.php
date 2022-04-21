@@ -42,7 +42,7 @@ class Form extends Component
 
     public function getMaterialsProperty()
     {
-        return array_keys((new Calculator)->materials);
+        return array_keys((new Calculator())->materials);
     }
 
     public function save()

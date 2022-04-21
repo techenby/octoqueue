@@ -32,7 +32,7 @@ class Calculator
     public function gramsToLength($material, $diameter, $grams)
     {
         $cm = $diameter/10;
-        $cross = (($cm/2)*($cm/2))*pi();
+        $cross = (($cm / 2) * ($cm / 2)) * pi();
         $filament = $grams/$this->materials[$material];
 
         return round($filament / $cross / 100, 2);
