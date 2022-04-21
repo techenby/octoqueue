@@ -15,8 +15,6 @@ class PrintJobTest extends TestCase
     /** @test */
     public function mark_job_as_completed()
     {
-        $this->markTestIncomplete();
-
         $user = User::factory()->withPersonalTeam()->create();
         $printer = Printer::factory()->for($user->currentTeam)->create(['name' => 'Rubber Ducky']);
         $job = PrintJob::factory()->for($printer)->for($user->currentTeam)->create([
