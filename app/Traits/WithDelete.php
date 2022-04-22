@@ -14,4 +14,13 @@ trait WithDelete
         $this->notify('success', "Successfully deleted {$modelName}");
         $this->emit('refresh');
     }
+
+    public function massDelete($column = 'id')
+    {
+        $models = $this->rows->whereIn($column, $this->selected);
+
+        $models->each(fn($model) => $model->safeDelete());
+
+        $this->emit('refresh');
+    }
 }

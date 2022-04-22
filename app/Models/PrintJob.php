@@ -119,6 +119,10 @@ class PrintJob extends Model
 
     public function safeDelete()
     {
+        if ($this->started && ! $this->completed) {
+            return;
+        }
+
         $this->delete();
     }
 

@@ -2,7 +2,7 @@
     $model = $attributes->get('wire:model') ?? 'perPage';
 @endphp
 
-<x-form.select wire:model="{{ $model }}" id="per-page">
+<x-form.select class="text-sm" wire:model="{{ $model }}" id="per-page">
     <option>10</option>
     <option>15</option>
     <option>25</option>

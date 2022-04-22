@@ -1,9 +1,29 @@
 <div class="flex-col space-y-4">
-    <x-table.header />
+    <x-table.header>
+        <x-slot:right>
+            <span class="relative z-0 inline-flex rounded-md shadow-sm">
+                <x-table.action wire:click="showSetModal('job_type_id')" :disabled="$isDisabled['change-type']" class="space-x-1">
+                    <x-heroicon-o-switch-vertical class="w-4 h-4" /><span class="sr-only">Change</span> <span>Type</span>
+                </x-table.action>
+                <x-table.action wire:click="showSetModal('color_hex')" :disabled="$isDisabled['change-color']" class="space-x-1">
+                    <x-heroicon-o-switch-vertical class="w-4 h-4" /><span class="sr-only">Change</span> <span>Color</span>
+                </x-table.action>
+                <x-table.action wire:click="showSetModal('printer_id')" :disabled="$isDisabled['set-printer']" class="space-x-1">
+                    <span>Set</span> <x-heroicon-o-printer class="w-4 h-4" /><span class="sr-only">Printer</span>
+                </x-table.action>
+                <x-table.action wire:click="massDelete" :disabled="$isDisabled['delete']">
+                    <x-heroicon-o-trash class="w-4 h-4" /><span class="sr-only">Delete</span>
+                </x-table.action>
+            </span>
+        </x-slot:right>
+    </x-table.header>
 
     <x-table>
         <x-slot:head>
             <tr>
+                <x-table.th class="w-8 pr-0">
+                    <x-form.checkbox wire:model="selectPage" />
+                </x-table.th>
                 <x-table.th sortable wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null">Name</x-table.th>
                 <x-table.th sortable wire:click="sortBy('job_type_id')" :direction="$sortField === 'job_type_id' ? $sortDirection : null">Type</x-table.th>
                 <x-table.th sortable wire:click="sortBy('printer_id')" :direction="$sortField === 'printer_id' ? $sortDirection : null">Printer</x-table.th>
@@ -19,8 +39,26 @@
             </tr>
         </x-slot>
         <x-slot:body>
+            @if ($selectPage)
+                <tr class="bg-gray-200 dark:bg-gray-850" wire:key="row-message">
+                    <x-table.td colspan="11">
+                        @unless ($selectAll)
+                        <div class="text-center">
+                            <span>You have selected <strong>{{ $rows->count() }}</strong> rows, do you want to select all <strong>{{ number_format($rows->total()) }}</strong>?</span>
+                            <x-table.link wire:click="$toggle('selectAll')">Select All</x-table.link>
+                        </div>
+                        @else
+                        <div class="text-center">You have selected all <strong>{{ number_format($rows->total()) }}</strong> rows.</div>
+                        @endif
+                    </x-table.td>
+                </tr>
+            @endif
+
             @forelse ($rows as $job)
-            <tr>
+            <tr wire:key="row-{{ $job->id }}">
+                <x-table.td class="pr-0">
+                    <x-form.checkbox wire:model="selected" value="{{ $job->id }}" />
+                </x-table.td>
                 <x-table.td>{{ $job->name }}</x-table.th>
                 <x-table.td muted>{{ $job->type->name ?? '-' }}</x-table.td>
                 <x-table.th muted>{{ $job->printer->name ?? 'Any' }}</x-table.td>
@@ -48,4 +86,27 @@
     </x-table>
 
     {{ $rows->links() }}
+
+   <span class="text-gray-200">@json($setModal)</span>
+
+   <x-jet-dialog-modal wire:model="setModal">
+        <x-slot name="title">
+            {{ __('Swap ' . $modalLabel) }}
+        </x-slot>
+
+        <x-slot name="content">
+            <x-form.label for="current-spool" value="Choose" sr-only />
+            <x-form.select id="current-spool" wire:model="setValue" :options="$options[$modalType]" />
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="resetModal" wire:loading.attr="disabled">
+                {{ __('Cancel') }}
+            </x-jet-secondary-button>
+
+            <x-jet-button class="ml-3" wire:click="massSet" wire:loading.attr="disabled">
+                {{ __('Save') }}
+            </x-jet-button>
+        </x-slot>
+    </x-jet-dialog-modal>
 </div>
