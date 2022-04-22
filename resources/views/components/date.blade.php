@@ -18,8 +18,10 @@
         }
     } elseif ($diff) {
         $formatted = $date->timezone($timezone)->diffForHumans();
-    } else {
+    } elseif ($date) {
         $formatted = $date->timezone($timezone)->format($format);
+    } else {
+        $formatted = '';
     }
 @endphp
 
