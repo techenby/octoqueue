@@ -87,8 +87,6 @@
 
     {{ $rows->links() }}
 
-   <span class="text-gray-200">@json($setModal)</span>
-
    <x-jet-dialog-modal wire:model="setModal">
         <x-slot name="title">
             {{ __('Swap ' . $modalLabel) }}
