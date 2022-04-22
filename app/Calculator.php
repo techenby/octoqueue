@@ -23,10 +23,13 @@ class Calculator
         'Semi flexible (FPE)' => 2.16,
     ];
 
-    public function lengthToGrams($material, $length)
+    public function lengthToGrams($material, $diameter, $length)
     {
-        $variables = $this->materials[$material];
-        return round($length * 100 * $variables['cross-section'] * $variables['density'], 2);
+        $cm = $diameter / 10;
+        $cross = (($cm / 2) * ($cm / 2)) * pi();
+        $filament = $this->materials[$material];
+
+        return round($length * 100 * $cross * $filament, 2);
     }
 
     public function gramsToLength($material, $diameter, $grams)

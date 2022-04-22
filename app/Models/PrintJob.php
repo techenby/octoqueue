@@ -90,7 +90,7 @@ class PrintJob extends Model
         $data['gcodeAnalysis']['filament']['tool0']['length'];
         $length = $data['gcodeAnalysis']['filament']['tool0']['length'] / 1000;
 
-        $this->filament_used = (new Calculator())->lengthToGrams($this->spool->material, $length);
+        $this->filament_used = (new Calculator())->lengthToGrams($this->spool->material, $this->spool->diameter, $length);
 
         $this->save();
     }
