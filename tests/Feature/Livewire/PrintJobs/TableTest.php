@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Livewire\PrintJobs;
 
-use App\Http\Livewire\PrintJobs\Form;
 use App\Http\Livewire\PrintJobs\Table;
 use App\Models\PrintJob;
 use App\Models\User;
