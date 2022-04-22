@@ -61,7 +61,7 @@ class Form extends Component
 
     public function getTypesProperty()
     {
-        return PrintJobType::forCurrentTeam()->get();
+        return PrintJobType::forCurrentTeam()->orderBy('priority')->get();
     }
 
     public function adjustQuantity($direction)
