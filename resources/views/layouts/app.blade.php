@@ -18,9 +18,7 @@
     @livewireStyles
 
     @production
-    <!-- Fathom - beautiful, simple website analytics -->
-    <script src="https://cdn.usefathom.com/script.js" data-site="HHGDRTTQ" defer></script>
-    <!-- / Fathom -->
+    <script src="https://sky-seven.octoqueue.com/script.js" data-site="HHGDRTTQ" defer></script>
     @endproduction
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
