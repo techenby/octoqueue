@@ -9,8 +9,8 @@
                 <x-table.th sortable wire:click="sortBy('printer_id')" :direction="$sortField === 'printer_id' ? $sortDirection : null">Printer</x-table.th>
                 <x-table.th sortable wire:click="sortBy('user_id')" :direction="$sortField === 'user_id' ? $sortDirection : null">Creator</x-table.th>
                 <x-table.th>Color</x-table.th>
-                <x-table.th>Started At</x-table.th>
-                <x-table.th>Completed At</x-table.th>
+                <x-table.th>Start Date</x-table.th>
+                <x-table.th>Duration</x-table.th>
                 <x-table.th>Filament Used</x-table.th>
                 <x-table.th>
                     <span class="sr-only">Edit</span>
@@ -29,8 +29,8 @@
                     <div class="w-4 h-4 border border-gray-300 rounded dark:border-gray-700" style="background:{{ $job->color_hex }}">
                     </div>
                 </x-table.td>
-                <x-table.td muted>{{ $job->started_at }}</x-table.td>
-                <x-table.td muted>{{ $job->completed_at }}</x-table.td>
+                <x-table.td muted><x-date :date="$job->started_at" format="M jS Y" /></x-table.td>
+                <x-table.td muted><x-date :from="$job->started_at" :to="$job->completed_at" /></x-table.td>
                 <x-table.td muted>{{ $job->completed ? $job->filament_used : '' }}</x-table.td>
                 <x-table.td class="space-x-2">
                     <x-table.link wire:click="print({{ $job->id }})" color="green" :disabled="$job->started">Print<span class="sr-only" > {{ $job->name }}</x-table.link>
