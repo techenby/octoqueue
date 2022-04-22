@@ -19,4 +19,24 @@ class PrintJobFactory extends Factory
             'name' => 'Coaster',
         ];
     }
+
+    public function started()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'started_at' => now()->subMinutes(10),
+            ];
+        });
+    }
+
+    public function finished()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'started_at' => now()->subMinutes(10),
+                'finished_at' => now(),
+                'filament_used' => 15,
+            ];
+        });
+    }
 }

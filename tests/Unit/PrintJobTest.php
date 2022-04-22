@@ -28,4 +28,14 @@ class PrintJobTest extends TestCase
         $this->assertNotNull($job->completed_at);
         $this->assertNotNull($job->filament_used);
     }
+
+    /** @test */
+    public function cancel_job()
+    {
+        $job = PrintJob::factory()->started()->create();
+
+        $job->cancel();
+
+        $this->assertNull($job->fresh()->started_at);
+    }
 }
