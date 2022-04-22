@@ -101,6 +101,22 @@ class PrintJob extends Model
         $this->save();
     }
 
+    public function duplicate()
+    {
+        $new = $this->replicate();
+
+        if ($this->files->count() > 1) {
+            $new->printer_id = null;
+        }
+
+        $new->started_at = null;
+        $new->completed_at = null;
+        $new->filament_used = null;
+        $new->save();
+
+        return $new;
+    }
+
     public function safeDelete()
     {
         $this->delete();

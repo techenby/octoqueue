@@ -39,7 +39,7 @@ class Team extends JetstreamTeam
         return $this->hasMany(Spool::class);
     }
 
-    public function printJobs()
+    public function jobs()
     {
         return $this->hasMany(PrintJob::class);
     }

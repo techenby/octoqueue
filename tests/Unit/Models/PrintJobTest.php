@@ -38,4 +38,20 @@ class PrintJobTest extends TestCase
 
         $this->assertNull($job->fresh()->started_at);
     }
+
+    /** @test */
+    public function duplicate_job()
+    {
+        $job = PrintJob::factory()->finished()->create([
+            'printer_id' => 1,
+            'files' => [1 => 'testing-squares.gcode', 2 => 'testing-squares.gcode'],
+        ]);
+
+        $duplicate = $job->duplicate();
+
+        $this->assertNull($duplicate->printer_id);
+        $this->assertNull($duplicate->started_at);
+        $this->assertNull($duplicate->completed_at);
+        $this->assertNull($duplicate->filament_used);
+    }
 }

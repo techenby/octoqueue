@@ -45,6 +45,13 @@ class Table extends Component
         return Spool::forCurrentTeam()->create();
     }
 
+    public function duplicate($id)
+    {
+        $this->rows->firstWhere('id', $id)->duplicate();
+
+        $this->emit('refresh');
+    }
+
     public function print($id)
     {
         $job = $this->rows->firstWhere('id', $id);

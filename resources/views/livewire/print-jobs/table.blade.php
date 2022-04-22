@@ -22,9 +22,9 @@
             @forelse ($rows as $job)
             <tr>
                 <x-table.td>{{ $job->name }}</x-table.th>
-                <x-table.td muted>{{ $job->type->name }}</x-table.td>
+                <x-table.td muted>{{ $job->type->name ?? '-' }}</x-table.td>
                 <x-table.th muted>{{ $job->printer->name ?? 'Any' }}</x-table.td>
-                <x-table.td muted>{{ $job->user->name }}</x-table.td>
+                <x-table.td muted>{{ $job->user->name ?? '-' }}</x-table.td>
                 <x-table.td>
                     <div class="w-4 h-4 border border-gray-300 rounded dark:border-gray-700" style="background:{{ $job->color_hex }}">
                     </div>
@@ -34,6 +34,7 @@
                 <x-table.td muted>{{ $job->completed ? $job->filament_used : '' }}</x-table.td>
                 <x-table.td class="space-x-2">
                     <x-table.link wire:click="print({{ $job->id }})" color="green" :disabled="$job->started">Print<span class="sr-only" > {{ $job->name }}</x-table.link>
+                    <x-table.link wire:click="duplicate({{ $job->id }})">Duplicate<span class="sr-only" > {{ $job->name }}</x-table.link>
                     <x-table.link :disabled="$job->started">Edit<span class="sr-only" > {{ $job->name }}</x-table.link>
                     <x-table.link wire:click="delete({{ $job->id }})" :disabled="$job->started && !$job->completed" danger>Delete<span class="sr-only"> {{ $job->name }}</x-table.link>
                 </x-table.td>
