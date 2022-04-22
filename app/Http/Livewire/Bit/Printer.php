@@ -80,4 +80,13 @@ class Printer extends Component
     {
         $this->loaded = true;
     }
+
+    public function stop()
+    {
+        $this->printer->cancel();
+
+        if ($this->currentJob) {
+            $this->currentJob->cancel();
+        }
+    }
 }
