@@ -28,7 +28,7 @@ class PrintJobType extends Model
         return $this->belongsTo(Team::class);
     }
 
-    public function printJobs()
+    public function jobs()
     {
         return $this->hasMany(PrintJob::class);
     }

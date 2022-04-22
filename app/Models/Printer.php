@@ -21,7 +21,7 @@ class Printer extends Model
         return $this->hasOne(PrintJob::class)->whereNotNull('started_at')->whereNull('completed_at');
     }
 
-    public function printJobs()
+    public function jobs()
     {
         return $this->hasMany(PrintJob::class);
     }

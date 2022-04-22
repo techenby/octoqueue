@@ -11,7 +11,7 @@ class DashboardController extends Controller
         $completed = [
             'has_printers' => $currentTeam->printers->count() > 0,
             'has_spools' => $currentTeam->spools()->count() > 0,
-            'has_jobs' => $currentTeam->printJobs()->count() > 0,
+            'has_jobs' => $currentTeam->jobs()->count() > 0,
             'has_types' => $currentTeam->jobTypes()->count() > 0,
         ];
 
