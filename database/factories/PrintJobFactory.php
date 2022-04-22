@@ -4,7 +4,9 @@ namespace Database\Factories;
 
 use App\Models\Printer;
 use App\Models\PrintJob;
+use App\Models\PrintJobType;
 use App\Models\Team;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PrintJobFactory extends Factory
@@ -16,25 +18,22 @@ class PrintJobFactory extends Factory
         return [
             'team_id' => Team::factory(),
             'printer_id' => Printer::factory(),
+            'user_id' => User::factory(),
             'name' => 'Coaster',
         ];
     }
 
     public function started()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'started_at' => now()->subMinutes(10),
-            ];
-        });
+        return $this->state(fn () => ['started_at' => now()->subMinutes(10)]);
     }
 
     public function finished()
     {
-        return $this->state(function (array $attributes) {
+        return $this->state(function () {
             return [
                 'started_at' => now()->subMinutes(10),
-                'finished_at' => now(),
+                'completed_at' => now(),
                 'filament_used' => 15,
             ];
         });
