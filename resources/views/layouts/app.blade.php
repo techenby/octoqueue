@@ -11,9 +11,6 @@
     <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg">
     <link rel="icon" type="image/png" href="/favicon/favicon.png">
 
-    <!-- Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-
     <!-- Styles -->
     @stack('styles')
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
