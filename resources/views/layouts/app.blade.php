@@ -34,7 +34,7 @@
 
         <!-- Page Heading -->
         @isset ($header)
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="px-4 mx-auto max-w-7xl lg:px-8">
                 <header class="flex items-center justify-between h-16 px-4 bg-white shadow rounded-b-md dark:bg-gray-800 dark:border dark:border-t-0 dark:border-gray-700">
                     <h1 class="text-3xl font-semibold leading-tight text-gray-800 dark:text-gray-200">{{ $header }}</h1>
 
@@ -47,7 +47,7 @@
 
         <!-- Page Content -->
         <main>
-            <div class="py-10 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="px-4 py-10 mx-auto max-w-7xl lg:px-8">
                 {{ $slot }}
             </div>
         </main>
