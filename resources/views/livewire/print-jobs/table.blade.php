@@ -79,7 +79,7 @@
             </tr>
             @empty
             <tr>
-                <x-table.empty route="jobs.create" label="Create a Job" colspan="8" />
+                <x-table.empty route="jobs.create" label="Create a Job" colspan="11" />
             </tr>
             @endforelse
         </x-slot>
