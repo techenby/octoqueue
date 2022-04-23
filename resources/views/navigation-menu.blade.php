@@ -149,8 +149,14 @@
             <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('queue') }}" :active="request()->routeIs('queue')">
+                {{ __('Queue') }}
+            </x-jet-responsive-nav-link>
             <x-jet-responsive-nav-link href="{{ route('printers') }}" :active="request()->routeIs('printers')">
                 {{ __('Printers') }}
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('spools') }}" :active="request()->routeIs('spools')">
+                {{ __('Spools') }}
             </x-jet-responsive-nav-link>
         </div>
 
