@@ -22,16 +22,16 @@ class FormTest extends TestCase
     }
 
     /** @test */
-    public function test_can_connect_before_saving()
+    public function cannot_save_if_no_connection_before_saving()
     {
         $user = User::factory()->withPersonalTeam()->create();
 
         Livewire::actingAs($user)->test(Form::class)
             ->set('printer.name', 'Pikachu')
             ->set('printer.model', 'Ender 3 Pro')
-            ->set('printer.url', 'http://octoprint.local')
+            ->set('printer.url', 'http://octoprint-bad.local')
             ->set('printer.api_key', 'ABC123DEF456')
             ->call('save')
-            ->assertRedirect();
+            ->assertEmitted('notify');
     }
 }

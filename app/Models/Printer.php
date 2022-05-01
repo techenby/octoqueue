@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\ForTeam;
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -63,7 +64,11 @@ class Printer extends Model
 
     public function getStatusAttribute()
     {
-        return (new OctoPrint($this->url, $this->api_key))->state();
+        try {
+            return (new OctoPrint($this->url, $this->api_key))->state();
+        } catch (Exception $e) {
+            return 'Connection Error';
+        }
     }
 
     public function getWebcamAttribute()
