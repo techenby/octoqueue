@@ -44,6 +44,10 @@ class Form extends Component
     {
         $this->validate();
 
+        if ($this->printer->status === 'Connection Error') {
+            return $this->notify('error', 'Cannot connect to printer. Please check the URL and API Key.');
+        }
+
         $this->printer->team_id = auth()->user()->currentTeam->id;
         $this->printer->save();
 

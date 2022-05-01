@@ -119,7 +119,6 @@ class Form extends Component
             return $this->notify('error', 'Where do you want to upload the file? Please select a sibling file and click upload again.');
         }
 
-
         $this->showUploadModal = true;
         $this->uploadPath = $this->getPathFromSelected($this->files[$printerId]);
         $this->uploadPrinter = $printerId;
