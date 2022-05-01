@@ -18,9 +18,8 @@ class FormTest extends TestCase
     {
         $user = User::factory()->withPersonalTeam()->create();
 
-        $component = Livewire::actingAs($user)->test(Form::class);
-
-        $component->assertStatus(200);
+        Livewire::actingAs($user)->test(Form::class)
+            ->assertStatus(200);
     }
 
     /** @test */
