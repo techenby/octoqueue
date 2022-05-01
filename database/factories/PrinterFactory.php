@@ -16,7 +16,8 @@ class PrinterFactory extends Factory
             'team_id' => Team::factory(),
             'name' => 'Pikachu',
             'model' => 'Ender 3',
-            'url' => $this->faker->url(),
+            'url' => 'http://octoprint.local',
+            'api_key' => 'ABC123DEF456',
         ];
     }
 }

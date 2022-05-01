@@ -4,6 +4,7 @@ namespace Tests\Unit\Models;
 
 use App\Models\Printer;
 use App\Models\PrintJob;
+use App\Models\Spool;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -16,9 +17,11 @@ class PrintJobTest extends TestCase
     public function mark_job_as_completed()
     {
         $user = User::factory()->withPersonalTeam()->create();
-        $printer = Printer::factory()->for($user->currentTeam)->create(['name' => 'Rubber Ducky']);
+        $spool = Spool::factory()->for($user->currentTeam)->create(['material' => 'PLA']);
+        $printer = Printer::factory()->for($user->currentTeam)->create();
         $job = PrintJob::factory()->for($printer)->for($user->currentTeam)->create([
-            'files' => [$printer->id => 'Testing/leveling-squares.gcode',]
+            'files' => [$printer->id => 'Testing/leveling-squares.gcode'],
+            'spool_id' => $spool->id,
         ]);
 
         $job->completed();
