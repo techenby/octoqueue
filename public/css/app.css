@@ -1036,6 +1036,10 @@ select {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(6 182 212 / var(--tw-ring-opacity));
 }
+.btn-outline:active {
+  --tw-bg-opacity: 1;
+  background-color: rgb(250 250 249 / var(--tw-bg-opacity));
+}
 @media (prefers-color-scheme: dark) {
 
   .btn-outline {
@@ -1054,6 +1058,11 @@ select {
   }
 
   .btn-outline:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(35 31 30 / var(--tw-bg-opacity));
+  }
+
+  .btn-outline:active {
     --tw-bg-opacity: 1;
     background-color: rgb(35 31 30 / var(--tw-bg-opacity));
   }

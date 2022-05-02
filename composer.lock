@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1229b7daf20f44365b9c921d8974d7c9",
+    "content-hash": "60299cdd954b6e04dfad0ea126ea86f6",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -6121,17 +6121,11 @@
         },
         {
             "name": "techenby/octoprint-sdk",
-            "version": "1.2.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/techenby/octoprint-sdk.git",
-                "reference": "1735c0f208074ee8d7884b9f8c1e6494c332ddc4"
-            },
+            "version": "dev-main",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/techenby/octoprint-sdk/zipball/1735c0f208074ee8d7884b9f8c1e6494c332ddc4",
-                "reference": "1735c0f208074ee8d7884b9f8c1e6494c332ddc4",
-                "shasum": ""
+                "type": "path",
+                "url": "/Users/andynewhouse/Sites/octoprint-sdk",
+                "reference": "8befb6b7dafad41c81b916ff60beee01ef790390"
             },
             "require": {
                 "ext-json": "*",
@@ -6149,7 +6143,11 @@
                     "TechEnby\\OctoPrint\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Tests\\": "tests/"
+                }
+            },
             "license": [
                 "MIT"
             ],
@@ -6168,7 +6166,10 @@
                 "issues": "https://github.com/techenby/octoprint-sdk/issues",
                 "source": "https://github.com/techenby/octoprint-sdk"
             },
-            "time": "2022-05-01T22:45:50+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": false
+            }
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -9381,7 +9382,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "techenby/octoprint-sdk": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
