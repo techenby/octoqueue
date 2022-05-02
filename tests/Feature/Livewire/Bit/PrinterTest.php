@@ -37,6 +37,7 @@ class PrinterTest extends TestCase
         Livewire::actingAs($user)
             ->test(Component::class, ['printer' => $printer])
             ->assertStatus(200)
+            ->set('tab', 'next-job')
             ->assertSee('Coaster');
     }
 
