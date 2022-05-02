@@ -53,4 +53,18 @@
             </span>
         </div>
     </div>
+    <div class="p-4">
+        <h2 class="mb-4 text-lg text-center text-gray-900 dark:text-gray-200">Tool</h2>
+        <x-form.input type="number" wire:model="amount" />
+
+        <div class="relative z-0 flex mt-2 rounded-md shadow-sm">
+            <button type="button" wire:click="tool('extrude')" class="rounded-none rounded-l-md btn btn-block btn-base btn-outline">Extrude</button>
+            <button type="button" wire:click="tool('retract')" class="-ml-px rounded-none btn btn-base btn-block btn-outline rounded-r-md">Retract</button>
+        </div>
+        <h2 class="mt-4 mb-4 text-lg text-center text-gray-900 dark:text-gray-200">Hotend</h2>
+        <form wire:submit.prevent="tool('temperature')" class="inline-flex">
+            <x-form.input type="number" class="rounded-r-none" wire:model="temperature" />
+            <button type="submit" class="-ml-px rounded-none btn btn-base btn-outline rounded-r-md">Set</button>
+        </div>
+    </div>
 </div>
