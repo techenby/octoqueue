@@ -37,9 +37,14 @@ class Printer extends Model
         return $this->belongsTo(Team::class);
     }
 
+    public function getClientAttribute()
+    {
+        return (new OctoPrint($this->url, $this->api_key));
+    }
+
     public function getHardwareStateAttribute()
     {
-        return (new OctoPrint($this->url, $this->api_key))->printer();
+        return $this->client->printer();
     }
 
     public function getNextJobAttribute()
@@ -65,7 +70,7 @@ class Printer extends Model
     public function getStatusAttribute()
     {
         try {
-            return (new OctoPrint($this->url, $this->api_key))->state();
+            return $this->client->state();
         } catch (Exception $e) {
             return 'Connection Error';
         }
@@ -78,26 +83,26 @@ class Printer extends Model
 
     public function cancel()
     {
-        return (new OctoPrint($this->url, $this->api_key))->cancel();
+        return $this->client->cancel();
     }
 
     public function files()
     {
-        return (new OctoPrint($this->url, $this->api_key))->files();
+        return $this->client->files();
     }
 
     public function file($path, $location = 'local')
     {
-        return (new OctoPrint($this->url, $this->api_key))->file($location, $path);
+        return $this->client->file($location, $path);
     }
 
     public function printFile($file)
     {
-        return (new OctoPrint($this->url, $this->api_key))->selectFile('local', $file)->start();
+        return $this->client->selectFile('local', $file)->start();
     }
 
     public function upload($path, $contents, $location = 'local')
     {
-        return (new OctoPrint($this->url, $this->api_key))->uploadFile($location, $path, $contents);
+        return $this->client->uploadFile($location, $path, $contents);
     }
 }

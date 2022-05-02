@@ -6121,16 +6121,16 @@
         },
         {
             "name": "techenby/octoprint-sdk",
-            "version": "1.2.1",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/techenby/octoprint-sdk.git",
-                "reference": "1735c0f208074ee8d7884b9f8c1e6494c332ddc4"
+                "reference": "8befb6b7dafad41c81b916ff60beee01ef790390"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/techenby/octoprint-sdk/zipball/1735c0f208074ee8d7884b9f8c1e6494c332ddc4",
-                "reference": "1735c0f208074ee8d7884b9f8c1e6494c332ddc4",
+                "url": "https://api.github.com/repos/techenby/octoprint-sdk/zipball/8befb6b7dafad41c81b916ff60beee01ef790390",
+                "reference": "8befb6b7dafad41c81b916ff60beee01ef790390",
                 "shasum": ""
             },
             "require": {
@@ -6168,7 +6168,7 @@
                 "issues": "https://github.com/techenby/octoprint-sdk/issues",
                 "source": "https://github.com/techenby/octoprint-sdk"
             },
-            "time": "2022-05-01T22:45:50+00:00"
+            "time": "2022-05-02T04:34:37+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",

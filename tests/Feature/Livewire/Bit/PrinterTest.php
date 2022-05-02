@@ -3,7 +3,7 @@
 namespace Tests\Feature\Livewire\Bit;
 
 use App\Http\Livewire\Bit\Printer as Component;
-use App\Models\Printer as Printer;
+use App\Models\Printer;
 use App\Models\PrintJob;
 use App\Models\Spool;
 use App\Models\User;
@@ -19,7 +19,7 @@ class PrinterTest extends TestCase
     public function the_component_can_render()
     {
         $user = User::factory()->withPersonalTeam()->create();
-        $printer = Printer::factory()->create(['team_id' => $user->currentTeam->id]);
+        $printer = Printer::factory()->for($user->currentTeam)->create();
 
         Livewire::actingAs($user)
             ->test(Component::class, ['printer' => $printer])
@@ -37,6 +37,30 @@ class PrinterTest extends TestCase
         Livewire::actingAs($user)
             ->test(Component::class, ['printer' => $printer])
             ->assertStatus(200)
+            ->set('tab', 'next-job')
             ->assertSee('Coaster');
+    }
+
+    public function can_home_axis()
+    {
+        $user = User::factory()->withPersonalTeam()->create();
+        $printer = Printer::factory()->for($user->currentTeam)->create();
+
+        Livewire::actingAs($user)
+            ->test(Component::class, ['printer' => $printer])
+            ->call('home', 'xy')
+            ->assertStatus(200);
+    }
+
+    /** @test */
+    public function can_jog_axis()
+    {
+        $user = User::factory()->withPersonalTeam()->create();
+        $printer = Printer::factory()->for($user->currentTeam)->create();
+
+        Livewire::actingAs($user)
+            ->test(Component::class, ['printer' => $printer])
+            ->call('jog', ['x', '-'])
+            ->assertStatus(200);
     }
 }

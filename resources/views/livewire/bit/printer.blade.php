@@ -29,17 +29,23 @@
         </div>
         <img id="{{ $printer->id }}-webcam'" src="{{ $printer->webcam }}" />
     </div>
-    @if ($currentJob)
-    <div class="px-4 py-5 space-y-2 text-gray-700 sm:px-6 dark:text-gray-400">
-        <p>Current Job: <span class="text-gray-900 dark:text-gray-200">{{ $currentJob->name }}</span></p>
-        <p>Started: <x-date :date="$currentJob->started_at" diff class="text-gray-900 dark:text-gray-200" /></p>
-        <p>Progress: <span class="text-gray-900 dark:text-gray-200">{{ round($currentJobStatus?->progress['completion']) }}%</span></p>
+    <div>
+        <div>
+            <div class="sm:hidden">
+                <label for="tabs" class="sr-only">Select a tab</label>
+                <x-form.select wire:model="tab" id="tabs" :options="$options"/>
+            </div>
+            <div class="hidden sm:block">
+                <nav class="relative z-0 flex divide-x divide-gray-200 shadow dark:border-b dark:border-gray-700 dark:divide-gray-700" aria-label="Tabs">
+                    @foreach ($options as $key => $option)
+                    <button type="button" wire:click="$set('tab', '{{ $key }}')" class="relative flex-1 min-w-0 px-4 py-4 overflow-hidden text-sm font-medium text-center bg-white dark:bg-gray-800 group hover:bg-gray-50 dark:hover:bg-gray-850 {{ $key === $tab ? 'text-gray-900 dark:text-gray-200' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300' }} focus:z-10">
+                        <span>{{ $option }}</span>
+                        <span aria-hidden="true" class="{{ $key === $tab ? 'bg-blue-500' : 'bg-transparent' }} absolute inset-x-0 bottom-0 h-0.5"></span>
+                    </button>
+                    @endforeach
+                </nav>
+            </div>
+        </div>
+        @include('livewire.bit.' . $tab)
     </div>
-    @endif
-    @if ($nextJob)
-    <div class="flex items-center justify-between px-4 py-5 space-y-2 text-gray-700 sm:px-6 dark:text-gray-400">
-        <p>Next Job: <span class="text-gray-900 dark:text-gray-200">{{ $nextJob->name }}</span></p>
-        <x-jet-button type="button" wire:click="print" :disabled="$printer->status === 'Printing'">Print</x-jet-button>
-    </div>
-    @endif
 </div>
