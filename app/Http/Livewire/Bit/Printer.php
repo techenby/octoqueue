@@ -14,7 +14,7 @@ class Printer extends Component
     public $options = [
         'current-job' => 'Current Job',
         'next-job' => 'Next Job',
-        'controls' => 'Controls'
+        'controls' => 'Controls',
     ];
 
     public $amount = 10;
@@ -120,7 +120,7 @@ class Printer extends Component
     public function tool($command)
     {
         if ($command === 'extrude' || $command === 'retract') {
-            if($this->printer->hardwareState->temperature['tool0']['actual'] < 180) {
+            if ($this->printer->hardwareState->temperature['tool0']['actual'] < 180) {
                 return $this->notify('error', 'Hotend is not warmed up, please wait until the temperature is greature than 180.');
             }
 
