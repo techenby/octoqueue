@@ -65,6 +65,6 @@
         <form wire:submit.prevent="tool('temperature')" class="inline-flex">
             <x-form.input type="number" class="rounded-r-none" wire:model="temperature" />
             <button type="submit" class="-ml-px rounded-none btn btn-base btn-outline rounded-r-md">Set</button>
-        </div>
+        </form>
     </div>
 </div>
