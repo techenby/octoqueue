@@ -4,7 +4,7 @@ OctoQueue is a wrapper for OctoPrint, adds the ability to connect multiple print
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within OctoQueue, please send an e-mail to Taylor Otwell via [hi@andymnewhouse.me](mailto:hi@andymnewhouse.me). All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within OctoQueue, please send an e-mail to Andy Newhouse via [hi@andymnewhouse.me](mailto:hi@andymnewhouse.me). All security vulnerabilities will be promptly addressed.
 
 ## License
 
