@@ -18,10 +18,15 @@ class Printer extends Component
     ];
 
     public $amount = 10;
-    public $tab = 'controls';
+    public $tab;
     public $temperature;
 
     protected $listeners = ['refresh' => '$refresh'];
+
+    public function mount()
+    {
+        $this->determineTab();
+    }
 
     public function render()
     {
@@ -131,5 +136,10 @@ class Printer extends Component
         } else {
             $this->notify('error', 'Could not find command for: ' . $command);
         }
+    }
+
+    private function determineTab()
+    {
+        $this->tab = $this->printer->status === 'Printing' ? 'current-job' : 'next-job';
     }
 }
