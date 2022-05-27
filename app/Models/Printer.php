@@ -44,7 +44,9 @@ class Printer extends Model
 
     public function getHardwareStateAttribute()
     {
-        return $this->client->printer();
+        if ($this->status === 'Operational') {
+            return $this->client->printer();
+        }
     }
 
     public function getNextJobAttribute()
