@@ -32,6 +32,6 @@ class FormTest extends TestCase
             ->set('printer.url', 'http://octoprint-bad.local')
             ->set('printer.api_key', 'ABC123DEF456')
             ->call('save')
-            ->assertEmitted('notify');
+            ->assertRedirect('/printers');
     }
 }
