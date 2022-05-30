@@ -27,6 +27,17 @@
 
                     <x-jet-input-error for="unit" class="mt-2" />
                 </div>
+
+                <div class="col-span-6 sm:col-span-4">
+                    <x-jet-label for="welcome" value="{{ __('Show Welcome Help on Dashboard') }}" />
+
+                    <div class="flex mt-1 space-x-4">
+                        <x-form.radio id="welcome-yes" name="welcome" wire:model.defer="team.settings.welcome" value="1" label="Yes" />
+                        <x-form.radio id="welcome-no" name="welcome" wire:model.defer="team.settings.welcome" value="0" label="No" />
+                    </div>
+
+                    <x-jet-input-error for="welcome" class="mt-2" />
+                </div>
             </x-slot>
 
             <x-slot name="actions">

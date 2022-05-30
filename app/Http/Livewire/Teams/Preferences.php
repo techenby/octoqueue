@@ -12,6 +12,7 @@ class Preferences extends Component
     protected $rules = [
         'team.settings.currency' => ['nullable'],
         'team.settings.unit' => ['nullable'],
+        'team.settings.welcome' => ['nullable', 'boolean'],
     ];
 
     public function render()
