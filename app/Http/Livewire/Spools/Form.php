@@ -42,7 +42,9 @@ class Form extends Component
 
     public function getMaterialsProperty()
     {
-        return array_keys((new Calculator())->materials);
+        return collect((new Calculator())->materials)
+            ->mapWithKeys(fn($item, $key) => [$key => $key])
+            ->toArray();
     }
 
     public function save()

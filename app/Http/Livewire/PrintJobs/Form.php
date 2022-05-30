@@ -51,7 +51,11 @@ class Form extends Component
 
     public function getColorsProperty()
     {
-        return Spool::forCurrentTeam()->select('color', 'color_hex')->distinct()->get()->pluck('color', 'color_hex');
+        return Spool::forCurrentTeam()
+            ->select('color', 'color_hex')
+            ->distinct()
+            ->get()
+            ->pluck('color', 'color_hex');
     }
 
     public function getPrintersProperty()
@@ -83,6 +87,9 @@ class Form extends Component
         $this->validate();
         $this->processing = true;
 
+        if ($this->job->color_hex === '') {
+            $this->job->color_hex = null;
+        }
         $this->job->team_id = auth()->user()->currentTeam->id;
         $this->job->user_id = auth()->id();
         $this->job->files = $this->files;
