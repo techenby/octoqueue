@@ -29,7 +29,7 @@
 
         <div class="col-span-6 sm:col-span-3">
             <x-jet-label for="material" value="{{ __('Material') }}" />
-            <x-form.select id="material" type="text" class="block w-full mt-1" wire:model="spool.material" :options="$materials" />
+            <x-form.select id="material" type="text" class="block w-full mt-1" wire:model="spool.material" placeholder="Select material" :options="$materials" />
             <x-jet-input-error for="spool.material" class="mt-2" />
         </div>
 
