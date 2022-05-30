@@ -25,6 +25,7 @@
             <div class="col-span-6 space-y-4">
                 @foreach ($printers as $printer)
                     <x-jet-label class="mb-1" value="{{ __('File for') }} {{ $printer->name }}" />
+                    @if(isUrlAccessible($printer->url))
                     <div class="border border-gray-300 rounded-md dark:border-gray-700">
                         <div class="relative p-1">
                             <x-form.label for="path" :value="__('Path')" sr-only />
@@ -35,6 +36,9 @@
                             @include('livewire.print-jobs.files.loop', ['files' => $printer->files()])
                         </div>
                     </div>
+                    @else
+                    <p class="text-sm italic text-gray-700 dark:text-gray-400">The printer is not currently avilable, try to create jobs for this printer later.</p>
+                    @endif
                 @endforeach
             </div>
 
