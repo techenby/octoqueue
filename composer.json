@@ -1,10 +1,10 @@
 {
-    "name": "laravel/laravel",
+    "name": "techenby/octoqueue",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "OctoQueue, a printer farm manager.",
     "keywords": [
-        "framework",
-        "laravel"
+        "octoprint",
+        "octoqueue"
     ],
     "license": "MIT",
     "require": {
