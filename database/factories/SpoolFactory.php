@@ -14,9 +14,11 @@ class SpoolFactory extends Factory
         return [
             'brand' => 'Inland',
             'cost' => 17.95,
+            'color_hex' => '#ffffff',
+            'color' => 'White',
             'material' => 'PLA',
             'diameter' => 1.75,
-            'weights' => '{}',
+            'weights' => [["weight" => "1200", "timestamp" => now()]],
         ];
     }
 }
