@@ -10,10 +10,10 @@ if (! function_exists('isUrlAccessible')) {
 
         //initialize curl
         $curlInit = curl_init($url);
-        curl_setopt($curlInit,CURLOPT_CONNECTTIMEOUT,10);
-        curl_setopt($curlInit,CURLOPT_HEADER,true);
-        curl_setopt($curlInit,CURLOPT_NOBODY,true);
-        curl_setopt($curlInit,CURLOPT_RETURNTRANSFER,true);
+        curl_setopt($curlInit, CURLOPT_CONNECTTIMEOUT, 10);
+        curl_setopt($curlInit, CURLOPT_HEADER, true);
+        curl_setopt($curlInit, CURLOPT_NOBODY, true);
+        curl_setopt($curlInit, CURLOPT_RETURNTRANSFER, true);
 
         //get answer
         $response = curl_exec($curlInit);

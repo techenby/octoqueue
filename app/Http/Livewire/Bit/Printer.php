@@ -43,7 +43,8 @@ class Printer extends Component
             ]);
     }
 
-    public function getIsAccessibleProperty() {
+    public function getIsAccessibleProperty()
+    {
         if ($this->accessible === null) {
             $this->accessible = isUrlAccessible($this->printer->url);
         }
@@ -135,7 +136,7 @@ class Printer extends Component
 
     public function load()
     {
-        if($this->isAccessible) {
+        if ($this->isAccessible) {
             $this->loaded = true;
         }
     }
