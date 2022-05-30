@@ -25,7 +25,7 @@
             <div class="col-span-6 space-y-4">
                 @foreach ($printers as $printer)
                     <x-jet-label class="mb-1" value="{{ __('File for') }} {{ $printer->name }}" />
-                    @if(isUrlAccessible($printer->url))
+                    @if (isUrlAccessible($printer->url))
                     <div class="border border-gray-300 rounded-md dark:border-gray-700">
                         <div class="relative p-1">
                             <x-form.label for="path" :value="__('Path')" sr-only />
