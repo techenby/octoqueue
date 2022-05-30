@@ -12,7 +12,7 @@
 
             <div class="col-span-6 sm:col-span-4">
                 <x-jet-label for="color" value="{{ __('Color') }}" />
-                <x-form.select id="color" class="block w-full mt-1" placeholder="Select Color" wire:model="job.color_hex" :options="$colors" />
+                <x-form.select id="color" class="block w-full mt-1" placeholder="Any Color" wire:model="job.color_hex" :options="$colors" />
                 <x-jet-input-error for="job.color" class="mt-2" />
             </div>
 
