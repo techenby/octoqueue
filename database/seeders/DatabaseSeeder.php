@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Printer;
-use App\Models\PrintJob;
+use App\Models\PrintJobType;
 use App\Models\Spool;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         $user = User::factory()->withPersonalTeam('Newest Newhouse')->create(['name' => 'Andy Newhouse', 'email' => 'hi@andymnewhouse.me']);
         $team = $user->currentTeam;
 
-        PrintJob::factory()->create(['name' => 'Fun']);
+        PrintJobType::factory()->for($team)->create(['name' => 'Fun']);
 
         Printer::factory()
             ->for($team)
