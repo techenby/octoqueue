@@ -27,6 +27,15 @@ class Printer extends Model
         return $this->hasMany(PrintJob::class);
     }
 
+    public function nextJob()
+    {
+        return $this->hasOne(PrintJob::class)
+            ->where('color_hex', $this->spool->color_hex ?? '#')
+            ->whereNull('started_at')
+            ->whereNull('completed_at')
+            ->orderBy('job_type_id');
+    }
+
     public function spool()
     {
         return $this->belongsTo(Spool::class);
@@ -49,21 +58,6 @@ class Printer extends Model
         }
     }
 
-    public function getNextJobAttribute()
-    {
-        if (! $this->spool_id) {
-            return;
-        }
-
-        return PrintJob::query()
-            ->where('color_hex', $this->spool->color_hex)
-            ->whereNull('started_at')
-            ->whereNull('completed_at')
-            ->orderBy('job_type_id')
-            ->limit(1)
-            ->first();
-    }
-
     public function getSlugAttribute()
     {
         return strtolower($this->name);
@@ -76,6 +70,11 @@ class Printer extends Model
         } catch (Exception $e) {
             return 'Connection Error';
         }
+    }
+
+    public function getScreenshotAttribute()
+    {
+        return $this->url . '/webcam/?action=snapshot';
     }
 
     public function getWebcamAttribute()
