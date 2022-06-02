@@ -4,8 +4,8 @@ namespace App\Traits;
 
 trait ForTeam
 {
-    public function scopeForCurrentTeam($query)
+    public function scopeForCurrentTeam($query, $team = null)
     {
-        return $query->where('team_id', auth()->user()->currentTeam->id);
+        return $query->where('team_id', $team->id ?? auth()->user()->currentTeam->id);
     }
 }
