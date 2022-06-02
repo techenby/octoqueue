@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PrintJob;
 use Illuminate\Support\Arr;
 
 class DashboardController extends Controller

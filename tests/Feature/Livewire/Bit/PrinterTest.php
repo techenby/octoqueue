@@ -26,21 +26,6 @@ class PrinterTest extends TestCase
             ->assertStatus(200);
     }
 
-    /** @test */
-    public function can_view_next_print()
-    {
-        $user = User::factory()->withPersonalTeam()->create();
-        $spool = Spool::factory()->for($user->currentTeam)->create(['color_hex' => '#ffffff']);
-        $printer = Printer::factory()->for($user->currentTeam)->for($spool)->create();
-        PrintJob::factory()->for($printer)->for($user->currentTeam)->create(['name' => 'Coaster', 'color_hex' => '#ffffff']);
-
-        Livewire::actingAs($user)
-            ->test(Component::class, ['printer' => $printer])
-            ->assertStatus(200)
-            ->set('tab', 'next-job')
-            ->assertSee('Coaster');
-    }
-
     public function can_home_axis()
     {
         $user = User::factory()->withPersonalTeam()->create();

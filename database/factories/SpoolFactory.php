@@ -18,7 +18,7 @@ class SpoolFactory extends Factory
             'color' => 'White',
             'material' => 'PLA',
             'diameter' => 1.75,
-            'weights' => [["weight" => "1200", "timestamp" => now()]],
+            'weights' => [['weight' => '1200', 'timestamp' => now()]],
         ];
     }
 }
