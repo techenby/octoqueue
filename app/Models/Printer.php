@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Cache;
 use TechEnby\OctoPrint\OctoPrint;
 
 class Printer extends Model
@@ -89,7 +90,9 @@ class Printer extends Model
 
     public function files()
     {
-        return $this->client->files();
+        return Cache::remember("printer-{$this->id}-files", 60*15, function () {
+            return $this->client->files();
+        });
     }
 
     public function file($path, $location = 'local')
