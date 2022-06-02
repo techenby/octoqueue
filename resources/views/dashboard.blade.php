@@ -1,5 +1,5 @@
 <x-app-layout>
-    @isset ($completed)
+    @if ($completed !== [])
         <x-jet-welcome :completed="$completed" :team="$team" />
     @endif
 
