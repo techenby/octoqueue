@@ -23,6 +23,7 @@ class DashboardController extends Controller
         return view('dashboard', [
             'completed' => $completed ?? [],
             'printers' => $currentTeam->printers,
+            'team' => $currentTeam,
         ]);
     }
 }
