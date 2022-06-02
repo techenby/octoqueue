@@ -90,7 +90,7 @@ class Printer extends Model
 
     public function files()
     {
-        return Cache::remember("printer-{$this->id}-files", 60*15, function () {
+        return Cache::remember("printer-{$this->id}-files", 60 * 15, function () {
             return $this->client->files();
         });
     }
