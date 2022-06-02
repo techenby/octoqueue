@@ -4,8 +4,6 @@ namespace Tests\Feature\Livewire\Bit;
 
 use App\Http\Livewire\Bit\Printer as Component;
 use App\Models\Printer;
-use App\Models\PrintJob;
-use App\Models\Spool;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
