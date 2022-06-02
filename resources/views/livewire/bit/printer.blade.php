@@ -16,7 +16,7 @@
     </div>
     <div class="relative lg:min-h-96">
         @include('livewire.bit.temps')
-        <img id="{{ $printer->id }}-webcam'" src="{{ $printer->screenshot }}" />
+        <img id="{{ $printer->id }}-webcam'" src="{{ $printer->webcam }}" />
     </div>
     @include('livewire.bit.tabs')
 </div>
