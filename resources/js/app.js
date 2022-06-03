@@ -1,7 +1,12 @@
-require('./bootstrap');
+require('./bootstrap')
 
-import Alpine from 'alpinejs';
+import Alpine from 'alpinejs'
+import tippy from 'tippy.js'
+import 'tippy.js/dist/tippy.css';
 
-window.Alpine = Alpine;
+Alpine.directive('tooltip', (el, { expression }) => {
+    tippy(el, { content: expression })
+})
 
-Alpine.start();
+window.Alpine = Alpine
+Alpine.start()
