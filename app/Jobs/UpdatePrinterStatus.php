@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Jobs;
+
+use App\Models\Printer;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+
+class UpdatePrinterStatus implements ShouldQueue
+{
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    public function handle()
+    {
+        Printer::chunk(100, function ($printers) {
+            foreach ($printers as $printer) {
+                $printer->update([
+                    'status' => $printer->client->state()
+                ]);
+            }
+        });
+    }
+}

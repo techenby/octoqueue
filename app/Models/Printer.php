@@ -64,15 +64,6 @@ class Printer extends Model
         return strtolower($this->name);
     }
 
-    public function getStatusAttribute()
-    {
-        try {
-            return $this->client->state();
-        } catch (Exception $e) {
-            return 'Connection Error';
-        }
-    }
-
     public function getScreenshotAttribute()
     {
         return $this->url . '/webcam/?action=snapshot';
