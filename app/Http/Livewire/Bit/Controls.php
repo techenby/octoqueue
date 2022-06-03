@@ -14,6 +14,7 @@ class Controls extends Component
     public function home($axis)
     {
         $this->printer->client->home($axis);
+        $this->emit('pip', $this->printer->id);
     }
 
     public function jog($axis, $direction = '')
@@ -27,6 +28,8 @@ class Controls extends Component
         } elseif ($axis === 'z') {
             $this->printer->client->jog(0, 0, (int) $value);
         }
+
+        $this->emit('pip', $this->printer->id);
     }
 
     public function tool($command)
@@ -37,6 +40,7 @@ class Controls extends Component
             }
 
             $this->printer->client->$command($this->amount);
+            $this->emit('pip', $this->printer->id);
         } elseif ($command === 'temperature') {
             $this->printer->client->targetToolTemps(['tool0' => (int) $this->temperature]);
             $this->reset('temperature');

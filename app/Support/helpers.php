@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Str;
+
 if (! function_exists('isUrlAccessible')) {
     function isUrlAccessible($url)
     {
@@ -43,5 +45,12 @@ if (! function_exists('stripeUrl')) {
         }
 
         return 'https://dashboard.stripe.com/test/search?query=' . $text;
+    }
+}
+
+if (! function_exists('str_slug')) {
+    function str_slug($string)
+    {
+        return Str::of($string)->slug();
     }
 }
