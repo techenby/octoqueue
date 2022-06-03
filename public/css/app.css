@@ -3315,11 +3315,6 @@ select {
     border-color: rgb(168 162 158 / var(--tw-border-opacity));
   }
 
-  .dark\:border-gray-200 {
-    --tw-border-opacity: 1;
-    border-color: rgb(231 229 228 / var(--tw-border-opacity));
-  }
-
   .dark\:bg-gray-900\/50 {
     background-color: rgb(28 25 23 / 0.5);
   }
@@ -4175,6 +4170,11 @@ select {
   .md\:px-6 {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+  }
+
+  .md\:px-0 {
+    padding-left: 0px;
+    padding-right: 0px;
   }
 
   .md\:text-3xl {
