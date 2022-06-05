@@ -39,7 +39,7 @@
                                 <p>Next Job: <span class="text-gray-900 dark:text-gray-200">{{ $printer->nextJob->name ?? 'None' }}</span></p>
                             </x-slot>
                         </x-ui.card.header>
-                        @include('dashboard.' . str_slug($status), ['printer' => $printer])
+                        @include('dashboard.' . slugify($status), ['printer' => $printer])
                     </x-ui.card>
                 @endforeach
             </div>

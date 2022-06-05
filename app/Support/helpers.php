@@ -48,8 +48,8 @@ if (! function_exists('stripeUrl')) {
     }
 }
 
-if (! function_exists('str_slug')) {
-    function str_slug($string)
+if (! function_exists('slugify')) {
+    function slugify($string)
     {
         return Str::of($string)->slug();
     }
