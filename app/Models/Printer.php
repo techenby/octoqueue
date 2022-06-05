@@ -29,14 +29,14 @@ class Printer extends Model
 
     public function nextJob()
     {
-        return $this->hasOne(PrintJob::class)
-            ->where(function ($query) {
-                $query->where('color_hex', $this->spool->color_hex)
-                    ->orWhereNull('color_hex');
-            })
-            ->whereNull('started_at')
-            ->whereNull('completed_at')
-            ->orderBy('job_type_id');
+            return $this->hasOne(PrintJob::class)
+                ->where(function ($query) {
+                    $query->when($this->spool, fn($query) => $query->where('color_hex', $this->spool->color_hex))
+                        ->orWhereNull('color_hex');
+                })
+                ->whereNull('started_at')
+                ->whereNull('completed_at')
+                ->orderBy('job_type_id');
     }
 
     public function spool()

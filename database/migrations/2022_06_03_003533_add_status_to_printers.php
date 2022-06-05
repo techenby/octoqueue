@@ -9,7 +9,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('printers', function (Blueprint $table) {
-            $table->string('status')->after('api_key');
+            $table->string('status')->nullable()->after('api_key');
         });
     }
 };
