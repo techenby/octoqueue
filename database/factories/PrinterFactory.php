@@ -18,6 +18,7 @@ class PrinterFactory extends Factory
             'model' => 'Ender 3',
             'url' => 'http://octoprint.local',
             'api_key' => 'ABC123DEF456',
+            'status' => 'Operational',
         ];
     }
 }
