@@ -9,7 +9,7 @@
 
     <div>
         @if ($right)
-            {{ $right}}
+            {{ $right }}
         @else
         {{ $slot }}
         @endif
