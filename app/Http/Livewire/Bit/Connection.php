@@ -12,7 +12,8 @@ class Connection extends Component
     public $form;
     public $options;
 
-    public function mount() {
+    public function mount()
+    {
         $connection = $this->printer->client->connection();
         $this->form = $connection->current;
         $this->options = $connection->options;

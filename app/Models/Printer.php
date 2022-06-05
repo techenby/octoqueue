@@ -31,7 +31,7 @@ class Printer extends Model
     public function nextJob()
     {
         return $this->hasOne(PrintJob::class)
-            ->where(function($query) {
+            ->where(function ($query) {
                 $query->where('color_hex', $this->spool->color_hex)
                     ->orWhereNull('color_hex');
             })
