@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PrintJob;
 use Illuminate\Support\Arr;
 
 class DashboardController extends Controller
@@ -17,11 +18,18 @@ class DashboardController extends Controller
                 'has_jobs' => $currentTeam->jobs()->count() > 0,
                 'has_types' => $currentTeam->jobTypes()->count() > 0,
             ];
+        } else {
+            $metrics = [
+                'queued' => PrintJob::forCurrentTeam($currentTeam)->whereNull('started_at')->count(),
+                'completed' => PrintJob::forCurrentTeam($currentTeam)->whereNotNull('completed_at')->count(),
+                'filament' => PrintJob::forCurrentTeam($currentTeam)->whereNotNull('completed_at')->sum('filament_used'),
+            ];
         }
 
         return view('dashboard', [
             'completed' => $completed ?? [],
-            'printers' => $currentTeam->printers,
+            'metrics' => $metrics ?? [],
+            'statuses' => $currentTeam->printers->groupBy('status'),
             'team' => $currentTeam,
         ]);
     }

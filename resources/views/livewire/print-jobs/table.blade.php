@@ -64,7 +64,12 @@
                 <x-table.th muted>{{ $job->printer->name ?? 'Any' }}</x-table.td>
                 <x-table.td muted>{{ $job->user->name ?? '-' }}</x-table.td>
                 <x-table.td>
-                    <div class="w-4 h-4 border border-gray-300 rounded dark:border-gray-700" style="background:{{ $job->color_hex }}">
+                    <div
+                        x-data
+                        x-tooltip="{{ $job->color_hex ?? 'Any' }}"
+                        class="w-4 h-4 border border-gray-300 rounded dark:border-gray-700"
+                        style="background: {{ $job->color_hex ?? 'linear-gradient(135deg,rgba(255, 0, 0, 1) 0%,rgba(208, 222, 33, 1) 20%,rgba(63, 218, 216, 1) 40%,rgba(28, 127, 238, 1) 60%,rgba(186, 12, 248, 1) 80%,rgba(255, 0, 0, 1) 100%)' }}"
+                    >
                     </div>
                 </x-table.td>
                 <x-table.td muted><x-date :date="$job->started_at" format="M jS Y" /></x-table.td>

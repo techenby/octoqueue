@@ -53,6 +53,7 @@
         </main>
     </div>
 
+    @livewire('bit.pip')
     @stack('modals')
 
     @livewireScripts

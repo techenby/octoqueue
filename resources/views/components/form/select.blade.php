@@ -12,7 +12,7 @@
 
     @if ($options)
         @foreach ($options as $key => $option)
-        <option value="{{ $option->id ?? $key }}">{{ $option->name ?? $option }}</option>
+        <option value="{{ $option->id ?? $option['id'] ?? $key }}">{{ $option->name ?? $option['name'] ?? $option }}</option>
         @endforeach
     @endif
 </select>

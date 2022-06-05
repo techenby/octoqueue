@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Traits\ForTeam;
-use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -30,11 +29,14 @@ class Printer extends Model
 
     public function nextJob()
     {
-        return $this->hasOne(PrintJob::class)
-            ->where('color_hex', $this->spool->color_hex ?? '#')
-            ->whereNull('started_at')
-            ->whereNull('completed_at')
-            ->orderBy('job_type_id');
+            return $this->hasOne(PrintJob::class)
+                ->where(function ($query) {
+                    $query->when($this->spool, fn($query) => $query->where('color_hex', $this->spool->color_hex))
+                        ->orWhereNull('color_hex');
+                })
+                ->whereNull('started_at')
+                ->whereNull('completed_at')
+                ->orderBy('job_type_id');
     }
 
     public function spool()
@@ -62,15 +64,6 @@ class Printer extends Model
     public function getSlugAttribute()
     {
         return strtolower($this->name);
-    }
-
-    public function getStatusAttribute()
-    {
-        try {
-            return $this->client->state();
-        } catch (Exception $e) {
-            return 'Connection Error';
-        }
     }
 
     public function getScreenshotAttribute()
