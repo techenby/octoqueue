@@ -75,11 +75,23 @@
                 <x-table.td muted><x-date :date="$job->started_at" format="M jS Y" /></x-table.td>
                 <x-table.td muted><x-date :from="$job->started_at" :to="$job->completed_at" /></x-table.td>
                 <x-table.td muted>{{ $job->completed ? $job->filament_used : '' }}</x-table.td>
-                <x-table.td class="space-x-2">
-                    <x-table.link wire:click="print({{ $job->id }})" color="green" :disabled="$job->started">Print<span class="sr-only" > {{ $job->name }}</x-table.link>
-                    <x-table.link wire:click="duplicate({{ $job->id }})">Duplicate<span class="sr-only" > {{ $job->name }}</x-table.link>
-                    <x-table.link :disabled="$job->started">Edit<span class="sr-only" > {{ $job->name }}</x-table.link>
-                    <x-table.link wire:click="delete({{ $job->id }})" :disabled="$job->started && !$job->completed" danger>Delete<span class="sr-only"> {{ $job->name }}</x-table.link>
+                <x-table.td x-data class="space-x-2">
+                    <x-table.link x-tooltip="Print" wire:click="print({{ $job->id }})" color="green" :disabled="$job->started">
+                        <x-heroicon-o-printer class="w-4 h-4" />
+                        <span class="sr-only">Print {{ $job->name }}</span>
+                    </x-table.link>
+                    <x-table.link x-tooltip="Duplicate" wire:click="duplicate({{ $job->id }})">
+                        <x-heroicon-o-duplicate class="w-4 h-4" />
+                        <span class="sr-only">Duplicate {{ $job->name }}</span>
+                    </x-table.link>
+                    <x-table.link x-tooltip="Edit" :disabled="$job->started">
+                        <x-heroicon-o-pencil class="w-4 h-4" />
+                        <span class="sr-only">Edit {{ $job->name }}</span>
+                    </x-table.link>
+                    <x-table.link x-tooltip="Delete" wire:click="delete({{ $job->id }})" :disabled="$job->started && !$job->completed" danger>
+                        <x-heroicon-o-trash class="w-4 h-4" />
+                        <span class="sr-only">Delete {{ $job->name }}
+                    </x-table.link>
                 </x-table.td>
             </tr>
             @empty
