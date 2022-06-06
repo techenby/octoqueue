@@ -62,34 +62,45 @@ class Table extends Component
     public function getRowsProperty()
     {
         return PrintJob::forCurrentTeam()
-            ->when(in_array('started', $this->filters['status'])
-                && !in_array('to-print', $this->filters['status'])
-                && !in_array('completed', $this->filters['status']),
-                fn($query) => $query->whereNotNull('started_at')->whereNull('completed_at'))
-            ->when(!in_array('started', $this->filters['status'])
+            ->when(
+                in_array('started', $this->filters['status'])
+                && ! in_array('to-print', $this->filters['status'])
+                && ! in_array('completed', $this->filters['status']),
+                fn($query) => $query->whereNotNull('started_at')->whereNull('completed_at')
+            )
+            ->when(
+                ! in_array('started', $this->filters['status'])
                 && in_array('to-print', $this->filters['status'])
-                && !in_array('completed', $this->filters['status']),
-                fn($query) => $query->whereNull('started_at')->whereNull('completed_at'))
-            ->when(!in_array('started', $this->filters['status'])
-                && !in_array('to-print', $this->filters['status'])
+                && ! in_array('completed', $this->filters['status']),
+                fn($query) => $query->whereNull('started_at')->whereNull('completed_at')
+            )
+            ->when(
+                ! in_array('started', $this->filters['status'])
+                && ! in_array('to-print', $this->filters['status'])
                 && in_array('completed', $this->filters['status']),
-                fn($query) => $query->whereNotNull('started_at')->whereNotNull('completed_at'))
-            ->when(in_array('started', $this->filters['status'])
+                fn($query) => $query->whereNotNull('started_at')->whereNotNull('completed_at')
+            )
+            ->when(
+                in_array('started', $this->filters['status'])
                 && in_array('to-print', $this->filters['status'])
-                && !in_array('completed', $this->filters['status']),
-                fn($query) => $query->whereNull('completed_at'))
-            ->when(in_array('started', $this->filters['status'])
-                && !in_array('to-print', $this->filters['status'])
+                && ! in_array('completed', $this->filters['status']),
+                fn($query) => $query->whereNull('completed_at')
+            )
+            ->when(
+                in_array('started', $this->filters['status'])
+                && ! in_array('to-print', $this->filters['status'])
                 && in_array('completed', $this->filters['status']),
-                fn($query) => $query->whereNotNull('started_at'))
-            ->when(!in_array('started', $this->filters['status'])
+                fn($query) => $query->whereNotNull('started_at')
+            )
+            ->when(
+                ! in_array('started', $this->filters['status'])
                 && in_array('to-print', $this->filters['status'])
                 && in_array('completed', $this->filters['status']),
-                function($query) {
+                function ($query) {
                     $query->where(fn($query) => $query->whereNull('started_at')->whereNull('completed_at'))
-                        ->orWhere(fn($query) => $query->whereNotNull('started_at')->whereNotNull('completed_at')
-                );
-            })
+                        ->orWhere(fn($query) => $query->whereNotNull('started_at')->whereNotNull('completed_at'));
+                }
+            )
             ->when($this->search, fn($query) => $query
                 ->where('name', 'LIKE', '%' . trim($this->search) . '%'))
             ->orderBy($this->sortField, $this->sortDirection)
