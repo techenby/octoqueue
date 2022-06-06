@@ -18,6 +18,9 @@ class Table extends Component
     use WithPagination;
     use WithSorting;
 
+    public $filters = [
+        'status' => [],
+    ];
     public $perPage = 10;
     public $modalLabel = 'printer_id';
     public $modalType = 'printer_id';
@@ -59,6 +62,45 @@ class Table extends Component
     public function getRowsProperty()
     {
         return PrintJob::forCurrentTeam()
+            ->when(
+                in_array('started', $this->filters['status'])
+                && ! in_array('to-print', $this->filters['status'])
+                && ! in_array('completed', $this->filters['status']),
+                fn($query) => $query->whereNotNull('started_at')->whereNull('completed_at')
+            )
+            ->when(
+                ! in_array('started', $this->filters['status'])
+                && in_array('to-print', $this->filters['status'])
+                && ! in_array('completed', $this->filters['status']),
+                fn($query) => $query->whereNull('started_at')->whereNull('completed_at')
+            )
+            ->when(
+                ! in_array('started', $this->filters['status'])
+                && ! in_array('to-print', $this->filters['status'])
+                && in_array('completed', $this->filters['status']),
+                fn($query) => $query->whereNotNull('started_at')->whereNotNull('completed_at')
+            )
+            ->when(
+                in_array('started', $this->filters['status'])
+                && in_array('to-print', $this->filters['status'])
+                && ! in_array('completed', $this->filters['status']),
+                fn($query) => $query->whereNull('completed_at')
+            )
+            ->when(
+                in_array('started', $this->filters['status'])
+                && ! in_array('to-print', $this->filters['status'])
+                && in_array('completed', $this->filters['status']),
+                fn($query) => $query->whereNotNull('started_at')
+            )
+            ->when(
+                ! in_array('started', $this->filters['status'])
+                && in_array('to-print', $this->filters['status'])
+                && in_array('completed', $this->filters['status']),
+                function ($query) {
+                    $query->where(fn($query) => $query->whereNull('started_at')->whereNull('completed_at'))
+                        ->orWhere(fn($query) => $query->whereNotNull('started_at')->whereNotNull('completed_at'));
+                }
+            )
             ->when($this->search, fn($query) => $query
                 ->where('name', 'LIKE', '%' . trim($this->search) . '%'))
             ->orderBy($this->sortField, $this->sortDirection)
@@ -85,6 +127,11 @@ class Table extends Component
         $this->rows->firstWhere('id', $id)->duplicate();
 
         $this->emit('refresh');
+    }
+
+    public function edit($id)
+    {
+        return redirect()->route('jobs.edit', $id);
     }
 
     public function print($id)
@@ -127,5 +174,14 @@ class Table extends Component
         $this->modalType = $type;
         $this->modalLabel = Str::of($type)->replace('_id', '')->replace('_', ' ')->ucfirst();
         $this->setModal = true;
+    }
+
+    public function toggleStatus($type)
+    {
+        if (in_array($type, $this->filters['status'])) {
+            $this->filters['status'] = array_diff($this->filters['status'], [$type]);
+        } else {
+            $this->filters['status'][] = $type;
+        }
     }
 }
