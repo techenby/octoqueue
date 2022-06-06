@@ -5,7 +5,7 @@
                 <div class="relative inline-flex mt-1 align-middle rounded-md" role="group" aria-label="Checkbox toggle group for filtering status">
                     <x-form.checkbox-group model="filters.status" id="to-print" label="To Print" />
                     <x-form.checkbox-group model="filters.status" id="started" label="Started" />
-                    <x-form.checkbox-group model="filters.status" id="finished" label="Finished" />
+                    <x-form.checkbox-group model="filters.status" id="completed" label="Completed" />
                 </div>
             </div>
         </x-slot:left>
