@@ -15,7 +15,7 @@
             <h2 class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-200">{{ $status }}</h2>
             <div class="grid grid-cols-1 gap-6 px-6 md:grid-cols-2 md:px-0">
                 @foreach ($printers as $printer)
-                    @include('dashboard.' . slugify($status), ['printer' => $printer])
+                    @includeIf('dashboard.' . slugify($status), ['printer' => $printer])
                 @endforeach
             </div>
         </div>
