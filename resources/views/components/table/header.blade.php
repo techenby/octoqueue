@@ -14,7 +14,7 @@
 </div>
 @else
 <div class="md:flex md:justify-between">
-    <div class="flex flex-col space-y-4 md:items-end md:space-x-4 md:flex-row">
+    <div class="flex flex-col space-y-2 md:items-end md:space-x-2 md:space-y-0 md:flex-row">
         <x-form.input class="text-sm" x-on:keydown.slash="this.focus()" wire:model="search" placeholder="Search..." />
         {{ $left }}
     </div>
