@@ -19,7 +19,7 @@ class PrintJobTest extends TestCase
         $user = User::factory()->withPersonalTeam()->create();
         $spool = Spool::factory()->for($user->currentTeam)->create(['material' => 'PLA']);
         $printer = Printer::factory()->for($user->currentTeam)->create();
-        $job = PrintJob::factory()->for($printer)->for($user->currentTeam)->create([
+        $job = PrintJob::factory()->for($printer)->for($user->currentTeam)->started()->create([
             'files' => [$printer->id => 'Testing/leveling-squares.gcode'],
             'spool_id' => $spool->id,
         ]);
