@@ -44,6 +44,7 @@ class TableTest extends TestCase
 
         Livewire::actingAs($user)
             ->test(Table::class)
+            ->set('filters', ['status' => []])
             ->assertSee('Coaster')
             ->call('delete', $job->id)
             ->assertEmitted('refresh');
@@ -67,6 +68,7 @@ class TableTest extends TestCase
 
         Livewire::actingAs($user)
             ->test(Table::class)
+            ->set('filters', ['status' => []])
             ->assertSee('Coaster')
             ->call('duplicate', $job->id)
             ->assertSee(['Coaster', 'Coaster']);
@@ -85,6 +87,7 @@ class TableTest extends TestCase
 
         Livewire::actingAs($user)
             ->test(Table::class)
+            ->set('filters', ['status' => []])
             ->set('selected', [$jobA->id, $jobB->id, $jobC->id])
             ->call('massDelete')
             ->assertEmitted('refresh');
@@ -103,6 +106,7 @@ class TableTest extends TestCase
 
         Livewire::actingAs($user)
             ->test(Table::class)
+            ->set('filters', ['status' => []])
             ->set('selected', [$jobA->id, $jobB->id])
             ->set('setValue', '#ffffff')
             ->call('massSet', 'color_hex')
@@ -124,6 +128,7 @@ class TableTest extends TestCase
 
         Livewire::actingAs($user)
             ->test(Table::class)
+            ->set('filters', ['status' => []])
             ->set('selected', [$jobA->id, $jobB->id])
             ->set('setValue', $printer->id)
             ->call('massSet', 'printer_id')
@@ -145,6 +150,7 @@ class TableTest extends TestCase
 
         Livewire::actingAs($user)
             ->test(Table::class)
+            ->set('filters', ['status' => []])
             ->set('selected', [$jobA->id, $jobB->id])
             ->set('setValue', $jobType->id)
             ->call('massSet', 'job_type_id')
