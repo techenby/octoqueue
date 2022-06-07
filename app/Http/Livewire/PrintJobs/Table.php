@@ -64,44 +64,44 @@ class Table extends Component
         return PrintJob::forCurrentTeam()
             ->when(
                 in_array('started', $this->filters['status'])
-                && ! in_array('to-print', $this->filters['status'])
-                && ! in_array('completed', $this->filters['status']),
-                fn($query) => $query->whereNotNull('started_at')->whereNull('completed_at')
+                    && ! in_array('to-print', $this->filters['status'])
+                    && ! in_array('completed', $this->filters['status']),
+                fn ($query) => $query->whereNotNull('started_at')->whereNull('completed_at')
             )
             ->when(
                 ! in_array('started', $this->filters['status'])
-                && in_array('to-print', $this->filters['status'])
-                && ! in_array('completed', $this->filters['status']),
-                fn($query) => $query->whereNull('started_at')->whereNull('completed_at')
+                    && in_array('to-print', $this->filters['status'])
+                    && ! in_array('completed', $this->filters['status']),
+                fn ($query) => $query->whereNull('started_at')->whereNull('completed_at')
             )
             ->when(
                 ! in_array('started', $this->filters['status'])
-                && ! in_array('to-print', $this->filters['status'])
-                && in_array('completed', $this->filters['status']),
-                fn($query) => $query->whereNotNull('started_at')->whereNotNull('completed_at')
+                    && ! in_array('to-print', $this->filters['status'])
+                    && in_array('completed', $this->filters['status']),
+                fn ($query) => $query->whereNotNull('started_at')->whereNotNull('completed_at')
             )
             ->when(
                 in_array('started', $this->filters['status'])
-                && in_array('to-print', $this->filters['status'])
-                && ! in_array('completed', $this->filters['status']),
-                fn($query) => $query->whereNull('completed_at')
+                    && in_array('to-print', $this->filters['status'])
+                    && ! in_array('completed', $this->filters['status']),
+                fn ($query) => $query->whereNull('completed_at')
             )
             ->when(
                 in_array('started', $this->filters['status'])
-                && ! in_array('to-print', $this->filters['status'])
-                && in_array('completed', $this->filters['status']),
-                fn($query) => $query->whereNotNull('started_at')
+                    && ! in_array('to-print', $this->filters['status'])
+                    && in_array('completed', $this->filters['status']),
+                fn ($query) => $query->whereNotNull('started_at')
             )
             ->when(
                 ! in_array('started', $this->filters['status'])
-                && in_array('to-print', $this->filters['status'])
-                && in_array('completed', $this->filters['status']),
+                    && in_array('to-print', $this->filters['status'])
+                    && in_array('completed', $this->filters['status']),
                 function ($query) {
-                    $query->where(fn($query) => $query->whereNull('started_at')->whereNull('completed_at'))
-                        ->orWhere(fn($query) => $query->whereNotNull('started_at')->whereNotNull('completed_at'));
+                    $query->where(fn ($query) => $query->whereNull('started_at')->whereNull('completed_at'))
+                        ->orWhere(fn ($query) => $query->whereNotNull('started_at')->whereNotNull('completed_at'));
                 }
             )
-            ->when($this->search, fn($query) => $query
+            ->when($this->search, fn ($query) => $query
                 ->where('name', 'LIKE', '%' . trim($this->search) . '%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
@@ -162,10 +162,7 @@ class Table extends Component
             $job->start($printer);
             return $this->notify('success', 'Job Started');
         } catch (\Exception $e) {
-            return $this->notify('exception', "Whoops, looks like there was an issue.\n"
-                . ' Printer: ' . $printer->name . "\n"
-                . ' File: ' . $job->files[$printer->id] . "\n"
-                . ' Error message: ' . json_decode($e->getMessage(), true)['error'] ?? $e->getMessage());
+            return $this->notify('exception', "Whoops, looks like there was an issue.\n" . ' Printer: ' . $printer->name . "\n" . ' File: ' . $job->files[$printer->id] . "\n" . ' Error message: ' . json_decode($e->getMessage(), true)['error'] ?? $e->getMessage());
         }
     }
 
@@ -185,7 +182,7 @@ class Table extends Component
             $modelsWithoutSpool->each(fn ($model) => $model->update(['spool_id' => Spool::forCurrentTeam()->firstWhere('color_hex', $model->color_hex)->id]));
         }
 
-        $models->each(fn($model) => $model->completed());
+        $models->each(fn ($model) => $model->completed());
 
         $this->emit('refresh');
     }
@@ -198,7 +195,7 @@ class Table extends Component
 
         $models = $this->rows->whereIn('id', $this->selected);
 
-        $models->each(fn($model) => $model->update([$column => $this->setValue]));
+        $models->each(fn ($model) => $model->update([$column => $this->setValue]));
 
         $this->emit('refresh');
         $this->resetModal();

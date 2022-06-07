@@ -3,7 +3,7 @@
 <div class="mb-2 bg-white rounded-lg shadow-lg pointer-events-auto w-96" x-data="{ dismissed: false }"
     x-init="
         dismissed = false;
-        @if($notification['type'] !== 'exception')
+        @if ($notification['type'] !== 'exception')
         setTimeout(function(){ dismissed = true; window.livewire.emit('dismiss', {{ $key }}) }, 3000)
         @endif
     "
