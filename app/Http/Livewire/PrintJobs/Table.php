@@ -140,14 +140,32 @@ class Table extends Component
         $job = $this->rows->firstWhere('id', $id);
 
         if ($job->printer_id) {
-            $job->start($job->printer);
+            $printer = $job->printer;
         } else {
-            $printers = Printer::whereIn('id', $job->files->keys())->whereIn('spool_id', $job->availableSpools()->select('id')->pluck('id'))->get();
+            $printers = Printer::whereIn('id', $job->files->keys())
+                ->whereStatus('Operational')
+                ->whereIn('spool_id', $job->availableSpools()->select('id')->pluck('id'))
+                ->get();
 
-            if ($printers->count() === 1) {
-                $job->start($printers->first());
+            if ($printers->isEmpty()) {
+                return $this->notify('error', 'No printer is available and loaded with the required filament.');
             }
-            // dd($printers);
+
+            $printer = $printers->first();
+        }
+
+        if ($printer->status === 'Printing') {
+            return $this->notify('error', $printer->name . ' is already printing');
+        }
+
+        try {
+            $job->start($printer);
+            return $this->notify('success', 'Job Started');
+        } catch (\Exception $e) {
+            return $this->notify('exception', "Whoops, looks like there was an issue.\n"
+                . ' Printer: ' . $printer->name . "\n"
+                . ' File: ' . $job->files[$printer->id] . "\n"
+                . ' Error message: ' . json_decode($e->getMessage(), true)['error'] ?? $e->getMessage());
         }
     }
 

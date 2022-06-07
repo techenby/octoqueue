@@ -96,6 +96,10 @@ class PrintJob extends Model
                 ->addSeconds($data['prints']['last']['printTime']);
         }
 
+        if ($this->color_hex === null) {
+            $this->color_hex = $this->spool->color_hex;
+        }
+
         $this->filament_used = (new Calculator())->lengthToGrams($this->spool->material, $this->spool->diameter, $length);
 
         $this->save();
