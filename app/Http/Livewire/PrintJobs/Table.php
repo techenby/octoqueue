@@ -119,6 +119,7 @@ class Table extends Component
             'change-color' => empty($this->selected),
             'delete' => empty($this->selected),
             'set-printer' => empty($this->selected),
+            'mark-as-completed' => empty($this->selected),
         ];
     }
 
@@ -148,6 +149,27 @@ class Table extends Component
             }
             // dd($printers);
         }
+    }
+
+    public function markAsCompleted($id = null)
+    {
+        $models = $this->rows->whereIn('id', $this->selected);
+
+        if ($models->filter(fn ($job) => $job->printer_id === null)->isNotEmpty()) {
+            return $this->notify('error', 'Please set printer prior to marking as completed');
+        }
+
+        if ($models->filter(fn ($job) => $job->color_hex === null)->isNotEmpty()) {
+            return $this->notify('error', 'Please set color prior to marking as completed');
+        }
+
+        if ($modelsWithoutSpool = $models->filter(fn ($job) => $job->spool_id)) {
+            $modelsWithoutSpool->each(fn ($model) => $model->update(['spool_id' => Spool::forCurrentTeam()->firstWhere('color_hex', $model->color_hex)->id]));
+        }
+
+        $models->each(fn($model) => $model->completed());
+
+        $this->emit('refresh');
     }
 
     public function massSet($column = null)

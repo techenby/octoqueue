@@ -21,6 +21,9 @@
                     <span>Set</span>
                     <x-heroicon-o-printer class="w-4 h-4" /><span class="sr-only">Printer</span>
                 </x-table.action>
+                <x-table.action wire:click="markAsCompleted" :disabled="$isDisabled['mark-as-completed']" class="space-x-1">
+                    <x-heroicon-o-clipboard-check class="w-4 h-4" /><span class="sr-only">Mark as</span> <span>Completed</span>
+                </x-table.action>
                 <x-table.action wire:click="massDelete" :disabled="$isDisabled['delete']">
                     <x-heroicon-o-trash class="w-4 h-4" /><span class="sr-only">Delete</span>
                 </x-table.action>
