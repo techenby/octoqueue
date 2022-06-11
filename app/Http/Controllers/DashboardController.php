@@ -9,7 +9,7 @@ class DashboardController extends Controller
 {
     public function __invoke()
     {
-        $currentTeam = auth()->user()->currentTeam->load('printers');
+        $currentTeam = auth()->user()->currentTeam->load('printers.currentJob');
 
         if (Arr::get($currentTeam->settings, 'welcome', 1)) {
             $completed = [

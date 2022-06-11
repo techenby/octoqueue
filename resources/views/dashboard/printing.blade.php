@@ -13,9 +13,6 @@
                         style="fill: {{ $printer->spool->color_hex ?? 'transparent' }}"
                     />
                 </button>
-                <button x-data @click="Livewire.emit('pip', {{ $printer->id }})">
-                    <x-heroicon-o-camera class="w-6 h-6 text-gray-700 dark:text-gray-400" />
-                </button>
             </div>
         </x-slot>
     </x-ui.card.header>
@@ -26,4 +23,5 @@
             <x-heroicon-o-play class="w-48 h-48 text-blue-500" />
         </button>
     </div>
+    <livewire:bit.current-job :printer="$printer" />
 </x-ui.card>
