@@ -53,7 +53,7 @@ class CurrentJob extends Component
             'user_id' => auth()->id(),
             'color_hex' => $this->printer->spool->color_hex,
             'files' => [
-                $this->printer->id => $this->job->job['file']['path']
+                $this->printer->id => $this->job->job['file']['path'],
             ],
             'started_at' => $this->elapsed,
         ]);
