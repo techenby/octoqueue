@@ -6,12 +6,14 @@ use App\Calculator;
 use App\Traits\ForTeam;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 class PrintJob extends Model
 {
     use HasFactory;
     use ForTeam;
+    use SoftDeletes;
 
     public $friendly = 'job';
 
