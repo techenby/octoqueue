@@ -38,7 +38,7 @@ class CurrentJobTest extends TestCase
                 'name' => 'Whistle',
                 'files' => [
                     $printer->id => 'whistle_v2.gcode',
-                ]
+                ],
             ]);
 
         Livewire::test(CurrentJob::class, ['printer' => $printer])
