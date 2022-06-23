@@ -20,9 +20,15 @@ class UpdatePrinterStatus implements ShouldQueue
     {
         Printer::chunk(100, function ($printers) {
             foreach ($printers as $printer) {
+                $originalStatus = $printer->status;
+
                 $printer->update([
                     'status' => $printer->client->state(),
                 ]);
+
+                if ($originalStatus === 'Printing' && $printer->status !== 'Printing' && $printer->currentJob) {
+                    $printer->currentJob->completed();
+                }
             }
         });
     }
