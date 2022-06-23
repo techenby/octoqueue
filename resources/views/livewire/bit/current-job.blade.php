@@ -20,4 +20,8 @@
             <dd class="text-gray-900 dark:text-gray-200">{{ $progress }}</dd>
         </div>
     </dl>
+
+    @if ($currentJob)
+    <button wire:click="completed" class="mt-4 btn btn-blue btn-base">Mark as Completed</button>
+    @endif
 </x-ui.card.body>

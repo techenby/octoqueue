@@ -19,6 +19,7 @@ class CurrentJob extends Component
                 'elapsed' => $this->elapsed,
                 'label' => $this->label,
                 'progress' => $this->progress,
+                'currentJob' => $this->printer->currentJob,
             ]);
     }
 
@@ -40,6 +41,11 @@ class CurrentJob extends Component
     public function getProgressProperty()
     {
         return round($this->job->progress['completion'], 2) . '%';
+    }
+
+    public function completed()
+    {
+        $this->printer->currentJob->completed();
     }
 
     public function save()

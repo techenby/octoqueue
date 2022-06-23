@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Spool;
+use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SpoolFactory extends Factory
@@ -12,6 +13,7 @@ class SpoolFactory extends Factory
     public function definition()
     {
         return [
+            'team_id' => Team::factory(),
             'brand' => 'Inland',
             'cost' => 17.95,
             'color_hex' => '#ffffff',
