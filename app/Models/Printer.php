@@ -95,7 +95,8 @@ class Printer extends Model
 
     public function printFile($file)
     {
-        return $this->client->selectFile('local', $file)->start();
+        $this->client->selectFile('local', $file)->start();
+        $this->update(['status' => 'Printing']);
     }
 
     public function upload($path, $contents, $location = 'local')
