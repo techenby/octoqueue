@@ -22,6 +22,6 @@
     </dl>
 
     @if ($currentJob)
-    <button wire:click="completed" class="mt-4 btn btn-blue btn-base">Mark as Completed</button>
+    <button wire:click="completed" @disabled($progress !== '100%') class="mt-4 btn btn-blue btn-base">Mark as Completed</button>
     @endif
 </x-ui.card.body>
