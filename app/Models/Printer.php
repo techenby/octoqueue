@@ -27,16 +27,22 @@ class Printer extends Model
         return $this->hasMany(PrintJob::class);
     }
 
-    public function nextJob()
+    public function getNextJobAttribute()
     {
-            return $this->hasOne(PrintJob::class)
+            return PrintJob::query()
                 ->where(function ($query) {
-                    $query->when($this->spool, fn($query) => $query->where('color_hex', $this->spool->color_hex))
+                    $query->when($this->spool, fn($query) => $query
+                        ->where('color_hex', $this->spool->color_hex))
                         ->orWhereNull('color_hex');
+                })
+                ->where(function ($query) {
+                    $query->where('printer_id', $this->id)
+                        ->orWhere('files', 'LIKE', "%{$this->id}\":%"); // has key of printer id
                 })
                 ->whereNull('started_at')
                 ->whereNull('completed_at')
-                ->orderBy('job_type_id');
+                ->orderBy('job_type_id')
+                ->first();
     }
 
     public function spool()

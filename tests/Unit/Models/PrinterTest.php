@@ -49,7 +49,7 @@ class PrinterTest extends TestCase
     }
 
     /** @test */
-    public function next_job_also_includes_jobs_with_no_color()
+    public function next_job_includes_jobs_with_no_color()
     {
         $user = User::factory()->withPersonalTeam()->create();
         $type = PrintJobType::factory()->for($user->currentTeam)->create();
@@ -59,6 +59,24 @@ class PrinterTest extends TestCase
         $printer = Printer::factory()->for($user->currentTeam)->create(['spool_id' => $spool->id]);
 
         $printJob = PrintJob::factory()->for($user->currentTeam)->create(['printer_id' => $printer->id, 'job_type_id' => $type->id, 'color_hex' => null]);
+
+        $this->assertEquals($printJob->id, $printer->nextJob->id);
+    }
+
+    /** @test */
+    public function next_job_includes_jobs_without_specified_printer_but_includes_file()
+    {
+        $user = User::factory()->withPersonalTeam()->create();
+        $type = PrintJobType::factory()->for($user->currentTeam)->create();
+
+        $spool = Spool::factory()->for($user->currentTeam)->create(['color_hex' => '#ffffff']);
+        $printer = Printer::factory()->for($user->currentTeam)->create(['spool_id' => $spool->id]);
+
+        $printJob = PrintJob::factory()->for($user->currentTeam)->create([
+            'job_type_id' => $type->id,
+            'color_hex' => null,
+            'files' => [$printer->id => 'whistle-v2.gcode',],
+        ]);
 
         $this->assertEquals($printJob->id, $printer->nextJob->id);
     }
