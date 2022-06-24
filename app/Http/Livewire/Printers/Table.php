@@ -48,6 +48,10 @@ class Table extends Component
 
     public function updateSpool()
     {
+        if ($oldSpoolPrinter = $this->rows->firstWhere('spool_id', $this->currentSpool)) {
+            $oldSpoolPrinter->update(['spool_id' => null]);
+        }
+
         $this->currentPrinter->spool_id = $this->currentSpool;
         $this->currentPrinter->save();
 
