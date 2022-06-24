@@ -31,13 +31,25 @@ class PrintJobTest extends TestCase
     }
 
     /** @test */
-    public function cancel_job()
+    public function stop_job()
     {
-        $job = PrintJob::factory()->started()->create();
+        $spool = Spool::factory()->create();
+        $job = PrintJob::factory()->started()->for($spool)->create([
+            'name' => 'Whistle',
+            'files' => [
+                1 => 'C3_whistle.gcode',
+                2 => 'C3PRO_whistle.gcode',
+            ],
+        ]);
 
-        $job->cancel();
+        $job->stop();
 
-        $this->assertNull($job->fresh()->started_at);
+        $this->assertNotNull($job->fresh()->failed_at);
+        $this->assertNotNull($job->fresh()->filament_used);
+        $this->assertDatabaseHas('print_jobs', [
+            'name' => 'Whistle',
+            'failed_at' => null
+        ]);
     }
 
     /** @test */
