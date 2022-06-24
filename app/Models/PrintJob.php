@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Calculator;
 use App\Traits\ForTeam;
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -140,13 +141,16 @@ class PrintJob extends Model
 
     public function start($printer)
     {
-        $printer->printFile($this->files[$printer->id]);
+        try {
+            $printer->printFile($this->files[$printer->id]);
+            $printer->update(['status' => 'Printing']);
 
-        if ($printer->status === 'Printing') {
             $this->started_at = now();
             $this->printer_id = $printer->id;
             $this->spool_id = $printer->spool_id;
             $this->save();
+        } catch (Exception $e) {
+            $this->notify('error', 'Problem printing. ' . $e->getMessage());
         }
     }
 }

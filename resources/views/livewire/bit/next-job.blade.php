@@ -1,10 +1,6 @@
-<div class="px-4 py-5 space-y-2 text-gray-700 sm:px-6 dark:text-gray-400">
-    @if ($nextJob)
-    <div class="flex items-center justify-between px-4 py-5 space-y-2 text-gray-700 sm:px-6 dark:text-gray-400">
-        <p>Next Job: <span class="text-gray-900 dark:text-gray-200">{{ $nextJob->name }}</span></p>
-        <x-jet-button type="button" wire:click="print" :disabled="$printer->status === 'Printing'">Print</x-jet-button>
-    </div>
-    @else
-    <p>Next Job: <span class="text-gray-900 dark:text-gray-200">None</span></p>
+<div class="flex items-center justify-between h-16 px-4 border-b border-gray-200 dark:border-gray-700">
+    <p class="text-gray-700 dark:text-gray-400">Next Job: <span class="text-gray-900 dark:text-gray-200">{{ $printer->nextJob->name ?? 'None' }}</span></p>
+    @if ($printer->status !== 'Printing' && $printer->nextJob !== null)
+    <button wire:click="print" class="btn btn-sm btn-blue">Print</button>
     @endif
 </div>

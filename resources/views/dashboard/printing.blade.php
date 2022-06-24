@@ -14,7 +14,7 @@
                     />
                 </button>
             </div>
-        </x-slot>
+        </x-slot:left>
     </x-ui.card.header>
     <div class="relative tvstatic lg:h-96 group">
         <img id="{{ $printer->id }}-screenshot'" class="object-cover w-full h-96" src="{{ $printer->screenshot }}" />
