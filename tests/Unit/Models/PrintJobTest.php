@@ -48,7 +48,7 @@ class PrintJobTest extends TestCase
         $this->assertNotNull($job->fresh()->filament_used);
         $this->assertDatabaseHas('print_jobs', [
             'name' => 'Whistle',
-            'failed_at' => null
+            'failed_at' => null,
         ]);
     }
 

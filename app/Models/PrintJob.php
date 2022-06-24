@@ -113,7 +113,7 @@ class PrintJob extends Model
         $job = $this->printer->client->job();
         $this->printer->client->cancel();
 
-        $length = $job->progress['completion']/100 * $job->job['filament']['tool0']['length'];
+        $length = ($job->progress['completion'] / 100) * $job->job['filament']['tool0']['length'];
 
         $this->filament_used = (new Calculator())->lengthToGrams($this->spool->material, $this->spool->diameter, $length);
 
