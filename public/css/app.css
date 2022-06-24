@@ -1012,6 +1012,26 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(22 78 99 / var(--tw-bg-opacity));
 }
+.btn-red {
+  --tw-bg-opacity: 1;
+  background-color: rgb(153 27 27 / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+.btn-red:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(185 28 28 / var(--tw-bg-opacity));
+}
+.btn-red:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(127 29 29 / var(--tw-border-opacity));
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(252 165 165 / var(--tw-ring-opacity));
+}
+.btn-red:active {
+  --tw-bg-opacity: 1;
+  background-color: rgb(127 29 29 / var(--tw-bg-opacity));
+}
 .btn-outline {
   --tw-border-opacity: 1;
   border-color: rgb(214 211 209 / var(--tw-border-opacity));
@@ -1261,17 +1281,14 @@ select {
 .bottom-2 {
   bottom: 0.5rem;
 }
-.left-1 {
-  left: 0.25rem;
+.right-1 {
+  right: 0.25rem;
 }
 .top-2 {
   top: 0.5rem;
 }
 .right-2 {
   right: 0.5rem;
-}
-.right-1 {
-  right: 0.25rem;
 }
 .z-0 {
   z-index: 0;

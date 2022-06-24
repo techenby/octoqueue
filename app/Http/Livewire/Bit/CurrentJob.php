@@ -19,13 +19,18 @@ class CurrentJob extends Component
                 'elapsed' => $this->elapsed,
                 'label' => $this->label,
                 'progress' => $this->progress,
-                'currentJob' => $this->printer->currentJob,
+                'currentJob' => $this->currentJob,
             ]);
+    }
+
+    public function getCurrentJobProperty()
+    {
+        return $this->printer->currentJob;
     }
 
     public function getElapsedProperty()
     {
-        return $this->printer->currentJob->started_at ?? now()->subSeconds($this->job->progress['printTime']);
+        return $this->currentJob->started_at ?? now()->subSeconds($this->job->progress['printTime']);
     }
 
     public function getJobProperty()
@@ -35,7 +40,7 @@ class CurrentJob extends Component
 
     public function getLabelProperty()
     {
-        return $this->printer->currentJob->name ?? $this->job->job['file']['display'];
+        return $this->currentJob->name ?? $this->job->job['file']['display'];
     }
 
     public function getProgressProperty()
@@ -45,7 +50,7 @@ class CurrentJob extends Component
 
     public function completed()
     {
-        $this->printer->currentJob->completed();
+        $this->currentJob->completed();
     }
 
     public function save()
@@ -66,5 +71,10 @@ class CurrentJob extends Component
 
         $this->emit('$refresh');
         $this->notify('success', 'Saved job');
+    }
+
+    public function stop()
+    {
+        $this->currentJob->stop();
     }
 }

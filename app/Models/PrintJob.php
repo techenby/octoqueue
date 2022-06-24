@@ -108,10 +108,19 @@ class PrintJob extends Model
         $this->save();
     }
 
-    public function cancel()
+    public function stop()
     {
-        $this->started_at = null;
+        $job = $this->printer->client->job();
+        $this->printer->client->cancel();
+
+        $length = ($job->progress['completion'] / 100) * $job->job['filament']['tool0']['length'];
+
+        $this->filament_used = (new Calculator())->lengthToGrams($this->spool->material, $this->spool->diameter, $length);
+
+        $this->failed_at = now();
         $this->save();
+
+        return $this->duplicate();
     }
 
     public function duplicate()
@@ -123,6 +132,7 @@ class PrintJob extends Model
         }
 
         $new->started_at = null;
+        $new->failed_at = null;
         $new->completed_at = null;
         $new->filament_used = null;
         $new->save();

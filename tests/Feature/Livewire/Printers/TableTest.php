@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Livewire\Printers;
 
-use App\Http\Livewire\Printers\Form;
 use App\Http\Livewire\Printers\Table;
 use App\Models\Printer;
 use App\Models\Spool;
