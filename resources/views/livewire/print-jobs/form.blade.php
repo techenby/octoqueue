@@ -84,13 +84,16 @@
         </x-slot>
 
         <x-slot name="footer">
-            <x-jet-secondary-button wire:click="resetUploadModal" wire:loading.attr="disabled">
+            <p class="mr-4 text-gray-700 dark:text-gray-400" wire:loading>
+                Processing File...
+            </p>
+            <button class="btn btn-base btn-white" wire:target="gcode" wire:click="resetUploadModal" wire:loading.attr="disabled">
                 {{ __('Cancel') }}
-            </x-jet-secondary-button>
+            </button>
 
-            <x-jet-button class="ml-3" wire:click="uploadFile" wire:loading.attr="disabled">
+            <button class="ml-3 btn btn-base btn-blue" wire:target="gcode" wire:click="uploadFile" wire:loading.attr="disabled">
                 {{ __('Upload') }}
-            </x-jet-button>
+            </button>
         </x-slot>
     </x-jet-dialog-modal>
 </div>
