@@ -11,6 +11,6 @@ class NextJob extends Component
 
     public function print()
     {
-        $this->printer->nextJob->start();
+        $this->printer->nextJob->start($this->printer);
     }
 }
