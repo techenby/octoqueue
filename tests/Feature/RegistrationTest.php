@@ -40,11 +40,17 @@ class RegistrationTest extends TestCase
             return $this->markTestSkipped('Registration support is not enabled.');
         }
 
+        config([
+            'services.hcaptcha.key' => '10000000-ffff-ffff-ffff-000000000001',
+            'services.hcaptcha.secret' => '0x0000000000000000000000000000000000000000',
+        ]);
+
         $response = $this->post('/register', [
             'name' => 'Test User',
             'email' => 'test@example.com',
             'password' => 'password',
             'password_confirmation' => 'password',
+            'h-captcha-response' => '10000000-aaaa-bbbb-cccc-000000000001',
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature(),
         ]);
 
