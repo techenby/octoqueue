@@ -1,8 +1,4 @@
 <x-guest-layout>
-    @push('scripts')
-        <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
-    @endpush
-
     <x-jet-authentication-card>
         <x-slot name="logo">
             <x-jet-authentication-card-logo />
@@ -28,8 +24,6 @@
                 <x-jet-label for="password" value="{{ __('Password') }}" />
                 <x-jet-input id="password" class="block w-full mt-1" type="password" name="password" required autocomplete="current-password" />
             </div>
-
-            <div class="h-captcha" data-sitekey="{{ config('services.hcaptcha.key') }}"></div>
 
             <div class="block">
                 <label for="remember_me" class="flex items-center">
