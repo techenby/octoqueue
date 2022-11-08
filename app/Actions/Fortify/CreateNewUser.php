@@ -4,6 +4,7 @@ namespace App\Actions\Fortify;
 
 use App\Models\Team;
 use App\Models\User;
+use App\Rules\ValidHCaptcha;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -26,6 +27,7 @@ class CreateNewUser implements CreatesNewUsers
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
+            'h-captcha-response' => ['required', new ValidHCaptcha()],
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
 
