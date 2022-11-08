@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Scripts -->
+        <style>[x-cloak] { display: none !important; }</style>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @stack('scripts')
 
@@ -37,6 +38,8 @@
                 {{ $slot }}
             </main>
         </div>
+
+        @livewire('notifications')
 
         @stack('modals')
 
