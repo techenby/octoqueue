@@ -10,6 +10,9 @@ return new class extends Migration
     {
         Schema::create('printers', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('team_id');
+            $table->string('name');
+            $table->string('model');
             $table->timestamps();
         });
     }

@@ -25,4 +25,6 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::get('/printers', App\Http\Livewire\Printers\Table::class)->name('printers');
 });
