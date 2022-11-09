@@ -4,14 +4,18 @@ namespace App\Http\Livewire\Printers;
 
 use App\Models\Printer;
 use Closure;
-use Filament\Tables;
+use Filament\Tables\Actions\BulkAction;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 use Livewire\Component;
 
-class Table extends Component implements Tables\Contracts\HasTable
+class Table extends Component implements HasTable
 {
-    use Tables\Concerns\InteractsWithTable;
+    use InteractsWithTable;
 
     protected function getTableQuery(): Builder
     {
@@ -19,11 +23,10 @@ class Table extends Component implements Tables\Contracts\HasTable
     }
 
     protected function getTableColumns(): array
-
     {
         return [
-            Tables\Columns\TextColumn::make('name'),
-            Tables\Columns\TextColumn::make('model'),
+            TextColumn::make('name'),
+            TextColumn::make('model'),
         ];
     }
 
@@ -44,7 +47,7 @@ class Table extends Component implements Tables\Contracts\HasTable
     protected function getTableBulkActions(): array
     {
         return [
-            Tables\Actions\BulkAction::make('delete')
+            BulkAction::make('delete')
                 ->label('Delete selected')
                 ->color('danger')
                 ->action(function (Collection $records): void {
@@ -54,10 +57,10 @@ class Table extends Component implements Tables\Contracts\HasTable
         ];
     }
 
-    protected function getTableRecordUrlUsing(): Closure
-    {
-        return fn (Printer $printer): string => route('printers.edit', ['printer' => $printer]);
-    }
+    // protected function getTableRecordUrlUsing(): Closure
+    // {
+        // return fn (Printer $printer): string => route('printers.edit', ['printer' => $printer]);
+    // }
 
     public function render(): View
     {

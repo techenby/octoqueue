@@ -9,7 +9,8 @@ class PrinterFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => 'Charmander',
+            'model' => 'Prusa Mini',
         ];
     }
 }
