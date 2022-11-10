@@ -1,19 +1,19 @@
 <?php
 
-namespace Tests\Feature\Livewire;
+namespace Tests\Feature\Livewire\Printers;
 
-use App\Http\Livewire\ListPrinters;
+use App\Http\Livewire\Printers\Form;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class ListPrintersTest extends TestCase
+class FormTest extends TestCase
 {
     /** @test */
     public function the_component_can_render()
     {
-        $component = Livewire::test(ListPrinters::class);
+        $component = Livewire::test(Form::class);
 
         $component->assertStatus(200);
     }

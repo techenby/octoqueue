@@ -12,7 +12,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('team_id');
             $table->string('name');
-            $table->string('model');
+            $table->string('model')->nullable();
+            $table->string('url')->nullable();
+            $table->string('api_key')->nullable();
             $table->timestamps();
         });
     }

@@ -10,6 +10,10 @@ class Printer extends Model
 {
     use HasFactory;
 
+    protected $casts = ['api_key' => 'encrypted'];
+
+    protected $guarded = ['id'];
+
     public function team()
     {
         return $this->belongsTo(Jetstream::teamModel());

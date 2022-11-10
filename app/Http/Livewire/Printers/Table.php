@@ -57,10 +57,10 @@ class Table extends Component implements HasTable
         ];
     }
 
-    // protected function getTableRecordUrlUsing(): Closure
-    // {
-        // return fn (Printer $printer): string => route('printers.edit', ['printer' => $printer]);
-    // }
+    protected function getTableRecordUrlUsing(): Closure
+    {
+        return fn (Printer $printer): string => route('printers.edit', ['printer' => $printer]);
+    }
 
     public function render(): View
     {

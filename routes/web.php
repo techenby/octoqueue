@@ -27,4 +27,6 @@ Route::middleware([
     })->name('dashboard');
 
     Route::get('/printers', App\Http\Livewire\Printers\Table::class)->name('printers');
+    Route::get('/printers/create', App\Http\Livewire\Printers\Form::class)->name('printers.create');
+    Route::get('/printers/{printer}/edit', App\Http\Livewire\Printers\Form::class)->name('printers.edit');
 });
