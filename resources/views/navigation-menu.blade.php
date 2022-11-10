@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-100 dark:bg-gray-850 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -187,7 +187,7 @@
 
                 <!-- Team Management -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
-                    <div class="border-t border-gray-200"></div>
+                    <div class="border-t border-gray-200 dark:border-gray-700"></div>
 
                     <div class="block px-4 py-2 text-xs text-gray-400">
                         {{ __('Manage Team') }}
@@ -204,7 +204,7 @@
                         </x-jet-responsive-nav-link>
                     @endcan
 
-                    <div class="border-t border-gray-200"></div>
+                    <div class="border-t border-gray-200 dark:border-gray-700"></div>
 
                     <!-- Team Switcher -->
                     <div class="block px-4 py-2 text-xs text-gray-400">

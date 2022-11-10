@@ -7,7 +7,7 @@
         <x-jet-validation-errors class="mb-4" />
 
         @if (session('status'))
-            <div class="mb-4 text-sm font-medium text-green-600">
+            <div class="mb-4 text-sm font-medium text-green-600 dark:text-green-400">
                 {{ session('status') }}
             </div>
         @endif
@@ -28,13 +28,13 @@
             <div class="block">
                 <label for="remember_me" class="flex items-center">
                     <x-jet-checkbox id="remember_me" name="remember" />
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                    <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
                 </label>
             </div>
 
             <div class="flex items-center justify-end mt-4">
                 @if (Route::has('password.request'))
-                    <a class="text-sm text-gray-600 underline hover:text-gray-900" href="{{ route('password.request') }}">
+                    <a class="text-sm text-gray-600 underline dark:text-gray-400 dark:hover:text-gray-200 hover:text-gray-900" href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif

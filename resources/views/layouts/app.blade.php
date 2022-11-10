@@ -18,28 +18,26 @@
         <!-- Styles -->
         @livewireStyles
     </head>
-    <body class="font-sans antialiased">
+    <body class="min-h-screen font-sans antialiased bg-gray-100 dark:bg-gray-900">
         <x-jet-banner />
 
-        <div class="min-h-screen bg-gray-100">
-            @livewire('navigation-menu')
+        @livewire('navigation-menu')
 
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
-
-            <!-- Page Content -->
-            <main class="py-12">
-                <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    {{ $slot }}
+        <!-- Page Heading -->
+        @if (isset($header))
+            <header class="bg-white shadow dark:bg-gray-850 dark:border-b dark:border-gray-700">
+                <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                    {{ $header }}
                 </div>
-            </main>
-        </div>
+            </header>
+        @endif
+
+        <!-- Page Content -->
+        <main class="py-12">
+            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+                {{ $slot }}
+            </div>
+        </main>
 
         @livewire('notifications')
 
