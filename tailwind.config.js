@@ -18,6 +18,10 @@ module.exports = {
                 primary: colors.blue,
                 success: colors.green,
                 warning: colors.yellow,
+                gray: {
+                    850: '#202023',
+                    ...colors.zinc
+                }
             },
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
