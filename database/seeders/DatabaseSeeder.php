@@ -29,5 +29,15 @@ class DatabaseSeeder extends Seeder
                 ['name' => 'Squirtle'],
             ))
             ->create();
+
+        \App\Models\Filament::factory()
+            ->for($user->currentTeam)
+            ->count(3)
+            ->state(new Sequence(
+                ['color' => 'Blue', 'color_hex' => '#0000FF'],
+                ['color' => 'Green', 'color_hex' => '#00FF00'],
+                ['color' => 'Purple', 'color_hex' => '#5D3FD3'],
+            ))
+            ->create();
     }
 }

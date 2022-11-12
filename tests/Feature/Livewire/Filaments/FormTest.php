@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Feature\Livewire\Printers;
+namespace Tests\Feature\Livewire\Filaments;
 
-use App\Http\Livewire\Printers\Form;
+use App\Http\Livewire\Filaments\Form;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;

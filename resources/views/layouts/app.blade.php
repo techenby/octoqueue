@@ -13,6 +13,7 @@
         <!-- Scripts -->
         <style>[x-cloak] { display: none !important; }</style>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/dist/tippy.css" />
         @stack('scripts')
 
         <!-- Styles -->
