@@ -57,10 +57,7 @@ class Form extends Component implements HasForms
         if (isset($this->printer)) {
             $this->printer->update($this->form->getState());
         } else {
-            Printer::create(array_merge(
-                ['team_id' => auth()->user()->current_team_id],
-                $this->form->getState()
-            ));
+            auth()->user()->currentTeam()->printers()->create($this->form->getState());
         }
     }
 }
