@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('printers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('team_id');
+            $table->foreignId('team_id')->constrained();
             $table->string('name');
             $table->string('model')->nullable();
             $table->string('url')->nullable();
