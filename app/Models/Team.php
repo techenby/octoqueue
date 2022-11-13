@@ -47,6 +47,11 @@ class Team extends JetstreamTeam
         return $this->hasMany(Printer::class);
     }
 
+    public function printTypes()
+    {
+        return $this->hasMany(PrintType::class);
+    }
+
     public function materials()
     {
         return $this->hasMany(Material::class);
