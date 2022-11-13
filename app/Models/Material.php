@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasTeam;
 use Facades\App\Calculator;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,16 +13,12 @@ use Laravel\Jetstream\Jetstream;
 class Material extends Model
 {
     use HasFactory;
+    use HasTeam;
     use SoftDeletes;
 
     protected $casts = ['weights' => AsCollection::class];
 
     protected $guarded = ['id'];
-
-    public function team()
-    {
-        return $this->belongsTo(Jetstream::teamModel());
-    }
 
     public function getCurrentWeightAttribute()
     {
