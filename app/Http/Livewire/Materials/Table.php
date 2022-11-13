@@ -81,6 +81,12 @@ class Table extends Component implements HasTable
 
     public function render(): View
     {
-        return view('livewire.filament.table', ['title' => 'Materials', 'link' => ['route' => 'materials.create', 'label' => 'Create']]);
+        return view('livewire.filament.table', [
+            'title' => 'Materials',
+            'link' => ['route' => 'materials.create', 'label' => 'Create'],
+            'breadcrumbs' => [
+                ['label' => 'Materials']
+            ],
+        ]);
     }
 }

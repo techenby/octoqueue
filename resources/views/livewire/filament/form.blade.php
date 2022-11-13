@@ -1,5 +1,5 @@
 <x-slot name="header">
-    <x-layout.header :title="$title" />
+    <x-layout.header :title="$title" :breadcrumbs="$breadcrumbs" />
 </x-slot>
 
 <div class="p-6 mx-auto bg-white rounded-md shadow dark:border dark:border-gray-700 dark:bg-gray-850 md:w-1/2">

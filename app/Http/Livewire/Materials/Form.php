@@ -96,7 +96,13 @@ class Form extends Component implements HasForms
 
     public function render(): View
     {
-        return view('livewire.filament.form', ['title' => 'Create Material', 'link' => ['route' => 'materials.create', 'label' => 'Create']]);
+        return view('livewire.filament.form', [
+            'title' => 'Create Material',
+            'breadcrumbs' => [
+                ['label' => 'Materials', 'route' => 'materials'],
+                ['label' => 'Create Material'],
+            ],
+        ]);
     }
 
     public function submit(): void
