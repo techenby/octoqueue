@@ -49,7 +49,7 @@ class Form extends Component implements HasForms
 
     public function render(): View
     {
-        return view('livewire.printers.form');
+        return view('livewire.filament.form', ['title' => 'Create Printer']);
     }
 
     public function submit(): void

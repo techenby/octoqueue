@@ -4,7 +4,7 @@ namespace App;
 
 class Calculator
 {
-    public $materials = [
+    public $fdmMaterialTypes = [
         'PLA' => 1.25,
         'ABS' => 1.04,
         'PETG' => 1.27,
@@ -23,25 +23,34 @@ class Calculator
         'Semi flexible (FPE)' => 2.16,
     ];
 
+    public $resinMaterialTypes = [
+        //
+    ];
+
     public function lengthToGrams($material, $diameter, $length)
     {
         $cm = $diameter / 10;
         $cross = pow(($cm / 2), 2) * pi();
-        $filament = $this->materials[$material];
+        $filament = $this->fdmMaterialTypes[$material];
 
         return round($length * 100 * $cross * $filament, 2);
     }
 
     public function gramsToLength($material, $diameter, $grams)
     {
-        if (! array_key_exists($material, $this->materials)) {
+        if (! array_key_exists($material, $this->fdmMaterialTypes)) {
             return false;
         }
 
         $cm = $diameter / 10;
         $cross = pow(($cm / 2), 2) * pi();
-        $filament = $grams / $this->materials[$material];
+        $filament = $grams / $this->fdmMaterialTypes[$material];
 
         return round($filament / $cross / 100, 2);
+    }
+
+    public function materialByType($type)
+    {
+        return $type === 'fdm' ? $this->fdmMaterialTypes : $this->resinMaterialTypes;
     }
 }

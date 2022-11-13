@@ -8,17 +8,18 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('filaments', function (Blueprint $table) {
+        Schema::create('materials', function (Blueprint $table) {
             $table->id();
             $table->foreignId('team_id')->constrained();
-            $table->string('color')->nullable();
-            $table->string('color_hex')->nullable();
             $table->string('brand')->nullable();
             $table->string('cost')->nullable();
-            $table->string('material')->nullable();
+            $table->string('color')->nullable();
+            $table->string('color_hex')->nullable();
+            $table->string('printer_type');
+            $table->string('type')->nullable();
             $table->string('diameter')->nullable();
             $table->string('empty')->nullable();
-            $table->json('weights');
+            $table->json('weights')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -26,6 +27,6 @@ return new class extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('filaments');
+        Schema::dropIfExists('materials');
     }
 };

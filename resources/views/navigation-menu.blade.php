@@ -18,8 +18,8 @@
                     <x-jet-nav-link href="{{ route('printers') }}" :active="request()->routeIs('printers')">
                         {{ __('Printers') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('filaments') }}" :active="request()->routeIs('filaments')">
-                        {{ __('Filaments') }}
+                    <x-jet-nav-link href="{{ route('materials') }}" :active="request()->routeIs('materials')">
+                        {{ __('Materials') }}
                     </x-jet-nav-link>
                 </div>
             </div>
@@ -149,8 +149,8 @@
             <x-jet-responsive-nav-link href="{{ route('printers') }}" :active="request()->routeIs('printers')">
                 {{ __('Printers') }}
             </x-jet-responsive-nav-link>
-            <x-jet-responsive-nav-link href="{{ route('filaments') }}" :active="request()->routeIs('filaments')">
-                {{ __('Filaments') }}
+            <x-jet-responsive-nav-link href="{{ route('materials') }}" :active="request()->routeIs('materials')">
+                {{ __('Materials') }}
             </x-jet-responsive-nav-link>
         </div>
 

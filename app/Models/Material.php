@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Jetstream\Jetstream;
 
-class Filament extends Model
+class Material extends Model
 {
     use HasFactory;
     use SoftDeletes;

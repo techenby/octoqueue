@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Feature\Livewire\Filaments;
+namespace Tests\Feature\Livewire\Materials;
 
-use App\Http\Livewire\Filaments\Table;
-use App\Models\Filament;
+use App\Http\Livewire\Materials\Table;
+use App\Models\Material;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -18,7 +18,7 @@ class TableTest extends TestCase
     public function can_view_all_filaments_for_team()
     {
         $user = User::factory()->withPersonalTeam()->create();
-        $filaments = Filament::factory()->for($user->currentTeam)->count(5)->create();
+        $filaments = Material::factory()->for($user->currentTeam)->count(5)->create();
 
         Livewire::actingAs($user)->test(Table::class)
             ->assertStatus(200)
@@ -29,7 +29,7 @@ class TableTest extends TestCase
     public function cannot_view_all_filaments_for_different_team()
     {
         $user = User::factory()->withPersonalTeam()->create();
-        $filaments = Filament::factory()->for(Team::factory())->count(5)->create();
+        $filaments = Material::factory()->for(Team::factory())->count(5)->create();
 
         Livewire::actingAs($user)->test(Table::class)
             ->assertStatus(200)

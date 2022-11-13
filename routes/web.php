@@ -30,7 +30,7 @@ Route::middleware([
     Route::get('/printers/create', App\Http\Livewire\Printers\Form::class)->name('printers.create');
     Route::get('/printers/{printer}/edit', App\Http\Livewire\Printers\Form::class)->name('printers.edit');
 
-    Route::get('/filaments', App\Http\Livewire\Filaments\Table::class)->name('filaments');
-    Route::get('/filaments/create', App\Http\Livewire\Filaments\Form::class)->name('filaments.create');
-    Route::get('/filaments/{filament}/edit', App\Http\Livewire\Filaments\Form::class)->name('filaments.edit');
+    Route::get('/materials', App\Http\Livewire\Materials\Table::class)->name('materials');
+    Route::get('/materials/create', App\Http\Livewire\Materials\Form::class)->name('materials.create');
+    Route::get('/materials/{material}/edit', App\Http\Livewire\Materials\Form::class)->name('materials.edit');
 });

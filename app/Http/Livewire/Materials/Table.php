@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Livewire\Filaments;
+namespace App\Http\Livewire\Materials;
 
-use App\Models\Filament;
+use App\Models\Material;
 use Closure;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Concerns\InteractsWithTable;
@@ -20,21 +20,30 @@ class Table extends Component implements HasTable
 
     protected function getTableQuery(): Builder
     {
-        return Filament::query()->whereTeamId(auth()->user()->current_team_id);
+        return Material::query()->whereTeamId(auth()->user()->current_team_id);
     }
 
     protected function getTableColumns(): array
     {
         return [
-            ColorColumn::make('color_hex')->label('Color')->tooltip(fn (Filament $record): string => $record->color),
-            TextColumn::make('brand'),
+            ColorColumn::make('color_hex')
+                ->label('Color')
+                ->tooltip(fn (Material $record): string => $record->color)
+                ->sortable(),
+            TextColumn::make('brand')
+                ->sortable(),
             TextColumn::make('cost')
-                ->formatStateUsing(fn (string $state) => "$$state"),
-            TextColumn::make('material'),
+                ->formatStateUsing(fn (string $state) => "$$state")
+                ->sortable(),
+            TextColumn::make('type')
+                ->sortable(),
             TextColumn::make('diameter')
-                ->formatStateUsing(fn (string $state) => "{$state}mm"),
-            TextColumn::make('formatted_current_weight')->label('Current Weight'),
-            TextColumn::make('formatted_current_length')->label('Current Length'),
+                ->formatStateUsing(fn (string $state) => "{$state}mm")
+                ->sortable(),
+            TextColumn::make('formatted_current_weight')
+                ->label('Current Weight'),
+            TextColumn::make('formatted_current_length')
+                ->label('Current Length'),
         ];
     }
 
@@ -67,11 +76,11 @@ class Table extends Component implements HasTable
 
     protected function getTableRecordUrlUsing(): Closure
     {
-        return fn (Filament $filament): string => route('filaments.edit', ['filament' => $filament]);
+        return fn (Material $material): string => route('materials.edit', ['material' => $material]);
     }
 
     public function render(): View
     {
-        return view('livewire.filaments.table');
+        return view('livewire.filament.table', ['title' => 'Materials', 'link' => ['route' => 'materials.create', 'label' => 'Create']]);
     }
 }

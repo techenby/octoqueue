@@ -30,13 +30,13 @@ class DatabaseSeeder extends Seeder
             ))
             ->create();
 
-        \App\Models\Filament::factory()
+        \App\Models\Material::factory()
             ->for($user->currentTeam)
             ->count(3)
             ->state(new Sequence(
-                ['color' => 'Blue', 'color_hex' => '#0000FF'],
-                ['color' => 'Green', 'color_hex' => '#00FF00'],
-                ['color' => 'Purple', 'color_hex' => '#5D3FD3'],
+                ['printer_type' => 'fdm', 'color' => 'Blue', 'color_hex' => '#0000FF'],
+                ['printer_type' => 'fdm', 'color' => 'Green', 'color_hex' => '#00FF00'],
+                ['printer_type' => 'fdm', 'color' => 'Purple', 'color_hex' => '#5D3FD3'],
             ))
             ->create();
     }
