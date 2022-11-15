@@ -80,9 +80,6 @@ class Form extends Component implements HasForms
             TextInput::make('empty')
                 ->hidden(fn ($get) => $get('printer_type') === null)
                 ->label(fn ($get) => $get('printer_type') === 'fdm' ? 'Empty Spool Weight' : 'Empty Bottle Weight'),
-            TextInput::make('Current Weight')
-                ->hidden(isset($this->material))
-                ->when(! isset($this->material), fn ($builder) => $builder->required()),
         ];
     }
 

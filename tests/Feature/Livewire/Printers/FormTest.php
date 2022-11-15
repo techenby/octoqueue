@@ -3,6 +3,8 @@
 namespace Tests\Feature\Livewire\Printers;
 
 use App\Http\Livewire\Printers\Form;
+use App\Models\Printer;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
@@ -12,10 +14,47 @@ class FormTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function the_component_can_render()
+    public function can_create_printer()
     {
-        $component = Livewire::test(Form::class);
+        $user = User::factory()->withPersonalTeam()->create();
 
-        $component->assertStatus(200);
+        Livewire::actingAs($user)
+            ->test(Form::class)
+            ->fillForm([
+                'name' => 'Pikachu',
+                'model' => 'Ender 3',
+                'url' => 'http://pikachu.local',
+                'api_key' => 'pika-pika',
+            ])
+            ->call('submit')
+            ->assertHasNoFormErrors();
+    }
+
+    /** @test */
+    public function can_edit_printer()
+    {
+        $user = User::factory()->withPersonalTeam()->create();
+        $printer = Printer::factory()->for($user->currentTeam)->create([
+            'name' => 'Pikachu',
+            'model' => 'Ender 3',
+            'url' => 'http://pikachu.local',
+            'api_key' => 'pika-pika',
+        ]);
+
+        Livewire::actingAs($user)
+            ->test(Form::class, ['printer' => $printer])
+            ->fillForm([
+                'name' => 'Eevee',
+                'model' => 'Ender 3',
+                'url' => 'http://eevee.local',
+                'api_key' => 'vee-vee',
+            ])
+            ->call('submit')
+            ->assertHasNoFormErrors();
+
+        $printer->refresh();
+        $this->assertEquals('Eevee', $printer->name);
+        $this->assertEquals('http://eevee.local', $printer->url);
+        $this->assertEquals('vee-vee', $printer->api_key);
     }
 }
