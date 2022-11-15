@@ -42,6 +42,11 @@ class Team extends JetstreamTeam
         'deleted' => TeamDeleted::class,
     ];
 
+    public function jobs()
+    {
+        return $this->hasMany(Job::class);
+    }
+
     public function printers()
     {
         return $this->hasMany(Printer::class);
