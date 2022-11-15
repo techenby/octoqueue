@@ -38,7 +38,7 @@ class Form extends Component implements HasForms
         }
     }
 
-    protected function getFormModel(): string
+    protected function getFormModel(): Job | string
     {
         return isset($this->job) ? $this->job : Job::class;
     }
