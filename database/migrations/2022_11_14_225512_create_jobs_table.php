@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('team_id')->constrained()->index();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('print_type_id')->constrained()->nullable();
-            $table->foreignId('printer_id')->constrained()->nullable();
-            $table->foreignId('material_id')->constrained()->nullable();
+            $table->foreignId('print_type_id')->constrained();
+            $table->foreignId('printer_id')->nullable()->constrained();
+            $table->foreignId('material_id')->nullable()->constrained();
             $table->string('name');
             $table->string('color_hex')->nullable();
             $table->json('files')->nullable();

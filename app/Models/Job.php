@@ -10,4 +10,24 @@ class Job extends Model
 {
     use HasFactory;
     use HasTeam;
+
+    public function material()
+    {
+        return $this->belongsTo(Material::class);
+    }
+
+    public function printer()
+    {
+        return $this->belongsTo(Printer::class);
+    }
+
+    public function printType()
+    {
+        return $this->belongsTo(PrintType::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
