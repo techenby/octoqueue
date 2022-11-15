@@ -11,6 +11,12 @@ class Job extends Model
     use HasFactory;
     use HasTeam;
 
+    protected $guarded = ['id'];
+
+    protected $casts = [
+        'files' => 'array',
+    ];
+
     public function material()
     {
         return $this->belongsTo(Material::class);

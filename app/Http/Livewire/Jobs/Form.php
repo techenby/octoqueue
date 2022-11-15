@@ -3,11 +3,9 @@
 namespace App\Http\Livewire\Jobs;
 
 use App\Models\Job;
-use Filament\Forms\Components\ColorPicker;
-use Filament\Forms\Components\Radio;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\TextInput\Mask;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
@@ -50,13 +48,24 @@ class Form extends Component implements HasForms
         return [
             TextInput::make('name')
                 ->required(),
-            Select::make('printer_type_id')
+            Select::make('print_type_id')
                 ->relationship('printType', 'name')
                 ->label('Print Type')
                 ->required(),
             Select::make('color_hex')
                 ->options($this->colorOptions)
                 ->label('Material Color'),
+            Repeater::make('files')
+                ->schema([
+                    Select::make('printer')
+                        ->options($this->printers->pluck('name', 'id'))
+                        ->required(),
+                    TextInput::make('file')->required(),
+                ])
+                ->cloneable()
+                ->collapsible()
+                ->createItemButtonLabel('Add file from printer')
+                ->maxItems($this->printers->count()),
         ];
     }
 
@@ -84,13 +93,20 @@ class Form extends Component implements HasForms
         return auth()->user()->currentTeam->materials->pluck('color', 'color_hex');
     }
 
+    public function getPrintersProperty()
+    {
+        return auth()->user()->currentTeam->printers;
+    }
+
     public function submit(): void
     {
         if (isset($this->job)) {
             $this->job->update($this->form->getState());
             $message = 'Changes to the **job** have been saved.';
         } else {
-            auth()->user()->currentTeam->jobs()->create($this->form->getState());
+            auth()->user()->currentTeam->jobs()->create(
+                array_merge($this->form->getState(), ['user_id' => auth()->id()]),
+            );
             $message = 'The **job** has been created.';
         }
 

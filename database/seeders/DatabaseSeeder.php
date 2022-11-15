@@ -39,5 +39,15 @@ class DatabaseSeeder extends Seeder
                 ['printer_type' => 'fdm', 'color' => 'Purple', 'color_hex' => '#5D3FD3'],
             ))
             ->create();
+
+        \App\Models\PrintType::factory()
+            ->for($user->currentTeam)
+            ->count(3)
+            ->state(new Sequence(
+                ['name' => 'Fun', 'priority' => '3'],
+                ['name' => 'Home', 'priority' => '1'],
+                ['name' => 'Gifts', 'priority' => '2'],
+            ))
+            ->create();
     }
 }
