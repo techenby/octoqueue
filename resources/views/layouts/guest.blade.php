@@ -11,17 +11,14 @@
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @stack('scripts')
-
-        <!-- Styles -->
-        @livewireStyles
+        <script defer src="https://unpkg.com/@alpinejs/ui@3.10.5-beta.7/dist/cdn.min.js"></script>
+        <script defer src="https://unpkg.com/@alpinejs/focus@3.10.5/dist/cdn.min.js"></script>
+        <script defer src="https://unpkg.com/alpinejs@3.10.5/dist/cdn.min.js"></script>
+        @vite(['resources/css/app.css'])
     </head>
     <body class="bg-gray-100 dark:bg-gray-900">
-        <div class="font-sans antialiased text-gray-900 dark:text-gray-200">
-            {{ $slot }}
-        </div>
+        {{ $slot }}
 
-        @livewireScripts
+        @include('layouts.footer')
     </body>
 </html>
