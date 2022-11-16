@@ -12,6 +12,7 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use STS\FilamentImpersonate\Impersonate;
 
 class UserResource extends Resource
 {
@@ -82,27 +83,9 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('email'),
                 Tables\Columns\TextColumn::make('email_verified_at')
                     ->dateTime(),
-                Tables\Columns\TextColumn::make('two_factor_secret'),
-                Tables\Columns\TextColumn::make('two_factor_recovery_codes'),
-                Tables\Columns\TextColumn::make('two_factor_confirmed_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('stripe_id'),
-                Tables\Columns\TextColumn::make('pm_type'),
-                Tables\Columns\TextColumn::make('pm_last_four'),
-                Tables\Columns\TextColumn::make('pm_expiration'),
-                Tables\Columns\TextColumn::make('extra_billing_information'),
                 Tables\Columns\TextColumn::make('trial_ends_at')
                     ->dateTime(),
-                Tables\Columns\TextColumn::make('billing_address'),
-                Tables\Columns\TextColumn::make('billing_address_line_2'),
-                Tables\Columns\TextColumn::make('billing_city'),
-                Tables\Columns\TextColumn::make('billing_state'),
-                Tables\Columns\TextColumn::make('billing_postal_code'),
-                Tables\Columns\TextColumn::make('vat_id'),
-                Tables\Columns\TextColumn::make('receipt_emails'),
-                Tables\Columns\TextColumn::make('billing_country'),
                 Tables\Columns\TextColumn::make('currentTeam.name'),
-                Tables\Columns\TextColumn::make('profile_photo_path'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')
@@ -113,19 +96,20 @@ class UserResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Impersonate::make('impersonate'),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -133,5 +117,5 @@ class UserResource extends Resource
             'create' => Pages\CreateUser::route('/create'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
-    }    
+    }
 }
