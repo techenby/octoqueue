@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\HasTeam;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Job extends Model
 {
@@ -17,22 +18,22 @@ class Job extends Model
         'files' => 'array',
     ];
 
-    public function material()
+    public function material(): BelongsTo
     {
         return $this->belongsTo(Material::class);
     }
 
-    public function printer()
+    public function printer(): BelongsTo
     {
         return $this->belongsTo(Printer::class);
     }
 
-    public function printType()
+    public function printType(): BelongsTo
     {
         return $this->belongsTo(PrintType::class);
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

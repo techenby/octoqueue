@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Laravel\Jetstream\Jetstream;
 
 trait HasTeam
@@ -11,7 +12,7 @@ trait HasTeam
         return $query->where('team_id', $team->id ?? auth()->user()->current_team_id);
     }
 
-    public function team()
+    public function team(): BelongsTo
     {
         return $this->belongsTo(Jetstream::teamModel());
     }
