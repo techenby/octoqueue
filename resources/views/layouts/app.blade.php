@@ -38,6 +38,7 @@
 
         @stack('modals')
 
+        <x-impersonate::banner />
         @livewireScripts
     </body>
 </html>
