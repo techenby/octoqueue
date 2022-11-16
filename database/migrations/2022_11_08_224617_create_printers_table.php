@@ -12,15 +12,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('team_id')->constrained();
             $table->string('name');
+            $table->string('status')->nullable();
             $table->string('model')->nullable();
             $table->string('url')->nullable();
             $table->text('api_key')->nullable();
             $table->timestamps();
         });
-    }
-
-    public function down()
-    {
-        Schema::dropIfExists('printers');
     }
 };
