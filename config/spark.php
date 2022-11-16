@@ -86,7 +86,7 @@ return [
     */
 
     'features' => [
-        // Features::billingAddressCollection(['required' => true]),
+        Features::billingAddressCollection(['required' => true]),
         // Features::mustAcceptTerms(),
         // Features::euVatCollection(['home-country' => 'BE']),
         // Features::receiptEmails(['custom-addresses' => true]),
@@ -139,14 +139,37 @@ return [
 
             'plans' => [
                 [
-                    'name' => 'Standard',
-                    'short_description' => 'This is a short, human friendly description of the plan.',
+                    'name' => 'Starter',
+                    'short_description' => 'Good for anyone who is just getting started.',
                     'monthly_id' => 'price_id',
                     'yearly_id' => 'price_id',
                     'features' => [
-                        'Feature 1',
-                        'Feature 2',
-                        'Feature 3',
+                        'Connect 2 Printers',
+                        'Unlimited Prints',
+                        'Two Users per Team',
+                    ],
+                ],
+                [
+                    'name' => 'Small Farm',
+                    'short_description' => 'Perfect for small / medium sized businesses.',
+                    'monthly_id' => 'price_id',
+                    'yearly_id' => 'price_id',
+                    'features' => [
+                        'Connect 10 Printers',
+                        'Unlimited Prints',
+                        'Four Users per Team',
+                    ],
+                ],
+                [
+                    'name' => 'Sprawling Prints',
+                    'short_description' => 'Perfect for large farms, libraries, and schools',
+                    'monthly_id' => 'price_id',
+                    'yearly_id' => 'price_id',
+                    'features' => [
+                        'Connect Unlimited Printers',
+                        'Unlimited Prints',
+                        'Four Users per Team',
+                        'Guest Users',
                     ],
                 ],
             ],
