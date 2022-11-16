@@ -15,15 +15,11 @@ return [
     'components' => [
 
         'actions' => [
-
             'modal' => [
-
                 'actions' => [
                     'alignment' => 'left',
                 ],
-
             ],
-
         ],
 
         'date_time_picker' => [

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Jobs;
 
 use App\Models\Job;
+use Closure;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -60,8 +61,16 @@ class Form extends Component implements HasForms
                 ->schema([
                     Select::make('printer')
                         ->options($this->printers->pluck('name', 'id'))
+                        ->reactive()
                         ->required(),
-                    TextInput::make('file')->required(),
+                    Select::make('file')
+                        ->options(function (Closure $get) {
+                            if ($get('printer') === null) return;
+
+                            return $this->printers->find($get('printer'))->printableFiles();
+                        })
+                        ->searchable()
+                        ->required(),
                 ])
                 ->cloneable()
                 ->collapsible()

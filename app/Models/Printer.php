@@ -19,7 +19,11 @@ class Printer extends Model
 
     public function files($recursive = true)
     {
-        $results = Http::get($this->url . "/api/files?recursive={$recursive}");
+        $results = Http::withHeaders([
+                'X-Api-Key' => $this->api_key,
+            ])
+            ->get($this->url . "/api/files?recursive={$recursive}");
+
         return $results->json('files');
     }
 
