@@ -10,6 +10,7 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
@@ -49,7 +50,7 @@ class Form extends Component implements HasForms
             TextInput::make('name')
                 ->required(),
             Select::make('print_type_id')
-                ->relationship('printType', 'name')
+                ->relationship('printType', 'name', fn (Builder $query) => $query->whereTeamId(auth()->user()->current_team_id))
                 ->label('Print Type')
                 ->required(),
             Select::make('color_hex')
