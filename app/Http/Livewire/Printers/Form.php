@@ -6,6 +6,7 @@ use App\Models\Printer;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Notifications\Notification;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
@@ -62,8 +63,17 @@ class Form extends Component implements HasForms
     {
         if (isset($this->printer)) {
             $this->printer->update($this->form->getState());
+            $message = 'Changes to the **printer** have been saved.';
         } else {
             auth()->user()->currentTeam->printers()->create($this->form->getState());
+            $message = 'The **printer** has been created.';
         }
+
+        Notification::make()
+            ->title('Saved successfully')
+            ->body($message)
+            ->success()
+            ->duration(5000)
+            ->send();
     }
 }
