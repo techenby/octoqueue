@@ -15,10 +15,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call([
+            PermissionSeeder::class,
+        ]);
+
         $user = \App\Models\User::factory()->withPersonalTeam()->create([
             'name' => 'Andy Newhouse',
             'email' => 'hi@andymnewhouse.me',
         ]);
+        $user->assignRole('Super-Admin');
 
         \App\Models\Printer::factory()
             ->for($user->currentTeam)
