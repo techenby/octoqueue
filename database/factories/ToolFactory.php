@@ -15,7 +15,6 @@ class ToolFactory extends Factory
     public function definition()
     {
         return [
-            'team_id' => Team::factory(),
             'printer_id' => Printer::factory(),
             'material_id' => Material::factory(),
             'name' => 'tool0',

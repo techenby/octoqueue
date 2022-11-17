@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\HasTeam;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Http;
 use Laravel\Jetstream\Jetstream;
 
@@ -16,6 +17,11 @@ class Printer extends Model
     protected $casts = ['api_key' => 'encrypted'];
 
     protected $guarded = ['id'];
+
+    public function tools(): HasMany
+    {
+        return $this->hasMany(Tool::class);
+    }
 
     public function files($recursive = true)
     {
