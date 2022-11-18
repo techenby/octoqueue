@@ -50,6 +50,7 @@ class Printer extends Model
             'closed' => 'warning',
             'operational' => 'success',
             'printing' => 'success',
+            null => 'secondary',
         };
     }
 

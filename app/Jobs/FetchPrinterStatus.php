@@ -21,6 +21,12 @@ class FetchPrinterStatus implements ShouldQueue, ShouldBeUnique
 
     public function handle()
     {
+        if ($this->printer->url === null || $this->printer->api_key === null) {
+            return $this->printer->update([
+                'status' => 'error',
+            ]);
+        }
+
         try {
             $response = Http::octoPrint($this->printer)
                 ->get('/api/connection');
