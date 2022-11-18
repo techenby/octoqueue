@@ -19,4 +19,14 @@ class Show extends Component
             ],
         ]);
     }
+
+    public function connect()
+    {
+        // TODO
+    }
+
+    public function fetchStatus()
+    {
+        // TODO
+    }
 }
