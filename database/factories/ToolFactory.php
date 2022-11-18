@@ -16,7 +16,6 @@ class ToolFactory extends Factory
     {
         return [
             'printer_id' => Printer::factory(),
-            'material_id' => Material::factory(),
             'name' => 'tool0',
         ];
     }
