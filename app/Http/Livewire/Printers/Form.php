@@ -59,7 +59,7 @@ class Form extends Component implements HasForms
         ]);
     }
 
-    public function submit(): void
+    public function submit()
     {
         if (isset($this->printer)) {
             $this->printer->update($this->form->getState());
@@ -75,5 +75,7 @@ class Form extends Component implements HasForms
             ->success()
             ->duration(5000)
             ->send();
+
+        return $this->redirect(route('printers'));
     }
 }
