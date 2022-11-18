@@ -9,4 +9,5 @@
 
 <div>
     @includeWhen($printer->status === 'offline', 'livewire.printers.partials.offline-alert')
+    @includeWhen($printer->status === 'closed', 'livewire.printers.partials.closed-alert')
 </div>
