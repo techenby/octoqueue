@@ -24,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Http::macro('octoPrint', function ($printer) {
+            return Http::withHeaders([
+                'X-Api-Key' => $printer->api_key,
+            ])->baseUrl($printer->url);
+        });
     }
 }

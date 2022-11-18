@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Printers;
 use App\Models\Printer;
 use Closure;
 use Filament\Tables\Actions\BulkAction;
+use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Columns\TextColumn;
@@ -27,6 +28,13 @@ class Table extends Component implements HasTable
         return [
             TextColumn::make('name'),
             TextColumn::make('model'),
+            BadgeColumn::make('status')
+                ->colors([
+                    'secondary' => 'draft',
+                    'warning' => 'closed',
+                    'success' => 'operational',
+                    'danger' => static fn ($state): bool => $state === 'offline' || $state === 'error',
+                ]),
         ];
     }
 

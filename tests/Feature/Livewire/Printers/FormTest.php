@@ -3,9 +3,13 @@
 namespace Tests\Feature\Livewire\Printers;
 
 use App\Http\Livewire\Printers\Form;
+use App\Jobs\FetchPrinterStatus;
+use App\Jobs\FetchPrinterTools;
 use App\Models\Printer;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\Queue;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -16,6 +20,8 @@ class FormTest extends TestCase
     /** @test */
     public function can_create_printer()
     {
+        Bus::fake();
+
         $user = User::factory()->withPersonalTeam()->create();
 
         Livewire::actingAs($user)
@@ -28,6 +34,11 @@ class FormTest extends TestCase
             ])
             ->call('submit')
             ->assertHasNoFormErrors();
+
+        Bus::assertChained([
+            FetchPrinterStatus::class,
+            FetchPrinterTools::class,
+        ]);
     }
 
     /** @test */

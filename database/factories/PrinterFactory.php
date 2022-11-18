@@ -20,7 +20,7 @@ class PrinterFactory extends Factory
         return $this->afterMaking(function (Printer $printer) {
             //
         })->afterCreating(function (Printer $printer) {
-            $printer->tools()->create(['name' => 'tool0']);
+            // $printer->tools()->create(['name' => 'tool0']);
         });
     }
 }
