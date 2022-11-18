@@ -41,6 +41,11 @@ class Material extends Model
         return $this->currentLength ? $this->currentLength.'m' : '-';
     }
 
+    public function getNameAttribute()
+    {
+        return $this->brand . ' ' . $this->color;
+    }
+
     public function addWeight($weight, $save = true)
     {
         $weights = $this->weights;
