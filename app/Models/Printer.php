@@ -16,11 +16,6 @@ class Printer extends Model
     use HasFactory;
     use HasTeam;
 
-    public const OPERATIONAL = 'operational';
-    public const CLOSED = 'closed';
-    public const OFFLINE = 'offline';
-    public const ERROR = 'error';
-
     protected $casts = ['api_key' => 'encrypted'];
 
     protected $guarded = ['id'];
@@ -54,6 +49,7 @@ class Printer extends Model
             'error' => 'danger',
             'closed' => 'warning',
             'operational' => 'success',
+            'printing' => 'success',
         };
     }
 

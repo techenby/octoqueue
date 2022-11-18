@@ -32,7 +32,7 @@ class Table extends Component implements HasTable
                 ->colors([
                     'secondary' => 'draft',
                     'warning' => 'closed',
-                    'success' => 'operational',
+                    'success' => static fn ($state): bool => $state === 'operational' || $state === 'printing',
                     'danger' => static fn ($state): bool => $state === 'offline' || $state === 'error',
                 ]),
         ];
@@ -67,7 +67,7 @@ class Table extends Component implements HasTable
 
     protected function getTableRecordUrlUsing(): Closure
     {
-        return fn (Printer $printer): string => route('printers.edit', ['printer' => $printer]);
+        return fn (Printer $printer): string => route('printers.show', ['printer' => $printer]);
     }
 
     public function render(): View
