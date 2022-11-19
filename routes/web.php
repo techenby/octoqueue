@@ -20,9 +20,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', App\Http\Livewire\Dashboard::class)->name('dashboard');
 
     Route::get('/queue', App\Http\Livewire\Jobs\Table::class)->name('queue');
     Route::get('/jobs/create', App\Http\Livewire\Jobs\Form::class)->name('jobs.create');
