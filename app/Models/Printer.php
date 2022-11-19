@@ -71,4 +71,11 @@ class Printer extends Model
             ->pluck('path')
             ->toArray();
     }
+
+    public function safeDelete()
+    {
+        $this->tools()->delete();
+
+        $this->delete();
+    }
 }

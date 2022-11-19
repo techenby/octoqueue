@@ -59,7 +59,7 @@ class Table extends Component implements HasTable
                 ->label('Delete selected')
                 ->color('danger')
                 ->action(function (Collection $records): void {
-                    $records->each->delete();
+                    $records->each->safeDelete();
                 })
                 ->requiresConfirmation(),
         ];
