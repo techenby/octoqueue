@@ -59,6 +59,13 @@ class Show extends Component
         // TODO
     }
 
+    public function deletePrinter()
+    {
+        $this->printer->safeDelete();
+
+        return redirect('printers');
+    }
+
     public function fetchStatus()
     {
         // TODO
