@@ -3,12 +3,14 @@
 namespace Tests\Unit\Models;
 
 use App\Models\Printer;
-use Illuminate\Http\Client\Request;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;;
 
 class PrinterTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * This was taken from the OctoPrint documentation on 2022-11-16
      * https://docs.octoprint.org/en/master/api/files.html#retrieve-all-files

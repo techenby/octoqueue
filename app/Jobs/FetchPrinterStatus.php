@@ -22,7 +22,7 @@ class FetchPrinterStatus implements ShouldQueue, ShouldBeUnique
     public function handle()
     {
         if ($this->printer->url === null || $this->printer->api_key === null) {
-            return $this->printer->update([
+            return $this->printer->updateQuietly([
                 'status' => 'error',
             ]);
         }
@@ -37,13 +37,13 @@ class FetchPrinterStatus implements ShouldQueue, ShouldBeUnique
         }
 
         if ($response->successful()) {
-            return $this->printer->update([
+            return $this->printer->updateQuietly([
                 'status' => strtolower($response->json('current.state')),
             ]);
         }
 
         if ($response->failed()) {
-            return $this->printer->update([
+            return $this->printer->updateQuietly([
                 'status' => 'error',
             ]);
 

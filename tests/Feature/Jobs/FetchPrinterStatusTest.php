@@ -16,6 +16,8 @@ class FetchPrinterStatusTest extends TestCase
     /** @test */
     public function printer_status_is_operational_if_accessable_and_connected()
     {
+        Http::preventStrayRequests();
+
         Http::fake([
             'bulbasaur.local/api/connection' => Http::response([
                 'current' => [
@@ -38,14 +40,16 @@ class FetchPrinterStatusTest extends TestCase
                   'printerProfilePreference' => '_default',
                   'autoconnect' => true,
                 ],
-              ]),
+            ]),
         ]);
 
         $user = User::factory()->withPersonalTeam()->create();
-        $printer = Printer::factory()->for($user->currentTeam)->createQuietly([
-            'url' => 'http://bulbasaur.local',
-            'api_key' => 'TEST_API_KEY',
-        ]);
+        $printer = Printer::factory()
+            ->for($user->currentTeam)
+            ->createQuietly([
+                'url' => 'http://bulbasaur.local',
+                'api_key' => 'TEST_API_KEY',
+            ]);
 
         FetchPrinterStatus::dispatch($printer);
 
