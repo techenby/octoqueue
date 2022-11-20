@@ -54,12 +54,21 @@ class Printer extends Model
         };
     }
 
+    public function currentlyPrinting()
+    {
+        try {
+            return Http::octoPrint($this)
+                ->get("/api/job")
+                ->json();
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
     public function files($recursive = true)
     {
-        $results = Http::withHeaders([
-                'X-Api-Key' => $this->api_key,
-            ])
-            ->get($this->url . "/api/files?recursive={$recursive}");
+        $results = Http::octoPrint($this)
+            ->get("/api/files?recursive={$recursive}");
 
         return $results->json('files');
     }
