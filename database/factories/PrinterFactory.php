@@ -14,6 +14,8 @@ class PrinterFactory extends Factory
             'team_id' => Team::factory(),
             'name' => 'Charmander',
             'model' => 'Prusa Mini',
+            'url' => 'http://charmander.local',
+            'api_key' => 'TEST-API-KEY',
         ];
     }
 

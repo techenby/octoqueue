@@ -43,8 +43,14 @@ class Form extends Component implements HasForms
         return [
             TextInput::make('name')->required(),
             TextInput::make('model'),
-            TextInput::make('url')->url()->label('URL'),
-            TextInput::make('api_key')->password()->label('API Key'),
+            TextInput::make('url')
+                ->url()
+                ->label('URL')
+                ->required(),
+            TextInput::make('api_key')
+                ->password()
+                ->label('API Key')
+                ->required(),
         ];
     }
 

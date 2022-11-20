@@ -14,8 +14,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('status')->nullable();
             $table->string('model')->nullable();
-            $table->string('url')->nullable();
-            $table->text('api_key')->nullable();
+            $table->string('url');
+            $table->text('api_key');
             $table->timestamps();
         });
     }
