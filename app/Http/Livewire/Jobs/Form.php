@@ -110,7 +110,7 @@ class Form extends Component implements HasForms
         return auth()->user()->currentTeam->printers;
     }
 
-    public function submit(): void
+    public function submit()
     {
         if (isset($this->job)) {
             $this->job->update($this->form->getState());
@@ -128,5 +128,7 @@ class Form extends Component implements HasForms
             ->success()
             ->duration(5000)
             ->send();
+
+        return redirect('jobs');
     }
 }
