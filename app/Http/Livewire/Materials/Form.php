@@ -29,6 +29,7 @@ class Form extends Component implements HasForms
     public $type;
     public $diameter;
     public $empty;
+    public $current_weight;
 
     public function mount(): void
     {
@@ -80,6 +81,8 @@ class Form extends Component implements HasForms
             TextInput::make('empty')
                 ->hidden(fn ($get) => $get('printer_type') === null)
                 ->label(fn ($get) => $get('printer_type') === 'fdm' ? 'Empty Spool Weight' : 'Empty Bottle Weight'),
+            TextInput::make('current_weight')
+                ->label('Current Weight'),
         ];
     }
 
@@ -104,13 +107,15 @@ class Form extends Component implements HasForms
         ]);
     }
 
-    public function submit(): void
+    public function submit()
     {
         if (isset($this->material)) {
             $this->material->update($this->form->getState());
+            $this->material->addWeight($this->form->getState()['current_weight']);
             $message = 'Changes to the **material** have been saved.';
         } else {
-            auth()->user()->currentTeam->materials()->create($this->form->getState());
+            $material = auth()->user()->currentTeam->materials()->create($this->form->getState());
+            $material->addWeight($this->form->getState()['current_weight']);
             $message = 'The **material** has been created.';
         }
 
@@ -120,5 +125,7 @@ class Form extends Component implements HasForms
             ->success()
             ->duration(5000)
             ->send();
+
+        return redirect('materials');
     }
 }
