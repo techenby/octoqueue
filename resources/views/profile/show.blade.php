@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-layout.header :title="__('Profile')" />
 
-    <x-ui.conatiner>
+    <x-ui.container>
         @if (Laravel\Fortify\Features::canUpdateProfileInformation())
             @livewire('profile.update-profile-information-form')
 
