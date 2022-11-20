@@ -89,11 +89,13 @@ class Form extends Component implements HasForms
 
     public function render(): View
     {
+        $title = isset($this->job) ? "Edit {$this->job->name}" : 'Create Print Job';
+
         return view('livewire.filament.form', [
-            'title' => 'Create Print Job',
+            'title' => $title,
             'breadcrumbs' => [
                 ['label' => 'Queue', 'route' => 'queue'],
-                ['label' => 'Create Print Job'],
+                ['label' => $title],
             ],
         ]);
     }
