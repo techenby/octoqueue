@@ -43,24 +43,24 @@
                     </td>
                     <td class="relative py-4 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap">
                         @if ($printer->status === 'printing')
-                        <x-ui.icon-button color="warning" wire:click="pause($printer->id)" label="Pause Print">
+                        <x-ui.icon-button color="warning" wire:click="pause({{ $printer->id }})" label="Pause Print">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
                                 <path d="M5.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75A.75.75 0 007.25 3h-1.5zM12.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75a.75.75 0 00-.75-.75h-1.5z" />
                             </svg>
                         </x-ui.icon-button>
                         @else
-                        <x-ui.icon-button color="success" wire:click="resume($printer->id)" label="Resume Print">
+                        <x-ui.icon-button color="success" wire:click="resume({{ $printer->id }})" label="Resume Print">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
                                 <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
                             </svg>
                         </x-ui.icon-button>
                         @endif
-                        <x-ui.icon-button color="danger" wire:click="stop($printer->id)" label="Stop Print">
+                        <x-ui.icon-button color="danger" wire:click="stop({{ $printer->id }})" label="Stop Print">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
                                 <path d="M5.25 3A2.25 2.25 0 003 5.25v9.5A2.25 2.25 0 005.25 17h9.5A2.25 2.25 0 0017 14.75v-9.5A2.25 2.25 0 0014.75 3h-9.5z" />
                             </svg>
                         </x-ui.icon-button>
-                        <x-ui.icon-button wire:click="pip($printer->id)" label="View Webcam">
+                        <x-ui.icon-button wire:click="pip({{ $printer->id }})" label="View Webcam">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
                                 <path d="M3.25 4A2.25 2.25 0 001 6.25v7.5A2.25 2.25 0 003.25 16h7.5A2.25 2.25 0 0013 13.75v-7.5A2.25 2.25 0 0010.75 4h-7.5zM19 4.75a.75.75 0 00-1.28-.53l-3 3a.75.75 0 00-.22.53v4.5c0 .199.079.39.22.53l3 3a.75.75 0 001.28-.53V4.75z" />
                             </svg>

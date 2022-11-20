@@ -57,9 +57,15 @@ class Printer extends Model
     public function currentlyPrinting()
     {
         try {
-            return Http::octoPrint($this)
+            $results = Http::octoPrint($this)
                 ->get("/api/job")
                 ->json();
+
+            if ($results['state'] !== 'Printing') {
+                FetchPrinterStatus::dispatch($this);
+            }
+
+            return $results;
         } catch (\Exception $e) {
             return false;
         }
@@ -67,10 +73,19 @@ class Printer extends Model
 
     public function files($recursive = true)
     {
-        $results = Http::octoPrint($this)
-            ->get("/api/files?recursive={$recursive}");
+        $results = Http::octoPrint($this)->get("/api/files?recursive={$recursive}");
 
         return $results->json('files');
+    }
+
+    public function pause()
+    {
+        Http::octoPrint($this)->post("/api/job", [
+            'command' => 'pause',
+            'action' => 'pause',
+        ]);
+
+        FetchPrinterStatus::dispatch($this);
     }
 
     public function printableFiles()
@@ -79,6 +94,16 @@ class Printer extends Model
             ->filter(fn ($item) => $item['type'] === 'machinecode')
             ->pluck('path')
             ->toArray();
+    }
+
+    public function resume()
+    {
+        Http::octoPrint($this)->post("/api/job", [
+            'command' => 'pause',
+            'action' => 'resume',
+        ]);
+
+        FetchPrinterStatus::dispatch($this);
     }
 
     public function safeDelete()
