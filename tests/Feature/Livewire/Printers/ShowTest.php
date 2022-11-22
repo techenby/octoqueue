@@ -19,7 +19,7 @@ class ShowTest extends TestCase
     public function the_component_can_render()
     {
         $user = User::factory()->withPersonalTeam()->create();
-        $printer = Printer::factory()->for($user->currentTeam)->create();
+        $printer = Printer::factory()->for($user->currentTeam)->createQuietly();
 
         Livewire::actingAs($user)->test(Show::class, ['printer' => $printer])
             ->assertStatus(200);
@@ -32,7 +32,7 @@ class ShowTest extends TestCase
         $printer = Printer::factory()
             ->for($user->currentTeam)
             ->has(Tool::factory())
-            ->create();
+            ->createQuietly();
 
         Livewire::actingAs($user)->test(Show::class, ['printer' => $printer])
             ->call('deletePrinter')
@@ -40,23 +40,5 @@ class ShowTest extends TestCase
 
         $this->assertDatabaseMissing('printers', ['id' => $printer->id]);
         $this->assertDatabaseMissing('tools', ['printer_id' => $printer->id]);
-    }
-
-    /** @test */
-    public function can_assign_material_to_tool()
-    {
-        $user = User::factory()->withPersonalTeam()->create();
-        $material = Material::factory()->for($user->currentTeam)->create();
-        $printer = Printer::factory()
-            ->for($user->currentTeam)
-            ->has(Tool::factory())
-            ->create();
-        $tool = $printer->tools->first();
-
-        Livewire::actingAs($user)->test(Show::class, ['printer' => $printer])
-            ->set("tools.{$tool->id}.material_id", $material->id)
-            ->assertNotified();
-
-        $this->assertEquals($material->id, $tool->refresh()->material_id);
     }
 }

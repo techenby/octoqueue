@@ -20,9 +20,7 @@ class Show extends Component
                 ['label' => 'Printers', 'route' => 'printers'],
                 ['label' => $this->printer->name],
             ],
-            'tools' => $this->printer->tools->mapWithKeys(function ($tool) {
-                return [$tool->id => ['name' => $tool->name, 'material_id' => $tool->material_id]];
-            })->toArray()
+            'tools' => $this->printer->tools,
         ]);
     }
 

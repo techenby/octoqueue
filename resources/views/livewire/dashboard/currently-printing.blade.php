@@ -33,13 +33,19 @@
                     </td>
                     <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
                         @php
-                        $job = $printer->currentlyPrinting()
+                        $job = $printer->currentlyPrinting();
                         @endphp
+                        @if ($job)
                         <span>{{ $job['job']['file']['name'] }}</span>
                         <x-ui.progress-bar :progress="round($job['progress']['completion'], 2)" />
+                        @else
+                        <span>No job found</span>
+                        @endif
                     </td>
                     <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                        @if ($job)
                         <span>{{ secondsToTime($job['progress']['printTimeLeft']) }}</span>
+                        @endif
                     </td>
                     <td class="relative py-4 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap">
                         @if ($printer->status === 'printing')

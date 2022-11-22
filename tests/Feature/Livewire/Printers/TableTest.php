@@ -19,7 +19,7 @@ class TableTest extends TestCase
     public function can_view_all_printers_for_team()
     {
         $user = User::factory()->withPersonalTeam()->create();
-        $printers = Printer::factory()->for($user->currentTeam)->count(5)->create();
+        $printers = Printer::factory()->for($user->currentTeam)->count(5)->createQuietly();
 
         Livewire::actingAs($user)->test(Table::class)
             ->assertStatus(200)
@@ -30,7 +30,7 @@ class TableTest extends TestCase
     public function cannot_view_all_printers_for_different_team()
     {
         $user = User::factory()->withPersonalTeam()->create();
-        $printers = Printer::factory()->for(Team::factory())->count(5)->create();
+        $printers = Printer::factory()->for(Team::factory())->count(5)->createQuietly();
 
         Livewire::actingAs($user)->test(Table::class)
             ->assertStatus(200)

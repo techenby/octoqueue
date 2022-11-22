@@ -2,9 +2,12 @@
 
 namespace Tests\Unit\Models;
 
+use App\Jobs\FetchPrinterStatus;
 use App\Models\Printer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Queue;
 use Tests\TestCase;;
 
 class PrinterTest extends TestCase
@@ -169,5 +172,79 @@ class PrinterTest extends TestCase
             'folderA/test.gcode',
             'folderA/subfolder/test2.gcode',
         ], $files);
+    }
+
+    /** @test */
+    public function can_pause_print()
+    {
+        Queue::fake();
+        Http::preventStrayRequests();
+
+        Http::fake();
+
+        $printer = Printer::factory()->make([
+            'url' => 'http://bulbasaur.local',
+            'api_key' => 'TEST-KEY',
+        ]);
+
+        $printer->pause();
+
+        Http::assertSent(function (Request $request) {
+            return $request->hasHeader('X-Api-Key', 'TEST-KEY') &&
+                   $request->url() == 'http://bulbasaur.local/api/job' &&
+                   $request['command'] == 'pause' &&
+                   $request['action'] == 'pause';
+        });
+
+        Queue::assertPushed(FetchPrinterStatus::class);
+    }
+
+    /** @test */
+    public function can_resume_print()
+    {
+        Queue::fake();
+        Http::preventStrayRequests();
+
+        Http::fake();
+
+        $printer = Printer::factory()->make([
+            'url' => 'http://bulbasaur.local',
+            'api_key' => 'TEST-KEY',
+        ]);
+
+        $printer->resume();
+
+        Http::assertSent(function (Request $request) {
+            return $request->hasHeader('X-Api-Key', 'TEST-KEY') &&
+                   $request->url() == 'http://bulbasaur.local/api/job' &&
+                   $request['command'] == 'pause' &&
+                   $request['action'] == 'resume';
+        });
+
+        Queue::assertPushed(FetchPrinterStatus::class);
+    }
+
+    /** @test */
+    public function can_cancel_print()
+    {
+        Queue::fake();
+        Http::preventStrayRequests();
+
+        Http::fake();
+
+        $printer = Printer::factory()->make([
+            'url' => 'http://bulbasaur.local',
+            'api_key' => 'TEST-KEY',
+        ]);
+
+        $printer->cancel();
+
+        Http::assertSent(function (Request $request) {
+            return $request->hasHeader('X-Api-Key', 'TEST-KEY') &&
+                   $request->url() == 'http://bulbasaur.local/api/job' &&
+                   $request['command'] == 'cancel';
+        });
+
+        Queue::assertPushed(FetchPrinterStatus::class);
     }
 }

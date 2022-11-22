@@ -2,11 +2,9 @@
 
 namespace Tests\Feature\Jobs;
 
-use App\Jobs\FetchPrinterStatus;
 use App\Jobs\FetchPrinterTools;
 use App\Models\Printer;
 use App\Models\Tool;
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
