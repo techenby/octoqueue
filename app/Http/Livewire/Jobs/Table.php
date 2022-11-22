@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Jobs;
 
 use App\Models\Job;
-use App\Models\Material;
 use Closure;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Concerns\InteractsWithTable;
