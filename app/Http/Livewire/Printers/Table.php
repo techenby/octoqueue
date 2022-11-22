@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire\Printers;
 
+use App\Jobs\FetchPrinterStatus;
 use App\Models\Printer;
 use Closure;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
@@ -48,7 +50,11 @@ class Table extends Component implements HasTable
     protected function getTableActions(): array
     {
         return [
-            //
+            Action::make('fetchStatus')
+                ->label('Fetch Status')
+                ->action(function (Printer $record): void {
+                    FetchPrinterStatus::dispatch($record);
+                })
         ];
     }
 
