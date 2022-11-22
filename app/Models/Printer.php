@@ -54,6 +54,15 @@ class Printer extends Model
         };
     }
 
+    public function cancel()
+    {
+        Http::octoPrint($this)->post("/api/job", [
+            'command' => 'cancel',
+        ]);
+
+        FetchPrinterStatus::dispatch($this);
+    }
+
     public function currentlyPrinting()
     {
         try {

@@ -26,7 +26,7 @@
                         @foreach($printer->tools as $tool)
                         <div class="space-x-1">
                             @if($tool->material_id !== null)
-                            <x-icon.filament :x-tooltip.raw="$tool->name .' - ' . $tool->material->name" class="w-12 h-12 text-gray-700 dark:text-gray-400" :fill="$tool->material->color_hex" />
+                            <x-icon.filament :x-tooltip.raw="$tool->name .' - ' . $tool->material->name" class="w-12 h-12 text-gray-900 dark:text-gray-200" :fill="$tool->material->color_hex" />
                             @endif
                         </div>
                         @endforeach
@@ -60,7 +60,7 @@
                                 <path d="M5.25 3A2.25 2.25 0 003 5.25v9.5A2.25 2.25 0 005.25 17h9.5A2.25 2.25 0 0017 14.75v-9.5A2.25 2.25 0 0014.75 3h-9.5z" />
                             </svg>
                         </x-ui.icon-button>
-                        <x-ui.icon-button wire:click="pip({{ $printer->id }})" label="View Webcam">
+                        <x-ui.icon-button wire:click="pip({{ $printer->id }})" color="primary" label="View Webcam">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
                                 <path d="M3.25 4A2.25 2.25 0 001 6.25v7.5A2.25 2.25 0 003.25 16h7.5A2.25 2.25 0 0013 13.75v-7.5A2.25 2.25 0 0010.75 4h-7.5zM19 4.75a.75.75 0 00-1.28-.53l-3 3a.75.75 0 00-.22.53v4.5c0 .199.079.39.22.53l3 3a.75.75 0 001.28-.53V4.75z" />
                             </svg>

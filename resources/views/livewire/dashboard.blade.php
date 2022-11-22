@@ -9,6 +9,14 @@
             <div class="col-span-2">
                 @include('livewire.dashboard.currently-printing', ['printers' => $currentlyPrinting])
             </div>
+            <div>
+                @include('livewire.dashboard.standby', ['printers' => $standby])
+            </div>
+            @if(! $missingMaterials->isEmpty())
+            <div>
+                <livewire:bit.assign-material :tools="$missingMaterials" />
+            </div>
+            @endif
         </div>
     </x-ui.container>
 </div>
