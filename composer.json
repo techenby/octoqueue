@@ -2,7 +2,10 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
@@ -12,7 +15,7 @@
         "filament/notifications": "^2.16",
         "filament/tables": "^2.16",
         "guzzlehttp/guzzle": "^7.5",
-        "laravel/framework": "^9.19",
+        "laravel/framework": "^9.41",
         "laravel/jetstream": "^2.12",
         "laravel/sanctum": "^3.0",
         "laravel/spark-stripe": "^2.0",
