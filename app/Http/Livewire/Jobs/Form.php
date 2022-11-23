@@ -51,7 +51,7 @@ class Form extends Component implements HasForms
             TextInput::make('name')
                 ->required(),
             Select::make('print_type_id')
-                ->relationship('printType', 'name', fn (Builder $query) => $query->whereTeamId(auth()->user()->current_team_id))
+                ->relationship('printType', 'name', fn (Builder $query) => $query->whereTeamId(auth()->user()->current_team_id)->orderBy('priority'))
                 ->label('Print Type')
                 ->required(),
             Select::make('color_hex')
