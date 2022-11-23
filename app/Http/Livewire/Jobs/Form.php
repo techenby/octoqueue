@@ -129,6 +129,6 @@ class Form extends Component implements HasForms
             ->duration(5000)
             ->send();
 
-        return redirect('jobs');
+        return redirect('queue');
     }
 }
