@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Materials;
 use App\Models\Material;
 use Closure;
 use Filament\Tables\Actions\BulkAction;
+use Filament\Tables\Actions\ReplicateAction;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Columns\ColorColumn;
@@ -57,7 +58,8 @@ class Table extends Component implements HasTable
     protected function getTableActions(): array
     {
         return [
-            //
+            ReplicateAction::make()
+                ->excludeAttributes(['weights']),
         ];
     }
 

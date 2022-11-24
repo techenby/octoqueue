@@ -167,10 +167,10 @@ class PrinterTest extends TestCase
         $files = $printer->printableFiles();
 
         $this->assertEquals([
-            'whistle_v2.gcode',
-            'whistle_.gco',
-            'folderA/test.gcode',
-            'folderA/subfolder/test2.gcode',
+            'whistle_v2.gcode' => 'whistle_v2.gcode',
+            'whistle_.gco' => 'whistle_.gco',
+            'folderA/test.gcode' => 'folderA/test.gcode',
+            'folderA/subfolder/test2.gcode' => 'folderA/subfolder/test2.gcode',
         ], $files);
     }
 

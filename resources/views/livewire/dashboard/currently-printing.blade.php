@@ -36,7 +36,7 @@
                         $job = $printer->currentlyPrinting();
                         @endphp
                         @if ($job)
-                        <span>{{ $job['job']['file']['name'] }}</span>
+                        <span>{{ $printer->currentJob->isNotEmpty() ? $printer->currentJob->first()->name : $job['job']['file']['name'] }}</span>
                         <x-ui.progress-bar :progress="round($job['progress']['completion'], 2)" />
                         @else
                         <span>No job found</span>

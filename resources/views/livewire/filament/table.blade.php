@@ -6,6 +6,8 @@
     </x-layout.header>
 
     <x-ui.container>
-        {{ $this->table }}
+        <div class="{{ config('forms.dark_mode') ? 'dark' : '' }}">
+            {{ $this->table }}
+        </div>
     </x-ui.container>
 </div>

@@ -5,9 +5,11 @@ namespace App\Models;
 use App\Jobs\FetchPrinterStatus;
 use App\Jobs\FetchPrinterTools;
 use App\Traits\HasTeam;
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Http;
 
@@ -37,6 +39,16 @@ class Printer extends Model
         });
     }
 
+    public function jobs(): HasMany
+    {
+        return $this->hasMany(Job::class);
+    }
+
+    public function currentJob()
+    {
+        return $this->jobs()->whereNotNull('started_at')->whereNull('completed_at')->whereNull('failed_at');
+    }
+
     public function tools(): HasMany
     {
         return $this->hasMany(Tool::class);
@@ -56,11 +68,23 @@ class Printer extends Model
 
     public function cancel()
     {
-        Http::octoPrint($this)->post("/api/job", [
-            'command' => 'cancel',
-        ]);
+        try {
+            Http::octoPrint($this)->post("/api/job", [
+                'command' => 'cancel',
+            ]);
 
-        FetchPrinterStatus::dispatch($this);
+            FetchPrinterStatus::dispatch($this);
+
+            if ($this->currentJob->exists()) {
+                $currentJob = $this->currentJob->first();
+                $currentJob->duplicate()->save();
+                $currentJob->update([
+                    'failed_at' => now(),
+                ]);
+            }
+        } catch (Exception $e) {
+
+        }
     }
 
     public function currentlyPrinting()
@@ -101,7 +125,7 @@ class Printer extends Model
     {
         return collect(flattenByKey($this->files(), 'children'))
             ->filter(fn ($item) => $item['type'] === 'machinecode')
-            ->pluck('path')
+            ->pluck('path', 'path')
             ->toArray();
     }
 

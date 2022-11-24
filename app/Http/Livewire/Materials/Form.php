@@ -111,7 +111,9 @@ class Form extends Component implements HasForms
     {
         if (isset($this->material)) {
             $this->material->update($this->form->getState());
-            $this->material->addWeight($this->form->getState()['current_weight']);
+            if ($this->form->getState()['current_weight'] !== null) {
+                $this->material->addWeight($this->form->getState()['current_weight']);
+            }
             $message = 'Changes to the **material** have been saved.';
         } else {
             $material = auth()->user()->currentTeam->materials()->create($this->form->getState());

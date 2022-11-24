@@ -22,6 +22,9 @@ class Material extends Model
 
     public function getCurrentWeightAttribute()
     {
+        if ($this->weights === null) {
+            return;
+        }
         return $this->weights->last()['weight'] - $this->empty;
     }
 
