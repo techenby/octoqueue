@@ -109,6 +109,9 @@ class Table extends Component implements HasTable
                 ->action(function (Collection $records, array $data): void {
                     foreach ($records as $record) {
                         $new = $record->replicate();
+                        $new->started_at = null;
+                        $new->completed_at = null;
+                        $new->failed_at = null;
                         $new->color_hex = $data['color_hex'];
                         $new->save();
                     }
