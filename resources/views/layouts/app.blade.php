@@ -31,6 +31,7 @@
 
         {{ $slot }}
 
+        @livewire('bit.pip')
         @livewire('notifications')
 
         @stack('modals')

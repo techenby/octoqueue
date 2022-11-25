@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Jobs\FetchPrinterStatus;
+use App\Models\Job;
 use App\Models\Tool;
 use Livewire\Component;
 
@@ -15,6 +16,7 @@ class Dashboard extends Component
                 'connectionIssues' => $this->connectionIssues,
                 'currentlyPrinting' => $this->currentlyPrinting,
                 'missingMaterials' => $this->missingMaterials,
+                'queuedJobs' => $this->queuedJobs,
                 'standby' => $this->standby,
             ]);
     }
@@ -43,6 +45,17 @@ class Dashboard extends Component
     public function getPrintersProperty()
     {
         return auth()->user()->currentTeam->printers;
+    }
+
+    public function getQueuedJobsProperty()
+    {
+        return auth()->user()->currentTeam->jobs()
+            ->join('print_types', 'jobs.print_type_id', '=', 'print_types.id')
+            ->select('jobs.*', 'print_types.priority as print_type_priority')
+            ->whereNull('jobs.started_at')
+            ->orderBy('print_type_priority', 'desc')
+            ->limit(5)
+            ->get();
     }
 
     public function getStandbyProperty()

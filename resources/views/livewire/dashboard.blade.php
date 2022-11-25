@@ -3,20 +3,17 @@
 
     <x-ui.container>
         <div class="grid grid-cols-3 gap-8">
-            <div>
-                @include('livewire.dashboard.connection-issues', ['printers' => $connectionIssues])
-            </div>
-            <div class="col-span-2">
+            <div class="col-span-2 space-y-8">
                 @include('livewire.dashboard.currently-printing', ['printers' => $currentlyPrinting])
+                @include('livewire.dashboard.queued-jobs', ['queuedJobs' => $queuedJobs])
             </div>
-            <div>
+            <div class="space-y-8">
+                @include('livewire.dashboard.connection-issues', ['printers' => $connectionIssues])
                 @include('livewire.dashboard.standby', ['printers' => $standby])
+                @if(! $missingMaterials->isEmpty())
+                    <livewire:bit.assign-material :tools="$missingMaterials" />
+                @endif
             </div>
-            @if(! $missingMaterials->isEmpty())
-            <div>
-                <livewire:bit.assign-material :tools="$missingMaterials" />
-            </div>
-            @endif
         </div>
     </x-ui.container>
 </div>
