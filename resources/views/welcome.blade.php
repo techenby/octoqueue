@@ -1,89 +1,56 @@
 <x-guest-layout>
-    <div class="bg-white isolate">
-        <div class="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]">
-            <svg class="relative left-[calc(50%-11rem)] -z-10 h-[21.1875rem] max-w-none -translate-x-1/2 rotate-[30deg] sm:left-[calc(50%-30rem)] sm:h-[42.375rem]" viewBox="0 0 1155 678" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill="url(#45de2b6b-92d5-4d68-a6a0-9b9b2abad533)" fill-opacity=".3" d="M317.219 518.975L203.852 678 0 438.341l317.219 80.634 204.172-286.402c1.307 132.337 45.083 346.658 209.733 145.248C936.936 126.058 882.053-94.234 1031.02 41.331c119.18 108.451 130.68 295.337 121.53 375.223L855 299l21.173 362.054-558.954-142.079z" />
-                <defs>
-                    <linearGradient id="45de2b6b-92d5-4d68-a6a0-9b9b2abad533" x1="1155.49" x2="-78.208" y1=".177" y2="474.645" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#9089FC"></stop>
-                        <stop offset="1" stop-color="#FF80B5"></stop>
-                    </linearGradient>
-                </defs>
-            </svg>
-        </div>
-        <div class="px-6 pt-6 lg:px-8">
-            <div>
-                <nav class="flex items-center justify-between h-9" aria-label="Global">
-                    <div class="flex lg:min-w-0 lg:flex-1" aria-label="Global">
-                        <a href="#" class="-m-1.5 p-1.5">
-                            <span class="sr-only">OctoQueue</span>
-                            <img class="h-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="">
-                        </a>
+    <div class="absolute top-0 right-0 z-10 p-4">
+        <x-jet-secondary-button href="/login">Login</x-jet-secondary-button>
+    </div>
+    <div class="pb-8 bg-white dark:bg-gray-900 sm:pb-12 lg:pb-12">
+        <div class="pt-8 overflow-hidden sm:pt-12 lg:relative lg:py-48">
+            <div class="max-w-md px-4 mx-auto sm:max-w-3xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-24 lg:px-8">
+                <div>
+                    <div>
+                        <x-jet-application-logo class="w-auto h-12 text-gray-900 dark:text-gray-200" />
                     </div>
-                    <div class="flex lg:hidden">
-                        <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
-                            <span class="sr-only">Open main menu</span>
-                            <!-- Heroicon name: outline/bars-3 -->
-                            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-center lg:gap-x-12">
-                        <a href="#features" class="font-semibold text-gray-900 hover:text-gray-900">Features</a>
-
-                        <a href="#pricing" class="font-semibold text-gray-900 hover:text-gray-900">Pricing</a>
-
-                        <a href="#company" class="font-semibold text-gray-900 hover:text-gray-900">Company</a>
-                    </div>
-                    <div class="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-end">
-                        <a href="/login" class="inline-block rounded-lg px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm ring-1 ring-gray-900/10 hover:ring-gray-900/20">Log in</a>
-                    </div>
-                </nav>
-                <!-- Mobile menu, show/hide based on menu open state. -->
-                <div role="dialog" aria-modal="true">
-                    <div focus="true" class="fixed inset-0 z-10 px-6 py-6 overflow-y-auto bg-white lg:hidden">
-                        <div class="flex items-center justify-between h-9">
-                            <div class="flex">
-                                <a href="#" class="-m-1.5 p-1.5">
-                                    <span class="sr-only">OctoQueue</span>
-                                    <img class="h-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="">
-                                </a>
-                            </div>
-                            <div class="flex">
-                                <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
-                                    <span class="sr-only">Close menu</span>
-                                    <!-- Heroicon name: outline/x-mark -->
-                                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
-                            </div>
+                    <div class="mt-20">
+                        <div class="mt-6 sm:max-w-xl">
+                            <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-200 sm:text-5xl">
+                                <span class="rounded bg-indigo-50 dark:bg-indigo-900 px-2.5 py-1 text-sm font-semibold text-indigo-600 dark:text-indigo-100">Coming soon</span>
+                                <span class="block">Printer management for growing farm</span>
+                            </h1>
+                            <p class="mt-6 text-xl text-gray-500 dark:text-gray-400">Tapping into the power of OctoPrint, manage what gets printed when, manage filaments and more.</p>
                         </div>
-                        <div class="flow-root mt-6">
-                            <div class="-my-6 divide-y divide-gray-500/10">
-                                <div class="py-6 space-y-2">
-                                    <a href="#features" class="block px-3 py-2 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:bg-gray-400/10">Features</a>
-
-                                    <a href="#pricing" class="block px-3 py-2 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:bg-gray-400/10">Marketplace</a>
-
-                                    <a href="#company" class="block px-3 py-2 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:bg-gray-400/10">Company</a>
+                        <div class="mt-12">
+                            <p class="mb-2 text-base font-medium text-gray-900 dark:text-gray-200">Sign up to get notified when it launches.</p>
+                            <form action="#" class="sm:flex sm:w-full sm:max-w-lg">
+                                <div class="flex-1 min-w-0">
+                                    <label for="hero-email" class="sr-only">Email address</label>
+                                    <input id="hero-email" type="email" class="block w-full px-5 py-3 text-base text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm dark:text-gray-200 dark:placeholder-gray-400 dark:bg-gray-900 dark:border-gray-700 focus:border-indigo-500 focus:ring-indigo-500" placeholder="Enter your email">
                                 </div>
-                                <div class="py-6">
-                                    <a href="/login" class="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10">Log in</a>
+                                <div class="mt-4 sm:mt-0 sm:ml-3">
+                                    <button type="submit" class="block w-full px-5 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:px-10">Notify me</button>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div class="sm:mx-auto sm:max-w-3xl sm:px-6">
+                <div class="py-12 sm:relative sm:mt-12 sm:py-16 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+                    <div class="hidden sm:block">
+                        <div class="absolute inset-y-0 w-screen left-1/2 rounded-l-3xl bg-gray-50 dark:bg-gray-850 lg:left-80 lg:right-0 lg:w-full"></div>
+                        <svg class="absolute -mr-3 top-8 right-1/2 lg:left-0 lg:m-0" width="404" height="392" fill="none" viewBox="0 0 404 392">
+                            <defs>
+                                <pattern id="837c3e70-6c3a-44e6-8854-cc48c737b659" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                                    <rect x="0" y="0" width="4" height="4" class="text-gray-200 dark:text-gray-700" fill="currentColor" />
+                                </pattern>
+                            </defs>
+                            <rect width="404" height="392" fill="url(#837c3e70-6c3a-44e6-8854-cc48c737b659)" />
+                        </svg>
+                    </div>
+                    <div class="relative pl-4 -mr-40 sm:mx-auto sm:max-w-3xl sm:px-0 lg:h-full lg:max-w-none lg:pl-12">
+                        <img class="w-full rounded-md shadow-xl ring-1 ring-black ring-opacity-5 lg:h-full lg:w-auto lg:max-w-none" src="https://tailwindui.com/img/component-images/top-nav-with-multi-column-layout-screenshot.jpg" alt="">
+                    </div>
+                </div>
+            </div>
         </div>
-        <main>
-            @include('marketing.hero')
-            @include('marketing.features')
-            @include('marketing.pricing')
-        </main>
     </div>
-
-
 </x-guest-layout>

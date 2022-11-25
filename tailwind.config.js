@@ -16,12 +16,15 @@ module.exports = {
             colors: {
                 danger: colors.rose,
                 primary: colors.blue,
-                success: colors.green,
+                success: colors.emerald,
                 warning: colors.yellow,
                 gray: {
                     850: '#202023',
                     ...colors.zinc
-                }
+                },
+                purple: colors.violet,
+                blue: colors.cyan,
+                green: colors.emerald,
             },
             fontFamily: {
                 sans: ['Inter', ...defaultTheme.fontFamily.sans],

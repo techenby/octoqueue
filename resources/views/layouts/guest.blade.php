@@ -20,7 +20,5 @@
     </head>
     <body class="bg-gray-100 dark:bg-gray-900">
         {{ $slot }}
-
-        @include('layouts.footer')
     </body>
 </html>

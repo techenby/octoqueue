@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', App\Http\Controllers\MarketingController::class)->name('marketing');
+Route::get('/', [App\Http\Controllers\MarketingController::class, 'welcome'])->name('welcome');
+Route::get('/marketing', [App\Http\Controllers\MarketingController::class, 'marketing'])->name('marketing');
 
 Route::middleware([
     'auth:sanctum',

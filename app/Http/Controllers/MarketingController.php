@@ -6,9 +6,14 @@ use Illuminate\Http\Request;
 
 class MarketingController extends Controller
 {
-    public function __invoke()
+    public function welcome()
     {
-        return view('welcome', [
+        return view('welcome');
+    }
+
+    public function marketing()
+    {
+        return view('marketing', [
             'features' => [
                 ['label' => 'Print Monitoring', 'description' => "All of your receipts organized into one place, as long as you don't mind typing in the data by hand.", 'image' => asset('images/feature-1-ui-light.webp')],
                 ['label' => 'Smart Queue', 'description' => "All of your receipts organized into one place, as long as you don't mind typing in the data by hand.", 'image' => asset('images/feature-2-ui-light.webp')],
