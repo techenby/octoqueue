@@ -35,7 +35,8 @@ class DatabaseSeeder extends Seeder
                 ['name' => 'Charmander'],
                 ['name' => 'Squirtle'],
             ))
-            ->create();
+            ->has(Tool::factory())
+            ->createQuietly();
 
         \App\Models\Material::factory()
             ->for($user->currentTeam)
