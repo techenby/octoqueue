@@ -20,4 +20,35 @@ class JobFactory extends Factory
             'notes' => 'Should be cute',
         ];
     }
+
+    public function completed()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'started_at' => now()->subHour(),
+                'completed_at' => now(),
+                'material_used' => 1.05,
+            ];
+        });
+    }
+
+    public function failed()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'started_at' => now()->subHour(),
+                'failed_at' => now(),
+                'material_used' => 1.05,
+            ];
+        });
+    }
+
+    public function started()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'started_at' => now(),
+            ];
+        });
+    }
 }
