@@ -30,21 +30,33 @@ class Table extends Component implements HasTable
             ColorColumn::make('color_hex')
                 ->label('Color')
                 ->tooltip(fn (Material $record): string => $record->color)
-                ->sortable(),
+                ->searchable(['color', 'color_hex'])
+                ->sortable()
+                ->toggleable(),
             TextColumn::make('brand')
-                ->sortable(),
+                ->searchable()
+                ->sortable()
+                ->toggleable(),
             TextColumn::make('cost')
                 ->formatStateUsing(fn (string $state) => "$$state")
-                ->sortable(),
+                ->searchable()
+                ->sortable()
+                ->toggleable(),
             TextColumn::make('type')
-                ->sortable(),
+                ->searchable()
+                ->sortable()
+                ->toggleable(),
             TextColumn::make('diameter')
                 ->formatStateUsing(fn (string $state) => "{$state}mm")
-                ->sortable(),
+                ->searchable()
+                ->sortable()
+                ->toggleable(),
             TextColumn::make('formatted_current_weight')
-                ->label('Current Weight'),
+                ->label('Current Weight')
+                ->toggleable(),
             TextColumn::make('formatted_current_length')
-                ->label('Current Length'),
+                ->label('Current Length')
+                ->toggleable(),
         ];
     }
 
