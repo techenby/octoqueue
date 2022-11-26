@@ -23,7 +23,7 @@ class Newsletter extends Component
 
         SpatieNewsletter::subscribe($this->email);
 
-        return Notification::make()
+        Notification::make()
             ->title('You have been subscribed to our newsletter.')
             ->success()
             ->duration(5000)
