@@ -40,7 +40,7 @@
                 @empty
                 <tr>
                     <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400" colspan="5">
-                        Nothing is printing.
+                        Nothing is queued to print.
                     </td>
                 </tr>
                 @endforelse
