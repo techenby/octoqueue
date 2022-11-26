@@ -30,7 +30,6 @@ class Material extends Model
 
     public function getCurrentLengthAttribute()
     {
-
         return Calculator::gramsToLength($this->material, $this->diameter, $this->currentWeight);
     }
 
