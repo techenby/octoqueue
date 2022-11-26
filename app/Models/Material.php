@@ -46,7 +46,7 @@ class Material extends Model
 
     public function getNameAttribute()
     {
-        return $this->brand . ' ' . $this->color;
+        return "{$this->brand} {$this->color} ($this->type)";
     }
 
     public function addWeight($weight, $save = true)

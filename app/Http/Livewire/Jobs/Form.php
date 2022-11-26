@@ -102,7 +102,7 @@ class Form extends Component implements HasForms
 
     public function getColorOptionsProperty()
     {
-        return auth()->user()->currentTeam->materials->pluck('color', 'color_hex');
+        return auth()->user()->currentTeam->materials->pluck('name', 'color_hex');
     }
 
     public function getPrintersProperty()
