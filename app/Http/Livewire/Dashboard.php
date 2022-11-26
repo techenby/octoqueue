@@ -53,7 +53,7 @@ class Dashboard extends Component
             ->join('print_types', 'jobs.print_type_id', '=', 'print_types.id')
             ->select('jobs.*', 'print_types.priority as print_type_priority')
             ->whereNull('jobs.started_at')
-            ->orderBy('print_type_priority', 'desc')
+            ->orderBy('print_type_priority')
             ->limit(5)
             ->get();
     }
