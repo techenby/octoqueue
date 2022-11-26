@@ -4,7 +4,6 @@ namespace Tests\Feature\Livewire\Jobs;
 
 use App\Http\Livewire\Jobs\Table;
 use App\Models\Job;
-use App\Models\Material;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -38,10 +37,23 @@ class TableTest extends TestCase
     }
 
     /** @test */
+    public function can_bulk_delete()
+    {
+        $user = User::factory()->withPersonalTeam()->create();
+        $jobs = Job::factory()->for($user->currentTeam)->count(5)->create();
+
+        Livewire::actingAs($user)->test(Table::class)
+            ->callTableBulkAction('delete', $jobs)
+            ->assertHasNoTableActionErrors();
+
+        $this->assertEmpty($jobs->fresh());
+    }
+
+    /** @test */
     public function duplicating_job_nulls_out_dates_and_material_used()
     {
         $user = User::factory()->withPersonalTeam()->create();
-        $job = Job::factory()->for($user->currentTeam)->completed()->create([
+        $job = Job::factory()->for($user->currentTeam)->create([
             'name' => 'Rubber Ducky',
             'color_hex' => '#FFFF00',
             'notes' => 'Should be cute',
