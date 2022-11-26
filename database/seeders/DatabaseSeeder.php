@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\Printer::factory()
             ->for($user->currentTeam)
-            ->count(3)
+            ->count(2)
             ->state(new Sequence(
                 ['name' => 'Pikachu', 'model' => 'Ender 3 Pro', 'url' => 'http://pikachu.local', 'api_key' => '51F8861CE37E4E82AEE4780436EB5C28'],
                 ['name' => 'Eevee', 'model' => 'Ender 3', 'url' => 'http://eevee.local', 'api_key' => 'BF6DFF22198B43F8AC24FDDD38F964FC'],
