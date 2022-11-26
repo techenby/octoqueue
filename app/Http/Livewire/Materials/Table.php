@@ -4,8 +4,10 @@ namespace App\Http\Livewire\Materials;
 
 use App\Models\Material;
 use Closure;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Actions\ReplicateAction;
+use Filament\Forms\Components\TextInput;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Columns\ColorColumn;
@@ -53,7 +55,21 @@ class Table extends Component implements HasTable
                 ->toggleable(),
             TextColumn::make('formatted_current_weight')
                 ->label('Current Weight')
-                ->toggleable(),
+                ->toggleable()
+                ->action(
+                    Action::make('add_current_weight')
+                        ->action(function (Material $record, $data): void {
+                            $record->addWeight($data['current_weight']);
+                        })
+                        ->form([
+                            TextInput::make('current_weight')
+                                ->helperText('Put the spool or bottle on a scale and record the amount here. Make no adjustment for the weight of the container.')
+                                ->label('Current Weight')
+                                ->numeric()
+                                ->required()
+                                ->suffix('g'),
+                        ]),
+                ),
             TextColumn::make('formatted_current_length')
                 ->label('Current Length')
                 ->toggleable(),

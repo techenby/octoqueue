@@ -61,4 +61,31 @@ class TableTest extends TestCase
         $this->assertEquals('Red', $newMaterial->color);
         $this->assertNull($newMaterial->weights);
     }
+
+    /** @test */
+    public function can_add_current_weight_to_a_material()
+    {
+        $user = User::factory()->withPersonalTeam()->create();
+        $material = Material::factory()->for($user->currentTeam)->create([
+            'brand' => 'Prusa',
+            'cost' => '17.95',
+            'color' => 'Red',
+            'color_hex' => '#FF0000',
+            'diameter' => '1.75',
+            'empty' => 256,
+            'weights' => [['weight' => 1000, 'timestamp' => now()]],
+        ]);
+
+        Livewire::actingAs($user)->test(Table::class)
+            ->mountTableAction('add_current_weight', $material)
+            ->setTableActionData([
+                'current_weight' => 750,
+            ])
+            ->callMountedTableAction()
+            ->assertHasNoTableActionErrors();
+
+        $material->refresh();
+        $this->assertCount(2, $material->weights);
+        $this->assertEquals(494, $material->current_weight);
+    }
 }
