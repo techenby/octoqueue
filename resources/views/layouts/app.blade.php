@@ -15,6 +15,8 @@
         <meta name="msapplication-TileColor" content="#2b5797">
         <meta name="theme-color" content="#ffffff">
 
+        <script src="https://sky-seven.octoqueue.com/script.js" data-site="HHGDRTTQ" defer></script>
+
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
