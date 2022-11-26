@@ -88,4 +88,17 @@ class TableTest extends TestCase
         $this->assertCount(2, $material->weights);
         $this->assertEquals(494, $material->current_weight);
     }
+
+    /** @test */
+    public function can_bulk_delete()
+    {
+        $user = User::factory()->withPersonalTeam()->create();
+        $materials = Material::factory()->for($user->currentTeam)->count(5)->create();
+
+        Livewire::actingAs($user)->test(Table::class)
+            ->callTableBulkAction('delete', $materials)
+            ->assertHasNoTableActionErrors();
+
+        $this->assertEmpty($materials->fresh()->where('deleted_at', null));
+    }
 }

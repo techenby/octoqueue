@@ -36,4 +36,17 @@ class TableTest extends TestCase
             ->assertStatus(200)
             ->assertCanNotSeeTableRecords($printers);
     }
+
+    /** @test */
+    public function can_bulk_delete()
+    {
+        $user = User::factory()->withPersonalTeam()->create();
+        $printers = Printer::factory()->for($user->currentTeam)->count(5)->createQuietly();
+
+        Livewire::actingAs($user)->test(Table::class)
+            ->callTableBulkAction('delete', $printers)
+            ->assertHasNoTableActionErrors();
+
+        $this->assertEmpty($printers->fresh());
+    }
 }
