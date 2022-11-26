@@ -23,7 +23,7 @@
                         <p class="text-sm text-gray-500 truncate dark:text-gray-400">{{ $job->printType->name }}</p>
                     </td>
                     <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                        <div style="background-color: #{{ $job->color_hex }}" class="relative flex w-6 h-6 ml-4 rounded-md">
+                        <div style="background-color: {{ $job->color_hex }}" class="relative flex w-6 h-6 ml-4 rounded-md">
                         </div>
                     </td>
                     <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
