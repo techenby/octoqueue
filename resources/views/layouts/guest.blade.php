@@ -17,8 +17,14 @@
         @vite(['resources/css/app.css'])
 
         @stack('scripts')
+
+        <!-- Styles -->
+        @livewireStyles
     </head>
     <body class="bg-gray-100 dark:bg-gray-900">
         {{ $slot }}
+
+        @livewire('notifications')
+        @livewireScripts
     </body>
 </html>

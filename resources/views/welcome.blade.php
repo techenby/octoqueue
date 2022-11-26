@@ -19,15 +19,7 @@
                         </div>
                         <div class="mt-12">
                             <p class="mb-2 text-base font-medium text-gray-900 dark:text-gray-200">Sign up to get notified when it launches.</p>
-                            <form action="#" class="sm:flex sm:w-full sm:max-w-lg">
-                                <div class="flex-1 min-w-0">
-                                    <label for="hero-email" class="sr-only">Email address</label>
-                                    <input id="hero-email" type="email" class="block w-full px-5 py-3 text-base text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm dark:text-gray-200 dark:placeholder-gray-400 dark:bg-gray-900 dark:border-gray-700 focus:border-indigo-500 focus:ring-indigo-500" placeholder="Enter your email">
-                                </div>
-                                <div class="mt-4 sm:mt-0 sm:ml-3">
-                                    <button type="submit" class="block w-full px-5 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:px-10">Notify me</button>
-                                </div>
-                            </form>
+                            @livewire('newsletter')
                         </div>
                     </div>
                 </div>
@@ -47,7 +39,8 @@
                         </svg>
                     </div>
                     <div class="relative pl-4 -mr-40 sm:mx-auto sm:max-w-3xl sm:px-0 lg:h-full lg:max-w-none lg:pl-12">
-                        <img class="w-full rounded-md shadow-xl ring-1 ring-black ring-opacity-5 lg:h-full lg:w-auto lg:max-w-none" src="https://tailwindui.com/img/component-images/top-nav-with-multi-column-layout-screenshot.jpg" alt="">
+                        <img class="hidden w-full rounded-md shadow-xl shadow-gray-700/25 dark:block ring-1 ring-white ring-opacity-5 lg:h-full lg:w-auto lg:max-w-none" src="{{ asset('images/dashboard-dark.webp') }}" alt="Dashboard of the OctoQueue interface. There are panels showing what is currently printing, what is queued, printers that have connection issues, printers on standby, printers with no material assigned to them as well as a webcam view of the what is printing.">
+                        <img class="w-full rounded-md shadow-xl dark:hidden ring-1 ring-black ring-opacity-5 lg:h-full lg:w-auto lg:max-w-none" src="{{ asset('images/dashboard-light.webp') }}" alt="Dashboard of the OctoQueue interface. There are panels showing what is currently printing, what is queued, printers that have connection issues, printers on standby, printers with no material assigned to them as well as a webcam view of the what is printing.">
                     </div>
                 </div>
             </div>

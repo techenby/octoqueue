@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "83c7e29167846e44df4978c9d38637d4",
+    "content-hash": "68bdc2880ff79d3e395f52c16bc9f563",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -5391,6 +5391,87 @@
             "time": "2022-07-05T09:31:00+00:00"
         },
         {
+            "name": "spatie/laravel-newsletter",
+            "version": "5.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-newsletter.git",
+                "reference": "d1c3a9239f9ac43fb7b9e548d23b97d41098a31a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-newsletter/zipball/d1c3a9239f9ac43fb7b9e548d23b97d41098a31a",
+                "reference": "d1c3a9239f9ac43fb7b9e548d23b97d41098a31a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1",
+                "spatie/laravel-package-tools": "^1.13"
+            },
+            "require-dev": {
+                "drewm/mailchimp-api": "^2.5",
+                "guzzlehttp/guzzle": "^7.5",
+                "mockery/mockery": "^1.4",
+                "orchestra/testbench": "^7.11",
+                "pestphp/pest": "^1.20",
+                "phpstan/phpstan": "^1.9",
+                "phpunit/phpunit": "^9.5",
+                "spatie/mailcoach-sdk-php": "^1.0",
+                "spatie/ray": "^1.28"
+            },
+            "suggest": {
+                "drewm/mailchimp-api": "For working with MailChimp",
+                "spatie/mailcoach-sdk-php": "For working with Mailcoach"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\Newsletter\\NewsletterServiceProvider"
+                    ],
+                    "aliases": {
+                        "Newsletter": "Spatie\\Newsletter\\NewsletterFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Newsletter\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Manage Mailcoach and MailChimp newsletters in Laravel",
+            "homepage": "https://github.com/spatie/laravel-newsletter",
+            "keywords": [
+                "laravel",
+                "mailchimp",
+                "mailcoach",
+                "newsletter"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-newsletter/issues",
+                "source": "https://github.com/spatie/laravel-newsletter/tree/5.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                }
+            ],
+            "time": "2022-11-10T17:06:40+00:00"
+        },
+        {
             "name": "spatie/laravel-package-tools",
             "version": "1.13.7",
             "source": {
@@ -5531,6 +5612,70 @@
                 }
             ],
             "time": "2022-10-23T02:49:28+00:00"
+        },
+        {
+            "name": "spatie/mailcoach-sdk-php",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/mailcoach-sdk-php.git",
+                "reference": "60c12a61e10ee1c308ea0b46a84d52fac09b05ac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/mailcoach-sdk-php/zipball/60c12a61e10ee1c308ea0b46a84d52fac09b05ac",
+                "reference": "60c12a61e10ee1c308ea0b46a84d52fac09b05ac",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "^7.0",
+                "laravel/pint": "^1.2",
+                "pestphp/pest": "^1.20",
+                "pestphp/pest-plugin-mock": "^1.0",
+                "phpstan/phpstan": "^1.9",
+                "spatie/ray": "^1.28",
+                "vlucas/phpdotenv": "^5.5"
+            },
+            "suggest": {
+                "guzzlehttp/guzzle": "Make HTTP requests"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\MailcoachSdk\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "An SDK for using the Mailcoach API in PHP",
+            "homepage": "https://github.com/spatie/mailcoach-sdk-php",
+            "keywords": [
+                "mailcoach-sdk-php",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/mailcoach-sdk-php/issues",
+                "source": "https://github.com/spatie/mailcoach-sdk-php/tree/1.0.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-11-25T07:52:09+00:00"
         },
         {
             "name": "stechstudio/filament-impersonate",
