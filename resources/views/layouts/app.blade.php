@@ -32,7 +32,9 @@
     <body class="min-h-screen bg-gray-100 dark:bg-gray-900">
         <x-jet-banner />
 
+        @auth
         @livewire('navigation-menu')
+        @endauth
 
         @isset($header)
         <!-- Page Heading -->

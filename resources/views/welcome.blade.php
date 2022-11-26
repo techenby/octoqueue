@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-app-layout>
     <div class="absolute top-0 right-0 z-10 p-4">
         <x-jet-secondary-button href="/login">Login</x-jet-secondary-button>
     </div>
@@ -46,4 +46,4 @@
             </div>
         </div>
     </div>
-</x-guest-layout>
+</x-app-layout>

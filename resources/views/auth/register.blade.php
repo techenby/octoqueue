@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-app-layout>
     @push('scripts')
         <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
     @endpush
@@ -63,4 +63,4 @@
             </div>
         </form>
     </x-jet-authentication-card>
-</x-guest-layout>
+</x-app-layout>
