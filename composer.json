@@ -1,8 +1,8 @@
 {
-    "name": "laravel/laravel",
+    "name": "techenby/octoqueue",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "description": "Octoqueue application.",
+    "keywords": ["octoprint", "laravel", "livewire", "filamentphp"],
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
