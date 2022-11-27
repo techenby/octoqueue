@@ -110,8 +110,6 @@ class TableTest extends TestCase
     /** @test */
     public function can_not_print_if_no_printers_available()
     {
-        Http::fake();
-
         $user = User::factory()->withPersonalTeam()->create();
         $printer = Printer::factory()->for($user->currentTeam)->has(Tool::factory())->createQuietly(['status' => 'operational']);
         Material::factory()->for($user->currentTeam)->create(['color_hex' => '#FFFF00']);
@@ -125,7 +123,27 @@ class TableTest extends TestCase
 
         Livewire::actingAs($user)->test(Table::class)
             ->callTableAction('print', $job)
-            ->assertNotified();
+            ->assertNotified('No printers available');
+
+        $this->assertNull($job->fresh()->started_at);
+    }
+
+    /** @test */
+    public function can_not_print_if_no_materials_found()
+    {
+        $user = User::factory()->withPersonalTeam()->create();
+        $printer = Printer::factory()->for($user->currentTeam)->has(Tool::factory())->createQuietly(['status' => 'operational']);
+
+        $job = Job::factory()->for($user->currentTeam)->create([
+            'name' => 'Rubber Ducky',
+            'color_hex' => '#FFFF00',
+            'notes' => 'Should be cute',
+            'files' => [['printer' => $printer->id, 'file' => 'ducky.gcode']],
+        ]);
+
+        Livewire::actingAs($user)->test(Table::class)
+            ->callTableAction('print', $job)
+            ->assertNotified('No materials found with this color');
 
         $this->assertNull($job->fresh()->started_at);
     }
