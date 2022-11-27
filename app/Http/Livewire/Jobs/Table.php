@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Jobs;
 use App\Models\Job;
 use Closure;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\BulkAction;
@@ -94,6 +95,22 @@ class Table extends Component implements HasTable
                             ->title($e->getMessage())
                             ->danger()
                             ->send();
+                    }
+                }),
+            Action::make('duplicate')
+                ->form([
+                    TextInput::make('times')
+                        ->numeric(),
+                ])
+                ->action(function (Job $record, array $data): void {
+                    foreach (range(1, $data['times']) as $time) {
+                        $record->replicate([
+                                'started_at',
+                                'completed_at',
+                                'failed_at',
+                                'material_used',
+                            ])
+                            ->save();
                     }
                 }),
         ];

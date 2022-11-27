@@ -129,4 +129,22 @@ class TableTest extends TestCase
 
         $this->assertNull($job->fresh()->started_at);
     }
+
+    /** @test */
+    public function can_duplicate_job_number_of_times()
+    {
+        $user = User::factory()->withPersonalTeam()->create();
+        $job = Job::factory()->for($user->currentTeam)->create([
+            'name' => 'Rubber Ducky',
+            'color_hex' => '#FFFF00',
+            'notes' => 'Should be cute',
+            'files' => [['printer' => 1, 'file' => 'ducky.gcode']],
+        ]);
+
+        Livewire::actingAs($user)->test(Table::class)
+            ->callTableAction('duplicate', $job, ['times' => 5])
+            ->assertHasNoTableActionErrors();
+
+        $this->assertCount(6, Job::whereTeamId($user->current_team_id)->where('name', 'Rubber Ducky')->where('color_hex', '#FFFF00')->get());
+    }
 }
