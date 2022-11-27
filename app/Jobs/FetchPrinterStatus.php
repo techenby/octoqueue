@@ -17,7 +17,8 @@ class FetchPrinterStatus implements ShouldQueue, ShouldBeUnique
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public function __construct(public Printer $printer)
-    {}
+    {
+    }
 
     public function handle()
     {

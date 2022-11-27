@@ -8,9 +8,9 @@ use Closure;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\BadgeColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
-use Filament\Tables\Columns\TextColumn;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
@@ -54,7 +54,7 @@ class Table extends Component implements HasTable
                 ->label('Fetch Status')
                 ->action(function (Printer $record): void {
                     FetchPrinterStatus::dispatch($record);
-                })
+                }),
         ];
     }
 
@@ -82,7 +82,7 @@ class Table extends Component implements HasTable
             'title' => 'Printers',
             'link' => ['route' => 'printers.create', 'label' => 'Create'],
             'breadcrumbs' => [
-                ['label' => 'Printers']
+                ['label' => 'Printers'],
             ],
         ]);
     }

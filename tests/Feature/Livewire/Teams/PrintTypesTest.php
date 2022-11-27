@@ -201,7 +201,7 @@ class PrintTypesTest extends TestCase
     {
         $user = User::factory()->withPersonalTeam()->create();
         $printType = PrintType::factory()->for($user->currentTeam)->create([
-            'name' => 'Hello'
+            'name' => 'Hello',
         ]);
 
         Livewire::actingAs($user)

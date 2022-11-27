@@ -212,9 +212,9 @@ class PrinterTest extends TestCase
             'name' => 'Whistle',
             'color_hex' => '#FFFF00',
             'files' => [
-                ["file" => "whistle_v2.gcode", "printer" => $printer->id],
+                ['file' => 'whistle_v2.gcode', 'printer' => $printer->id],
             ],
-            'started_at' => now()->subSeconds(276)
+            'started_at' => now()->subSeconds(276),
         ]);
 
         $printer->cancel();
@@ -227,7 +227,7 @@ class PrinterTest extends TestCase
     public function can_get_what_is_currently_printing()
     {
         Http::fake([
-            'bulbasaur.local/api/job' => Http::response($this->jobResponse)
+            'bulbasaur.local/api/job' => Http::response($this->jobResponse),
         ]);
 
         $printer = Printer::factory()->make([
@@ -269,7 +269,7 @@ class PrinterTest extends TestCase
                     'printTimeLeft' => 912,
                 ],
                 'state' => 'Operational',
-            ])
+            ]),
         ]);
 
         $printer = Printer::factory()->make([
@@ -289,7 +289,7 @@ class PrinterTest extends TestCase
         Http::preventStrayRequests();
 
         Http::fake([
-            'bulbasaur.local/api/files?recursive=1' => Http::response($this->filesResponse)
+            'bulbasaur.local/api/files?recursive=1' => Http::response($this->filesResponse),
         ]);
 
         $printer = Printer::factory()->make([
@@ -333,7 +333,7 @@ class PrinterTest extends TestCase
         Http::preventStrayRequests();
 
         Http::fake([
-            'bulbasaur.local/api/files?recursive=1' => Http::response($this->filesResponse)
+            'bulbasaur.local/api/files?recursive=1' => Http::response($this->filesResponse),
         ]);
 
         $printer = Printer::factory()->make([
@@ -395,7 +395,7 @@ class PrinterTest extends TestCase
     public function can_save_currently_printing()
     {
         Http::fake([
-            'bulbasaur.local/api/job' => Http::response($this->jobResponse)
+            'bulbasaur.local/api/job' => Http::response($this->jobResponse),
         ]);
 
         $user = User::factory()->withPersonalTeam()->create();

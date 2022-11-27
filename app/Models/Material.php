@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Laravel\Jetstream\Jetstream;
 
 class Material extends Model
 {
@@ -25,6 +24,7 @@ class Material extends Model
         if ($this->weights === null) {
             return;
         }
+
         return $this->weights->last()['weight'] - $this->empty;
     }
 

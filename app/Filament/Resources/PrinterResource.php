@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PrinterResource\Pages;
-use App\Filament\Resources\PrinterResource\RelationManagers;
 use App\Models\Printer;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PrinterResource extends Resource
 {
@@ -62,14 +59,14 @@ class PrinterResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -77,5 +74,5 @@ class PrinterResource extends Resource
             'create' => Pages\CreatePrinter::route('/create'),
             'edit' => Pages\EditPrinter::route('/{record}/edit'),
         ];
-    }    
+    }
 }

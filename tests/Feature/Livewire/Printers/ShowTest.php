@@ -3,7 +3,6 @@
 namespace Tests\Feature\Livewire\Printers;
 
 use App\Http\Livewire\Printers\Show;
-use App\Models\Material;
 use App\Models\Printer;
 use App\Models\Tool;
 use App\Models\User;

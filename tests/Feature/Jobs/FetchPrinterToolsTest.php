@@ -19,14 +19,14 @@ class FetchPrinterToolsTest extends TestCase
         Http::fake([
             'bulbasaur.local/api/printer/tool' => Http::response([
                 'tool0' => [
-                  'actual' => 214.8821,
-                  'target' => 220.0,
-                  'offset' => 0,
+                    'actual' => 214.8821,
+                    'target' => 220.0,
+                    'offset' => 0,
                 ],
                 'tool1' => [
-                  'actual' => 25.3,
-                  'target' => NULL,
-                  'offset' => 0,
+                    'actual' => 25.3,
+                    'target' => null,
+                    'offset' => 0,
                 ],
             ]),
         ]);
@@ -62,14 +62,14 @@ class FetchPrinterToolsTest extends TestCase
         Http::fake([
             'bulbasaur.local/api/printer/tool' => Http::response([
                 'tool0' => [
-                  'actual' => 214.8821,
-                  'target' => 220.0,
-                  'offset' => 0,
+                    'actual' => 214.8821,
+                    'target' => 220.0,
+                    'offset' => 0,
                 ],
                 'tool1' => [
-                  'actual' => 25.3,
-                  'target' => NULL,
-                  'offset' => 0,
+                    'actual' => 25.3,
+                    'target' => null,
+                    'offset' => 0,
                 ],
             ]),
         ]);
@@ -93,9 +93,9 @@ class FetchPrinterToolsTest extends TestCase
         Http::fake([
             'bulbasaur.local/api/printer/tool' => Http::response([
                 'tool0' => [
-                  'actual' => 214.8821,
-                  'target' => 220.0,
-                  'offset' => 0,
+                    'actual' => 214.8821,
+                    'target' => 220.0,
+                    'offset' => 0,
                 ],
             ]),
         ]);

@@ -5,11 +5,9 @@ namespace App\Models;
 use App\Jobs\FetchPrinterStatus;
 use App\Jobs\FetchPrinterTools;
 use App\Traits\HasTeam;
-use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Http;
 
@@ -84,7 +82,7 @@ class Printer extends Model
             $currentJob->markAsFailed();
         }
 
-        Http::octoPrint($this)->post("/api/job", [
+        Http::octoPrint($this)->post('/api/job', [
             'command' => 'cancel',
         ]);
 
@@ -95,7 +93,7 @@ class Printer extends Model
     {
         try {
             $results = Http::octoPrint($this)
-                ->get("/api/job")
+                ->get('/api/job')
                 ->json();
 
             if ($results['state'] !== 'Printing') {
@@ -120,7 +118,7 @@ class Printer extends Model
 
     public function pause()
     {
-        Http::octoPrint($this)->post("/api/job", [
+        Http::octoPrint($this)->post('/api/job', [
             'command' => 'pause',
             'action' => 'pause',
         ]);
@@ -138,7 +136,7 @@ class Printer extends Model
 
     public function resume()
     {
-        Http::octoPrint($this)->post("/api/job", [
+        Http::octoPrint($this)->post('/api/job', [
             'command' => 'pause',
             'action' => 'resume',
         ]);

@@ -22,9 +22,13 @@ class Form extends Component implements HasForms
     public Job $job;
 
     public $name;
+
     public $print_type_id;
+
     public $color_hex;
+
     public $files;
+
     public $notes;
 
     public function mount(): void
@@ -65,7 +69,9 @@ class Form extends Component implements HasForms
                         ->required(),
                     Select::make('file')
                         ->options(function (Closure $get) {
-                            if ($get('printer') === null) return;
+                            if ($get('printer') === null) {
+                                return;
+                            }
 
                             return $this->printers->find($get('printer'))->printableFiles();
                         })

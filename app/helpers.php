@@ -1,13 +1,12 @@
 <?php
 
-if (!function_exists('flattenByKey')) {
+if (! function_exists('flattenByKey')) {
     function flattenByKey($input, $key)
     {
         $output = [];
 
         // For each object in the array
         foreach ($input as $object) {
-
             // separate its children
             $children = isset($object[$key]) ? $object[$key] : [];
             $object[$key] = [];
@@ -28,8 +27,9 @@ if (!function_exists('flattenByKey')) {
     }
 }
 
-if (!function_exists('secondsToTime')) {
-    function secondsToTime($inputSeconds) {
+if (! function_exists('secondsToTime')) {
+    function secondsToTime($inputSeconds)
+    {
         $secondsInAMinute = 60;
         $secondsInAnHour = 60 * $secondsInAMinute;
         $secondsInADay = 24 * $secondsInAnHour;
@@ -52,14 +52,14 @@ if (!function_exists('secondsToTime')) {
         // Format and return
         $timeParts = [];
         $sections = [
-            'day' => (int)$days,
-            'hour' => (int)$hours,
-            'minute' => (int)$minutes,
-            'second' => (int)$seconds,
+            'day' => (int) $days,
+            'hour' => (int) $hours,
+            'minute' => (int) $minutes,
+            'second' => (int) $seconds,
         ];
 
-        foreach ($sections as $value){
-            if ($value > 0){
+        foreach ($sections as $value) {
+            if ($value > 0) {
                 $timeParts[] = str_pad($value, 2, '0', STR_PAD_LEFT);
             }
         }

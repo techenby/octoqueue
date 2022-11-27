@@ -17,34 +17,34 @@ class JobTest extends TestCase
     use RefreshDatabase;
 
     private $jobResponse = [
-        "job" => [
-            "averagePrintTime" => 2870.4015269151,
-            "estimatedPrintTime" => 2058.5783016978,
-            "filament" => [
-                "tool0" => [
-                    "length" => 930.13078999995,
-                    "volume" => 2.2372267309427,
+        'job' => [
+            'averagePrintTime' => 2870.4015269151,
+            'estimatedPrintTime' => 2058.5783016978,
+            'filament' => [
+                'tool0' => [
+                    'length' => 930.13078999995,
+                    'volume' => 2.2372267309427,
                 ],
             ],
-            "file" => [
-                "date" => 1669567667,
-                "display" => "CE3PRO_retro-starburst_46m_0.16mm_220C_PLA.gcode",
-                "name" => "CE3PRO_retro-starburst_46m_0.16mm_220C_PLA.gcode",
-                "origin" => "local",
-                "path" => "Chaotic Notions/Ornaments/CE3PRO_retro-starburst_46m_0.16mm_220C_PLA.gcode",
-                "size" => 1700301,
+            'file' => [
+                'date' => 1669567667,
+                'display' => 'CE3PRO_retro-starburst_46m_0.16mm_220C_PLA.gcode',
+                'name' => 'CE3PRO_retro-starburst_46m_0.16mm_220C_PLA.gcode',
+                'origin' => 'local',
+                'path' => 'Chaotic Notions/Ornaments/CE3PRO_retro-starburst_46m_0.16mm_220C_PLA.gcode',
+                'size' => 1700301,
             ],
-            "lastPrintTime" => 2870.4015269151,
-            "user" => "andymnewhouse",
+            'lastPrintTime' => 2870.4015269151,
+            'user' => 'andymnewhouse',
         ],
-        "progress" => [
-            "completion" => 72.995016764679,
-            "filepos" => 1241135,
-            "printTime" => 1953,
-            "printTimeLeft" => 798,
-            "printTimeLeftOrigin" => "linear",
+        'progress' => [
+            'completion' => 72.995016764679,
+            'filepos' => 1241135,
+            'printTime' => 1953,
+            'printTimeLeft' => 798,
+            'printTimeLeftOrigin' => 'linear',
         ],
-        "state" => "Printing",
+        'state' => 'Printing',
     ];
 
     /** @test */
@@ -112,8 +112,8 @@ class JobTest extends TestCase
             'name' => 'Retro Starburst',
             'color_hex' => '#FFFF00',
             'files' => [
-                ["file" => "Chaotic Notions/Ornaments/CE3PRO_retro-starburst_46m_0.16mm_220C_PLA.gcode", "printer" => $printer->id],
-            ]
+                ['file' => 'Chaotic Notions/Ornaments/CE3PRO_retro-starburst_46m_0.16mm_220C_PLA.gcode', 'printer' => $printer->id],
+            ],
         ]);
 
         $job->markAsComplete();
@@ -141,8 +141,8 @@ class JobTest extends TestCase
             'name' => 'Retro Starburst',
             'color_hex' => '#FFFF00',
             'files' => [
-                ["file" => "Chaotic Notions/Ornaments/CE3PRO_retro-starburst_46m_0.16mm_220C_PLA.gcode", "printer" => $printer->id],
-            ]
+                ['file' => 'Chaotic Notions/Ornaments/CE3PRO_retro-starburst_46m_0.16mm_220C_PLA.gcode', 'printer' => $printer->id],
+            ],
         ]);
 
         $job->markAsFailed();
@@ -165,9 +165,9 @@ class JobTest extends TestCase
             'name' => 'Rubber Ducky',
             'color_hex' => '#FFFF00',
             'files' => [
-                ["file" => "Fun/CE3PRO-rubber-ducky.gcode", "printer" => $printerA->id],
-                ["file" => "Fun/CE3-rubber-ducky.gcode", "printer" => $printerB->id],
-            ]
+                ['file' => 'Fun/CE3PRO-rubber-ducky.gcode', 'printer' => $printerA->id],
+                ['file' => 'Fun/CE3-rubber-ducky.gcode', 'printer' => $printerB->id],
+            ],
         ]);
 
         $job->print();

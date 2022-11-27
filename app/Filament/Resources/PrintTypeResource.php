@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PrintTypeResource\Pages;
-use App\Filament\Resources\PrintTypeResource\RelationManagers;
 use App\Models\PrintType;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PrintTypeResource extends Resource
 {
@@ -56,14 +53,14 @@ class PrintTypeResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -71,5 +68,5 @@ class PrintTypeResource extends Resource
             'create' => Pages\CreatePrintType::route('/create'),
             'edit' => Pages\EditPrintType::route('/{record}/edit'),
         ];
-    }    
+    }
 }

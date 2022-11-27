@@ -21,24 +21,24 @@ class FetchPrinterStatusTest extends TestCase
         Http::fake([
             'bulbasaur.local/api/connection' => Http::response([
                 'current' => [
-                  'state' => 'Operational',
-                  'port' => '/dev/ttyACM0',
-                  'baudrate' => 250000,
-                  'printerProfile' => '_default',
+                    'state' => 'Operational',
+                    'port' => '/dev/ttyACM0',
+                    'baudrate' => 250000,
+                    'printerProfile' => '_default',
                 ],
                 'options' => [
-                  'ports' => ['/dev/ttyACM0', 'VIRTUAL'],
-                  'baudrates' => [250000, 230400, 115200, 57600, 38400, 19200, 9600],
-                  'printerProfiles' => [
-                    [
-                      'name' => 'Default',
-                      'id' => '_default',
+                    'ports' => ['/dev/ttyACM0', 'VIRTUAL'],
+                    'baudrates' => [250000, 230400, 115200, 57600, 38400, 19200, 9600],
+                    'printerProfiles' => [
+                        [
+                            'name' => 'Default',
+                            'id' => '_default',
+                        ],
                     ],
-                  ],
-                  'portPreference' => '/dev/ttyACM0',
-                  'baudratePreference' => 250000,
-                  'printerProfilePreference' => '_default',
-                  'autoconnect' => true,
+                    'portPreference' => '/dev/ttyACM0',
+                    'baudratePreference' => 250000,
+                    'printerProfilePreference' => '_default',
+                    'autoconnect' => true,
                 ],
             ]),
         ]);
@@ -62,24 +62,24 @@ class FetchPrinterStatusTest extends TestCase
         Http::fake([
             'bulbasaur.local/api/connection' => Http::response([
                 'current' => [
-                  'state' => 'Closed',
-                  'port' => null,
-                  'baudrate' => null,
-                  'printerProfile' => '_default',
+                    'state' => 'Closed',
+                    'port' => null,
+                    'baudrate' => null,
+                    'printerProfile' => '_default',
                 ],
                 'options' => [
-                  'ports' => ['/dev/ttyACM0', 'VIRTUAL'],
-                  'baudrates' => [250000, 230400, 115200, 57600, 38400, 19200, 9600],
-                  'printerProfiles' => [
-                    [
-                      'name' => 'Default',
-                      'id' => '_default',
+                    'ports' => ['/dev/ttyACM0', 'VIRTUAL'],
+                    'baudrates' => [250000, 230400, 115200, 57600, 38400, 19200, 9600],
+                    'printerProfiles' => [
+                        [
+                            'name' => 'Default',
+                            'id' => '_default',
+                        ],
                     ],
-                  ],
-                  'portPreference' => '/dev/ttyACM0',
-                  'baudratePreference' => 250000,
-                  'printerProfilePreference' => '_default',
-                  'autoconnect' => true,
+                    'portPreference' => '/dev/ttyACM0',
+                    'baudratePreference' => 250000,
+                    'printerProfilePreference' => '_default',
+                    'autoconnect' => true,
                 ],
             ]),
         ]);
@@ -100,7 +100,7 @@ class FetchPrinterStatusTest extends TestCase
     {
         Http::fake([
             'bulbasaur.local/api/connection' => Http::response([
-                "error" => "Invalid API key",
+                'error' => 'Invalid API key',
             ], 403),
         ]);
 
@@ -120,7 +120,7 @@ class FetchPrinterStatusTest extends TestCase
     {
         Http::fake([
             'bulbasaur.local/api/connection' => Http::response([
-                "error" => "Invalid API key",
+                'error' => 'Invalid API key',
             ], 500),
         ]);
 
