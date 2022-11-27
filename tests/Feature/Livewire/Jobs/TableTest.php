@@ -4,9 +4,13 @@ namespace Tests\Feature\Livewire\Jobs;
 
 use App\Http\Livewire\Jobs\Table;
 use App\Models\Job;
+use App\Models\Material;
+use App\Models\Printer;
 use App\Models\Team;
+use App\Models\Tool;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Http;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -50,7 +54,7 @@ class TableTest extends TestCase
     }
 
     /** @test */
-    public function duplicating_job_nulls_out_dates_and_material_used()
+    public function can_bulk_duplicate()
     {
         $user = User::factory()->withPersonalTeam()->create();
         $job = Job::factory()->for($user->currentTeam)->create([
@@ -74,5 +78,55 @@ class TableTest extends TestCase
         $this->assertNull($newJob->completed_at);
         $this->assertNull($newJob->failed_at);
         $this->assertNull($newJob->material_used);
+    }
+
+    /** @test */
+    public function can_print_job()
+    {
+        Http::fake();
+
+        $user = User::factory()->withPersonalTeam()->create();
+        $printer = Printer::factory()->for($user->currentTeam)->has(Tool::factory())->createQuietly(['status' => 'operational']);
+        $material = Material::factory()->for($user->currentTeam)->create(['color_hex' => '#FFFF00']);
+        $printer->tools->first()->update(['material_id' => $material->id]);
+
+        $job = Job::factory()->for($user->currentTeam)->create([
+            'name' => 'Rubber Ducky',
+            'color_hex' => '#FFFF00',
+            'notes' => 'Should be cute',
+            'files' => [['printer' => $printer->id, 'file' => 'ducky.gcode']],
+        ]);
+
+        Livewire::actingAs($user)->test(Table::class)
+            ->callTableAction('print', $job)
+            ->assertHasNoTableActionErrors();
+
+        $job->refresh();
+        $this->assertNotNull($job->started_at);
+        $this->assertEquals($printer->id, $job->printer_id);
+        $this->assertEquals($material->id, $job->material_id);
+    }
+
+    /** @test */
+    public function can_not_print_if_no_printers_available()
+    {
+        Http::fake();
+
+        $user = User::factory()->withPersonalTeam()->create();
+        $printer = Printer::factory()->for($user->currentTeam)->has(Tool::factory())->createQuietly(['status' => 'operational']);
+        Material::factory()->for($user->currentTeam)->create(['color_hex' => '#FFFF00']);
+
+        $job = Job::factory()->for($user->currentTeam)->create([
+            'name' => 'Rubber Ducky',
+            'color_hex' => '#FFFF00',
+            'notes' => 'Should be cute',
+            'files' => [['printer' => $printer->id, 'file' => 'ducky.gcode']],
+        ]);
+
+        Livewire::actingAs($user)->test(Table::class)
+            ->callTableAction('print', $job)
+            ->assertNotified();
+
+        $this->assertNull($job->fresh()->started_at);
     }
 }

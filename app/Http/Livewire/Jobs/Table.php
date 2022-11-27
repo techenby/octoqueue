@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Jobs;
 use App\Models\Job;
 use Closure;
 use Filament\Forms\Components\Select;
+use Filament\Notifications\Notification;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Concerns\InteractsWithTable;
@@ -85,7 +86,16 @@ class Table extends Component implements HasTable
     {
         return [
             Action::make('print')
-                ->action(fn (Job $record) => $record->print()),
+                ->action(function (Job $record) {
+                    try {
+                        $record->print();
+                    } catch (\Exception $e) {
+                        Notification::make()
+                            ->title($e->getMessage())
+                            ->danger()
+                            ->send();
+                    }
+                }),
         ];
     }
 
