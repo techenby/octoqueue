@@ -20,7 +20,7 @@ jobs:
           coverage: none
 
     - name: Setup Spark Config
-      run: composer config http-basic.spark.laravel.com ${SPARK_USERNAME} ${SPARK_API_TOKEN}
+      run: composer config http-basic.spark.laravel.com ${{ secrets.SPARK_USERNAME }} ${{ secrets.SPARK_API_TOKEN }}
 
     - name: Install dependencies
       run: composer install --prefer-source --no-interaction
@@ -37,3 +37,5 @@ jobs:
         APP_ENV: testing
         STRIPE_KEY: ${{ secrets.STRIPE_KEY }}
         STRIPE_SECRET: ${{ secrets.STRIPE_SECRET }}
+        HCAPTCHA_KEY: ${{ secrets.HCAPTCHA_KEY }}
+        HCAPTCHA_SECRET: ${{ secrets.HCAPTCHA_SECRET }}
