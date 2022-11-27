@@ -71,15 +71,14 @@ class Table extends Component implements HasTable
     {
         return [
             Filter::make('to_print')
-                ->query(fn (Builder $query): Builder => $query->whereNull('started_at')->whereNull('failed_at')->whereNull('completed_at'))
-                ->label('To Print')
+                ->query(fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNull('started_at')->whereNull('failed_at')->whereNull('completed_at')))
                 ->default(),
             Filter::make('has_started')
-                ->query(fn (Builder $query): Builder => $query->whereNotNull('started_at')->whereNull('failed_at')->whereNull('completed_at')),
+                ->query(fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNotNull('started_at')->whereNull('failed_at')->whereNull('completed_at'))),
             Filter::make('has_completed')
-                ->query(fn (Builder $query): Builder => $query->whereNotNull('started_at')->whereNull('failed_at')->whereNotNull('completed_at')),
+                ->query(fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNotNull('started_at')->whereNull('failed_at')->whereNotNull('completed_at'))),
             Filter::make('has_failed')
-                ->query(fn (Builder $query): Builder => $query->whereNotNull('started_at')->whereNotNull('failed_at')->whereNull('completed_at')),
+                ->query(fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNotNull('started_at')->whereNotNull('failed_at')->whereNull('completed_at'))),
         ];
     }
 
