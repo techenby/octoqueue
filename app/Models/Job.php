@@ -43,6 +43,21 @@ class Job extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function copy($colorHex = null)
+    {
+        $new = $this->replicate([
+            'printer_id',
+            'material_id',
+            'started_at',
+            'completed_at',
+            'failed_at',
+            'material_used',
+        ]);
+        $new->color_hex = $colorHex ?? $this->color_hex;
+        $new->save();
+
+        return $new;
+    }
     public function print()
     {
         $materials = $this->team->materials()->where('color_hex', $this->color_hex)->get();

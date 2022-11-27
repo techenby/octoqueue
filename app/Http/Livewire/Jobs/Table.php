@@ -103,13 +103,7 @@ class Table extends Component implements HasTable
                 ])
                 ->action(function (Job $record, array $data): void {
                     foreach (range(1, $data['times']) as $time) {
-                        $record->replicate([
-                                'started_at',
-                                'completed_at',
-                                'failed_at',
-                                'material_used',
-                            ])
-                            ->save();
+                        $record->copy();
                     }
                 }),
         ];
@@ -134,16 +128,7 @@ class Table extends Component implements HasTable
                 ])
                 ->action(function (Collection $records, array $data): void {
                     foreach ($records as $record) {
-                        $record->replicate([
-                                'started_at',
-                                'completed_at',
-                                'failed_at',
-                                'material_used',
-                            ])
-                            ->fill([
-                                'color_hex' => $data['color_hex'],
-                            ])
-                            ->save();
+                        $record->copy($data['color_hex']);
                     }
                 }),
         ];

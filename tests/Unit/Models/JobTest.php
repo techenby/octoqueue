@@ -15,6 +15,52 @@ class JobTest extends TestCase
 {
     use RefreshDatabase;
 
+
+    /** @test */
+    public function can_copy_job()
+    {
+        $team = Team::factory()->create();
+        $printer = Printer::factory()->for($team)->createQuietly();
+        $job = Job::factory()->completed()->create([
+            'printer_id' => $printer->id,
+            'material_id' => Material::factory()->for($team),
+            'name' => 'Rubber Ducky',
+            'color_hex' => '#FFFF00',
+            'notes' => 'Should be cute',
+            'files' => [['printer' => 1, 'file' => 'ducky.gcode']],
+        ]);
+
+        $newJob = $job->copy();
+
+        $this->assertEquals('#FFFF00', $newJob->color_hex);
+        $this->assertNull($newJob->started_at);
+        $this->assertNull($newJob->completed_at);
+        $this->assertNull($newJob->printer_id);
+        $this->assertNull($newJob->material_id);
+    }
+
+    /** @test */
+    public function can_copy_job_with_different_color()
+    {
+        $team = Team::factory()->create();
+        $printer = Printer::factory()->for($team)->createQuietly();
+        $job = Job::factory()->completed()->create([
+            'printer_id' => $printer->id,
+            'material_id' => Material::factory()->for($team),
+            'name' => 'Rubber Ducky',
+            'color_hex' => '#FFFF00',
+            'notes' => 'Should be cute',
+            'files' => [['printer' => 1, 'file' => 'ducky.gcode']],
+        ]);
+
+        $newJob = $job->copy('#000000');
+
+        $this->assertEquals('#000000', $newJob->color_hex);
+        $this->assertNull($newJob->started_at);
+        $this->assertNull($newJob->completed_at);
+        $this->assertNull($newJob->printer_id);
+        $this->assertNull($newJob->material_id);
+    }
     /** @test */
     public function can_print_job()
     {
