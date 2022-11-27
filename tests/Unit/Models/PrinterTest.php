@@ -3,7 +3,11 @@
 namespace Tests\Unit\Models;
 
 use App\Jobs\FetchPrinterStatus;
+use App\Models\Material;
 use App\Models\Printer;
+use App\Models\PrintType;
+use App\Models\Tool;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
@@ -131,6 +135,119 @@ class PrinterTest extends TestCase
         'free' => '3.2GB',
     ];
 
+    /**
+     * This was taken from the OctoPrint documentation on 2022-11-27
+     * https://docs.octoprint.org/en/master/api/job.html#get--api-job
+     */
+    private $jobResponse = [
+        'job' => [
+            'file' => [
+                'name' => 'whistle_v2.gcode',
+                'origin' => 'local',
+                'size' => 1468987,
+                'date' => 1378847754,
+            ],
+            'estimatedPrintTime' => 8811,
+            'filament' => [
+                'tool0' => [
+                    'length' => 810,
+                    'volume' => 5.36,
+                ],
+            ],
+        ],
+        'progress' => [
+            'completion' => 0.2298468264184775,
+            'filepos' => 337942,
+            'printTime' => 276,
+            'printTimeLeft' => 912,
+        ],
+        'state' => 'Printing',
+    ];
+
+    /** @test */
+    public function can_cancel_print()
+    {
+        Queue::fake();
+        Http::preventStrayRequests();
+
+        Http::fake();
+
+        $printer = Printer::factory()->make([
+            'url' => 'http://bulbasaur.local',
+            'api_key' => 'TEST-KEY',
+        ]);
+
+        $printer->cancel();
+
+        Http::assertSent(function (Request $request) {
+            return $request->hasHeader('X-Api-Key', 'TEST-KEY') &&
+                $request->url() == 'http://bulbasaur.local/api/job' &&
+                $request['command'] == 'cancel';
+        });
+
+        Queue::assertPushed(FetchPrinterStatus::class);
+    }
+
+    /** @test */
+    public function can_get_what_is_currently_printing()
+    {
+        Http::fake([
+            'bulbasaur.local/api/job' => Http::response($this->jobResponse)
+        ]);
+
+        $printer = Printer::factory()->make([
+            'url' => 'http://bulbasaur.local',
+            'api_key' => 'TEST-KEY',
+        ]);
+
+        $job = $printer->currentlyPrinting();
+
+        $this->assertEquals('whistle_v2.gcode', $job['job']['file']['name']);
+        $this->assertEquals('Printing', $job['state']);
+    }
+
+    /** @test */
+    public function when_currently_printing_is_done_status_updated()
+    {
+        Queue::fake();
+        Http::fake([
+            'bulbasaur.local/api/job' => Http::response([
+                'job' => [
+                    'file' => [
+                        'name' => 'whistle_v2.gcode',
+                        'origin' => 'local',
+                        'size' => 1468987,
+                        'date' => 1378847754,
+                    ],
+                    'estimatedPrintTime' => 8811,
+                    'filament' => [
+                        'tool0' => [
+                            'length' => 810,
+                            'volume' => 5.36,
+                        ],
+                    ],
+                ],
+                'progress' => [
+                    'completion' => 100,
+                    'filepos' => 337942,
+                    'printTime' => 276,
+                    'printTimeLeft' => 912,
+                ],
+                'state' => 'Operational',
+            ])
+        ]);
+
+        $printer = Printer::factory()->make([
+            'url' => 'http://bulbasaur.local',
+            'api_key' => 'TEST-KEY',
+        ]);
+
+        $job = $printer->currentlyPrinting();
+
+        $this->assertEquals('Operational', $job['state']);
+        Queue::assertPushed(FetchPrinterStatus::class);
+    }
+
     /** @test */
     public function can_get_files()
     {
@@ -148,6 +265,31 @@ class PrinterTest extends TestCase
         $files = $printer->files();
 
         $this->assertCount(3, $files);
+    }
+
+    /** @test */
+    public function can_pause_print()
+    {
+        Queue::fake();
+        Http::preventStrayRequests();
+
+        Http::fake();
+
+        $printer = Printer::factory()->make([
+            'url' => 'http://bulbasaur.local',
+            'api_key' => 'TEST-KEY',
+        ]);
+
+        $printer->pause();
+
+        Http::assertSent(function (Request $request) {
+            return $request->hasHeader('X-Api-Key', 'TEST-KEY') &&
+                $request->url() == 'http://bulbasaur.local/api/job' &&
+                $request['command'] == 'pause' &&
+                $request['action'] == 'pause';
+        });
+
+        Queue::assertPushed(FetchPrinterStatus::class);
     }
 
     /** @test */
@@ -175,31 +317,6 @@ class PrinterTest extends TestCase
     }
 
     /** @test */
-    public function can_pause_print()
-    {
-        Queue::fake();
-        Http::preventStrayRequests();
-
-        Http::fake();
-
-        $printer = Printer::factory()->make([
-            'url' => 'http://bulbasaur.local',
-            'api_key' => 'TEST-KEY',
-        ]);
-
-        $printer->pause();
-
-        Http::assertSent(function (Request $request) {
-            return $request->hasHeader('X-Api-Key', 'TEST-KEY') &&
-                   $request->url() == 'http://bulbasaur.local/api/job' &&
-                   $request['command'] == 'pause' &&
-                   $request['action'] == 'pause';
-        });
-
-        Queue::assertPushed(FetchPrinterStatus::class);
-    }
-
-    /** @test */
     public function can_resume_print()
     {
         Queue::fake();
@@ -216,35 +333,55 @@ class PrinterTest extends TestCase
 
         Http::assertSent(function (Request $request) {
             return $request->hasHeader('X-Api-Key', 'TEST-KEY') &&
-                   $request->url() == 'http://bulbasaur.local/api/job' &&
-                   $request['command'] == 'pause' &&
-                   $request['action'] == 'resume';
+                $request->url() == 'http://bulbasaur.local/api/job' &&
+                $request['command'] == 'pause' &&
+                $request['action'] == 'resume';
         });
 
         Queue::assertPushed(FetchPrinterStatus::class);
     }
 
     /** @test */
-    public function can_cancel_print()
+    public function can_safely_delete_printer()
     {
-        Queue::fake();
-        Http::preventStrayRequests();
-
-        Http::fake();
-
-        $printer = Printer::factory()->make([
+        $printer = Printer::factory()->has(Tool::factory())->createQuietly([
             'url' => 'http://bulbasaur.local',
             'api_key' => 'TEST-KEY',
         ]);
+        $tool = $printer->tools->first();
 
-        $printer->cancel();
+        $printer->safeDelete();
 
-        Http::assertSent(function (Request $request) {
-            return $request->hasHeader('X-Api-Key', 'TEST-KEY') &&
-                   $request->url() == 'http://bulbasaur.local/api/job' &&
-                   $request['command'] == 'cancel';
-        });
+        $this->assertDatabaseMissing('printers', ['id' => $printer->id]);
+        $this->assertDatabaseMissing('tools', ['id' => $tool->id]);
+    }
 
-        Queue::assertPushed(FetchPrinterStatus::class);
+    /** @test */
+    public function can_save_currently_printing()
+    {
+        Http::fake([
+            'bulbasaur.local/api/job' => Http::response($this->jobResponse)
+        ]);
+
+        $user = User::factory()->withPersonalTeam()->create();
+        $printer = Printer::factory()->for($user->currentTeam)->has(Tool::factory())->createQuietly([
+            'url' => 'http://bulbasaur.local',
+            'api_key' => 'TEST-KEY',
+        ]);
+        $material = Material::factory()->for($user->currentTeam)->create([
+            'color_hex' => '#ffffff',
+        ]);
+        $printer->tools->first()->update(['material_id' => $material->id]);
+        PrintType::factory()->for($user->currentTeam)->create();
+
+        $job = $printer->saveCurrentlyPrinting($user);
+
+        $this->assertEquals('whistle_v2.gcode', $job->name);
+        $this->assertEquals('#ffffff', $job->color_hex);
+        $this->assertEquals('whistle_v2.gcode', $job->files->first()['file']);
+        $this->assertEquals($material->id, $job->material_id);
+        $this->assertEquals($printer->id, $job->printer_id);
+        $this->assertEquals($printer->id, $job->printer_id);
+        $this->assertTrue(now()->subSeconds(276) > $job->started_at);
     }
 }

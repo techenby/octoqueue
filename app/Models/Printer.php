@@ -106,7 +106,7 @@ class Printer extends Model
 
             if ($results['state'] !== 'Printing') {
                 FetchPrinterStatus::dispatch($this);
-                if ($this->currentJob) {
+                if ($this->currentJob->isNotEmpty()) {
                     $this->currentJob()->first()->update([
                         'completed_at' => now(),
                     ]);
@@ -159,5 +159,25 @@ class Printer extends Model
         $this->tools()->delete();
 
         $this->delete();
+    }
+
+    public function saveCurrentlyPrinting($user = null)
+    {
+        if ($user === null) {
+            $user = auth()->user();
+        }
+        $name = $this->currentlyPrinting()['job']['file']['name'];
+
+        return Job::create([
+            'name' => $name,
+            'color_hex' => $this->tools()->first()->material->color_hex,
+            'files' => [['printer' => $this->id, 'file' => $name]],
+            'material_id' => $this->tools()->first()->material_id,
+            'printer_id' => $this->id,
+            'print_type_id' => $user->currentTeam->printTypes()->orderBy('priority')->first()->id,
+            'team_id' => $user->currentTeam->id,
+            'user_id' => $user->id,
+            'started_at' => now()->subSeconds($this->currentlyPrinting()['progress']['printTime']),
+        ]);
     }
 }

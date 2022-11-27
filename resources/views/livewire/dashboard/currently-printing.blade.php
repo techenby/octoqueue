@@ -31,12 +31,12 @@
                         </div>
                         @endforeach
                     </td>
-                    <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                    <td class="max-w-xs px-3 py-4 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
                         @php
                         $job = $printer->currentlyPrinting();
                         @endphp
                         @if ($job)
-                        <span>{{ $printer->currentJob->isNotEmpty() ? $printer->currentJob->first()->name : $job['job']['file']['name'] }}</span>
+                        <p class="truncate">{{ $printer->currentJob->isNotEmpty() ? $printer->currentJob->first()->name : $job['job']['file']['name'] }}</p>
                         <x-ui.progress-bar :progress="round($job['progress']['completion'], 2)" />
                         @else
                         <span>No job found</span>
@@ -71,11 +71,14 @@
                                 <path d="M3.25 4A2.25 2.25 0 001 6.25v7.5A2.25 2.25 0 003.25 16h7.5A2.25 2.25 0 0013 13.75v-7.5A2.25 2.25 0 0010.75 4h-7.5zM19 4.75a.75.75 0 00-1.28-.53l-3 3a.75.75 0 00-.22.53v4.5c0 .199.079.39.22.53l3 3a.75.75 0 001.28-.53V4.75z" />
                             </svg>
                         </x-ui.icon-button>
-                        <x-ui.icon-button href="{{ route('printers.show', $printer) }}" label="View Printer Details">
+                        @if ($printer->currentJob->isEmpty())
+                        <x-ui.icon-button wire:click="save({{ $printer->id }})" label="Save Current Print">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
-                                <path d="M17 2.75a.75.75 0 00-1.5 0v5.5a.75.75 0 001.5 0v-5.5zM17 15.75a.75.75 0 00-1.5 0v1.5a.75.75 0 001.5 0v-1.5zM3.75 15a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75zM4.5 2.75a.75.75 0 00-1.5 0v5.5a.75.75 0 001.5 0v-5.5zM10 11a.75.75 0 01.75.75v5.5a.75.75 0 01-1.5 0v-5.5A.75.75 0 0110 11zM10.75 2.75a.75.75 0 00-1.5 0v1.5a.75.75 0 001.5 0v-1.5zM10 6a2 2 0 100 4 2 2 0 000-4zM3.75 10a2 2 0 100 4 2 2 0 000-4zM16.25 10a2 2 0 100 4 2 2 0 000-4z" />
+                                <path d="M10.75 2.75a.75.75 0 00-1.5 0v8.614L6.295 8.235a.75.75 0 10-1.09 1.03l4.25 4.5a.75.75 0 001.09 0l4.25-4.5a.75.75 0 00-1.09-1.03l-2.955 3.129V2.75z" />
+                                <path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z" />
                             </svg>
                         </x-ui.icon-button>
+                        @endif
                     </td>
                 </tr>
                 @empty

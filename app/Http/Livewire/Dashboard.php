@@ -86,6 +86,11 @@ class Dashboard extends Component
         }
     }
 
+    public function save($id)
+    {
+        $this->printers->find($id)->saveCurrentlyPrinting();
+    }
+
     public function stop($id)
     {
         $printer = $this->printers->find($id);

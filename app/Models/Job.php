@@ -21,6 +21,8 @@ class Job extends Model
         'files' => 'collection',
     ];
 
+    protected $dates = ['started_at', 'completed_at', 'failed_at'];
+
     public function material(): BelongsTo
     {
         return $this->belongsTo(Material::class);
