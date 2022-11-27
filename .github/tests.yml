@@ -1,0 +1,39 @@
+name: Run Tests
+
+on:
+  pull_request:
+
+jobs:
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v1
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+          php-version: 8.1
+          extensions: posix, dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+          coverage: none
+
+    - name: Setup Spark Config
+      run: composer config http-basic.spark.laravel.com ${SPARK_USERNAME} ${SPARK_API_TOKEN}
+
+    - name: Install dependencies
+      run: composer install --prefer-source --no-interaction
+
+    - name: Copy .env.example to .env
+      run: cp .env.example .env
+
+    - name: Generate App Key
+      run: php artisan key:generate
+
+    - name: Run PHP tests
+      run: vendor/bin/phpunit
+      env:
+        APP_ENV: testing
+        STRIPE_KEY: ${{ secrets.STRIPE_KEY }}
+        STRIPE_SECRET: ${{ secrets.STRIPE_SECRET }}
