@@ -101,9 +101,7 @@ class Printer extends Model
             if ($results['state'] !== 'Printing') {
                 FetchPrinterStatus::dispatch($this);
                 if ($this->currentJob->isNotEmpty()) {
-                    $this->currentJob()->first()->update([
-                        'completed_at' => now(),
-                    ]);
+                    $this->currentJob()->first()->markAsComplete();
                 }
             }
 
