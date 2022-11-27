@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Jobs\FetchPrinterStatus;
 use App\Traits\HasTeam;
 use Exception;
+use Facades\App\Calculator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -58,6 +59,32 @@ class Job extends Model
 
         return $new;
     }
+
+    public function markAsComplete()
+    {
+        $length = $this->printer->currentlyPrinting()['job']['filament']['tool0']['length'] / 1000; // convert from cm to m
+        $grams = Calculator::lengthToGrams($this->material->type, $this->material->diameter, $length);
+
+        $this->update([
+            'completed_at' => now(),
+            'material_used' => $grams,
+        ]);
+    }
+
+    public function markAsFailed()
+    {
+        $current = $this->printer->currentlyPrinting();
+        $length = $current['job']['filament']['tool0']['length'] / 1000; // convert from cm to m
+        $percentDone = $current['progress']['completion'] / 100;
+
+        $grams = Calculator::lengthToGrams($this->material->type, $this->material->diameter, $length * $percentDone);
+
+        $this->update([
+            'failed_at' => now(),
+            'material_used' => $grams,
+        ]);
+    }
+
     public function print()
     {
         $materials = $this->team->materials()->where('color_hex', $this->color_hex)->get();

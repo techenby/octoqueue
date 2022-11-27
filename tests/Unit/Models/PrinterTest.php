@@ -3,9 +3,11 @@
 namespace Tests\Unit\Models;
 
 use App\Jobs\FetchPrinterStatus;
+use App\Models\Job;
 use App\Models\Material;
 use App\Models\Printer;
 use App\Models\PrintType;
+use App\Models\Team;
 use App\Models\Tool;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -186,6 +188,39 @@ class PrinterTest extends TestCase
         });
 
         Queue::assertPushed(FetchPrinterStatus::class);
+    }
+
+    /** @test */
+    public function when_cancelling_job_is_marked_as_failed_and_duplicated()
+    {
+        Queue::fake();
+
+        Http::fake([
+            'http://bulbasaur.local/api/job' => Http::response($this->jobResponse),
+        ]);
+
+        $team = Team::factory()->create();
+        $printer = Printer::factory()->for($team)->has(Tool::factory())->createQuietly([
+            'url' => 'http://bulbasaur.local',
+            'api_key' => 'TEST-KEY',
+        ]);
+        $material = Material::factory()->for($team)->create(['type' => 'PLA', 'diameter' => 1.75]);
+
+        $job = Job::factory()->for($team)->create([
+            'printer_id' => $printer->id,
+            'material_id' => $material->id,
+            'name' => 'Whistle',
+            'color_hex' => '#FFFF00',
+            'files' => [
+                ["file" => "whistle_v2.gcode", "printer" => $printer->id],
+            ],
+            'started_at' => now()->subSeconds(276)
+        ]);
+
+        $printer->cancel();
+
+        $this->assertNotNull($job->fresh()->failed_at);
+        $this->assertNotNull(Job::where('id', '<>', $job->id)->where('name', 'Whistle')->first());
     }
 
     /** @test */

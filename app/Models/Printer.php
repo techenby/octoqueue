@@ -78,23 +78,17 @@ class Printer extends Model
 
     public function cancel()
     {
-        try {
-            Http::octoPrint($this)->post("/api/job", [
-                'command' => 'cancel',
-            ]);
-
-            FetchPrinterStatus::dispatch($this);
-
-            if ($this->currentJob->exists()) {
-                $currentJob = $this->currentJob->first();
-                $currentJob->duplicate()->save();
-                $currentJob->update([
-                    'failed_at' => now(),
-                ]);
-            }
-        } catch (Exception $e) {
-
+        if ($this->currentJob->isNotEmpty()) {
+            $currentJob = $this->currentJob->first();
+            $currentJob->copy();
+            $currentJob->markAsFailed();
         }
+
+        Http::octoPrint($this)->post("/api/job", [
+            'command' => 'cancel',
+        ]);
+
+        FetchPrinterStatus::dispatch($this);
     }
 
     public function currentlyPrinting()
