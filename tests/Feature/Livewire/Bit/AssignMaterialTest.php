@@ -8,7 +8,6 @@ use App\Models\Printer;
 use App\Models\Tool;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -26,7 +25,7 @@ class AssignMaterialTest extends TestCase
         Livewire::actingAs($user)
             ->test(AssignMaterial::class, ['tools' => $printer->tools])
             ->assertStatus(200)
-            ->set("tools.0.material_id", $material->id)
+            ->set('tools.0.material_id', $material->id)
             ->assertNotified();
 
         $this->assertEquals($material->id, $printer->fresh()->tools->first()->material_id);

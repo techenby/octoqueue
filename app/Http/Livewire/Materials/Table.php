@@ -4,14 +4,14 @@ namespace App\Http\Livewire\Materials;
 
 use App\Models\Material;
 use Closure;
+use Filament\Forms\Components\TextInput;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Actions\ReplicateAction;
-use Filament\Forms\Components\TextInput;
-use Filament\Tables\Concerns\InteractsWithTable;
-use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Columns\ColorColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
@@ -115,7 +115,7 @@ class Table extends Component implements HasTable
             'title' => 'Materials',
             'link' => ['route' => 'materials.create', 'label' => 'Create'],
             'breadcrumbs' => [
-                ['label' => 'Materials']
+                ['label' => 'Materials'],
             ],
         ]);
     }

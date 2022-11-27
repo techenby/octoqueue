@@ -16,7 +16,8 @@ class FetchPrinterTools implements ShouldQueue, ShouldBeUnique
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public function __construct(public Printer $printer)
-    {}
+    {
+    }
 
     public function handle()
     {
@@ -30,7 +31,7 @@ class FetchPrinterTools implements ShouldQueue, ShouldBeUnique
         if ($response->successful()) {
             $tools = array_keys($response->json());
 
-            foreach($tools as $tool) {
+            foreach ($tools as $tool) {
                 $this->printer->tools()->firstOrCreate(['name' => $tool]);
             }
 

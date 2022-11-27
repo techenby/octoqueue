@@ -3,9 +3,6 @@
 namespace App\Http\Livewire\Printers;
 
 use App\Models\Printer;
-use Filament\Notifications\Notification;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 use Livewire\Component;
 
 class Show extends Component

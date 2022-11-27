@@ -9,10 +9,10 @@ use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\BulkAction;
-use Filament\Tables\Concerns\InteractsWithTable;
-use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Columns\ColorColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\Filter;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
@@ -145,7 +145,7 @@ class Table extends Component implements HasTable
             'title' => 'Queue',
             'link' => ['route' => 'jobs.create', 'label' => 'Create'],
             'breadcrumbs' => [
-                ['label' => 'Queue']
+                ['label' => 'Queue'],
             ],
         ]);
     }

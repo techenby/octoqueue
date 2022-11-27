@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire\Materials;
 
-use Facades\App\Calculator;
 use App\Models\Material;
+use Facades\App\Calculator;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\TextInput;
@@ -22,13 +22,21 @@ class Form extends Component implements HasForms
     public Material $material;
 
     public $printer_type;
+
     public $color;
+
     public $color_hex;
+
     public $brand;
+
     public $cost;
+
     public $type;
+
     public $diameter;
+
     public $empty;
+
     public $current_weight;
 
     public function mount(): void

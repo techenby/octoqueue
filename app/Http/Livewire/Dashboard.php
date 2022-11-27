@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Jobs\FetchPrinterStatus;
-use App\Models\Job;
 use App\Models\Tool;
 use Livewire\Component;
 
@@ -38,6 +37,7 @@ class Dashboard extends Component
             ->get()
             ->map(function ($tool) {
                 $tool->printer = $this->printers->firstWhere('id', $tool->printer_id);
+
                 return $tool;
             });
     }

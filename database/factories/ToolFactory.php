@@ -2,9 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Material;
 use App\Models\Printer;
-use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

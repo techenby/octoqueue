@@ -21,7 +21,7 @@ class AssignMaterial extends Component
         $tool = $this->tools[Str::before($key, '.')];
 
         $tool->update([
-            'material_id' => ($value === '') ? null : $value
+            'material_id' => ($value === '') ? null : $value,
         ]);
 
         Notification::make()
