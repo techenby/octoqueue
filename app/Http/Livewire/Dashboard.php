@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Jobs\FetchPrinterStatus;
 use App\Models\Tool;
+use Filament\Notifications\Notification;
 use Livewire\Component;
 
 class Dashboard extends Component
@@ -66,6 +67,10 @@ class Dashboard extends Component
     public function fetchStatus($id)
     {
         FetchPrinterStatus::dispatch($this->printers->find($id));
+
+        Notification::make()
+            ->success('Dispatched fetch status job.')
+            ->send();
     }
 
     public function pause($id)
