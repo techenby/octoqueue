@@ -60,6 +60,16 @@ class Table extends Component implements HasTable
                 ->since()
                 ->sortable()
                 ->toggleable(isToggledHiddenByDefault: false),
+            TextColumn::make('completed_at')
+                ->label('Completed At')
+                ->since()
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
+            TextColumn::make('failed_at')
+                ->label('Failed At')
+                ->since()
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
             TextColumn::make('material_used')
                 ->label('Material Used')
                 ->sortable()

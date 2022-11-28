@@ -100,6 +100,7 @@ class Printer extends Model
                 if ($this->currentJob->isNotEmpty()) {
                     $this->currentJob()->first()->markAsComplete();
                 }
+
                 FetchPrinterStatus::dispatch($this);
             }
 
