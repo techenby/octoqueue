@@ -97,10 +97,10 @@ class Printer extends Model
                 ->json();
 
             if ($results['state'] !== 'Printing') {
-                FetchPrinterStatus::dispatch($this);
                 if ($this->currentJob->isNotEmpty()) {
                     $this->currentJob()->first()->markAsComplete();
                 }
+                FetchPrinterStatus::dispatch($this);
             }
 
             return $results;
