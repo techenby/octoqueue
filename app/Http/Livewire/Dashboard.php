@@ -69,7 +69,7 @@ class Dashboard extends Component
         FetchPrinterStatus::dispatch($this->printers->find($id));
 
         Notification::make()
-            ->success('Dispatched fetch status job.')
+            ->title('Saved successfully')
             ->send();
     }
 
