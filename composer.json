@@ -2,7 +2,12 @@
     "name": "techenby/octoqueue",
     "type": "project",
     "description": "Octoqueue application.",
-    "keywords": ["octoprint", "laravel", "livewire", "filamentphp"],
+    "keywords": [
+        "octoprint",
+        "laravel",
+        "livewire",
+        "filamentphp"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
@@ -12,7 +17,7 @@
         "filament/notifications": "^2.16",
         "filament/tables": "^2.16",
         "guzzlehttp/guzzle": "^7.5",
-        "laravel/framework": "^9.19",
+        "laravel/framework": "^9.42",
         "laravel/horizon": "^5.10",
         "laravel/jetstream": "^2.12",
         "laravel/sanctum": "^3.0",
