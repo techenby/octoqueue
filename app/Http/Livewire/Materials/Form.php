@@ -55,7 +55,7 @@ class Form extends Component implements HasForms
         }
     }
 
-    protected function getFormModel(): Material | string
+    protected function getFormModel(): Material|string
     {
         return isset($this->material) ? $this->material : Material::class;
     }
