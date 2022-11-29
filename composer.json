@@ -34,9 +34,9 @@
         "brianium/paratest": "^6.6",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.2",
-        "laravel/sail": "^1.0.1",
+        "laravel/sail": "^1.15",
         "mockery/mockery": "^1.4.4",
-        "nunomaduro/collision": "^6.1",
+        "nunomaduro/collision": "^6.3",
         "phpunit/phpunit": "^9.5.10"
     },
     "autoload": {
