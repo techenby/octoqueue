@@ -1,9 +1,10 @@
+@if(! $printers->isEmpty())
 <div class="bg-white rounded-md shadow dark:bg-gray-800">
     <div class="px-4 py-5 border-b border-gray-200 dark:border-gray-700">
         <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-200">Currently Printing</h3>
     </div>
     <div class="flow-root overflow-y-scroll max-h-64">
-        <table wire:poll.visible class="min-w-full divide-y divide-gray-300 dark:divide-gray-700">
+        <table wire:poll.750ms class="min-w-full divide-y divide-gray-300 dark:divide-gray-700">
             <thead>
                 <tr>
                     <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-200">Printer</th>
@@ -16,7 +17,7 @@
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                @forelse($printers as $printer)
+                @foreach($printers as $printer)
                 <tr x-data>
                     <td class="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-gray-200 whitespace-nowrap">
                         <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-200">{{ $printer->name }}</p>
@@ -81,14 +82,9 @@
                         @endif
                     </td>
                 </tr>
-                @empty
-                <tr>
-                    <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400" colspan="5">
-                        Nothing is printing.
-                    </td>
-                </tr>
-                @endforelse
+                @endforeach
             </tbody>
         </table>
     </div>
 </div>
+@endif
