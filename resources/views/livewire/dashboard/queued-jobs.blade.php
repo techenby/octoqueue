@@ -4,7 +4,7 @@
         <x-jet-secondary-button href="{{ route('queue') }}">View All</x-jet-secondary-button>
     </div>
     <div class="flow-root overflow-y-scroll max-h-96">
-        <table wire:poll.visible class="min-w-full divide-y divide-gray-300 dark:divide-gray-700">
+        <table class="min-w-full divide-y divide-gray-300 dark:divide-gray-700">
             <thead>
                 <tr>
                     <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-200">Name</th>

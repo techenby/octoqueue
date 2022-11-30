@@ -56,6 +56,7 @@ class Dashboard extends Component
             ->whereNull('jobs.started_at')
             ->orderBy('print_type_priority')
             ->limit(5)
+            ->with('printType', 'user')
             ->get();
     }
 
