@@ -36,7 +36,7 @@ class Form extends Component implements HasForms
         }
     }
 
-    protected function getFormModel(): Printer | string
+    protected function getFormModel(): Printer|string
     {
         return isset($this->printer) ? $this->printer : Printer::class;
     }
