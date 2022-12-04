@@ -1,5 +1,8 @@
 @import '../../vendor/filament/forms/dist/module.esm.css';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+
+@import 'buttons.css';
+
+@import 'tailwindcss/utilities';
