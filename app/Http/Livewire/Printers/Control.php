@@ -44,7 +44,6 @@ class Control extends Component
                 ->danger()
                 ->send();
         }
-
     }
 
     private function jog($x, $y, $z)
