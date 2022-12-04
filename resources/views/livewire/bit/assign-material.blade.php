@@ -1,7 +1,4 @@
-<div id="tools" class="bg-white rounded-md shadow dark:bg-gray-800">
-    <div class="px-4 py-5 border-b border-gray-200 dark:border-gray-700 sm:px-6">
-        <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-200">Assign Material</h3>
-    </div>
+<x-ui.card id="assign-materials" title="Assign Materials">
     <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
         @foreach($tools as $id => $tool)
         <li class="flex items-center justify-between px-6 py-4 space-x-4">
@@ -23,4 +20,4 @@
         </li>
         @endforeach
     </ul>
-</div>
+</x-ui.card>
