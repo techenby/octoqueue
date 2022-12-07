@@ -27,7 +27,7 @@ class TempsTest extends TestCase
             ],
             'tool1' => [
                 'actual' => 25.3,
-                'target' => NULL,
+                'target' => null,
                 'offset' => 0,
             ],
             'bed' => [
