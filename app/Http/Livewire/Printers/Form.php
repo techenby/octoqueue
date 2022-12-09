@@ -17,8 +17,11 @@ class Form extends Component implements HasForms
     public Printer $printer;
 
     public $name;
+
     public $model;
+
     public $url;
+
     public $api_key;
 
     public function mount(): void
