@@ -10,7 +10,7 @@
                 </tr>
             </x-ui.thead>
             <x-ui.tbody>
-                @foreach($temps as $name => $temp)
+                @forelse ($temps as $name => $temp)
                 <tr>
                     <x-ui.td>{{ $name }}</x-ui.td>
                     <x-ui.td>{{ $temp['actual'] }}℃</x-ui.td>
@@ -51,7 +51,11 @@
                         </form>
                     </x-ui.td>
                 </tr>
-                @endforeach
+                @empty
+                <tr>
+                    <x-ui.td colspan="4">Could not get temps{{ $printer->status === 'error' ? ', printer is not operational. Please connect to see temperatures.' : '.' }}</x-ui.td>
+                </tr>
+                @endforelse
             </x-ui.tbody>
         </x-ui.table>
     </div>

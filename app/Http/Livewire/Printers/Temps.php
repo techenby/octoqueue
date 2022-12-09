@@ -39,14 +39,24 @@ class Temps extends Component
     {
         $response = Http::octoPrint($this->printer)->get('api/printer');
 
-        if ($response->failed()) {
-            return Notification::make()
+        if ($response->failed() && $response->json('error') !== 'Printer is not operational') {
+            Notification::make()
                 ->title($response->json('error'))
                 ->danger()
                 ->send();
         }
 
-        $this->temps = array_filter($response->json()['temperature'], fn ($temp, $key) => Str::startsWith($key, 'tool') || $key == 'bed', ARRAY_FILTER_USE_BOTH);
+        if ($response->json('error') && $this->printer->status !== 'error') {
+            $this->printer->updateQuietly([
+                'status' => 'error', // or offline?
+            ]);
+        }
+
+        if (isset($response->json()['temperature'])) {
+            $this->temps = array_filter($response->json()['temperature'], fn ($temp, $key) => Str::startsWith($key, 'tool') || $key == 'bed', ARRAY_FILTER_USE_BOTH);
+        } else {
+            $this->temps = [];
+        }
     }
 
     public function setOffset($name)
