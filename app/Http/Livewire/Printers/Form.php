@@ -17,11 +17,8 @@ class Form extends Component implements HasForms
     public Printer $printer;
 
     public $name;
-
     public $model;
-
     public $url;
-
     public $api_key;
 
     public function mount(): void
@@ -44,15 +41,16 @@ class Form extends Component implements HasForms
     protected function getFormSchema(): array
     {
         return [
-            TextInput::make('name')->required(),
+            TextInput::make('name')
+                ->required(),
             TextInput::make('model'),
             TextInput::make('url')
-                ->url()
                 ->label('URL')
-                ->required(),
+                ->required()
+                ->url(),
             TextInput::make('api_key')
-                ->password()
                 ->label('API Key')
+                ->password()
                 ->required(),
         ];
     }
