@@ -21,9 +21,13 @@ class Connection extends Component implements HasForms
     public $options;
 
     public $baudrate;
+
     public $port;
+
     public $printerProfile;
+
     public $save;
+
     public $autoconnect;
 
     public function mount()

@@ -51,11 +51,11 @@ class ConnectionTest extends TestCase
     ];
 
     public $closedConnectionResponse = [
-        "current" => [
-            "baudrate" => null,
-            "port" => null,
-            "printerProfile" => "_default",
-            "state" => "Closed",
+        'current' => [
+            'baudrate' => null,
+            'port' => null,
+            'printerProfile' => '_default',
+            'state' => 'Closed',
         ],
         'options' => [
             'ports' => ['/dev/ttyACM0', 'VIRTUAL'],
