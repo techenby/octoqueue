@@ -39,6 +39,7 @@
             <livewire:printers.control :printer="$printer" />
             <livewire:printers.temps :printer="$printer" />
             <livewire:bit.assign-material :tools="$tools" />
+            <livewire:printers.connection :printer="$printer" />
         </div>
     </x-ui.container>
 </div>
