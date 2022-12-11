@@ -56,12 +56,48 @@ class ShowTest extends TestCase
         ],
     ];
 
+    /**
+     * This was taken from the OctoPrint documentation on 2022-12-10
+     * https://docs.octoprint.org/en/master/api/connection.html#get--api-connection
+     */
+    public $connectionResponse = [
+        'current' => [
+            'state' => 'Operational',
+            'port' => '/dev/ttyACM0',
+            'baudrate' => 250000,
+            'printerProfile' => '_default',
+        ],
+        'options' => [
+            'ports' => ['/dev/ttyACM0', 'VIRTUAL'],
+            'baudrates' => [
+                250000,
+                230400,
+                115200,
+                57600,
+                38400,
+                19200,
+                9600,
+            ],
+            'printerProfiles' => [
+                [
+                    'name' => 'Default',
+                    'id' => '_default',
+                ],
+            ],
+            'portPreference' => '/dev/ttyACM0',
+            'baudratePreference' => 250000,
+            'printerProfilePreference' => '_default',
+            'autoconnect' => true,
+        ],
+    ];
+
     /** @test */
     public function the_component_can_render()
     {
         Http::fake([
             'bulbasaur.local/api/printer' => Http::response($this->printerResponse),
             'bulbasaur.local/api/printer/bed' => Http::response([], 204),
+            'bulbasaur.local/api/connection' => Http::response($this->connectionResponse),
         ]);
 
         $user = User::factory()->withPersonalTeam()->create();
@@ -79,6 +115,7 @@ class ShowTest extends TestCase
         Http::fake([
             'bulbasaur.local/api/printer' => Http::response($this->printerResponse),
             'bulbasaur.local/api/printer/bed' => Http::response([], 204),
+            'bulbasaur.local/api/connection' => Http::response($this->connectionResponse),
         ]);
 
         $user = User::factory()->withPersonalTeam()->create();
