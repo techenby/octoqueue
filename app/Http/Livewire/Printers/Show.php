@@ -21,20 +21,10 @@ class Show extends Component
         ]);
     }
 
-    public function connect()
-    {
-        // TODO
-    }
-
     public function deletePrinter()
     {
         $this->printer->safeDelete();
 
         return redirect('printers');
-    }
-
-    public function fetchStatus()
-    {
-        // TODO
     }
 }
