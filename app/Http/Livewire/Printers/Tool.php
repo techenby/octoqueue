@@ -44,7 +44,7 @@ class Tool extends Component implements HasForms
 
     public function submit()
     {
-        $amount = $this->sign == '+' ? $this->amount : '-' . $this->amount;
+        $amount = $this->sign == '+' ? $this->amount : '-'.$this->amount;
 
         $response = Http::octoPrint($this->printer)
             ->post('api/printer/tool', [
@@ -61,7 +61,7 @@ class Tool extends Component implements HasForms
 
         Notification::make()
             ->title('Sent command to printer')
-            ->body(($this->sign == '+' ? 'Extruding ' : 'Retracting ') . $this->amount . 'mm')
+            ->body(($this->sign == '+' ? 'Extruding ' : 'Retracting ').$this->amount.'mm')
             ->success()
             ->send();
     }
