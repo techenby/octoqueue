@@ -93,6 +93,7 @@ class ShowTest extends TestCase
     ];
 
     public $printer;
+
     public $user;
 
     public function setUp(): void

@@ -68,7 +68,7 @@ class Show extends Component
 
     public function move($axis, $direction = '')
     {
-        $value = $direction . $this->amount;
+        $value = $direction.$this->amount;
 
         if ($axis === 'x') {
             $this->jog((float) $value, 0, 0);
