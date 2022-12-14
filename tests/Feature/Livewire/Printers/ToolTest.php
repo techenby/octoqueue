@@ -6,7 +6,6 @@ use App\Http\Livewire\Printers\Tool;
 use App\Models\Printer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Request;
 use Livewire\Livewire;
 use Tests\TestCase;
 
