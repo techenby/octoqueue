@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Queue;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -92,6 +93,37 @@ class ShowTest extends TestCase
         ],
     ];
 
+    public $closedConnectionResponse = [
+        'current' => [
+            'baudrate' => null,
+            'port' => null,
+            'printerProfile' => '_default',
+            'state' => 'Closed',
+        ],
+        'options' => [
+            'ports' => ['/dev/ttyACM0', 'VIRTUAL'],
+            'baudrates' => [
+                250000,
+                230400,
+                115200,
+                57600,
+                38400,
+                19200,
+                9600,
+            ],
+            'printerProfiles' => [
+                [
+                    'name' => 'Default',
+                    'id' => '_default',
+                ],
+            ],
+            'portPreference' => '/dev/ttyACM0',
+            'baudratePreference' => 250000,
+            'printerProfilePreference' => '_default',
+            'autoconnect' => true,
+        ],
+    ];
+
     public $printer;
 
     public $user;
@@ -99,6 +131,8 @@ class ShowTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+
+        Queue::fake();
 
         Http::fake([
             'bulbasaur.local/api/printer' => Http::response($this->printerResponse),
@@ -115,6 +149,7 @@ class ShowTest extends TestCase
             ->createQuietly([
                 'url' => 'http://bulbasaur.local',
                 'api_key' => 'TEST-API-KEY',
+                'status' => 'operational',
             ]);
     }
 
@@ -418,5 +453,85 @@ class ShowTest extends TestCase
                 $request['command'] == 'offset' &&
                 $request['offsets'] == ['tool0' => 0];
         });
+    }
+
+    // Connection Tests
+
+    /** @test */
+    public function can_connect_to_printer()
+    {
+        Livewire::actingAs($this->user)
+            ->test(Show::class, ['printer' => $this->printer])
+            ->assertStatus(200)
+            ->fillForm([
+                'baudrate' => '230400',
+                'port' => 'VIRTUAL',
+                'printerProfile' => '_default',
+                'save' => true,
+                'autoconnect' => true,
+            ])
+            ->call('connect');
+
+        Http::recorded(function (Request $request) {
+            if ($request->method() === 'POST') {
+                return $request->hasHeader('X-Api-Key', 'TEST-API-KEY') &&
+                    $request->url() == 'http://bulbasaur.local/api/connection' &&
+                    $request['command'] == 'connect' &&
+                    $request['baudrate'] == '230400' &&
+                    $request['port'] == 'VIRTUAL' &&
+                    $request['printerProfile'] == '_default' &&
+                    $request['save'] == true &&
+                    $request['autoconnect'] == true;
+            }
+        });
+    }
+
+    /** @test */
+    public function can_disconect_from_printer()
+    {
+        Livewire::actingAs($this->user)
+            ->test(Show::class, ['printer' => $this->printer])
+            ->assertStatus(200)
+            ->call('disconnect');
+
+        Http::recorded(function (Request $request) {
+            if ($request->method() === 'POST') {
+                return $request->hasHeader('X-Api-Key', 'TEST-API-KEY') &&
+                    $request->url() == 'http://bulbasaur.local/api/connection' &&
+                    $request['command'] == 'disconnect';
+            }
+        });
+    }
+
+    /** @test */
+    public function saved_preferences_are_loaded_into_form_when_connecting()
+    {
+        Http::fake([
+            'bulbasaur.local/api/connection' => Http::response($this->closedConnectionResponse, 200),
+        ]);
+
+        Livewire::actingAs($this->user)
+            ->test(Show::class, ['printer' => $this->printer])
+            ->assertStatus(200)
+            ->assertSet('baudrate', 250000)
+            ->assertSet('port', '/dev/ttyACM0')
+            ->assertSet('printerProfile', '_default');
+    }
+
+    /** @test */
+    public function inputs_are_disabled_when_printer_is_connected()
+    {
+        Http::fake([
+            'bulbasaur.local/api/connection' => Http::response($this->closedConnectionResponse, 200),
+        ]);
+
+        Livewire::actingAs($this->user)
+            ->test(Show::class, ['printer' => $this->printer])
+            ->assertStatus(200)
+            ->assertFormFieldIsDisabled('baudrate')
+            ->assertFormFieldIsDisabled('port')
+            ->assertFormFieldIsDisabled('printerProfile')
+            ->assertFormFieldIsDisabled('save')
+            ->assertFormFieldIsDisabled('autoconnect');
     }
 }

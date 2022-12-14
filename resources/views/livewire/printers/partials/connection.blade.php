@@ -1,5 +1,5 @@
 <x-ui.card title="Connection">
-    <form wire:submit.prevent="submit" class="p-4 space-y-6">
+    <form wire:submit.prevent="connect" class="p-4 space-y-6">
         {{ $this->form }}
 
         @if (in_array($printer->status, ['error', 'closed']))

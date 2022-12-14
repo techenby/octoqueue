@@ -2,23 +2,63 @@
 
 namespace App\Http\Livewire\Printers;
 
+use App\Jobs\FetchPrinterStatus;
 use App\Models\Printer;
+use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
-class Show extends Component
+class Show extends Component implements HasForms
 {
+    use InteractsWithForms;
+
     public Printer $printer;
 
     public $amount = 10;
+
+    public $baudrate;
+    public $port;
+    public $printerProfile;
+    public $save;
+    public $autoconnect;
+
+    public $connectionOptions;
 
     public $temps;
 
     public function mount()
     {
+        $this->loadConnection();
         $this->loadTemps();
+    }
+
+    protected function getFormSchema(): array
+    {
+        return [
+            Select::make('port')
+                ->disabled(in_array($this->printer->status, ['operational', 'printing']))
+                ->options(array_combine($this->connectionOptions['ports'], $this->connectionOptions['ports']))
+                ->placeholder('AUTO'),
+            Select::make('baudrate')
+                ->disabled(in_array($this->printer->status, ['operational', 'printing']))
+                ->options(array_combine($this->connectionOptions['baudrates'], $this->connectionOptions['baudrates']))
+                ->placeholder('AUTO'),
+            Select::make('printerProfile')
+                ->disabled(in_array($this->printer->status, ['operational', 'printing']))
+                ->options(collect($this->connectionOptions['printerProfiles'])->pluck('name', 'id'))
+                ->required(),
+            Checkbox::make('save')
+                ->disabled(in_array($this->printer->status, ['operational', 'printing']))
+                ->label('Save connection settings'),
+            Checkbox::make('autoconnect')
+                ->disabled(in_array($this->printer->status, ['operational', 'printing']))
+                ->label('Auto-connect on startup'),
+        ];
     }
 
     public function render()
@@ -42,6 +82,41 @@ class Show extends Component
         }
 
         return $this->setOffSet($name);
+    }
+
+    public function connect()
+    {
+        $response = Http::octoPrint($this->printer)
+            ->post('api/connection', array_filter(array_merge($this->form->getState(), [
+                'command' => 'connect',
+            ])));
+
+        if ($response->failed()) {
+            Notification::make()
+                ->title($response->json('error'))
+                ->danger()
+                ->send();
+        } else {
+            FetchPrinterStatus::dispatch($this->printer);
+
+            $this->loadConnection();
+        }
+    }
+
+    public function disconnect()
+    {
+        $response = Http::octoPrint($this->printer)->post('api/connection', ['command' => 'disconnect']);
+
+        if ($response->failed()) {
+            Notification::make()
+                ->title($response->json('error'))
+                ->danger()
+                ->send();
+        } else {
+            FetchPrinterStatus::dispatch($this->printer);
+
+            $this->loadConnection();
+        }
     }
 
     public function deletePrinter()
@@ -143,6 +218,20 @@ class Show extends Component
                 ->danger()
                 ->send();
         }
+    }
+
+    private function loadConnection()
+    {
+        $response = Http::octoPrint($this->printer)->get('/api/connection')->json();
+
+        $this->connectionOptions = $response['options'];
+
+        $this->form->fill([
+            'baudrate' => $response['current']['baudrate'] ?? $response['options']['baudratePreference'],
+            'port' => $response['current']['port'] ?? $response['options']['portPreference'],
+            'printerProfile' => $response['current']['printerProfile'] ?? $response['options']['printerProfilePreference'],
+            'autoconnect' => $this->connectOptions['autoconnect'] ?? false,
+        ]);
     }
 
     private function loadTemps()

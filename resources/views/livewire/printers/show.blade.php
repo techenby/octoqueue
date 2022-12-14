@@ -20,7 +20,7 @@
             @include('livewire.printers.partials.control')
             @include('livewire.printers.partials.temps')
             <livewire:bit.assign-material :tools="$tools" />
-            <livewire:printers.connection :printer="$printer" />
+            @include('livewire.printers.partials.connection')
             <livewire:printers.tool :printer="$printer" />
         </div>
     </x-ui.container>
