@@ -18,7 +18,7 @@
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             @include('livewire.printers.partials.webcam')
             @include('livewire.printers.partials.control')
-            <livewire:printers.temps :printer="$printer" />
+            @include('livewire.printers.partials.temps')
             <livewire:bit.assign-material :tools="$tools" />
             <livewire:printers.connection :printer="$printer" />
             <livewire:printers.tool :printer="$printer" />

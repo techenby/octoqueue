@@ -92,47 +92,49 @@ class ShowTest extends TestCase
         ],
     ];
 
-    /** @test */
-    public function the_component_can_render()
+    public $printer;
+    public $user;
+
+    public function setUp(): void
     {
+        parent::setUp();
+
         Http::fake([
             'bulbasaur.local/api/printer' => Http::response($this->printerResponse),
             'bulbasaur.local/api/printer/bed' => Http::response([], 204),
+            'bulbasaur.local/api/printer/printhead' => Http::response([], 204),
+            'bulbasaur.local/api/printer/tool' => Http::response([], 204),
             'bulbasaur.local/api/connection' => Http::response($this->connectionResponse),
         ]);
 
-        $user = User::factory()->withPersonalTeam()->create();
-        $printer = Printer::factory()->for($user->currentTeam)->createQuietly([
-            'url' => 'http://bulbasaur.local',
-        ]);
+        $this->user = User::factory()->withPersonalTeam()->create();
+        $this->printer = Printer::factory()
+            ->for($this->user->currentTeam)
+            ->has(Tool::factory())
+            ->createQuietly([
+                'url' => 'http://bulbasaur.local',
+                'api_key' => 'TEST-API-KEY',
+            ]);
+    }
 
-        Livewire::actingAs($user)->test(Show::class, ['printer' => $printer])
+    /** @test */
+    public function the_component_can_render()
+    {
+        Livewire::actingAs($this->user)
+            ->test(Show::class, ['printer' => $this->printer])
             ->assertStatus(200);
     }
 
     /** @test */
     public function can_delete_pritner()
     {
-        Http::fake([
-            'bulbasaur.local/api/printer' => Http::response($this->printerResponse),
-            'bulbasaur.local/api/printer/bed' => Http::response([], 204),
-            'bulbasaur.local/api/connection' => Http::response($this->connectionResponse),
-        ]);
-
-        $user = User::factory()->withPersonalTeam()->create();
-        $printer = Printer::factory()
-            ->for($user->currentTeam)
-            ->has(Tool::factory())
-            ->createQuietly([
-                'url' => 'http://bulbasaur.local',
-            ]);
-
-        Livewire::actingAs($user)->test(Show::class, ['printer' => $printer])
+        Livewire::actingAs($this->user)
+            ->test(Show::class, ['printer' => $this->printer])
             ->call('deletePrinter')
             ->assertRedirect(route('printers'));
 
-        $this->assertDatabaseMissing('printers', ['id' => $printer->id]);
-        $this->assertDatabaseMissing('tools', ['printer_id' => $printer->id]);
+        $this->assertDatabaseMissing('printers', ['id' => $this->printer->id]);
+        $this->assertDatabaseMissing('tools', ['printer_id' => $this->printer->id]);
     }
 
     // Axis Control Tests
@@ -140,11 +142,8 @@ class ShowTest extends TestCase
     /** @test */
     public function can_move_x_positively()
     {
-        Http::fake();
-
-        $printer = Printer::factory()->createQuietly(['url' => 'http://bulbasaur.local', 'api_key' => 'TEST-API-KEY']);
-
-        Livewire::test(Show::class, ['printer' => $printer])
+        Livewire::actingAs($this->user)
+            ->test(Show::class, ['printer' => $this->printer])
             ->set('amount', '0.1')
             ->call('move', 'x');
 
@@ -161,11 +160,8 @@ class ShowTest extends TestCase
     /** @test */
     public function can_move_x_negatively()
     {
-        Http::fake();
-
-        $printer = Printer::factory()->createQuietly(['url' => 'http://bulbasaur.local', 'api_key' => 'TEST-API-KEY']);
-
-        Livewire::test(Show::class, ['printer' => $printer])
+        Livewire::actingAs($this->user)
+            ->test(Show::class, ['printer' => $this->printer])
             ->set('amount', '0.1')
             ->call('move', 'x', '-');
 
@@ -182,11 +178,8 @@ class ShowTest extends TestCase
     /** @test */
     public function can_move_y_positively()
     {
-        Http::fake();
-
-        $printer = Printer::factory()->createQuietly(['url' => 'http://bulbasaur.local', 'api_key' => 'TEST-API-KEY']);
-
-        Livewire::test(Show::class, ['printer' => $printer])
+        Livewire::actingAs($this->user)
+            ->test(Show::class, ['printer' => $this->printer])
             ->set('amount', '1')
             ->call('move', 'y');
 
@@ -203,11 +196,8 @@ class ShowTest extends TestCase
     /** @test */
     public function can_move_y_negatively()
     {
-        Http::fake();
-
-        $printer = Printer::factory()->createQuietly(['url' => 'http://bulbasaur.local', 'api_key' => 'TEST-API-KEY']);
-
-        Livewire::test(Show::class, ['printer' => $printer])
+        Livewire::actingAs($this->user)
+            ->test(Show::class, ['printer' => $this->printer])
             ->set('amount', '1')
             ->call('move', 'y', '-');
 
@@ -224,11 +214,8 @@ class ShowTest extends TestCase
     /** @test */
     public function can_move_z_positively()
     {
-        Http::fake();
-
-        $printer = Printer::factory()->createQuietly(['url' => 'http://bulbasaur.local', 'api_key' => 'TEST-API-KEY']);
-
-        Livewire::test(Show::class, ['printer' => $printer])
+        Livewire::actingAs($this->user)
+            ->test(Show::class, ['printer' => $this->printer])
             ->set('amount', '10')
             ->call('move', 'z');
 
@@ -245,11 +232,8 @@ class ShowTest extends TestCase
     /** @test */
     public function can_move_z_negatively()
     {
-        Http::fake();
-
-        $printer = Printer::factory()->createQuietly(['url' => 'http://bulbasaur.local', 'api_key' => 'TEST-API-KEY']);
-
-        Livewire::test(Show::class, ['printer' => $printer])
+        Livewire::actingAs($this->user)
+            ->test(Show::class, ['printer' => $this->printer])
             ->set('amount', '10')
             ->call('move', 'z', '-');
 
@@ -266,11 +250,8 @@ class ShowTest extends TestCase
     /** @test */
     public function can_home_x_and_y()
     {
-        Http::fake();
-
-        $printer = Printer::factory()->createQuietly(['url' => 'http://bulbasaur.local', 'api_key' => 'TEST-API-KEY']);
-
-        Livewire::test(Show::class, ['printer' => $printer])
+        Livewire::actingAs($this->user)
+            ->test(Show::class, ['printer' => $this->printer])
             ->call('home', ['x', 'y']);
 
         Http::assertSent(function (Request $request) {
@@ -284,11 +265,8 @@ class ShowTest extends TestCase
     /** @test */
     public function can_home_z()
     {
-        Http::fake();
-
-        $printer = Printer::factory()->createQuietly(['url' => 'http://bulbasaur.local', 'api_key' => 'TEST-API-KEY']);
-
-        Livewire::test(Show::class, ['printer' => $printer])
+        Livewire::actingAs($this->user)
+            ->test(Show::class, ['printer' => $this->printer])
             ->call('home', ['z']);
 
         Http::assertSent(function (Request $request) {
@@ -296,6 +274,148 @@ class ShowTest extends TestCase
                 $request->url() == 'http://bulbasaur.local/api/printer/printhead' &&
                 $request['command'] == 'home' &&
                 $request['axes'] == ['z'];
+        });
+    }
+
+    // Temps Tests
+
+    /** @test */
+    public function can_set_bed_temp()
+    {
+        Livewire::actingAs($this->user)
+            ->test(Show::class, ['printer' => $this->printer])
+            ->assertStatus(200)
+            ->set('temps.bed.target', 60)
+            ->call('setTarget', 'bed');
+
+        Http::assertSent(function (Request $request) {
+            return $request->hasHeader('X-Api-Key', 'TEST-API-KEY') &&
+                $request->url() == 'http://bulbasaur.local/api/printer/bed' &&
+                $request['command'] == 'target' &&
+                $request['target'] == '60';
+        });
+    }
+
+    /** @test */
+    public function can_set_tool_temp()
+    {
+        Livewire::actingAs($this->user)
+            ->test(Show::class, ['printer' => $this->printer])
+            ->assertStatus(200)
+            ->set('temps.tool0.target', 210)
+            ->call('setTarget', 'tool0');
+
+        Http::assertSent(function (Request $request) {
+            return $request->hasHeader('X-Api-Key', 'TEST-API-KEY') &&
+                $request->url() == 'http://bulbasaur.local/api/printer/tool' &&
+                $request['command'] == 'target' &&
+                $request['targets'] == ['tool0' => 210];
+        });
+    }
+
+    /** @test */
+    public function can_clear_bed_temp()
+    {
+        Livewire::actingAs($this->user)
+            ->test(Show::class, ['printer' => $this->printer])
+            ->assertStatus(200)
+            ->set('temps.bed.target', 60)
+            ->call('clear', 'bed', 'target')
+            ->assertSet('temps.bed.target', 0);
+
+        Http::assertSent(function (Request $request) {
+            return $request->hasHeader('X-Api-Key', 'TEST-API-KEY') &&
+                $request->url() == 'http://bulbasaur.local/api/printer/bed' &&
+                $request['command'] == 'target' &&
+                $request['target'] == '0';
+        });
+    }
+
+    /** @test */
+    public function can_clear_tool_temp()
+    {
+        Livewire::actingAs($this->user)
+            ->test(Show::class, ['printer' => $this->printer])
+            ->assertStatus(200)
+            ->set('temps.tool0.target', 210)
+            ->call('clear', 'tool0', 'target')
+            ->assertSet('temps.tool0.target', 0);
+
+        Http::assertSent(function (Request $request) {
+            return $request->hasHeader('X-Api-Key', 'TEST-API-KEY') &&
+                $request->url() == 'http://bulbasaur.local/api/printer/tool' &&
+                $request['command'] == 'target' &&
+                $request['targets'] == ['tool0' => 0];
+        });
+    }
+
+    /** @test */
+    public function can_set_bed_offset()
+    {
+        Livewire::actingAs($this->user)
+            ->test(Show::class, ['printer' => $this->printer])
+            ->assertStatus(200)
+            ->set('temps.bed.offset', 5)
+            ->call('setOffset', 'bed');
+
+        Http::assertSent(function (Request $request) {
+            return $request->hasHeader('X-Api-Key', 'TEST-API-KEY') &&
+                $request->url() == 'http://bulbasaur.local/api/printer/bed' &&
+                $request['command'] == 'offset' &&
+                $request['offset'] == 5;
+        });
+    }
+
+    /** @test */
+    public function can_set_tool_offset()
+    {
+        Livewire::actingAs($this->user)
+            ->test(Show::class, ['printer' => $this->printer])
+            ->assertStatus(200)
+            ->set('temps.tool0.offset', -5)
+            ->call('setOffset', 'tool0');
+
+        Http::assertSent(function (Request $request) {
+            return $request->hasHeader('X-Api-Key', 'TEST-API-KEY') &&
+                $request->url() == 'http://bulbasaur.local/api/printer/tool' &&
+                $request['command'] == 'offset' &&
+                $request['offsets'] == ['tool0' => -5];
+        });
+    }
+
+    /** @test */
+    public function can_clear_bed_offset()
+    {
+        Livewire::actingAs($this->user)
+            ->test(Show::class, ['printer' => $this->printer])
+            ->assertStatus(200)
+            ->set('temps.bed.offset', 5)
+            ->call('clear', 'bed', 'offset')
+            ->assertSet('temps.bed.offset', 0);
+
+        Http::assertSent(function (Request $request) {
+            return $request->hasHeader('X-Api-Key', 'TEST-API-KEY') &&
+                $request->url() == 'http://bulbasaur.local/api/printer/bed' &&
+                $request['command'] == 'offset' &&
+                $request['offset'] == '0';
+        });
+    }
+
+    /** @test */
+    public function can_clear_tool_offset()
+    {
+        Livewire::actingAs($this->user)
+            ->test(Show::class, ['printer' => $this->printer])
+            ->assertStatus(200)
+            ->set('temps.tool0.offset', -5)
+            ->call('clear', 'tool0', 'offset')
+            ->assertSet('temps.tool0.offset', 0);
+
+        Http::assertSent(function (Request $request) {
+            return $request->hasHeader('X-Api-Key', 'TEST-API-KEY') &&
+                $request->url() == 'http://bulbasaur.local/api/printer/tool' &&
+                $request['command'] == 'offset' &&
+                $request['offsets'] == ['tool0' => 0];
         });
     }
 }
