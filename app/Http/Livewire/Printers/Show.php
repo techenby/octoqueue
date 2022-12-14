@@ -22,9 +22,13 @@ class Show extends Component implements HasForms
     public $amount = 10;
 
     public $baudrate;
+
     public $port;
+
     public $printerProfile;
+
     public $save;
+
     public $autoconnect;
 
     public $connectionOptions;
