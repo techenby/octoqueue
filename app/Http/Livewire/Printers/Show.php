@@ -123,7 +123,7 @@ class Show extends Component implements HasForms
     public function connect()
     {
         $response = Http::octoPrint($this->printer)
-            ->post('api/connection', array_filter(array_merge($this->form->getState(), [
+            ->post('api/connection', array_filter(array_merge($this->connectionForm->getState(), [
                 'command' => 'connect',
             ])));
 
