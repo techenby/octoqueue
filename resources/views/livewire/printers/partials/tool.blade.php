@@ -1,6 +1,6 @@
 <x-ui.card title="Tool">
-    <form wire:submit.prevent="submit" class="p-4 space-y-6">
-        {{ $this->form }}
+    <form wire:submit.prevent="extrude" class="p-4 space-y-6">
+        {{ $this->toolForm }}
 
         <x-jet-button type="submit">
             <div wire:loading>

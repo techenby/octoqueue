@@ -5,7 +5,9 @@ namespace App\Http\Livewire\Printers;
 use App\Jobs\FetchPrinterStatus;
 use App\Models\Printer;
 use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
@@ -21,7 +23,13 @@ class Show extends Component implements HasForms
 
     public $amount = 10;
 
+    public $autoconnect;
+
     public $baudrate;
+
+    public $connectionOptions;
+
+    public $extrudeAmount = 5;
 
     public $port;
 
@@ -29,9 +37,7 @@ class Show extends Component implements HasForms
 
     public $save;
 
-    public $autoconnect;
-
-    public $connectionOptions;
+    public $sign = '+';
 
     public $temps;
 
@@ -41,7 +47,7 @@ class Show extends Component implements HasForms
         $this->loadTemps();
     }
 
-    protected function getFormSchema(): array
+    protected function getConnectionFormSchema(): array
     {
         return [
             Select::make('port')
@@ -62,6 +68,32 @@ class Show extends Component implements HasForms
             Checkbox::make('autoconnect')
                 ->disabled(in_array($this->printer->status, ['operational', 'printing']))
                 ->label('Auto-connect on startup'),
+        ];
+    }
+
+    protected function getToolFormSchema(): array
+    {
+        return [
+            TextInput::make('extrudeAmount')
+                ->disabled(in_array($this->printer->status, ['printing', 'error', 'closed', 'offline']))
+                ->minValue(0)
+                ->numeric()
+                ->suffix('mm'),
+            Radio::make('sign')
+                ->options([
+                    '+' => 'Extrude',
+                    '-' => 'Retract',
+                ]),
+        ];
+    }
+
+    protected function getForms(): array
+    {
+        return [
+            'connectionForm' => $this->makeForm()
+                ->schema($this->getConnectionFormSchema()),
+            'toolForm' => $this->makeForm()
+                ->schema($this->getToolFormSchema()),
         ];
     }
 
@@ -130,6 +162,30 @@ class Show extends Component implements HasForms
         return redirect('printers');
     }
 
+    public function extrude()
+    {
+        $amount = $this->sign == '+' ? $this->extrudeAmount : '-' . $this->extrudeAmount;
+
+        $response = Http::octoPrint($this->printer)
+            ->post('api/printer/tool', [
+                'command' => 'extrude',
+                'amount' => (int) $amount,
+            ]);
+
+        if ($response->failed()) {
+            return Notification::make()
+                ->title($response->json('error'))
+                ->danger()
+                ->send();
+        }
+
+        Notification::make()
+            ->title('Sent command to printer')
+            ->body(($this->sign == '+' ? 'Extruding ' : 'Retracting ') . $this->extrudeAmount . 'mm')
+            ->success()
+            ->send();
+    }
+
     public function home($axis)
     {
         $response = Http::octoPrint($this->printer)->post('api/printer/printhead', [
@@ -147,7 +203,7 @@ class Show extends Component implements HasForms
 
     public function move($axis, $direction = '')
     {
-        $value = $direction.$this->amount;
+        $value = $direction . $this->amount;
 
         if ($axis === 'x') {
             $this->jog((float) $value, 0, 0);
@@ -230,7 +286,7 @@ class Show extends Component implements HasForms
 
         $this->connectionOptions = $response['options'];
 
-        $this->form->fill([
+        $this->connectionForm->fill([
             'baudrate' => $response['current']['baudrate'] ?? $response['options']['baudratePreference'],
             'port' => $response['current']['port'] ?? $response['options']['portPreference'],
             'printerProfile' => $response['current']['printerProfile'] ?? $response['options']['printerProfilePreference'],

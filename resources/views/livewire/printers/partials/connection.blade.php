@@ -1,11 +1,21 @@
 <x-ui.card title="Connection">
     <form wire:submit.prevent="connect" class="p-4 space-y-6">
-        {{ $this->form }}
+        {{ $this->connectionForm }}
 
         @if (in_array($printer->status, ['error', 'closed']))
-        <x-jet-button type="submit">Connect</x-jet-button>
+        <x-jet-button type="submit">
+            <div wire:loading>
+                <x-ui.spinner />
+            </div>
+            Connect
+        </x-jet-button>
         @else
-        <x-jet-button type="button" wire:click="disconnect">Disconnect</x-jet-button>
+        <x-jet-button type="button" wire:click="disconnect">
+            <div wire:loading>
+                <x-ui.spinner />
+            </div>
+            Disconnect
+        </x-jet-button>
         @endif
     </form>
 </x-ui.card>

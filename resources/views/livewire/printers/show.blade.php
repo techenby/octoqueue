@@ -21,7 +21,7 @@
             @include('livewire.printers.partials.temps')
             <livewire:bit.assign-material :tools="$tools" />
             @include('livewire.printers.partials.connection')
-            <livewire:printers.tool :printer="$printer" />
+            @include('livewire.printers.partials.tool')
         </div>
     </x-ui.container>
 </div>
