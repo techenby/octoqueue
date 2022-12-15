@@ -164,7 +164,7 @@ class Show extends Component implements HasForms
 
     public function extrude()
     {
-        $amount = $this->sign == '+' ? $this->extrudeAmount : '-' . $this->extrudeAmount;
+        $amount = $this->sign == '+' ? $this->extrudeAmount : '-'.$this->extrudeAmount;
 
         $response = Http::octoPrint($this->printer)
             ->post('api/printer/tool', [
@@ -181,7 +181,7 @@ class Show extends Component implements HasForms
 
         Notification::make()
             ->title('Sent command to printer')
-            ->body(($this->sign == '+' ? 'Extruding ' : 'Retracting ') . $this->extrudeAmount . 'mm')
+            ->body(($this->sign == '+' ? 'Extruding ' : 'Retracting ').$this->extrudeAmount.'mm')
             ->success()
             ->send();
     }
@@ -203,7 +203,7 @@ class Show extends Component implements HasForms
 
     public function move($axis, $direction = '')
     {
-        $value = $direction . $this->amount;
+        $value = $direction.$this->amount;
 
         if ($axis === 'x') {
             $this->jog((float) $value, 0, 0);
