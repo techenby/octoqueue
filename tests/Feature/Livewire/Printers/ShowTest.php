@@ -469,7 +469,7 @@ class ShowTest extends TestCase
                 'printerProfile' => '_default',
                 'save' => true,
                 'autoconnect' => true,
-            ])
+            ], 'connectionForm')
             ->call('connect');
 
         Http::recorded(function (Request $request) {
@@ -528,10 +528,10 @@ class ShowTest extends TestCase
         Livewire::actingAs($this->user)
             ->test(Show::class, ['printer' => $this->printer])
             ->assertStatus(200)
-            ->assertFormFieldIsDisabled('baudrate')
-            ->assertFormFieldIsDisabled('port')
-            ->assertFormFieldIsDisabled('printerProfile')
-            ->assertFormFieldIsDisabled('save')
-            ->assertFormFieldIsDisabled('autoconnect');
+            ->assertFormFieldIsDisabled('baudrate', 'connectionForm')
+            ->assertFormFieldIsDisabled('port', 'connectionForm')
+            ->assertFormFieldIsDisabled('printerProfile', 'connectionForm')
+            ->assertFormFieldIsDisabled('save', 'connectionForm')
+            ->assertFormFieldIsDisabled('autoconnect', 'connectionForm');
     }
 }
