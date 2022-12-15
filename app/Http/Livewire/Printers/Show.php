@@ -164,6 +164,14 @@ class Show extends Component implements HasForms
 
     public function extrude()
     {
+        if ($this->temps['tool0']['actual'] < 180) {
+            return Notification::make()
+                ->title('Extruder is too cold')
+                ->body('The printer must be at least 180°C to extrude.')
+                ->danger()
+                ->send();
+        }
+
         $amount = $this->sign == '+' ? $this->extrudeAmount : '-'.$this->extrudeAmount;
 
         $response = Http::octoPrint($this->printer)
