@@ -3,7 +3,7 @@
         {{ $this->connectionForm }}
 
         @if (in_array($printer->status, ['error', 'closed']))
-        <x-jet-button type="submit">
+        <x-jet-button type="submit" wire:target="connect">
             <div wire:loading>
                 <x-ui.spinner />
             </div>
@@ -11,7 +11,7 @@
         </x-jet-button>
         @else
         <x-jet-button type="button" wire:click="disconnect">
-            <div wire:loading>
+            <div wire:loading wire:target="disconnect">
                 <x-ui.spinner />
             </div>
             Disconnect

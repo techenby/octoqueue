@@ -1,9 +1,9 @@
 <x-ui.card title="Tool">
-    <form wire:submit.prevent="extrude" class="p-4 space-y-6">
+    <form wire:submit.prevent="extrude" id="toolForm" class="p-4 space-y-6">
         {{ $this->toolForm }}
 
         <x-jet-button type="submit">
-            <div wire:loading>
+            <div wire:loading wire:target="extrude">
                 <x-ui.spinner />
             </div>
             Submit
