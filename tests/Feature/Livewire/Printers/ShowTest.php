@@ -137,6 +137,7 @@ class ShowTest extends TestCase
         Http::fake([
             'bulbasaur.local/api/printer' => Http::response($this->printerResponse),
             'bulbasaur.local/api/printer/bed' => Http::response([], 204),
+            'bulbasaur.local/api/printer/command' => Http::response([], 204),
             'bulbasaur.local/api/printer/printhead' => Http::response([], 204),
             'bulbasaur.local/api/printer/tool' => Http::response([], 204),
             'bulbasaur.local/api/connection' => Http::response($this->connectionResponse),
@@ -533,5 +534,51 @@ class ShowTest extends TestCase
             ->assertFormFieldIsDisabled('printerProfile', 'connectionForm')
             ->assertFormFieldIsDisabled('save', 'connectionForm')
             ->assertFormFieldIsDisabled('autoconnect', 'connectionForm');
+    }
+
+    // Tool Tests
+
+    // General Tests
+
+    /** @test */
+    public function can_turn_motors_off()
+    {
+        Livewire::actingAs($this->user)
+            ->test(Show::class, ['printer' => $this->printer])
+            ->call('motorsOff');
+
+        Http::assertSent(function (Request $request) {
+            return $request->hasHeader('X-Api-Key', 'TEST-API-KEY') &&
+                $request->url() == 'http://bulbasaur.local/api/printer/command' &&
+                $request['command'] == 'M18';
+        });
+    }
+
+    /** @test */
+    public function can_turn_fans_off()
+    {
+        Livewire::actingAs($this->user)
+            ->test(Show::class, ['printer' => $this->printer])
+            ->call('fansOff');
+
+        Http::assertSent(function (Request $request) {
+            return $request->hasHeader('X-Api-Key', 'TEST-API-KEY') &&
+                $request->url() == 'http://bulbasaur.local/api/printer/command' &&
+                $request['command'] == 'M106 S0';
+        });
+    }
+
+    /** @test */
+    public function can_turn_fans_on()
+    {
+        Livewire::actingAs($this->user)
+            ->test(Show::class, ['printer' => $this->printer])
+            ->call('fansOn');
+
+        Http::assertSent(function (Request $request) {
+            return $request->hasHeader('X-Api-Key', 'TEST-API-KEY') &&
+                $request->url() == 'http://bulbasaur.local/api/printer/command' &&
+                $request['command'] == 'M106 S255';
+        });
     }
 }

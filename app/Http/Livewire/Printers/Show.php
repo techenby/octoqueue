@@ -172,7 +172,7 @@ class Show extends Component implements HasForms
                 ->send();
         }
 
-        $amount = $this->sign == '+' ? $this->extrudeAmount : '-'.$this->extrudeAmount;
+        $amount = $this->sign == '+' ? $this->extrudeAmount : '-' . $this->extrudeAmount;
 
         $response = Http::octoPrint($this->printer)
             ->post('api/printer/tool', [
@@ -189,9 +189,19 @@ class Show extends Component implements HasForms
 
         Notification::make()
             ->title('Sent command to printer')
-            ->body(($this->sign == '+' ? 'Extruding ' : 'Retracting ').$this->extrudeAmount.'mm')
+            ->body(($this->sign == '+' ? 'Extruding ' : 'Retracting ') . $this->extrudeAmount . 'mm')
             ->success()
             ->send();
+    }
+
+    public function fansOff()
+    {
+        $this->manualCommand('M106 S0');
+    }
+
+    public function fansOn()
+    {
+        $this->manualCommand('M106 S255');
     }
 
     public function home($axis)
@@ -209,9 +219,14 @@ class Show extends Component implements HasForms
         }
     }
 
+    public function motorsOff()
+    {
+        $this->manualCommand('M18');
+    }
+
     public function move($axis, $direction = '')
     {
-        $value = $direction.$this->amount;
+        $value = $direction . $this->amount;
 
         if ($axis === 'x') {
             $this->jog((float) $value, 0, 0);
@@ -323,6 +338,20 @@ class Show extends Component implements HasForms
             $this->temps = array_filter($response->json()['temperature'], fn ($temp, $key) => Str::startsWith($key, 'tool') || $key == 'bed', ARRAY_FILTER_USE_BOTH);
         } else {
             $this->temps = [];
+        }
+    }
+
+    private function manualCommand($command)
+    {
+        $response = Http::octoPrint($this->printer)->post('api/printer/command', [
+            'command' => $command,
+        ]);
+
+        if ($response->failed()) {
+            Notification::make()
+                ->title($response->json('error'))
+                ->danger()
+                ->send();
         }
     }
 }

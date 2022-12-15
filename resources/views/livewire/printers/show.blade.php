@@ -22,6 +22,7 @@
             <livewire:bit.assign-material :tools="$tools" />
             @include('livewire.printers.partials.connection')
             @include('livewire.printers.partials.tool')
+            @include('livewire.printers.partials.general')
         </div>
     </x-ui.container>
 </div>
