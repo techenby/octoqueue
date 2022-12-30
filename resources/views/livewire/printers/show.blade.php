@@ -11,14 +11,18 @@
         </div>
     </x-layout.header>
 
-    <x-ui.container>
+    <x-ui.container full>
         @includeWhen($printer->status === 'offline', 'livewire.printers.partials.offline-alert')
         @includeWhen($printer->status === 'closed', 'livewire.printers.partials.closed-alert')
 
-        <div class="grid grid-cols-5 gap-4">
-            <div class="col-span-2">
-                <livewire:bit.assign-material :tools="$tools" />
-            </div>
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+            @include('livewire.printers.partials.webcam')
+            @include('livewire.printers.partials.control')
+            @include('livewire.printers.partials.temps')
+            <livewire:bit.assign-material :tools="$tools" />
+            @include('livewire.printers.partials.connection')
+            @include('livewire.printers.partials.tool')
+            @include('livewire.printers.partials.general')
         </div>
     </x-ui.container>
 </div>

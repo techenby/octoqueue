@@ -66,12 +66,12 @@ class Printer extends Model
 
     public function getScreenshotAttribute()
     {
-        return $this->url.'/webcam/?action=snapshot';
+        return $this->url . '/webcam/?action=snapshot';
     }
 
     public function getWebcamAttribute()
     {
-        return $this->url.'/webcam/?action=stream';
+        return $this->url . '/webcam/?action=stream';
     }
 
     public function cancel()

@@ -101,7 +101,7 @@ class FetchPrinterToolsTest extends TestCase
         ]);
 
         $printer = Printer::factory()
-            ->has(Tool::factory()->count(2)->sequence(fn ($sequence) => ['name' => 'tool'.$sequence->index]))
+            ->has(Tool::factory()->count(2)->sequence(fn ($sequence) => ['name' => 'tool' . $sequence->index]))
             ->createQuietly([
                 'url' => 'http://bulbasaur.local',
                 'api_key' => 'TEST_API_KEY',

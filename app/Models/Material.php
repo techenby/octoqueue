@@ -35,12 +35,12 @@ class Material extends Model
 
     public function getFormattedCurrentWeightAttribute()
     {
-        return $this->currentWeight.'g';
+        return $this->currentWeight . 'g';
     }
 
     public function getFormattedCurrentLengthAttribute()
     {
-        return $this->currentLength ? $this->currentLength.'m' : '-';
+        return $this->currentLength ? $this->currentLength . 'm' : '-';
     }
 
     public function getNameAttribute()

@@ -1,0 +1,51 @@
+.btn {
+    @apply relative inline-flex items-center font-medium border border-transparent shadow-sm focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500;
+}
+
+.btn-blue {
+  @apply text-white bg-blue-800 hover:bg-blue-700 active:bg-blue-900 focus:border-blue-900 focus:ring-blue-300;
+}
+
+.btn-white {
+    @apply text-gray-700 bg-white border-gray-300 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 hover:text-gray-500 dark:hover:text-gray-200;
+}
+
+.btn-red {
+  @apply text-white bg-red-800 hover:bg-red-700 active:bg-red-900 focus:border-red-900 focus:ring-red-300;
+}
+
+.btn-outline {
+    @apply text-gray-700 bg-white border-gray-300 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-850 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 active:bg-gray-50 dark:active:bg-gray-850;
+}
+
+.btn-xs {
+    @apply px-1.5 py-1 text-xs rounded ;
+}
+.btn-sm {
+    @apply px-3 py-2 text-sm leading-4 rounded-md;
+}
+.btn-base {
+    @apply px-4 py-2 text-sm rounded-md;
+}
+.btn-lg {
+    @apply px-4 py-2 text-base rounded-md;
+}
+.btn-xl {
+    @apply px-6 py-3 text-base rounded-md;
+}
+
+.btn-link {
+    @apply hover:text-gray-900 hover:bg-blue-200 dark:hover:bg-blue-900 dark:hover:text-gray-200;
+}
+
+.btn:disabled, .table-btn:disabled {
+    @apply cursor-not-allowed opacity-70;
+}
+
+.btn-block {
+    @apply justify-center w-full;
+}
+
+.disabled {
+    @apply cursor-not-allowed opacity-70;
+}
