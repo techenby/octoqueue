@@ -117,6 +117,14 @@ class Printer extends Model
         return $results->json('files');
     }
 
+    public function folders()
+    {
+        return collect(flattenByKey($this->files(), 'children'))
+            ->filter(fn ($item) => $item['type'] === 'folder')
+            ->pluck('path', 'path')
+            ->toArray();
+    }
+
     public function pause()
     {
         Http::octoPrint($this)->post('/api/job', [
@@ -170,5 +178,15 @@ class Printer extends Model
             'user_id' => $user->id,
             'started_at' => now()->subSeconds($this->currentlyPrinting()['progress']['printTime']),
         ]);
+    }
+
+    public function uploadFile($filename, $path, $contents, $location = 'local')
+    {
+        return Http::octoPrint($this)
+            ->attach('attachment', $contents, $filename)
+            ->post("/api/files/{$location}", [
+                ['name' => 'path', 'contents' => $path],
+                ['name' => 'file', 'filename' => $filename, 'contents' => $contents]
+            ]);
     }
 }

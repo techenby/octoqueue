@@ -4,7 +4,9 @@ namespace App\Http\Livewire\Jobs;
 
 use App\Models\Job;
 use Closure;
-use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Builder as FormBuilder;
+use Filament\Forms\Components\Builder\Block;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -12,6 +14,7 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
@@ -61,26 +64,51 @@ class Form extends Component implements HasForms
             Select::make('color_hex')
                 ->options($this->colorOptions)
                 ->label('Material Color'),
-            Repeater::make('files')
-                ->schema([
-                    Select::make('printer')
-                        ->options($this->printers->pluck('name', 'id'))
-                        ->reactive()
-                        ->required(),
-                    Select::make('file')
-                        ->options(function (Closure $get) {
-                            if ($get('printer') === null) {
-                                return;
-                            }
+            FormBuilder::make('files')
+                ->blocks([
+                    Block::make('choose')
+                        ->icon('heroicon-o-cursor-click')
+                        ->label('Choose File from Printer')
+                        ->schema([
+                            Select::make('printer')
+                                ->options($this->printers->pluck('name', 'id'))
+                                ->reactive()
+                                ->required(),
+                            Select::make('file')
+                                ->options(function (Closure $get) {
+                                    if ($get('printer') === null) {
+                                        return;
+                                    }
 
-                            return $this->printers->find($get('printer'))->printableFiles();
-                        })
-                        ->searchable()
-                        ->required(),
+                                    return $this->printers->find($get('printer'))->printableFiles();
+                                })
+                                ->searchable()
+                                ->required(),
+                        ]),
+                    Block::make('upload')
+                        ->icon('heroicon-o-upload')
+                        ->label('Upload file to Printer')
+                        ->schema([
+                            Select::make('printer')
+                                ->options($this->printers->pluck('name', 'id'))
+                                ->reactive()
+                                ->required(),
+                            Select::make('folder')
+                                ->options(function (Closure $get) {
+                                    if ($get('printer') === null) {
+                                        return;
+                                    }
+
+                                    return $this->printers->find($get('printer'))->folders();
+                                })
+                                ->searchable()
+                                ->required(),
+                            FileUpload::make('attachment')->preserveFilenames()->required(),
+                        ])
                 ])
                 ->cloneable()
                 ->collapsible()
-                ->createItemButtonLabel('Add file from printer')
+                ->createItemButtonLabel('Choose or Upload Files to Print')
                 ->maxItems($this->printers->count()),
         ];
     }
@@ -118,6 +146,8 @@ class Form extends Component implements HasForms
 
     public function submit()
     {
+        $this->processFiles();
+
         if (isset($this->job)) {
             $this->job->update($this->form->getState());
             $message = 'Changes to the **job** have been saved.';
@@ -136,5 +166,35 @@ class Form extends Component implements HasForms
             ->send();
 
         return redirect('queue');
+    }
+
+    private function processFiles()
+    {
+        $this->form->setState([
+            'files' => collect($this->files)->map(function ($file) {
+                if ($file['type'] === 'upload') {
+                    $attachment = current($file['data']['attachment']);
+                    $filename = $attachment->getClientOriginalName();
+                    $printer = $this->printers->find($file['data']['printer']);
+
+                    $result = $printer->uploadFile($filename, $file['data']['folder'], $attachment->get());
+
+                    if ($result->isSuccess()) {
+                        return [
+                            'printer' => $printer->id,
+                            'file' => Str::finish($file['data']['folder'], '/') . $filename,
+                        ];
+                    } else {
+                        Notification::make()
+                            ->title('Upload failed')
+                            ->body($result->getMessage())
+                            ->danger()
+                            ->send();
+                    }
+                } else {
+                    return $file['data'];
+                }
+            })->toArray(),
+        ]);
     }
 }
