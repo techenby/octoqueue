@@ -104,7 +104,7 @@ class Form extends Component implements HasForms
                                 ->searchable()
                                 ->required(),
                             FileUpload::make('attachment')->preserveFilenames()->required(),
-                        ])
+                        ]),
                 ])
                 ->cloneable()
                 ->collapsible()
