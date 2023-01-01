@@ -25,6 +25,7 @@
         "laravel/spark-stripe": "^2.0",
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.10",
+        "pxlrbt/filament-environment-indicator": "^1.0",
         "spatie/laravel-ignition": "^1.6",
         "spatie/laravel-newsletter": "^5.0",
         "spatie/laravel-permission": "^5.5",

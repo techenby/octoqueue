@@ -2,40 +2,20 @@
 
 namespace App\Providers;
 
-use Filament\Facades\Filament;
-use Filament\Navigation\UserMenuItem;
+use pxlrbt\FilamentEnvironmentIndicator\FilamentEnvironmentIndicator;
 use Illuminate\Support\ServiceProvider;
 
 class FilamentServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
     public function register()
     {
         //
     }
 
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
     public function boot()
     {
-        Filament::serving(function () {
-            Filament::registerUserMenuItems([
-                UserMenuItem::make()
-                    ->label('Frontend')
-                    ->url(route('dashboard'))
-                    ->icon('heroicon-s-cog'),
-                UserMenuItem::make()
-                    ->label('Marketing')
-                    ->url(route('marketing'))
-                    ->icon('heroicon-s-cog'),
-            ]);
-        });
+        FilamentEnvironmentIndicator::configureUsing(function ($indicator) {
+            $indicator->visible = fn () => auth()->user()?->hasRole('Super-Admin');
+        }, isImportant: true);
     }
 }
