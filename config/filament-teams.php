@@ -25,7 +25,7 @@ return [
     |
     */
 
-    'path' => env('FILAMENT_PATH', 'admin'),
+    'path' => env('FILAMENT_TEAMS_PATH', 'app'),
 
     /*
     |--------------------------------------------------------------------------
@@ -37,7 +37,7 @@ return [
     |
     */
 
-    'domain' => env('FILAMENT_DOMAIN'),
+    'domain' => env('FILAMENT_TEAMS_DOMAIN'),
 
     /*
     |--------------------------------------------------------------------------
