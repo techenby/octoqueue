@@ -3,7 +3,6 @@
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Http\Middleware\MirrorConfigToSubpackages;
-use Filament\Pages;
 use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -53,7 +52,7 @@ return [
         'namespace' => 'App\\FilamentTeams\\Pages',
         'path' => app_path('FilamentTeams/Pages'),
         'register' => [
-            Pages\Dashboard::class,
+            //
         ],
     ],
 
