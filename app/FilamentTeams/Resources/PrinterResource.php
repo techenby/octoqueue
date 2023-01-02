@@ -81,11 +81,8 @@ class PrinterResource extends Resource
                 //
             ])
             ->actions([
-                // EditAction::make(),
-                Action::make('activate')
-                    ->action(fn (Printer $record) => $record->activate())
-                    ->requiresConfirmation()
-                    ->color('success'),
+                Action::make('fetch_status')
+                    ->action(fn (Printer $record) => FetchPrinterStatus::dispatch($record)),
                 ActionGroup::make([
                     ViewAction::make(),
                     EditAction::make(),
