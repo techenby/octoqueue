@@ -16,6 +16,16 @@ class ViewPrinter extends ViewRecord
 {
     protected static string $resource = PrinterResource::class;
 
+    public function getTitle(): string
+    {
+        return $this->record->name;
+    }
+
+    public function getSubheading(): string
+    {
+        return "{$this->record->model} · {$this->record->url} · {$this->record->status}";
+    }
+
     public function getFooterWidgets(): array
     {
         return [
