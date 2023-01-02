@@ -32,8 +32,7 @@ class ViewPrinter extends ViewRecord
     protected function getFooterWidgetsColumns(): int | array
     {
         return [
-            'md' => 4,
-            'xl' => 5,
+            'lg' => 4,
         ];
     }
 }
