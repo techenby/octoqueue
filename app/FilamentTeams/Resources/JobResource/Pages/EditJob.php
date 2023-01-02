@@ -1,22 +1,22 @@
 <?php
 
-namespace {{ namespace }};
+namespace App\FilamentTeams\Resources\JobResource\Pages;
 
-use {{ resource }};
+use App\FilamentTeams\Resources\JobResource;
 use Artificertech\FilamentMultiContext\Concerns\ContextualPage;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class {{ resourcePageClass }} extends EditRecord
+class EditJob extends EditRecord
 {
     use ContextualPage;
 
-    protected static string $resource = {{ resourceClass }}::class;
+    protected static string $resource = JobResource::class;
 
     protected function getActions(): array
     {
         return [
-{{ actions }}
+            Actions\DeleteAction::make(),
         ];
     }
 }

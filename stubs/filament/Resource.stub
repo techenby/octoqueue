@@ -5,6 +5,7 @@ namespace {{ namespace }};
 use {{ resource }}\Pages;
 use {{ resource }}\RelationManagers;
 use App\Models\{{ model }};
+use Artificertech\FilamentMultiContext\Concerns\ContextualResource;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -15,6 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class {{ resourceClass }} extends Resource
 {
+    use ContextualResource;
+
     protected static ?string $model = {{ modelClass }}::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';

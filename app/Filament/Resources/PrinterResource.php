@@ -2,35 +2,42 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PrinterResource\Pages;
+use App\Filament\Resources\PrinterResource\Pages\CreatePrinter;
+use App\Filament\Resources\PrinterResource\Pages\EditPrinter;
+use App\Filament\Resources\PrinterResource\Pages\ListPrinters;
 use App\Models\Printer;
-use Filament\Forms;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
-use Filament\Tables;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Columns\TextColumn;
 
 class PrinterResource extends Resource
 {
     protected static ?string $model = Printer::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-printer';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('team_id')
+                Select::make('team_id')
                     ->relationship('team', 'name')
                     ->required(),
-                Forms\Components\TextInput::make('name')
+                TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('model')
+                TextInput::make('model')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('url')
+                TextInput::make('url')
                     ->maxLength(255),
-                Forms\Components\Textarea::make('api_key')
+                Textarea::make('api_key')
                     ->maxLength(65535),
             ]);
     }
@@ -39,24 +46,27 @@ class PrinterResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('team.name'),
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('model'),
-                Tables\Columns\TextColumn::make('url'),
-                Tables\Columns\TextColumn::make('api_key'),
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('team.name'),
+                TextColumn::make('name'),
+                TextColumn::make('model'),
+                TextColumn::make('url'),
+                TextColumn::make('api_key'),
+                TextColumn::make('created_at')
                     ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
+                TextColumn::make('updated_at')
                     ->dateTime(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Action::make('visit_url')
+                    ->url(fn (Printer $record): string => $record->url)
+                    ->openUrlInNewTab(),
+                EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                DeleteBulkAction::make(),
             ]);
     }
 
@@ -70,9 +80,9 @@ class PrinterResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPrinters::route('/'),
-            'create' => Pages\CreatePrinter::route('/create'),
-            'edit' => Pages\EditPrinter::route('/{record}/edit'),
+            'index' => ListPrinters::route('/'),
+            'create' => CreatePrinter::route('/create'),
+            'edit' => EditPrinter::route('/{record}/edit'),
         ];
     }
 }
