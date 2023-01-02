@@ -34,9 +34,9 @@ class ViewPrinter extends ViewRecord
             Camera::class,
             AxisControls::class,
             Temperatures::class,
+            Materials::class,
             Connection::class,
             GeneralControls::class,
-            Materials::class,
             ToolControls::class,
         ];
     }

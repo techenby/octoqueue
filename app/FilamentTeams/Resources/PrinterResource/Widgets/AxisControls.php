@@ -30,6 +30,19 @@ class AxisControls extends Widget
         }
     }
 
+    public function move($axis, $direction = '')
+    {
+        $value = $direction . $this->amount;
+
+        if ($axis === 'x') {
+            $this->jog((float) $value, 0, 0);
+        } elseif ($axis === 'y') {
+            $this->jog(0, (float) $value, 0);
+        } elseif ($axis === 'z') {
+            $this->jog(0, 0, (float) $value);
+        }
+    }
+
     private function jog($x, $y, $z)
     {
         $response = Http::octoPrint($this->record)
@@ -45,19 +58,6 @@ class AxisControls extends Widget
                 ->title($response->json('error'))
                 ->danger()
                 ->send();
-        }
-    }
-
-    public function move($axis, $direction = '')
-    {
-        $value = $direction . $this->amount;
-
-        if ($axis === 'x') {
-            $this->jog((float) $value, 0, 0);
-        } elseif ($axis === 'y') {
-            $this->jog(0, (float) $value, 0);
-        } elseif ($axis === 'z') {
-            $this->jog(0, 0, (float) $value);
         }
     }
 }

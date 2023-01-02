@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 class Temperatures extends Widget
 {
     public ?Model $record = null;
+
     public $temperatures;
 
     protected int|string|array $columnSpan = 2;
@@ -22,6 +23,17 @@ class Temperatures extends Widget
         parent::mount();
 
         $this->loadTemperatures();
+    }
+
+    public function clear($name, $type)
+    {
+        $this->temperatures[$name][$type] = 0;
+
+        if ($type === 'target') {
+            return $this->setTarget($name);
+        }
+
+        return $this->setOffSet($name);
     }
 
     public function setOffset($name)
