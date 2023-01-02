@@ -16,6 +16,8 @@ class ViewPrinter extends ViewRecord
 {
     protected static string $resource = PrinterResource::class;
 
+    protected static string $view = 'filament.resources.pages.view-record-without-form';
+
     public function getTitle(): string
     {
         return $this->record->name;
