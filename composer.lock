@@ -2954,17 +2954,17 @@
         },
         {
             "name": "laravel/spark-stripe",
-            "version": "v2.6.5",
+            "version": "v2.6.6",
             "source": {
                 "type": "git",
                 "url": "git@github.com:laravel/spark-stripe.git",
-                "reference": "15e19e5a68aa7ae0b8ee53ecae6bf59c91df5d25"
+                "reference": "aecb8fbc85cadb7304ab2a29ce53a4cbae9e0817"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://spark.laravel.com/dist/laravel/spark-stripe/laravel-spark-stripe-15e19e5a68aa7ae0b8ee53ecae6bf59c91df5d25-zip-0a2074.zip",
-                "reference": "15e19e5a68aa7ae0b8ee53ecae6bf59c91df5d25",
-                "shasum": "3ffd2e494fd6ee38ed000da5e2d12e6125d153ce"
+                "url": "https://spark.laravel.com/dist/laravel/spark-stripe/laravel-spark-stripe-aecb8fbc85cadb7304ab2a29ce53a4cbae9e0817-zip-11295e.zip",
+                "reference": "aecb8fbc85cadb7304ab2a29ce53a4cbae9e0817",
+                "shasum": "39e72e57c8c5898c002a25be887ba560c4f9eed7"
             },
             "require": {
                 "ext-json": "*",
@@ -3023,10 +3023,10 @@
                 "stripe"
             ],
             "support": {
-                "source": "https://github.com/laravel/spark-stripe/tree/v2.6.5",
+                "source": "https://github.com/laravel/spark-stripe/tree/v2.6.6",
                 "issues": "https://github.com/laravel/spark-stripe/issues"
             },
-            "time": "2022-12-27T10:11:58+00:00"
+            "time": "2023-01-02T16:14:12+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -3972,16 +3972,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.64.0",
+            "version": "2.64.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "889546413c97de2d05063b8cb7b193c2531ea211"
+                "reference": "f2e59963f4c4f4fdfb9fcfd752e8d2e2b79a4e2c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/889546413c97de2d05063b8cb7b193c2531ea211",
-                "reference": "889546413c97de2d05063b8cb7b193c2531ea211",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/f2e59963f4c4f4fdfb9fcfd752e8d2e2b79a4e2c",
+                "reference": "f2e59963f4c4f4fdfb9fcfd752e8d2e2b79a4e2c",
                 "shasum": ""
             },
             "require": {
@@ -4070,7 +4070,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-11-26T17:36:00+00:00"
+            "time": "2023-01-01T23:17:36+00:00"
         },
         {
             "name": "nette/schema",

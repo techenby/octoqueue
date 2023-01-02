@@ -5,6 +5,7 @@ namespace App\FilamentTeams\Resources;
 use App\FilamentTeams\Resources\PrinterResource\Pages\CreatePrinter;
 use App\FilamentTeams\Resources\PrinterResource\Pages\EditPrinter;
 use App\FilamentTeams\Resources\PrinterResource\Pages\ListPrinters;
+use App\FilamentTeams\Resources\PrinterResource\Pages\ViewPrinter;
 use App\Jobs\FetchPrinterStatus;
 use Artificertech\FilamentMultiContext\Concerns\ContextualResource;
 use App\Models\Printer;
@@ -115,6 +116,7 @@ class PrinterResource extends Resource
         return [
             'index' => ListPrinters::route('/'),
             'create' => CreatePrinter::route('/create'),
+            'view' => ViewPrinter::route('/{record}'),
             'edit' => EditPrinter::route('/{record}/edit'),
         ];
     }
