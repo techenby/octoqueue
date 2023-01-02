@@ -5,7 +5,7 @@ namespace App\FilamentTeams\Resources\PrinterResource\Widgets;
 use Filament\Widgets\Widget;
 use Illuminate\Database\Eloquent\Model;
 
-class PrinterCamera extends Widget
+class Camera extends Widget
 {
     public ?Model $record = null;
 
