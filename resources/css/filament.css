@@ -1,0 +1,8 @@
+@import '../../vendor/filament/filament/resources/css/app.css';
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+
+@import 'buttons.css';
+
+@import 'tailwindcss/utilities';
