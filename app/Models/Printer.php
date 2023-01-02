@@ -186,7 +186,7 @@ class Printer extends Model
             ->attach('attachment', $contents, $filename)
             ->post("/api/files/{$location}", [
                 ['name' => 'path', 'contents' => $path],
-                ['name' => 'file', 'filename' => $filename, 'contents' => $contents]
+                ['name' => 'file', 'filename' => $filename, 'contents' => $contents],
             ]);
     }
 }

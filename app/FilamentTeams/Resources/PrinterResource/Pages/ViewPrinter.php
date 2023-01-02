@@ -29,7 +29,7 @@ class ViewPrinter extends ViewRecord
         ];
     }
 
-    protected function getFooterWidgetsColumns(): int | array
+    protected function getFooterWidgetsColumns(): int|array
     {
         return [
             'lg' => 4,

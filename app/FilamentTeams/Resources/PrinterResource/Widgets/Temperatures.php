@@ -13,7 +13,7 @@ class Temperatures extends Widget
     public ?Model $record = null;
     public $temperatures;
 
-    protected int | string | array $columnSpan = 2;
+    protected int|string|array $columnSpan = 2;
 
     protected static string $view = 'filament.resources.printer-resource.widgets.temperatures';
 

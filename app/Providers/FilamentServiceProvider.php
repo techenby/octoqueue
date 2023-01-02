@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use Filament\Facades\Filament;
-use pxlrbt\FilamentEnvironmentIndicator\FilamentEnvironmentIndicator;
 use Illuminate\Support\ServiceProvider;
+use pxlrbt\FilamentEnvironmentIndicator\FilamentEnvironmentIndicator;
 
 class FilamentServiceProvider extends ServiceProvider
 {
