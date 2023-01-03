@@ -3,14 +3,11 @@
 namespace {{ namespace }};
 
 use {{ resource }};
-use Artificertech\FilamentMultiContext\Concerns\ContextualPage;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\EditRecord;
 
 class {{ resourcePageClass }} extends EditRecord
 {
-    use ContextualPage;
-
     protected static string $resource = {{ resourceClass }}::class;
 
     protected function getActions(): array

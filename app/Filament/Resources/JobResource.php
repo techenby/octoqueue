@@ -38,7 +38,7 @@ class JobResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('color_hex')
                     ->maxLength(255),
-                // Forms\Components\TextInput::make('files'),
+                Forms\Components\TextInput::make('files'),
                 Forms\Components\Textarea::make('notes')
                     ->maxLength(65535),
                 Forms\Components\DateTimePicker::make('started_at'),
@@ -59,7 +59,7 @@ class JobResource extends Resource
                 Tables\Columns\TextColumn::make('material.id'),
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('color_hex'),
-                // Tables\Columns\TextColumn::make('files'),
+                Tables\Columns\TextColumn::make('files'),
                 Tables\Columns\TextColumn::make('notes'),
                 Tables\Columns\TextColumn::make('started_at')
                     ->dateTime(),

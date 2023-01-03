@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9c3695bec49b15c97f2cac1be5b9557d",
+    "content-hash": "542be4c998999feac145fec159de454c",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -73,78 +73,6 @@
                 "source": "https://github.com/akaunting/laravel-money/tree/3.1.2"
             },
             "time": "2022-07-27T08:16:36+00:00"
-        },
-        {
-            "name": "artificertech/filament-multi-context",
-            "version": "v2.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/artificertech/filament-multi-context.git",
-                "reference": "74b0baf9c8fe68f2d3655782e2d7a2f20e219a34"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/artificertech/filament-multi-context/zipball/74b0baf9c8fe68f2d3655782e2d7a2f20e219a34",
-                "reference": "74b0baf9c8fe68f2d3655782e2d7a2f20e219a34",
-                "shasum": ""
-            },
-            "require": {
-                "filament/filament": "^2.15.16|^2.16",
-                "illuminate/contracts": "^8.6|^9.0",
-                "php": "^8.0",
-                "spatie/laravel-package-tools": "^1.9.2"
-            },
-            "require-dev": {
-                "laravel/pint": "^1.1",
-                "nunomaduro/collision": "^6.0",
-                "nunomaduro/larastan": "^2.0.1",
-                "orchestra/testbench": "^7.0",
-                "pestphp/pest": "^1.21",
-                "pestphp/pest-plugin-laravel": "^1.1",
-                "pestphp/pest-plugin-livewire": "^1.0",
-                "phpstan/extension-installer": "^1.1",
-                "phpstan/phpstan-deprecation-rules": "^1.0",
-                "phpstan/phpstan-phpunit": "^1.0",
-                "phpunit/phpunit": "^9.5",
-                "spatie/laravel-ray": "^1.26"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Artificertech\\FilamentMultiContext\\FilamentMultiContextServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Artificertech\\FilamentMultiContext\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Cole Shirley",
-                    "email": "cole.shirley@artificertech.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "a package for adding multiple contexts to the filament admin panel",
-            "homepage": "https://github.com/artificertech/filament-multi-context",
-            "keywords": [
-                "artificertech",
-                "filament",
-                "filament-multi-context",
-                "laravel"
-            ],
-            "support": {
-                "issues": "https://github.com/artificertech/filament-multi-context/issues",
-                "source": "https://github.com/artificertech/filament-multi-context/tree/v2.1.0"
-            },
-            "time": "2022-11-03T00:39:32+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -1265,16 +1193,16 @@
         },
         {
             "name": "egulias/email-validator",
-            "version": "3.2.4",
+            "version": "3.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/egulias/EmailValidator.git",
-                "reference": "5f35e41eba05fdfbabd95d72f83795c835fb7ed2"
+                "reference": "b531a2311709443320c786feb4519cfaf94af796"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/5f35e41eba05fdfbabd95d72f83795c835fb7ed2",
-                "reference": "5f35e41eba05fdfbabd95d72f83795c835fb7ed2",
+                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/b531a2311709443320c786feb4519cfaf94af796",
+                "reference": "b531a2311709443320c786feb4519cfaf94af796",
                 "shasum": ""
             },
             "require": {
@@ -1283,7 +1211,6 @@
                 "symfony/polyfill-intl-idn": "^1.15"
             },
             "require-dev": {
-                "php-coveralls/php-coveralls": "^2.2",
                 "phpunit/phpunit": "^8.5.8|^9.3.3",
                 "vimeo/psalm": "^4"
             },
@@ -1321,7 +1248,7 @@
             ],
             "support": {
                 "issues": "https://github.com/egulias/EmailValidator/issues",
-                "source": "https://github.com/egulias/EmailValidator/tree/3.2.4"
+                "source": "https://github.com/egulias/EmailValidator/tree/3.2.5"
             },
             "funding": [
                 {
@@ -1329,7 +1256,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-12-30T14:09:25+00:00"
+            "time": "2023-01-02T17:26:14+00:00"
         },
         {
             "name": "filament/filament",

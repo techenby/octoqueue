@@ -195,7 +195,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\HorizonServiceProvider::class,
         App\Providers\FilamentServiceProvider::class,
-        App\Providers\FilamentTeamsServiceProvider::class,
+        App\Providers\FilamentServiceProvider::class,
         App\Providers\SparkServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
