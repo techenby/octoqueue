@@ -10,14 +10,14 @@ use Filament\Forms\Components\Builder\Block;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class JobResource extends Resource

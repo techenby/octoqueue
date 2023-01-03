@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Filament\Resources\PrinterResource\Widgets;
 
-use App\Filament\Resources\PrinterResource\Pages\ViewPrinter;
 use App\Filament\Resources\PrinterResource\Widgets\GeneralControls;
 use App\Models\Printer;
 use App\Models\Tool;

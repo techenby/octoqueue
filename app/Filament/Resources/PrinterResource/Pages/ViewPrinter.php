@@ -32,11 +32,11 @@ class ViewPrinter extends ViewRecord
             Action::make('delete')
                 ->action(function () {
                     $this->record->safeDelete();
+
                     return redirect()->route('filament.resources.printers.index');
                 })
                 ->color('danger')
-                ->requiresConfirmation()
-                ,
+                ->requiresConfirmation(),
         ];
     }
 

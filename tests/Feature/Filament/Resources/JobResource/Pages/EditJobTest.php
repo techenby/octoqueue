@@ -3,7 +3,6 @@
 namespace Tests\Feature\Filament\Resources\JobResource\Pages;
 
 use App\Filament\Resources\JobResource\Pages\EditJob;
-use App\Models\Printer;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -32,6 +31,6 @@ class EditJobTest extends TestCase
             ->assertHasNoFormErrors();
 
         $job->refresh();
-        $this->assertEquals('Eevee', $printer->name);;
+        $this->assertEquals('Eevee', $printer->name);
     }
 }
