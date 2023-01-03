@@ -10,6 +10,9 @@ use App\FilamentTeams\Resources\PrinterResource\Widgets\GeneralControls;
 use App\FilamentTeams\Resources\PrinterResource\Widgets\Materials;
 use App\FilamentTeams\Resources\PrinterResource\Widgets\Temperatures;
 use App\FilamentTeams\Resources\PrinterResource\Widgets\ToolControls;
+use App\Jobs\FetchPrinterStatus;
+use Filament\Pages\Actions\Action;
+use Filament\Pages\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
 
 class ViewPrinter extends ViewRecord
@@ -17,6 +20,16 @@ class ViewPrinter extends ViewRecord
     protected static string $resource = PrinterResource::class;
 
     protected static string $view = 'filament.resources.pages.view-record-without-form';
+
+    protected function getActions(): array
+    {
+        return [
+            Action::make('fetch_status')
+                ->action(fn () => FetchPrinterStatus::dispatch($this->record))
+                ->color('secondary'),
+            EditAction::make(),
+        ];
+    }
 
     public function getTitle(): string
     {
