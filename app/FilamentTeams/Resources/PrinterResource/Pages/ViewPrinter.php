@@ -12,6 +12,7 @@ use App\FilamentTeams\Resources\PrinterResource\Widgets\Temperatures;
 use App\FilamentTeams\Resources\PrinterResource\Widgets\ToolControls;
 use App\Jobs\FetchPrinterStatus;
 use Filament\Pages\Actions\Action;
+use Filament\Pages\Actions\DeleteAction;
 use Filament\Pages\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
 
@@ -27,13 +28,22 @@ class ViewPrinter extends ViewRecord
             Action::make('fetch_status')
                 ->action(fn () => FetchPrinterStatus::dispatch($this->record))
                 ->color('secondary'),
-            EditAction::make(),
+            EditAction::make()
+                ->color('warning'),
+            Action::make('delete')
+                ->action(function () {
+                    $this->record->safeDelete();
+                    return redirect()->route('filament-teams.resources.printers.index');
+                })
+                ->color('danger')
+                ->requiresConfirmation()
+                ,
         ];
     }
 
     public function getTitle(): string
     {
-        return $this->record->name;
+        return $this->record->name ?? 'View Printer';
     }
 
     public function getSubheading(): string
