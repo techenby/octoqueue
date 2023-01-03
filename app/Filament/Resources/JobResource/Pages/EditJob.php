@@ -17,4 +17,14 @@ class EditJob extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    public function getColorOptionsProperty()
+    {
+        return auth()->user()->currentTeam->materials->pluck('name', 'color_hex');
+    }
+
+    public function getPrintersProperty()
+    {
+        return auth()->user()->currentTeam->printers;
+    }
 }

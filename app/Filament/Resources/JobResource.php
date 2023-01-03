@@ -4,11 +4,21 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\JobResource\Pages;
 use App\Models\Job;
-use Filament\Forms;
+use Closure;
+use Filament\Forms\Components\Builder as FormBuilder;
+use Filament\Forms\Components\Builder\Block;
+use Filament\Forms\Components\Card;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
-use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\EditAction;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class JobResource extends Resource
 {
@@ -20,67 +30,108 @@ class JobResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('team_id')
-                    ->relationship('team', 'name')
-                    ->required(),
-                Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'name')
-                    ->required(),
-                Forms\Components\Select::make('print_type_id')
-                    ->relationship('printType', 'name')
-                    ->required(),
-                Forms\Components\Select::make('printer_id')
-                    ->relationship('printer', 'name'),
-                Forms\Components\Select::make('material_id')
-                    ->relationship('material', 'id'),
-                Forms\Components\TextInput::make('name')
+                Card::make()
+                    ->schema([
+                        TextInput::make('name')
+                            ->required(),
+                        Select::make('print_type_id')
+                            ->relationship('printType', 'name',
+                                fn (Builder $query) => $query
+                                    ->whereTeamId(auth()->user()->current_team_id)->orderBy('priority')
+                            )
+                            ->label('Print Type')
+                            ->required(),
+                        Select::make('color_hex')
+                            ->options(fn ($livewire) => $livewire->colorOptions)
+                            ->label('Material Color'),
+                        Textarea::make('notes')
+                            ->maxLength(65535),
+                    ])
+                    ->columnSpan(['lg' => 1]),
+                FormBuilder::make('files')
+                    ->blocks([
+                        Block::make('choose')
+                            ->icon('heroicon-o-cursor-click')
+                            ->label('Choose File from Printer')
+                            ->schema([
+                                Select::make('printer')
+                                    ->options(fn ($livewire) => $livewire->printers->pluck('name', 'id'))
+                                    ->reactive()
+                                    ->required(),
+                                Select::make('file')
+                                    ->options(function (Closure $get, $livewire) {
+                                        if ($get('printer') === null) {
+                                            return;
+                                        }
+
+                                        return $livewire->printers->find($get('printer'))->printableFiles();
+                                    })
+                                    ->searchable()
+                                    ->required(),
+                            ]),
+                        Block::make('upload')
+                            ->icon('heroicon-o-upload')
+                            ->label('Upload file to Printer')
+                            ->schema([
+                                Select::make('printer')
+                                    ->options(fn ($livewire) => $livewire->printers->pluck('name', 'id'))
+                                    ->reactive()
+                                    ->required(),
+                                Select::make('folder')
+                                    ->options(function (Closure $get) {
+                                        if ($get('printer') === null) {
+                                            return;
+                                        }
+
+                                        return $this->printers->find($get('printer'))->folders();
+                                    })
+                                    ->searchable()
+                                    ->required(),
+                                FileUpload::make('attachment')->preserveFilenames()->required(),
+                            ]),
+                    ])
+                    ->cloneable()
+                    ->collapsible()
+                    ->createItemButtonLabel('Choose or Upload Files to Print')
+                    ->maxItems(fn ($livewire) => $livewire->printers->count())
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('color_hex')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('files'),
-                Forms\Components\Textarea::make('notes')
-                    ->maxLength(65535),
-                Forms\Components\DateTimePicker::make('started_at'),
-                Forms\Components\DateTimePicker::make('completed_at'),
-                Forms\Components\DateTimePicker::make('failed_at'),
-                Forms\Components\TextInput::make('material_used'),
-            ]);
+                    ->columnSpan(['lg' => 1]),
+            ])
+            ->columns(2);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('team.name'),
-                Tables\Columns\TextColumn::make('user.name'),
-                Tables\Columns\TextColumn::make('printType.name'),
-                Tables\Columns\TextColumn::make('printer.name'),
-                Tables\Columns\TextColumn::make('material.id'),
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('color_hex'),
-                Tables\Columns\TextColumn::make('files'),
-                Tables\Columns\TextColumn::make('notes'),
-                Tables\Columns\TextColumn::make('started_at')
+                TextColumn::make('user.name'),
+                TextColumn::make('printType.name'),
+                TextColumn::make('printer.name'),
+                TextColumn::make('material.name'),
+                TextColumn::make('name'),
+                TextColumn::make('color_hex'),
+                TextColumn::make('files'),
+                TextColumn::make('notes'),
+                TextColumn::make('started_at')
                     ->dateTime(),
-                Tables\Columns\TextColumn::make('completed_at')
+                TextColumn::make('completed_at')
                     ->dateTime(),
-                Tables\Columns\TextColumn::make('failed_at')
+                TextColumn::make('failed_at')
                     ->dateTime(),
-                Tables\Columns\TextColumn::make('material_used'),
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('material_used'),
+                TextColumn::make('created_at')
                     ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
+                TextColumn::make('updated_at')
                     ->dateTime(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                DeleteBulkAction::make(),
             ]);
     }
 
