@@ -17,7 +17,7 @@
         "filament/notifications": "^2.16",
         "filament/tables": "^2.16",
         "guzzlehttp/guzzle": "^7.5",
-        "laravel/framework": "^9.45",
+        "laravel/framework": "^9.46",
         "laravel/horizon": "^5.10",
         "laravel/jetstream": "^2.12",
         "laravel/sanctum": "^3.0",
