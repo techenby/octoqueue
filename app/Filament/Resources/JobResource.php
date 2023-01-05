@@ -5,8 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\JobResource\Pages;
 use App\Models\Job;
 use Closure;
-use Filament\Forms\Components\Builder as FormBuilder;
-use Filament\Forms\Components\Builder\Block;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
@@ -18,13 +17,19 @@ use Filament\Resources\Table;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Notifications\Notification;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Columns\ColorColumn;
+use Filament\Tables\Filters\Filter;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class JobResource extends Resource
 {
     protected static ?string $model = Job::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-list';
 
     public static function form(Form $form): Form
     {
@@ -35,7 +40,9 @@ class JobResource extends Resource
                         TextInput::make('name')
                             ->required(),
                         Select::make('print_type_id')
-                            ->relationship('printType', 'name',
+                            ->relationship(
+                                'printType',
+                                'name',
                                 fn (Builder $query) => $query
                                     ->whereTeamId(auth()->user()->current_team_id)->orderBy('priority')
                             )
@@ -48,51 +55,25 @@ class JobResource extends Resource
                             ->maxLength(65535),
                     ])
                     ->columnSpan(['lg' => 1]),
-                FormBuilder::make('files')
-                    ->blocks([
-                        Block::make('choose')
-                            ->icon('heroicon-o-cursor-click')
-                            ->label('Choose File from Printer')
-                            ->schema([
-                                Select::make('printer')
-                                    ->options(fn ($livewire) => $livewire->printers->pluck('name', 'id'))
-                                    ->reactive()
-                                    ->required(),
-                                Select::make('file')
-                                    ->options(function (Closure $get, $livewire) {
-                                        if ($get('printer') === null) {
-                                            return;
-                                        }
+                Repeater::make('files')
+                    ->schema([
+                        Select::make('printer')
+                            ->options(fn ($livewire) => $livewire->printers->pluck('name', 'id'))
+                            ->reactive()
+                            ->required(),
+                        Select::make('file')
+                            ->options(function (Closure $get, $livewire) {
+                                if ($get('printer') === null) {
+                                    return;
+                                }
 
-                                        return $livewire->printers->find($get('printer'))->printableFiles();
-                                    })
-                                    ->searchable()
-                                    ->required(),
-                            ]),
-                        Block::make('upload')
-                            ->icon('heroicon-o-upload')
-                            ->label('Upload file to Printer')
-                            ->schema([
-                                Select::make('printer')
-                                    ->options(fn ($livewire) => $livewire->printers->pluck('name', 'id'))
-                                    ->reactive()
-                                    ->required(),
-                                Select::make('folder')
-                                    ->options(function (Closure $get) {
-                                        if ($get('printer') === null) {
-                                            return;
-                                        }
-
-                                        return $this->printers->find($get('printer'))->folders();
-                                    })
-                                    ->searchable()
-                                    ->required(),
-                                FileUpload::make('attachment')->preserveFilenames()->required(),
-                            ]),
+                                return $livewire->printers->find($get('printer'))->printableFiles();
+                            })
+                            ->searchable()
+                            ->required(),
                     ])
                     ->cloneable()
                     ->collapsible()
-                    ->createItemButtonLabel('Choose or Upload Files to Print')
                     ->maxItems(fn ($livewire) => $livewire->printers->count())
                     ->required()
                     ->columnSpan(['lg' => 1]),
@@ -104,31 +85,87 @@ class JobResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('user.name'),
-                TextColumn::make('printType.name'),
-                TextColumn::make('printer.name'),
-                TextColumn::make('material.name'),
-                TextColumn::make('name'),
-                TextColumn::make('color_hex'),
-                TextColumn::make('files'),
-                TextColumn::make('notes'),
-                TextColumn::make('started_at')
-                    ->dateTime(),
-                TextColumn::make('completed_at')
-                    ->dateTime(),
-                TextColumn::make('failed_at')
-                    ->dateTime(),
-                TextColumn::make('material_used'),
+                TextColumn::make('name')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('user.name')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: false),
+                TextColumn::make('printType.name')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: false),
+                TextColumn::make('printer.name')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('material.name')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                ColorColumn::make('color_hex')
+                    ->label('Color')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: false),
                 TextColumn::make('created_at')
-                    ->dateTime(),
-                TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->label('Created At')
+                    ->since()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: false),
+                TextColumn::make('started_at')
+                    ->label('Started At')
+                    ->since()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: false),
+                TextColumn::make('completed_at')
+                    ->label('Completed At')
+                    ->since()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('failed_at')
+                    ->label('Failed At')
+                    ->since()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('material_used')
+                    ->label('Material Used')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: false),
             ])
             ->filters([
-                //
+                Filter::make('to_print')
+                    ->query(fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNull('started_at')->whereNull('failed_at')->whereNull('completed_at')))
+                    ->default(),
+                Filter::make('has_started')
+                    ->query(fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNotNull('started_at')->whereNull('failed_at')->whereNull('completed_at'))),
+                Filter::make('has_completed')
+                    ->query(fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNotNull('started_at')->whereNull('failed_at')->whereNotNull('completed_at'))),
+                Filter::make('has_failed')
+                    ->query(fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNotNull('started_at')->whereNotNull('failed_at')->whereNull('completed_at'))),
             ])
             ->actions([
-                EditAction::make(),
+                Action::make('print')
+                    ->action(function (Job $record) {
+                        try {
+                            $record->print();
+                        } catch (\Exception $e) {
+                            Notification::make()
+                                ->title($e->getMessage())
+                                ->danger()
+                                ->send();
+                        }
+                    }),
+                Action::make('duplicate')
+                    ->form([
+                        TextInput::make('times')
+                            ->numeric(),
+                    ])
+                    ->action(function (Job $record, array $data): void {
+                        foreach (range(1, $data['times']) as $time) {
+                            $record->copy();
+                        }
+                    }),
+                ActionGroup::make([
+                    EditAction::make(),
+                    DeleteAction::make(),
+                ]),
             ])
             ->bulkActions([
                 DeleteBulkAction::make(),
