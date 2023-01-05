@@ -150,9 +150,6 @@ class MaterialResource extends Resource
                                     ->suffix('g'),
                             ]),
                     ),
-                TextColumn::make('formatted_current_length')
-                    ->label('Current Length')
-                    ->toggleable(),
             ])
             ->filters([
                 TrashedFilter::make(),
