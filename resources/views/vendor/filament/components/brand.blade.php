@@ -1,1 +1,1 @@
-<x-jet-application-logo class="block w-auto h-9" />
+<x-jet-application-logo class="block w-auto h-8" />
