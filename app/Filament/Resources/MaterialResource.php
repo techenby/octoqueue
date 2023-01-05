@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\MaterialResource\Pages;
-use App\Filament\Resources\MaterialResource\RelationManagers;
 use App\Models\Material;
 use Facades\App\Calculator;
 use Filament\Forms\Components\Card;
@@ -21,10 +20,9 @@ use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
-use Filament\Tables\Actions\RestoreBulkAction;
 use Filament\Tables\Actions\ReplicateAction;
+use Filament\Tables\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\ColorColumn;
-use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Illuminate\Database\Eloquent\Builder;
@@ -111,8 +109,8 @@ class MaterialResource extends Resource
                                     ->placeholder('Storage')
                                     ->options(auth()->user()->currentTeam->printers->load('tools')->flatMap(function ($printer) {
                                         return $printer->tools
-                                          ->map(fn ($tool) => ['id' => $tool->id, 'name' => $printer->name .' - ' . $tool->name]);
-                                      })->pluck('name', 'id')),
+                                          ->map(fn ($tool) => ['id' => $tool->id, 'name' => $printer->name . ' - ' . $tool->name]);
+                                    })->pluck('name', 'id')),
                             ]),
                     ),
                 TextColumn::make('brand')

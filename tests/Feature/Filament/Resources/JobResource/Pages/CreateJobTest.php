@@ -129,7 +129,7 @@ class CreateJobTest extends TestCase
                         'type' => 'choose',
                         'data' => [
                             'printer' => $printer->id,
-                            'file' => 'whistle_v2.gcode'
+                            'file' => 'whistle_v2.gcode',
                         ],
                     ],
                 ],
@@ -145,7 +145,7 @@ class CreateJobTest extends TestCase
             'color_hex' => $material->color_hex,
             'notes' => 'New design',
             'files' => json_encode([
-                ['printer' => $printer->id, 'file' => 'whistle_v2.gcode']
+                ['printer' => $printer->id, 'file' => 'whistle_v2.gcode'],
             ]),
         ]);
     }
@@ -194,7 +194,7 @@ class CreateJobTest extends TestCase
             'color_hex' => $material->color_hex,
             'notes' => 'New design',
             'files' => json_encode([
-                ['printer' => $printer->id, 'file' => 'whistle_v2.gcode']
+                ['printer' => $printer->id, 'file' => 'whistle_v2.gcode'],
             ]),
         ]);
     }

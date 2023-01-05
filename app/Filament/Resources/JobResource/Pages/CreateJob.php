@@ -38,7 +38,7 @@ class CreateJob extends CreateRecord
             ->map(function ($file) {
                 if ($file['type'] === 'choose') {
                     $file = $file['data'];
-                } else if ($file['type'] === 'upload') {
+                } elseif ($file['type'] === 'upload') {
                     $attachment = current($file['data']['attachment']);
                     dd($file['data']['attachment'], $attachment);
                     $filename = $attachment->getClientOriginalName();
@@ -52,11 +52,11 @@ class CreateJob extends CreateRecord
                             'file' => Str::finish($file['data']['folder'], '/') . $filename,
                         ];
                     } else {
-                    Notification::make()
-                            ->title('Upload failed')
-                            ->body($result->getMessage())
-                            ->danger()
-                            ->send();
+                        Notification::make()
+                                ->title('Upload failed')
+                                ->body($result->getMessage())
+                                ->danger()
+                                ->send();
                     }
 
                     $file = [
