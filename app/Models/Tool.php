@@ -21,4 +21,9 @@ class Tool extends Model
     {
         return $this->belongsTo(Material::class);
     }
+
+    public function getFormattedNameAttribute()
+    {
+        return $this->printer->name . ' - ' . $this->name;
+    }
 }

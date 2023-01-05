@@ -9,23 +9,27 @@ use Facades\App\Calculator;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\Radio;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TextInput\Mask;
-use Filament\Tables\Actions\Action;
-use Filament\Tables\Actions\RestoreBulkAction;
-use Filament\Tables\Actions\ReplicateAction;
-use Filament\Tables\Columns\ColorColumn;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
-use Filament\Tables;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
+use Filament\Tables\Actions\RestoreBulkAction;
+use Filament\Tables\Actions\ReplicateAction;
+use Filament\Tables\Columns\ColorColumn;
+use Filament\Tables\Columns\SelectColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\DB;
 
 class MaterialResource extends Resource
 {
@@ -78,10 +82,39 @@ class MaterialResource extends Resource
             ->columns([
                 ColorColumn::make('color_hex')
                     ->label('Color')
-                    ->tooltip(fn (Material $record): string => $record->color)
+                    ->tooltip(fn (Material $record) => $record->color)
                     ->searchable(['color', 'color_hex'])
                     ->sortable()
                     ->toggleable(),
+                TextColumn::make('tool.formattedName')
+                    ->formatStateUsing(fn ($state) => $state === null ? 'Storage' : $state)
+                    ->action(
+                        Action::make('change_location')
+                            ->action(function (Material $record, $data): void {
+                                if ($record->id !== $data['location']) {
+                                    // remove material from current tool
+                                    if ($record->tool !== null) {
+                                        DB::table('tools')
+                                            ->where('id', $record->tool->id)
+                                            ->update(['material_id' => null]);
+                                    }
+                                    // set material to new tool
+                                    if ($data['location'] !== '') {
+                                        DB::table('tools')
+                                            ->where('id', $data['location'])
+                                            ->update(['material_id' => $record->id]);
+                                    }
+                                }
+                            })
+                            ->form([
+                                Select::make('location')
+                                    ->placeholder('Storage')
+                                    ->options(auth()->user()->currentTeam->printers->load('tools')->flatMap(function ($printer) {
+                                        return $printer->tools
+                                          ->map(fn ($tool) => ['id' => $tool->id, 'name' => $printer->name .' - ' . $tool->name]);
+                                      })->pluck('name', 'id')),
+                            ]),
+                    ),
                 TextColumn::make('brand')
                     ->searchable()
                     ->sortable()
@@ -125,9 +158,12 @@ class MaterialResource extends Resource
                 TrashedFilter::make(),
             ])
             ->actions([
-                EditAction::make(),
-                ReplicateAction::make()
-                    ->excludeAttributes(['weights']),
+                ActionGroup::make([
+                    EditAction::make(),
+                    ReplicateAction::make()
+                        ->excludeAttributes(['weights']),
+                    DeleteAction::make(),
+                ]),
             ])
             ->bulkActions([
                 DeleteBulkAction::make(),
