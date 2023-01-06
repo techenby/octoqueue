@@ -98,7 +98,7 @@ class PrinterResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
-            ->whereTeamId(auth()->user()->current_team_id);
+            ->whereTeamId(auth()->user()->current_team_id ?? auth()->user()->currentTeam->id);
     }
 
     public static function getRelations(): array
