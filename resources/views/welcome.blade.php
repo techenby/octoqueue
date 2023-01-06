@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="absolute top-0 right-0 z-10 p-4">
-        <x-jet-secondary-button href="/login">Login</x-jet-secondary-button>
+        <x-jet-secondary-button href="/app/login">Login</x-jet-secondary-button>
     </div>
     <div class="pb-8 bg-white dark:bg-gray-900 sm:pb-12 lg:pb-12">
         <div class="pt-8 overflow-hidden sm:pt-12 lg:relative lg:py-48">
