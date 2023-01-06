@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Http;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class ListPrintersTest extends TestCase
+class ListJobsTest extends TestCase
 {
     use RefreshDatabase;
 

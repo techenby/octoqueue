@@ -16,13 +16,15 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\ColorColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 class JobResource extends Resource
 {
@@ -168,7 +170,25 @@ class JobResource extends Resource
             ])
             ->bulkActions([
                 DeleteBulkAction::make(),
+                BulkAction::make('duplicate')
+                    ->label('Duplicate selected')
+                    ->form([
+                        Select::make('color_hex')
+                            ->options(auth()->user()->currentTeam->materials->pluck('color', 'color_hex'))
+                            ->label('Material Color'),
+                    ])
+                    ->action(function (Collection $records, array $data): void {
+                        foreach ($records as $record) {
+                            $record->copy($data['color_hex']);
+                        }
+                    }),
             ]);
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->whereTeamId(auth()->user()->current_team_id ?? auth()->user()->currentTeam->id);
     }
 
     public static function getRelations(): array

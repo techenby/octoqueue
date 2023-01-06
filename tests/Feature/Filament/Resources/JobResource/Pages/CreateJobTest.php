@@ -126,63 +126,11 @@ class CreateJobTest extends TestCase
                 'notes' => 'New design',
                 'files' => [
                     [
-                        'type' => 'choose',
-                        'data' => [
-                            'printer' => $printer->id,
-                            'file' => 'whistle_v2.gcode',
-                        ],
-                    ],
+                        'printer' => $printer->id,
+                        'file' => 'whistle_v2.gcode',
+                    ]
                 ],
             ])
-            ->call('create')
-            ->assertHasNoFormErrors();
-
-        $this->assertDatabaseHas('jobs', [
-            'team_id' => $user->currentTeam->id,
-            'user_id' => $user->id,
-            'name' => 'Whistle',
-            'print_type_id' => $type->id,
-            'color_hex' => $material->color_hex,
-            'notes' => 'New design',
-            'files' => json_encode([
-                ['printer' => $printer->id, 'file' => 'whistle_v2.gcode'],
-            ]),
-        ]);
-    }
-
-    /** @test */
-    public function can_create_job_with_uploading_file()
-    {
-        Http::fake([
-            'bulbasaur.local/*' => Http::response($this->filesResponse),
-        ]);
-
-        $user = User::factory()->withPersonalTeam()->create();
-        $type = PrintType::factory()->for($user->currentTeam)->create();
-        $material = Material::factory()->for($user->currentTeam)->create();
-        $printer = Printer::factory()->for($user->currentTeam)->createQuietly([
-            'url' => 'http://bulbasaur.local',
-        ]);
-        $file = UploadedFile::fake()->create('whistle_v2.gcode', 500);
-
-        Livewire::actingAs($user)
-            ->test(CreateJob::class)
-            ->fillForm([
-                'name' => 'Whistle',
-                'print_type_id' => $type->id,
-                'color_hex' => $material->color_hex,
-                'notes' => 'New design',
-                'files' => [
-                    [
-                        'type' => 'upload',
-                        'data' => [
-                            'printer' => $printer->id,
-                            'folder' => 'beta',
-                        ],
-                    ],
-                ],
-            ])
-            ->set('data.files.0.data.attachment', $file)
             ->call('create')
             ->assertHasNoFormErrors();
 
