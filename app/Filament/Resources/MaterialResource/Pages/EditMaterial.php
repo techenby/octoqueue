@@ -3,7 +3,9 @@
 namespace App\Filament\Resources\MaterialResource\Pages;
 
 use App\Filament\Resources\MaterialResource;
-use Filament\Pages\Actions;
+use Filament\Pages\Actions\DeleteAction;
+use Filament\Pages\Actions\ForceDeleteAction;
+use Filament\Pages\Actions\RestoreAction;
 use Filament\Resources\Pages\EditRecord;
 
 class EditMaterial extends EditRecord
@@ -13,9 +15,9 @@ class EditMaterial extends EditRecord
     protected function getActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
-            Actions\ForceDeleteAction::make(),
-            Actions\RestoreAction::make(),
+            DeleteAction::make(),
+            ForceDeleteAction::make(),
+            RestoreAction::make(),
         ];
     }
 }
