@@ -112,9 +112,7 @@ class Printer extends Model
 
     public function files($recursive = true)
     {
-        $results = Http::octoPrint($this)->get("/api/files?recursive={$recursive}");
-
-        return $results->json('files');
+        return once(fn () => Http::octoPrint($this)->get("/api/files?recursive={$recursive}")->json('files'));
     }
 
     public function folders()

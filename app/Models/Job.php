@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Jobs\FetchPrinterStatus;
+use App\Jobs\ProcessJobFiles;
 use App\Traits\HasTeam;
 use Exception;
 use Facades\App\Calculator;
@@ -23,6 +24,11 @@ class Job extends Model
     ];
 
     protected $dates = ['started_at', 'completed_at', 'failed_at'];
+
+    protected static function booted()
+    {
+        static::saved(fn ($job) => ProcessJobFiles::dispatch($job));
+    }
 
     public function material(): BelongsTo
     {

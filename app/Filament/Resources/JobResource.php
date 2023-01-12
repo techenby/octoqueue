@@ -5,8 +5,11 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\JobResource\Pages;
 use App\Models\Job;
 use Closure;
+use Filament\Forms\Components\Builder as FormBuilder;
+use Filament\Forms\Components\Builder\Block;
 use Filament\Forms\Components\Card;
-use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -56,22 +59,49 @@ class JobResource extends Resource
                             ->maxLength(65535),
                     ])
                     ->columnSpan(['lg' => 1]),
-                Repeater::make('files')
-                    ->schema([
-                        Select::make('printer')
-                            ->options(fn ($livewire) => $livewire->printers->pluck('name', 'id'))
-                            ->reactive()
-                            ->required(),
-                        Select::make('file')
-                            ->options(function (Closure $get, $livewire) {
-                                if ($get('printer') === null) {
-                                    return;
-                                }
+                FormBuilder::make('files')
+                    ->blocks([
+                        Block::make('existing')
+                            ->schema([
+                                Select::make('printer')
+                                    ->options(fn ($livewire) => $livewire->printers->pluck('name', 'id'))
+                                    ->reactive()
+                                    ->required(),
+                                Select::make('file')
+                                    ->options(function (Closure $get, $livewire) {
+                                        if ($get('printer') === null) {
+                                            return;
+                                        }
 
-                                return $livewire->printers->find($get('printer'))->printableFiles();
-                            })
-                            ->searchable()
-                            ->required(),
+                                        return $livewire->printers->find($get('printer'))->printableFiles();
+                                    })
+                                    ->searchable()
+                                    ->required(),
+                            ]),
+                        Block::make('upload')
+                            ->schema([
+                                Select::make('printer')
+                                    ->options(fn ($livewire) => $livewire->printers->pluck('name', 'id'))
+                                    ->reactive()
+                                    ->required(),
+                                TextInput::make('folder')
+                                    ->datalist(function (Closure $get, $livewire) {
+                                        if ($get('printer') === null) {
+                                            return;
+                                        }
+
+                                        return $livewire->printers->find($get('printer'))->folders();
+                                    }),
+                                FileUpload::make('attachment')
+                                    ->disk('local')
+                                    ->directory(fn (Closure $get) => 'job-attachments/' . $get('printer'))
+                                    ->preserveFilenames(),
+                                Checkbox::make('maintain_filename')
+                                    ->default(true)
+                                    ->reactive(),
+                                TextInput::make('filename')
+                                    ->hidden(fn (Closure $get) => $get('maintain_filename') == true),
+                            ])
                     ])
                     ->cloneable()
                     ->collapsible()

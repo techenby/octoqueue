@@ -29,6 +29,7 @@
         "spatie/laravel-newsletter": "^5.0",
         "spatie/laravel-permission": "^5.5",
         "spatie/mailcoach-sdk-php": "^1.0",
+        "spatie/once": "^3.1",
         "stechstudio/filament-impersonate": "^2.8"
     },
     "require-dev": {
