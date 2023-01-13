@@ -22,5 +22,9 @@ class FilamentServiceProvider extends ServiceProvider
         Filament::serving(function () {
             Filament::registerViteTheme('resources/css/filament.css');
         });
+
+        Filament::registerScripts([
+            'https://cdn.jsdelivr.net/npm/@marcreichel/alpine-timeago@latest/dist/alpine-timeago.min.js',
+        ], true);
     }
 }

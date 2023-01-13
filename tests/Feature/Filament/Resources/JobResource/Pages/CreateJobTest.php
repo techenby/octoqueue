@@ -8,7 +8,6 @@ use App\Models\Printer;
 use App\Models\PrintType;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Http;
 use Livewire\Livewire;
 use Tests\TestCase;
@@ -126,9 +125,12 @@ class CreateJobTest extends TestCase
                 'notes' => 'New design',
                 'files' => [
                     [
-                        'printer' => $printer->id,
-                        'file' => 'whistle_v2.gcode',
-                    ]
+                        "data" => [
+                            "file" => "whistle.gcode",
+                            "printer" => $printer->id,
+                        ],
+                        "type" => "existing",
+                    ],
                 ],
             ])
             ->call('create')
@@ -142,7 +144,7 @@ class CreateJobTest extends TestCase
             'color_hex' => $material->color_hex,
             'notes' => 'New design',
             'files' => json_encode([
-                ['printer' => $printer->id, 'file' => 'whistle_v2.gcode'],
+                ["data" => ["file" => "whistle.gcode", "printer" => $printer->id], "type" => "existing"],
             ]),
         ]);
     }

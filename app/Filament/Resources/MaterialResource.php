@@ -7,10 +7,12 @@ use App\Models\Material;
 use Facades\App\Calculator;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\ColorPicker;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TextInput\Mask;
+use Filament\Forms\Components\ViewField;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -68,10 +70,18 @@ class MaterialResource extends Resource
                             ->hidden(fn ($get) => $get('printer_type') === null)
                             ->label(fn ($get) => $get('printer_type') === 'fdm' ? 'Empty Spool Weight' : 'Empty Bottle Weight'),
                         TextInput::make('current_weight')
-                            ->label('Current Weight'),
+                            ->label('Current Weight')
+                            ->hidden(fn (?Material $record) => $record === null),
                     ])
-                    ->columns(2),
-            ]);
+                    ->columnSpan(['lg' => 2]),
+                Card::make()
+                    ->schema([
+                        ViewField::make('weights')->view('filament.forms.components.feed'),
+                        TextInput::make('current_weight')->label('Current Weight'),
+                    ])
+                    ->columnSpan(['lg' => 1])
+                    ->hidden(fn (?Material $record) => $record === null),
+            ])->columns(3);
     }
 
     public static function table(Table $table): Table
@@ -109,7 +119,7 @@ class MaterialResource extends Resource
                                     ->placeholder('Storage')
                                     ->options(auth()->user()->currentTeam->printers->load('tools')->flatMap(function ($printer) {
                                         return $printer->tools
-                                          ->map(fn ($tool) => ['id' => $tool->id, 'name' => $printer->name . ' - ' . $tool->name]);
+                                            ->map(fn ($tool) => ['id' => $tool->id, 'name' => $printer->name . ' - ' . $tool->name]);
                                     })->pluck('name', 'id')),
                             ]),
                     ),
