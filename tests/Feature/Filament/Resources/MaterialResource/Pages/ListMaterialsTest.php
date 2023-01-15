@@ -63,7 +63,7 @@ class ListMaterialsTest extends TestCase
             'name' => 'Rubber Ducky',
             'color_hex' => '#FFFF00',
             'notes' => 'Should be cute',
-            'files' => [['printer' => 1, 'file' => 'ducky.gcode']],
+            'files' => [['type' => 'existing', 'data' => ['printer' => 1, 'file' => 'ducky.gcode']]],
         ]);
 
         Livewire::actingAs($user)->test(ListJobs::class)
@@ -96,7 +96,7 @@ class ListMaterialsTest extends TestCase
             'name' => 'Rubber Ducky',
             'color_hex' => '#FFFF00',
             'notes' => 'Should be cute',
-            'files' => [['printer' => $printer->id, 'file' => 'ducky.gcode']],
+            'files' => [['type' => 'existing', 'data' => ['printer' => $printer->id, 'file' => 'ducky.gcode']]],
         ]);
 
         Livewire::actingAs($user)->test(ListJobs::class)
@@ -120,7 +120,7 @@ class ListMaterialsTest extends TestCase
             'name' => 'Rubber Ducky',
             'color_hex' => '#FFFF00',
             'notes' => 'Should be cute',
-            'files' => [['printer' => $printer->id, 'file' => 'ducky.gcode']],
+            'files' => [['type' => 'existing', 'data' => ['printer' => $printer->id, 'file' => 'ducky.gcode']]],
         ]);
 
         Livewire::actingAs($user)->test(ListJobs::class)
