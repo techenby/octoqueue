@@ -123,11 +123,11 @@ class EditJobTest extends TestCase
             'notes' => 'New design',
             'files' => [
                 [
-                    "data" => [
-                        "file" => "whistle_v2.gcode",
-                        "printer" => $printer->id,
+                    'data' => [
+                        'file' => 'whistle_v2.gcode',
+                        'printer' => $printer->id,
                     ],
-                    "type" => "existing",
+                    'type' => 'existing',
                 ],
             ],
         ]);

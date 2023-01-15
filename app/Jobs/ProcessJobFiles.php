@@ -5,7 +5,6 @@ namespace App\Jobs;
 use App\Models\Job;
 use App\Models\Printer;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -22,7 +21,7 @@ class ProcessJobFiles implements ShouldQueue
 
     public function handle()
     {
-        if ($this->printJob->files === null || !$this->printJob->files->contains('type', 'upload')) {
+        if ($this->printJob->files === null || ! $this->printJob->files->contains('type', 'upload')) {
             return;
         }
 

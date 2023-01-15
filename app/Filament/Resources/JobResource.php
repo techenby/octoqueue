@@ -101,7 +101,7 @@ class JobResource extends Resource
                                     ->reactive(),
                                 TextInput::make('filename')
                                     ->hidden(fn (Closure $get) => $get('maintain_filename') == true),
-                            ])
+                            ]),
                     ])
                     ->cloneable()
                     ->collapsible()

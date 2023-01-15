@@ -2,15 +2,10 @@
 
 namespace Tests\Feature\Filament\Resources\JobResource\Pages;
 
-use App\Filament\Resources\JobResource\Pages\EditJob;
 use App\Filament\Resources\MaterialResource\Pages\EditMaterial;
-use App\Models\Job;
 use App\Models\Material;
-use App\Models\Printer;
-use App\Models\PrintType;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Http;
 use Livewire\Livewire;
 use Tests\TestCase;
 
