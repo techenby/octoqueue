@@ -53,11 +53,18 @@ class Temperatures extends Widget
         }
 
         if ($response->failed()) {
-            Notification::make()
+            return Notification::make()
                 ->title($response->json('error'))
                 ->danger()
                 ->send();
         }
+
+        $offset = $this->temperatures[$name]['offset'];
+
+        Notification::make()
+            ->title($offset > 0 ? "Set {$name} offset to {$offset}" : 'Cleared offset')
+            ->success()
+            ->send();
     }
 
     public function setTarget($name)
@@ -77,11 +84,18 @@ class Temperatures extends Widget
         }
 
         if ($response->failed()) {
-            Notification::make()
+            return Notification::make()
                 ->title($response->json('error'))
                 ->danger()
                 ->send();
         }
+
+        $temp = $this->temperatures[$name]['target'];
+
+        Notification::make()
+            ->title($temp > 0 ? "Set {$name} target temperature to {$temp}℃" : 'Cleared target temperature')
+            ->success()
+            ->send();
     }
 
     private function loadTemperatures()
