@@ -50,6 +50,11 @@ class Job extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function getIsDoneAttribute()
+    {
+        return $this->completed_at || $this->failed_at;
+    }
+
     public function copy($colorHex = null)
     {
         $new = $this->replicate([
@@ -68,6 +73,7 @@ class Job extends Model
 
     public function markAsComplete()
     {
+        // if selected file isn't the file printed get length from gcode
         $length = $this->printer->currentlyPrinting()['job']['filament']['tool0']['length'] / 1000; // convert from cm to m
         $grams = Calculator::lengthToGrams($this->material->type, $this->material->diameter, $length);
 

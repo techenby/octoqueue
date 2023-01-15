@@ -42,8 +42,10 @@ class JobResource extends Resource
                 Card::make()
                     ->schema([
                         TextInput::make('name')
+                            ->disabled(fn (?Job $record) => $record->isDone)
                             ->required(),
                         Select::make('print_type_id')
+                            ->disabled(fn (?Job $record) => $record->isDone)
                             ->relationship(
                                 'printType',
                                 'name',
@@ -53,13 +55,16 @@ class JobResource extends Resource
                             ->label('Print Type')
                             ->required(),
                         Select::make('color_hex')
+                            ->disabled(fn (?Job $record) => $record->isDone)
                             ->options(fn ($livewire) => $livewire->colorOptions)
                             ->label('Material Color'),
                         Textarea::make('notes')
+                            ->disabled(fn (?Job $record) => $record->isDone)
                             ->maxLength(65535),
                     ])
                     ->columnSpan(['lg' => 1]),
                 FormBuilder::make('files')
+                    ->disabled(fn (?Job $record) => $record->isDone)
                     ->blocks([
                         Block::make('existing')
                             ->schema([
@@ -162,8 +167,7 @@ class JobResource extends Resource
             ])
             ->filters([
                 Filter::make('to_print')
-                    ->query(fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNull('started_at')->whereNull('failed_at')->whereNull('completed_at')))
-                    ->default(),
+                    ->query(fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNull('started_at')->whereNull('failed_at')->whereNull('completed_at'))),
                 Filter::make('has_started')
                     ->query(fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNotNull('started_at')->whereNull('failed_at')->whereNull('completed_at'))),
                 Filter::make('has_completed')
@@ -182,7 +186,20 @@ class JobResource extends Resource
                                 ->danger()
                                 ->send();
                         }
-                    }),
+                    })
+                    ->hidden(fn (Job $record) => $record->started_at !== null),
+                Action::make('done')
+                    ->action(function (Job $record) {
+                        try {
+                            $record->markAsComplete();
+                        } catch (\Exception $e) {
+                            Notification::make()
+                                ->title($e->getMessage())
+                                ->danger()
+                                ->send();
+                        }
+                    })
+                    ->hidden(fn (Job $record) => $record->completed_at !== null),
                 Action::make('duplicate')
                     ->form([
                         TextInput::make('times')
