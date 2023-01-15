@@ -16,7 +16,9 @@ class CreateMaterial extends CreateRecord
             'team_id' => auth()->user()->currentTeam->id ?? auth()->user()->currentTeam->id,
         ]));
 
-        $material->addWeight($this->form->getState()['current_weight']);
+        if ($data['current_weight']) {
+            $material->addWeight($data['current_weight']);
+        }
 
         return $material;
     }

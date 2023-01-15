@@ -65,13 +65,14 @@ class MaterialResource extends Resource
                             ->hidden(fn ($get) => $get('printer_type') === null)
                             ->required(),
                         TextInput::make('diameter')
-                            ->hidden(fn ($get) => $get('printer_type') === null || $get('printer_type') === 'sla'),
+                            ->hidden(fn ($get) => $get('printer_type') === null || $get('printer_type') === 'sla')
+                            ->required(),
                         TextInput::make('empty')
                             ->hidden(fn ($get) => $get('printer_type') === null)
                             ->label(fn ($get) => $get('printer_type') === 'fdm' ? 'Empty Spool Weight' : 'Empty Bottle Weight'),
                         TextInput::make('current_weight')
                             ->label('Current Weight')
-                            ->hidden(fn (?Material $record) => $record === null),
+                            ->hidden(fn (?Material $record) => $record !== null),
                     ])
                     ->columnSpan(['lg' => 2]),
                 Card::make()
@@ -137,7 +138,7 @@ class MaterialResource extends Resource
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('diameter')
-                    ->formatStateUsing(fn (string $state) => "{$state}mm")
+                    ->formatStateUsing(fn ($state) => $state ? "{$state}mm" : '')
                     ->searchable()
                     ->sortable()
                     ->toggleable(),
