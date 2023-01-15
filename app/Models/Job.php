@@ -99,7 +99,7 @@ class Job extends Model
 
         $tools = Tool::query()
             ->whereIn('material_id', $materials->pluck('id'))
-            ->whereIn('printer_id', $this->files->pluck('printer'))
+            ->whereIn('printer_id', $this->files->filter(fn ($file) => $file['type'] === 'existing')->pluck('data.printer'))
             ->with('printer')
             ->get()
             ->filter(fn ($tool) => $tool->printer->status === 'operational');
@@ -108,7 +108,7 @@ class Job extends Model
 
         try {
             $printer = $tools->first()->printer;
-            $file = $this->files->firstWhere('printer', $printer->id)['file'];
+            $file = $this->files->firstWhere('data.printer', $printer->id)['data']['file'];
 
             Http::octoPrint($printer)->post("/api/files/local/{$file}", [
                 'command' => 'select',
