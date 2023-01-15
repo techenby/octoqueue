@@ -44,4 +44,25 @@ class EditMaterialTest extends TestCase
         $material->refresh();
         $this->assertEquals('#ffffff', $material->color_hex);
     }
+
+    /** @test */
+    public function can_add_weights()
+    {
+        $user = User::factory()->withPersonalTeam()->create();
+        $material = Material::factory()->for($user->currentTeam)->create();
+        $material->addWeight(1400);
+        $material->addWeight(1300);
+        $material->addWeight(1200);
+
+        Livewire::actingAs($user)
+            ->test(EditMaterial::class, ['record' => $material->id])
+            ->fillForm([
+                'current_weight' => 1100,
+            ])
+            ->call('save')
+            ->assertHasNoFormErrors();
+
+        $material->refresh();
+        $this->assertEquals(1100, $material->weights->last()['weight']);
+    }
 }
