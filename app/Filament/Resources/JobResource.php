@@ -42,10 +42,10 @@ class JobResource extends Resource
                 Card::make()
                     ->schema([
                         TextInput::make('name')
-                            ->disabled(fn (?Job $record) => $record->isDone)
+                            ->disabled(fn (?Job $record) => $record && $record->isDone)
                             ->required(),
                         Select::make('print_type_id')
-                            ->disabled(fn (?Job $record) => $record->isDone)
+                            ->disabled(fn (?Job $record) => $record && $record->isDone)
                             ->relationship(
                                 'printType',
                                 'name',
@@ -55,16 +55,16 @@ class JobResource extends Resource
                             ->label('Print Type')
                             ->required(),
                         Select::make('color_hex')
-                            ->disabled(fn (?Job $record) => $record->isDone)
+                            ->disabled(fn (?Job $record) => $record && $record->isDone)
                             ->options(fn ($livewire) => $livewire->colorOptions)
                             ->label('Material Color'),
                         Textarea::make('notes')
-                            ->disabled(fn (?Job $record) => $record->isDone)
+                            ->disabled(fn (?Job $record) => $record && $record->isDone)
                             ->maxLength(65535),
                     ])
                     ->columnSpan(['lg' => 1]),
                 FormBuilder::make('files')
-                    ->disabled(fn (?Job $record) => $record->isDone)
+                    ->disabled(fn (?Job $record) => $record && $record->isDone)
                     ->blocks([
                         Block::make('existing')
                             ->schema([
