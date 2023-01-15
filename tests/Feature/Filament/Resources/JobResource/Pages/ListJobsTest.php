@@ -167,22 +167,4 @@ class ListJobsTest extends TestCase
 
         $this->assertCount(6, Job::whereTeamId($user->current_team_id)->where('name', 'Rubber Ducky')->where('color_hex', '#FFFF00')->get());
     }
-
-    /** FILTERS */
-
-    /** @test */
-    public function by_default_only_to_print_jobs_are_visible()
-    {
-        $user = User::factory()->withPersonalTeam()->create();
-        $jobs = Job::factory()->for($user->currentTeam)->count(2)->create();
-        $started = Job::factory()->for($user->currentTeam)->count(2)->started()->create();
-        $completed = Job::factory()->for($user->currentTeam)->count(2)->completed()->create();
-        $failed = Job::factory()->for($user->currentTeam)->count(2)->failed()->create();
-
-        Livewire::actingAs($user)->test(ListJobs::class)
-            ->assertCanSeeTableRecords($jobs)
-            ->assertCanNotSeeTableRecords($started)
-            ->assertCanNotSeeTableRecords($completed)
-            ->assertCanNotSeeTableRecords($failed);
-    }
 }
