@@ -187,7 +187,7 @@ class JobResource extends Resource
                                 ->send();
                         }
                     })
-                    ->hidden(fn (Job $record) => $record->started_at !== null),
+                    ->hidden(fn (Job $record) => $record->hasStarted),
                 Action::make('done')
                     ->action(function (Job $record) {
                         try {
@@ -199,7 +199,7 @@ class JobResource extends Resource
                                 ->send();
                         }
                     })
-                    ->hidden(fn (Job $record) => $record->completed_at !== null),
+                    ->hidden(fn (Job $record) => $record->isDone),
                 Action::make('duplicate')
                     ->form([
                         TextInput::make('times')

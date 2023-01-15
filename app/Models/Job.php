@@ -50,9 +50,14 @@ class Job extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function getHasStartedAttribute()
+    {
+        return $this->started_at !== null;
+    }
+
     public function getIsDoneAttribute()
     {
-        return $this->completed_at || $this->failed_at;
+        return $this->completed_at !== null || $this->failed_at !== null;
     }
 
     public function copy($colorHex = null)
