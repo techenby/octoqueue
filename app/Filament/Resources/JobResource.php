@@ -199,7 +199,7 @@ class JobResource extends Resource
                                 ->send();
                         }
                     })
-                    ->hidden(fn (Job $record) => $record->isDone || !$record->hasStarted),
+                    ->hidden(fn (Job $record) => $record->isDone || ! $record->hasStarted),
                 Action::make('duplicate')
                     ->form([
                         TextInput::make('times')
