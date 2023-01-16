@@ -1,5 +1,6 @@
 <?php
 
+use App\Filament\Widgets\CurrentlyPrinting;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Http\Middleware\MirrorConfigToSubpackages;
@@ -141,6 +142,7 @@ return [
         'register' => [
             Widgets\AccountWidget::class,
             Widgets\FilamentInfoWidget::class,
+            CurrentlyPrinting::class,
         ],
     ],
 

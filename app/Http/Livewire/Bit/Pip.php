@@ -20,10 +20,8 @@ class Pip extends Component
 
     public function show($id)
     {
-        if (optional($this->printer)->id !== $id) {
-            $this->printer = Printer::find($id);
-            $this->showModal = true;
-        }
+        $this->printer = Printer::find($id);
+        $this->showModal = true;
     }
 
     public function resetModal()
