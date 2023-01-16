@@ -13,7 +13,7 @@ class Dashboard extends Page
 
     protected static ?int $navigationSort = -2;
 
-    protected static string $view = 'filament::pages.dashboard';
+    protected static string $view = 'filament.pages.dashboard';
 
     public static function getRoutes(): Closure
     {
@@ -29,6 +29,6 @@ class Dashboard extends Page
 
     protected function getColumns(): int|array
     {
-        return 2;
+        return 3;
     }
 }
