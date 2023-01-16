@@ -2,6 +2,7 @@
 
 namespace App\Filament\Widgets;
 
+use App\Jobs\FetchPrinterStatus;
 use App\Models\Printer;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\Layout\Stack;
@@ -11,6 +12,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ConnectionIssues extends BaseWidget
 {
+    protected static ?int $sort = 3;
+
     protected function getTableQuery(): Builder
     {
         return Printer::forCurrentTeam()->whereIn('status', ['offline', 'error']);
@@ -29,8 +32,10 @@ class ConnectionIssues extends BaseWidget
     protected function getTableActions(): array
     {
         return [
+            Action::make('fetchStatus')
+                ->action(fn (Printer $record) => FetchPrinterStatus::dispatch($record)),
             Action::make('edit')
-                ->url(fn (Printer $record): string => route('filament.resources.printers.edit', $record))
+                ->url(fn (Printer $record): string => route('filament.resources.printers.edit', $record)),
         ];
     }
 

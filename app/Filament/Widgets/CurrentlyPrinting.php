@@ -13,6 +13,8 @@ class CurrentlyPrinting extends BaseWidget
 {
     protected int|string|array $columnSpan = 'full';
 
+    protected static ?int $sort = 1;
+
     protected function getTableQuery(): Builder
     {
         return Printer::forCurrentTeam()->whereIn('status', ['printing', 'paused', 'pausing']);
