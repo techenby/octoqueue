@@ -6,7 +6,6 @@ use App\Models\Material;
 use App\Models\Printer;
 use App\Models\Tool;
 use Filament\Tables\Columns\Layout\Grid;
-use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -20,6 +19,7 @@ class AssignMaterials extends BaseWidget
     protected function getTableQuery(): Builder
     {
         $ids = Printer::forCurrentTeam()->select('id')->pluck('id');
+
         return Tool::whereIn('printer_id', $ids)
             ->whereNull('material_id');
     }
