@@ -15,7 +15,7 @@ class CurrentlyPrinting extends BaseWidget
 
     protected function getTableQuery(): Builder
     {
-        return Printer::forCurrentTeam()->whereIn('status', ['printing', 'paused']);
+        return Printer::forCurrentTeam()->whereIn('status', ['printing', 'paused', 'pausing']);
     }
 
     protected function getTableColumns(): array
