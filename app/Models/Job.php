@@ -78,6 +78,8 @@ class Job extends Model
 
     public function markAsComplete()
     {
+        FetchPrinterStatus::dispatch($this->printer);
+
         // if selected file isn't the file printed get length from gcode
         $length = $this->printer->currentlyPrinting()['job']['filament']['tool0']['length'] / 1000; // convert from cm to m
         $grams = Calculator::lengthToGrams($this->material->type, $this->material->diameter, $length);
@@ -90,6 +92,8 @@ class Job extends Model
 
     public function markAsFailed()
     {
+        FetchPrinterStatus::dispatch($this->printer);
+
         $current = $this->printer->currentlyPrinting();
         $length = $current['job']['filament']['tool0']['length'] / 1000; // convert from cm to m
         $percentDone = $current['progress']['completion'] / 100;
