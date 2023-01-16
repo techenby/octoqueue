@@ -42,10 +42,8 @@ class JobResource extends Resource
                 Card::make()
                     ->schema([
                         TextInput::make('name')
-                            ->disabled(fn (?Job $record) => $record && $record->isDone)
                             ->required(),
                         Select::make('print_type_id')
-                            ->disabled(fn (?Job $record) => $record && $record->isDone)
                             ->relationship(
                                 'printType',
                                 'name',
