@@ -6,7 +6,3 @@
 @import 'buttons.css';
 
 @import 'tailwindcss/utilities';
-
-:root {
-    --sidebar-width: 15rem;
-}
