@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class CurrentlyPrinting extends BaseWidget
 {
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     protected function getTableQuery(): Builder
     {
@@ -67,7 +67,6 @@ class CurrentlyPrinting extends BaseWidget
                 ->tooltip('Stop printing and mark the current job as failed.'),
             Action::make('watch')
                 ->action(function (Printer $record) {
-
                     $this->emit('pip', $record->id);
                 }),
         ];
