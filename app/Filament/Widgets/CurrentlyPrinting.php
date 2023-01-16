@@ -42,7 +42,7 @@ class CurrentlyPrinting extends BaseWidget
                 ->tooltip('Save what is currently printing to jobs. This allows for better material usage tracking.'),
             Action::make('done')
                 ->action(function (Printer $record) {
-                    $record->currentJob->markAsComplete();
+                    $record->currentJob->first()->markAsComplete();
                 })
                 ->hidden(fn (Printer $record) => $record->currentJob->isEmpty())
                 ->tooltip('Mark the this job as complete.'),
