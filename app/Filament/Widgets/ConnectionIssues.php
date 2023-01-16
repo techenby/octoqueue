@@ -25,7 +25,7 @@ class ConnectionIssues extends BaseWidget
             Stack::make([
                 TextColumn::make('name')->weight('semibold'),
                 TextColumn::make('model')->color('secondary'),
-            ])
+            ]),
         ];
     }
 

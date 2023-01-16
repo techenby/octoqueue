@@ -25,7 +25,7 @@ class StandbyPrinters extends BaseWidget
             Stack::make([
                 TextColumn::make('name')->weight('semibold'),
                 TextColumn::make('model')->color('secondary'),
-            ])
+            ]),
         ];
     }
 
@@ -37,7 +37,7 @@ class StandbyPrinters extends BaseWidget
             Action::make('fetchStatus')
                 ->action(fn (Printer $record) => FetchPrinterStatus::dispatch($record)),
             Action::make('edit')
-                ->url(fn (Printer $record): string => route('filament.resources.printers.edit', $record))
+                ->url(fn (Printer $record): string => route('filament.resources.printers.edit', $record)),
         ];
     }
 
