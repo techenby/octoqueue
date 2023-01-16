@@ -6,3 +6,7 @@
 @import 'buttons.css';
 
 @import 'tailwindcss/utilities';
+
+.filament-widget .filament-tables-empty-state {
+    @apply p-0 flex-row items-center space-x-6 space-y-0;
+}

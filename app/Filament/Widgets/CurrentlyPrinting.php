@@ -73,4 +73,14 @@ class CurrentlyPrinting extends BaseWidget
                 }),
         ];
     }
+
+    protected function getTableEmptyStateIcon(): ?string
+    {
+        return 'heroicon-o-printer';
+    }
+
+    protected function getTableEmptyStateHeading(): ?string
+    {
+        return 'Nothing currently printing.';
+    }
 }

@@ -42,6 +42,16 @@ class AssignMaterials extends BaseWidget
         ];
     }
 
+    protected function getTableEmptyStateIcon(): ?string
+    {
+        return 'heroicon-o-badge-check';
+    }
+
+    protected function getTableEmptyStateHeading(): ?string
+    {
+        return 'All tools have materials.';
+    }
+
     protected function isTablePaginationEnabled(): bool
     {
         return false;

@@ -41,6 +41,16 @@ class StandbyPrinters extends BaseWidget
         ];
     }
 
+    protected function getTableEmptyStateIcon(): ?string
+    {
+        return 'heroicon-o-badge-check';
+    }
+
+    protected function getTableEmptyStateHeading(): ?string
+    {
+        return 'No printers are on standby.';
+    }
+
     protected function isTablePaginationEnabled(): bool
     {
         return false;

@@ -39,6 +39,16 @@ class ConnectionIssues extends BaseWidget
         ];
     }
 
+    protected function getTableEmptyStateIcon(): ?string
+    {
+        return 'heroicon-o-badge-check';
+    }
+
+    protected function getTableEmptyStateHeading(): ?string
+    {
+        return 'All printers are operational.';
+    }
+
     protected function isTablePaginationEnabled(): bool
     {
         return false;
