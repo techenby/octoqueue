@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class AssignMaterials extends BaseWidget
 {
-    protected static ?int $sort = 4;
+    protected static ?int $sort = 3;
 
     protected function getTableQuery(): Builder
     {

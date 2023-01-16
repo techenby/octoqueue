@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class StandbyPrinters extends BaseWidget
 {
-    protected static ?int $sort = 2;
+    protected static ?int $sort = 3;
 
     protected function getTableQuery(): Builder
     {
