@@ -36,12 +36,14 @@ class CurrentlyPrinting extends BaseWidget
                 ->action(function (Printer $record) {
                     $record->saveCurrentlyPrinting();
                 })
-                ->hidden(fn (Printer $record) => $record->currentJob->isNotEmpty()),
+                ->hidden(fn (Printer $record) => $record->currentJob->isNotEmpty())
+                ->tooltip('Save what is currently printing to jobs. This allows for better material usage tracking.'),
             Action::make('done')
                 ->action(function (Printer $record) {
-                    $record->saveCurrentlyPrinting();
+                    $record->currentJob->markAsComplete();
                 })
-                ->hidden(fn (Printer $record) => $record->currentJob->isNotEmpty()),
+                ->hidden(fn (Printer $record) => $record->currentJob->isEmpty())
+                ->tooltip('Mark the this job as complete.'),
             Action::make('pause')
                 ->action(function (Printer $record) {
                     if ($record->status === 'printing') {
@@ -61,9 +63,11 @@ class CurrentlyPrinting extends BaseWidget
                     if (in_array($record->status, ['printing', 'printing'])) {
                         $record->cancel();
                     }
-                }),
+                })
+                ->tooltip('Stop printing and mark the current job as failed.'),
             Action::make('watch')
                 ->action(function (Printer $record) {
+
                     $this->emit('pip', $record->id);
                 }),
         ];
