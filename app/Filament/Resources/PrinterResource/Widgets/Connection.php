@@ -36,7 +36,9 @@ class Connection extends Widget implements HasForms
     {
         parent::mount();
 
-        $this->loadConnection();
+        if ($this->record->status !== 'offline') {
+            $this->loadConnection();
+        }
     }
 
     public function connect()
@@ -79,15 +81,15 @@ class Connection extends Widget implements HasForms
         return [
             Select::make('port')
                 ->disabled(in_array($this->record->status, ['operational', 'printing']))
-                ->options(array_combine($this->connectionOptions['ports'], $this->connectionOptions['ports']))
+                ->options($this->getPortOptions())
                 ->placeholder('AUTO'),
             Select::make('baudrate')
                 ->disabled(in_array($this->record->status, ['operational', 'printing']))
-                ->options(array_combine($this->connectionOptions['baudrates'], $this->connectionOptions['baudrates']))
+                ->options($this->getBaudrateOptions())
                 ->placeholder('AUTO'),
             Select::make('printerProfile')
                 ->disabled(in_array($this->record->status, ['operational', 'printing']))
-                ->options(collect($this->connectionOptions['printerProfiles'])->pluck('name', 'id'))
+                ->options($this->getPrinterProfileOptions())
                 ->required(),
             Checkbox::make('save')
                 ->disabled(in_array($this->record->status, ['operational', 'printing']))
@@ -96,6 +98,33 @@ class Connection extends Widget implements HasForms
                 ->disabled(in_array($this->record->status, ['operational', 'printing']))
                 ->label('Auto-connect on startup'),
         ];
+    }
+
+    private function getBaudrateOptions()
+    {
+        if ($this->record->status === 'offline') {
+            return [];
+        }
+
+        return array_combine($this->connectionOptions['baudrates'], $this->connectionOptions['baudrates']);
+    }
+
+    private function getPortOptions()
+    {
+        if ($this->record->status === 'offline') {
+            return [];
+        }
+
+        return array_combine($this->connectionOptions['ports'], $this->connectionOptions['ports']);
+    }
+
+    private function getPrinterProfileOptions()
+    {
+        if ($this->record->status === 'offline') {
+            return [];
+        }
+
+        return collect($this->connectionOptions['printerProfiles'])->pluck('name', 'id');
     }
 
     private function loadConnection()

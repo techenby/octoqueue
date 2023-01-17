@@ -12,7 +12,7 @@ class Temperatures extends Widget
 {
     public ?Model $record = null;
 
-    public $temperatures;
+    public $temperatures = [];
 
     protected int|string|array $columnSpan = 2;
 
@@ -22,7 +22,9 @@ class Temperatures extends Widget
     {
         parent::mount();
 
-        $this->loadTemperatures();
+        if ($this->record->status !== 'offline') {
+            $this->loadTemperatures();
+        }
     }
 
     public function clear($name, $type)
