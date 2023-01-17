@@ -59,6 +59,11 @@ class JobResource extends Resource
                         Textarea::make('notes')
                             ->disabled(fn (?Job $record) => $record && $record->isDone)
                             ->maxLength(65535),
+                        TextInput::make('quantity')
+                            ->default(1)
+                            ->hidden(fn (?Job $record) => $record !== null)
+                            ->minValue(1)
+                            ->numeric(),
                     ])
                     ->columnSpan(['lg' => 1]),
                 FormBuilder::make('files')
@@ -197,7 +202,7 @@ class JobResource extends Resource
                                 ->send();
                         }
                     })
-                    ->hidden(fn (Job $record) => $record->isDone || ! $record->hasStarted),
+                    ->hidden(fn (Job $record) => $record->isDone || !$record->hasStarted),
                 Action::make('duplicate')
                     ->form([
                         TextInput::make('times')
