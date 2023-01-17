@@ -24,10 +24,12 @@
         "laravel/spark-stripe": "^2.0",
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.10",
+        "pxlrbt/filament-environment-indicator": "^1.0",
         "spatie/laravel-ignition": "^1.6",
         "spatie/laravel-newsletter": "^5.0",
         "spatie/laravel-permission": "^5.5",
         "spatie/mailcoach-sdk-php": "^1.0",
+        "spatie/once": "^3.1",
         "stechstudio/filament-impersonate": "^2.8"
     },
     "require-dev": {
@@ -68,7 +70,8 @@
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
-            "@php artisan horizon:publish --ansi"
+            "@php artisan horizon:publish --ansi",
+            "@php artisan filament:upgrade"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""

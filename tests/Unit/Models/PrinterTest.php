@@ -242,48 +242,6 @@ class PrinterTest extends TestCase
     }
 
     /** @test */
-    public function when_currently_printing_is_done_status_updated()
-    {
-        Queue::fake();
-        Http::fake([
-            'bulbasaur.local/api/job' => Http::response([
-                'job' => [
-                    'file' => [
-                        'name' => 'whistle_v2.gcode',
-                        'origin' => 'local',
-                        'size' => 1468987,
-                        'date' => 1378847754,
-                    ],
-                    'estimatedPrintTime' => 8811,
-                    'filament' => [
-                        'tool0' => [
-                            'length' => 810,
-                            'volume' => 5.36,
-                        ],
-                    ],
-                ],
-                'progress' => [
-                    'completion' => 100,
-                    'filepos' => 337942,
-                    'printTime' => 276,
-                    'printTimeLeft' => 912,
-                ],
-                'state' => 'Operational',
-            ]),
-        ]);
-
-        $printer = Printer::factory()->make([
-            'url' => 'http://bulbasaur.local',
-            'api_key' => 'TEST-KEY',
-        ]);
-
-        $job = $printer->currentlyPrinting();
-
-        $this->assertEquals('Operational', $job['state']);
-        Queue::assertPushed(FetchPrinterStatus::class);
-    }
-
-    /** @test */
     public function can_get_files()
     {
         Http::preventStrayRequests();

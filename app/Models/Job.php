@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Jobs\FetchPrinterStatus;
+use App\Jobs\ProcessJobFiles;
 use App\Traits\HasTeam;
 use Exception;
 use Facades\App\Calculator;
@@ -24,6 +25,11 @@ class Job extends Model
 
     protected $dates = ['started_at', 'completed_at', 'failed_at'];
 
+    protected static function booted()
+    {
+        static::saved(fn ($job) => ProcessJobFiles::dispatch($job));
+    }
+
     public function material(): BelongsTo
     {
         return $this->belongsTo(Material::class);
@@ -44,6 +50,16 @@ class Job extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function getHasStartedAttribute()
+    {
+        return $this->started_at !== null;
+    }
+
+    public function getIsDoneAttribute()
+    {
+        return $this->completed_at !== null || $this->failed_at !== null;
+    }
+
     public function copy($colorHex = null)
     {
         $new = $this->replicate([
@@ -62,6 +78,9 @@ class Job extends Model
 
     public function markAsComplete()
     {
+        FetchPrinterStatus::dispatch($this->printer);
+
+        // if selected file isn't the file printed get length from gcode
         $length = $this->printer->currentlyPrinting()['job']['filament']['tool0']['length'] / 1000; // convert from cm to m
         $grams = Calculator::lengthToGrams($this->material->type, $this->material->diameter, $length);
 
@@ -73,6 +92,8 @@ class Job extends Model
 
     public function markAsFailed()
     {
+        FetchPrinterStatus::dispatch($this->printer);
+
         $current = $this->printer->currentlyPrinting();
         $length = $current['job']['filament']['tool0']['length'] / 1000; // convert from cm to m
         $percentDone = $current['progress']['completion'] / 100;
@@ -93,7 +114,7 @@ class Job extends Model
 
         $tools = Tool::query()
             ->whereIn('material_id', $materials->pluck('id'))
-            ->whereIn('printer_id', $this->files->pluck('printer'))
+            ->whereIn('printer_id', $this->files->filter(fn ($file) => $file['type'] === 'existing')->pluck('data.printer'))
             ->with('printer')
             ->get()
             ->filter(fn ($tool) => $tool->printer->status === 'operational');
@@ -102,7 +123,7 @@ class Job extends Model
 
         try {
             $printer = $tools->first()->printer;
-            $file = $this->files->firstWhere('printer', $printer->id)['file'];
+            $file = $this->files->firstWhere('data.printer', $printer->id)['data']['file'];
 
             Http::octoPrint($printer)->post("/api/files/local/{$file}", [
                 'command' => 'select',

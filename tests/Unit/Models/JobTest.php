@@ -165,8 +165,8 @@ class JobTest extends TestCase
             'name' => 'Rubber Ducky',
             'color_hex' => '#FFFF00',
             'files' => [
-                ['file' => 'Fun/CE3PRO-rubber-ducky.gcode', 'printer' => $printerA->id],
-                ['file' => 'Fun/CE3-rubber-ducky.gcode', 'printer' => $printerB->id],
+                ['type' => 'existing', 'data' => ['file' => 'Fun/CE3PRO-rubber-ducky.gcode', 'printer' => $printerA->id]],
+                ['type' => 'existing', 'data' => ['file' => 'Fun/CE3-rubber-ducky.gcode', 'printer' => $printerB->id]],
             ],
         ]);
 

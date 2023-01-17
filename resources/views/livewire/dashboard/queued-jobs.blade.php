@@ -1,7 +1,6 @@
 <div class="bg-white rounded-md shadow dark:bg-gray-800">
     <div class="flex items-center justify-between px-4 py-5 border-b border-gray-200 dark:border-gray-700">
         <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-200">Print Queue</h3>
-        <x-jet-secondary-button href="{{ route('queue') }}">View All</x-jet-secondary-button>
     </div>
     <div class="flow-root overflow-y-scroll max-h-96">
         <table class="min-w-full divide-y divide-gray-300 dark:divide-gray-700">
