@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Filament\Facades\Filament;
+use Filament\Navigation\UserMenuItem;
 use Illuminate\Support\ServiceProvider;
 use pxlrbt\FilamentEnvironmentIndicator\FilamentEnvironmentIndicator;
 
@@ -15,6 +16,15 @@ class FilamentServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        Filament::serving(function () {
+            Filament::registerUserMenuItems([
+                UserMenuItem::make()
+                    ->label('Profile')
+                    ->url(route('filament.pages.profile'))
+                    ->icon('heroicon-s-cog'),
+            ]);
+        });
+
         FilamentEnvironmentIndicator::configureUsing(function ($indicator) {
             $indicator->visible = fn () => auth()->user()?->hasRole('Super-Admin');
         }, isImportant: true);
