@@ -20,4 +20,9 @@ class EditTeam extends EditRecord
             //
         ];
     }
+
+    protected function getBreadcrumbs(): array
+    {
+        return [];
+    }
 }

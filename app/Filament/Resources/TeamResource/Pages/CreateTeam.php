@@ -11,4 +11,9 @@ class CreateTeam extends CreateRecord
     protected static string $resource = TeamResource::class;
 
     protected static string $view = 'teams.create';
+
+    protected function getBreadcrumbs(): array
+    {
+        return [];
+    }
 }
