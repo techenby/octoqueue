@@ -3,10 +3,8 @@
 namespace App\Filament\Resources\JobResource\Pages;
 
 use App\Filament\Resources\JobResource;
-use Filament\Notifications\Notification;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class CreateJob extends CreateRecord
 {
