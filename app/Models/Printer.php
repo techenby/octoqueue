@@ -160,7 +160,7 @@ class Printer extends Model
         return Job::create([
             'name' => $name,
             'color_hex' => $this->tools()->first()->material->color_hex,
-            'files' => [['printer' => $this->id, 'file' => $name]],
+            'files' => [['type' => 'existing', 'data' => ['printer' => $this->id, 'file' => $name]]],
             'material_id' => $this->tools()->first()->material_id,
             'printer_id' => $this->id,
             'print_type_id' => $user->currentTeam->printTypes()->orderBy('priority')->first()->id,
