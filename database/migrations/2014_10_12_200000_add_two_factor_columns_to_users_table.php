@@ -7,7 +7,7 @@ use Laravel\Fortify\Fortify;
 
 return new class extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
             $table->text('two_factor_secret')
@@ -26,7 +26,7 @@ return new class extends Migration
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn(array_merge([

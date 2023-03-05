@@ -16,7 +16,7 @@ class DeleteAccountTest extends TestCase
     /**
      * @test
      */
-    public function user_accounts_can_be_deleted()
+    public function user_accounts_can_be_deleted(): void
     {
         if (! Features::hasAccountDeletionFeatures()) {
             return $this->markTestSkipped('Account deletion is not enabled.');
@@ -34,7 +34,7 @@ class DeleteAccountTest extends TestCase
     /**
      * @test
      */
-    public function correct_password_must_be_provided_before_account_can_be_deleted()
+    public function correct_password_must_be_provided_before_account_can_be_deleted(): void
     {
         if (! Features::hasAccountDeletionFeatures()) {
             return $this->markTestSkipped('Account deletion is not enabled.');

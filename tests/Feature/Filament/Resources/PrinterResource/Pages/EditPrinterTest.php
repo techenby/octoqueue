@@ -14,7 +14,7 @@ class EditPrinterTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function can_edit_printer()
+    public function can_edit_printer(): void
     {
         $user = User::factory()->withPersonalTeam()->create();
         $printer = Printer::factory()->for($user->currentTeam)->create([

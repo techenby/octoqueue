@@ -103,7 +103,7 @@ class CreateJobTest extends TestCase
     ];
 
     /** @test */
-    public function can_create_job_with_existing_file()
+    public function can_create_job_with_existing_file(): void
     {
         Http::fake([
             'bulbasaur.local/*' => Http::response($this->filesResponse),

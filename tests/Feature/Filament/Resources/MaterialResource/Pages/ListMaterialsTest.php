@@ -14,7 +14,7 @@ class ListMaterialsTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function can_view_all_materials_for_team()
+    public function can_view_all_materials_for_team(): void
     {
         $user = User::factory()->withPersonalTeam()->create();
         $materials = Material::factory()->for($user->currentTeam)->count(5)->create();

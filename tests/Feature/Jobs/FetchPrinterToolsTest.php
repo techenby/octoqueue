@@ -14,7 +14,7 @@ class FetchPrinterToolsTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function can_create_tools_for_new_printer()
+    public function can_create_tools_for_new_printer(): void
     {
         Http::fake([
             'bulbasaur.local/api/printer/tool' => Http::response([
@@ -43,7 +43,7 @@ class FetchPrinterToolsTest extends TestCase
     }
 
     /** @test */
-    public function tools_not_created_for_printer_with_bad_status()
+    public function tools_not_created_for_printer_with_bad_status(): void
     {
         $printer = Printer::factory()->createQuietly([
             'url' => 'http://bulbasaur.local',
@@ -57,7 +57,7 @@ class FetchPrinterToolsTest extends TestCase
     }
 
     /** @test */
-    public function new_tools_are_added_to_existing_ones()
+    public function new_tools_are_added_to_existing_ones(): void
     {
         Http::fake([
             'bulbasaur.local/api/printer/tool' => Http::response([
@@ -88,7 +88,7 @@ class FetchPrinterToolsTest extends TestCase
     }
 
     /** @test */
-    public function old_tools_are_deleted_to_from_ones()
+    public function old_tools_are_deleted_to_from_ones(): void
     {
         Http::fake([
             'bulbasaur.local/api/printer/tool' => Http::response([

@@ -155,7 +155,7 @@ class ViewPrinterTest extends TestCase
     }
 
     /** @test */
-    public function the_component_can_render()
+    public function the_component_can_render(): void
     {
         Livewire::actingAs($this->user)
             ->test(ViewPrinter::class, ['record' => $this->printer->id])
@@ -163,7 +163,7 @@ class ViewPrinterTest extends TestCase
     }
 
     /** @test */
-    public function can_fetch_printer_status()
+    public function can_fetch_printer_status(): void
     {
         Queue::fake();
 
@@ -177,7 +177,7 @@ class ViewPrinterTest extends TestCase
     }
 
     /** @test */
-    public function can_delete_pritner()
+    public function can_delete_pritner(): void
     {
         Livewire::actingAs($this->user)
             ->test(ViewPrinter::class, ['record' => $this->printer->id])

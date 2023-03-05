@@ -16,7 +16,7 @@ class TwoFactorAuthenticationSettingsTest extends TestCase
     /**
      * @test
      */
-    public function two_factor_authentication_can_be_enabled()
+    public function two_factor_authentication_can_be_enabled(): void
     {
         if (! Features::canManageTwoFactorAuthentication()) {
             return $this->markTestSkipped('Two factor authentication is not enabled.');
@@ -38,7 +38,7 @@ class TwoFactorAuthenticationSettingsTest extends TestCase
     /**
      * @test
      */
-    public function recovery_codes_can_be_regenerated()
+    public function recovery_codes_can_be_regenerated(): void
     {
         if (! Features::canManageTwoFactorAuthentication()) {
             return $this->markTestSkipped('Two factor authentication is not enabled.');
@@ -63,7 +63,7 @@ class TwoFactorAuthenticationSettingsTest extends TestCase
     /**
      * @test
      */
-    public function two_factor_authentication_can_be_disabled()
+    public function two_factor_authentication_can_be_disabled(): void
     {
         if (! Features::canManageTwoFactorAuthentication()) {
             return $this->markTestSkipped('Two factor authentication is not enabled.');

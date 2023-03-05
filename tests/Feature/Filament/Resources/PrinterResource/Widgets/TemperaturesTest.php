@@ -89,7 +89,7 @@ class TemperaturesTest extends TestCase
     }
 
     /** @test */
-    public function can_set_bed_temp()
+    public function can_set_bed_temp(): void
     {
         Livewire::actingAs($this->user)
             ->test(Temperatures::class, ['record' => $this->printer])
@@ -106,7 +106,7 @@ class TemperaturesTest extends TestCase
     }
 
     /** @test */
-    public function can_set_tool_temp()
+    public function can_set_tool_temp(): void
     {
         Livewire::actingAs($this->user)
             ->test(Temperatures::class, ['record' => $this->printer])
@@ -123,7 +123,7 @@ class TemperaturesTest extends TestCase
     }
 
     /** @test */
-    public function can_clear_bed_temp()
+    public function can_clear_bed_temp(): void
     {
         Livewire::actingAs($this->user)
             ->test(Temperatures::class, ['record' => $this->printer])
@@ -141,7 +141,7 @@ class TemperaturesTest extends TestCase
     }
 
     /** @test */
-    public function can_clear_tool_temp()
+    public function can_clear_tool_temp(): void
     {
         Livewire::actingAs($this->user)
             ->test(Temperatures::class, ['record' => $this->printer])
@@ -159,7 +159,7 @@ class TemperaturesTest extends TestCase
     }
 
     /** @test */
-    public function can_set_bed_offset()
+    public function can_set_bed_offset(): void
     {
         Livewire::actingAs($this->user)
             ->test(Temperatures::class, ['record' => $this->printer])
@@ -176,7 +176,7 @@ class TemperaturesTest extends TestCase
     }
 
     /** @test */
-    public function can_set_tool_offset()
+    public function can_set_tool_offset(): void
     {
         Livewire::actingAs($this->user)
             ->test(Temperatures::class, ['record' => $this->printer])
@@ -193,7 +193,7 @@ class TemperaturesTest extends TestCase
     }
 
     /** @test */
-    public function can_clear_bed_offset()
+    public function can_clear_bed_offset(): void
     {
         Livewire::actingAs($this->user)
             ->test(Temperatures::class, ['record' => $this->printer])
@@ -211,7 +211,7 @@ class TemperaturesTest extends TestCase
     }
 
     /** @test */
-    public function can_clear_tool_offset()
+    public function can_clear_tool_offset(): void
     {
         Livewire::actingAs($this->user)
             ->test(Temperatures::class, ['record' => $this->printer])
@@ -233,7 +233,7 @@ class TemperaturesTest extends TestCase
     // General Tests
 
     /** @test */
-    public function can_turn_motors_off()
+    public function can_turn_motors_off(): void
     {
         Livewire::actingAs($this->user)
             ->test(GeneralControls::class, ['record' => $this->printer])
@@ -247,7 +247,7 @@ class TemperaturesTest extends TestCase
     }
 
     /** @test */
-    public function can_turn_fans_off()
+    public function can_turn_fans_off(): void
     {
         Livewire::actingAs($this->user)
             ->test(GeneralControls::class, ['record' => $this->printer])
@@ -261,7 +261,7 @@ class TemperaturesTest extends TestCase
     }
 
     /** @test */
-    public function can_turn_fans_on()
+    public function can_turn_fans_on(): void
     {
         Livewire::actingAs($this->user)
             ->test(GeneralControls::class, ['record' => $this->printer])

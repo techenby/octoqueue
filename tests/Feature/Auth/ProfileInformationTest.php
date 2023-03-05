@@ -15,7 +15,7 @@ class ProfileInformationTest extends TestCase
     /**
      * @test
      */
-    public function current_profile_information_is_available()
+    public function current_profile_information_is_available(): void
     {
         $this->actingAs($user = User::factory()->create());
 
@@ -28,7 +28,7 @@ class ProfileInformationTest extends TestCase
     /**
      * @test
      */
-    public function profile_information_can_be_updated()
+    public function profile_information_can_be_updated(): void
     {
         $this->actingAs($user = User::factory()->create());
 

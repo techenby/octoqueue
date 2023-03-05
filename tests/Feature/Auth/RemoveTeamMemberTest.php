@@ -15,7 +15,7 @@ class RemoveTeamMemberTest extends TestCase
     /**
      * @test
      */
-    public function team_members_can_be_removed_from_teams()
+    public function team_members_can_be_removed_from_teams(): void
     {
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 
@@ -33,7 +33,7 @@ class RemoveTeamMemberTest extends TestCase
     /**
      * @test
      */
-    public function only_team_owner_can_remove_team_members()
+    public function only_team_owner_can_remove_team_members(): void
     {
         $user = User::factory()->withPersonalTeam()->create();
 

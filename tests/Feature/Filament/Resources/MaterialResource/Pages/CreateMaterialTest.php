@@ -14,7 +14,7 @@ class CreateMaterialTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function can_create_material()
+    public function can_create_material(): void
     {
         $user = User::factory()->withPersonalTeam()->create();
 

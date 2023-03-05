@@ -17,7 +17,7 @@ class DeleteApiTokenTest extends TestCase
     /**
      * @test
      */
-    public function api_tokens_can_be_deleted()
+    public function api_tokens_can_be_deleted(): void
     {
         if (! Features::hasApiFeatures()) {
             return $this->markTestSkipped('API support is not enabled.');

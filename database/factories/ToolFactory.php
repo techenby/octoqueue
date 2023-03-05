@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ToolFactory extends Factory
 {
-    public function definition()
+    public function definition(): array
     {
         return [
             'printer_id' => Printer::factory(),

@@ -48,7 +48,7 @@ class JobTest extends TestCase
     ];
 
     /** @test */
-    public function can_copy_job()
+    public function can_copy_job(): void
     {
         $team = Team::factory()->create();
         $printer = Printer::factory()->for($team)->createQuietly();
@@ -71,7 +71,7 @@ class JobTest extends TestCase
     }
 
     /** @test */
-    public function can_copy_job_with_different_color()
+    public function can_copy_job_with_different_color(): void
     {
         $team = Team::factory()->create();
         $printer = Printer::factory()->for($team)->createQuietly();
@@ -94,7 +94,7 @@ class JobTest extends TestCase
     }
 
     /** @test */
-    public function can_mark_job_as_complete()
+    public function can_mark_job_as_complete(): void
     {
         Http::fake([
             'http://bulbasaur.local/api/job' => Http::response($this->jobResponse),
@@ -123,7 +123,7 @@ class JobTest extends TestCase
     }
 
     /** @test */
-    public function can_mark_job_as_failed()
+    public function can_mark_job_as_failed(): void
     {
         Http::fake([
             'http://bulbasaur.local/api/job' => Http::response($this->jobResponse),
@@ -152,7 +152,7 @@ class JobTest extends TestCase
     }
 
     /** @test */
-    public function can_print_job()
+    public function can_print_job(): void
     {
         Http::fake(['*' => Http::response([], 204)]);
 

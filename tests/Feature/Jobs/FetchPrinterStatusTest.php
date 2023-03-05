@@ -14,7 +14,7 @@ class FetchPrinterStatusTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function printer_status_is_operational_if_accessable_and_connected()
+    public function printer_status_is_operational_if_accessable_and_connected(): void
     {
         Http::preventStrayRequests();
 
@@ -57,7 +57,7 @@ class FetchPrinterStatusTest extends TestCase
     }
 
     /** @test */
-    public function printer_status_is_closed_if_accessable_but_not_connected()
+    public function printer_status_is_closed_if_accessable_but_not_connected(): void
     {
         Http::fake([
             'bulbasaur.local/api/connection' => Http::response([
@@ -96,7 +96,7 @@ class FetchPrinterStatusTest extends TestCase
     }
 
     /** @test */
-    public function printer_status_is_error_if_url_is_accessable_but_bad_api_key()
+    public function printer_status_is_error_if_url_is_accessable_but_bad_api_key(): void
     {
         Http::fake([
             'bulbasaur.local/api/connection' => Http::response([
@@ -116,7 +116,7 @@ class FetchPrinterStatusTest extends TestCase
     }
 
     /** @test */
-    public function printer_status_is_offline_if_url_is_inaccessable()
+    public function printer_status_is_offline_if_url_is_inaccessable(): void
     {
         Http::fake([
             'bulbasaur.local/api/connection' => Http::response([

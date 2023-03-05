@@ -102,7 +102,7 @@ class ConnectionTest extends TestCase
     }
 
     /** @test */
-    public function can_connect_to_printer()
+    public function can_connect_to_printer(): void
     {
         Http::fake([
             'bulbasaur.local/api/connection' => Http::response($this->connectionResponse),
@@ -135,7 +135,7 @@ class ConnectionTest extends TestCase
     }
 
     /** @test */
-    public function can_disconect_from_printer()
+    public function can_disconect_from_printer(): void
     {
         Http::fake([
             'bulbasaur.local/api/connection' => Http::response($this->connectionResponse),
@@ -156,7 +156,7 @@ class ConnectionTest extends TestCase
     }
 
     /** @test */
-    public function saved_preferences_are_loaded_into_form_when_connecting()
+    public function saved_preferences_are_loaded_into_form_when_connecting(): void
     {
         Http::fake([
             'bulbasaur.local/api/connection' => Http::response($this->closedConnectionResponse, 200),
@@ -171,7 +171,7 @@ class ConnectionTest extends TestCase
     }
 
     /** @test */
-    public function inputs_are_disabled_when_printer_is_connected()
+    public function inputs_are_disabled_when_printer_is_connected(): void
     {
         Http::fake([
             'bulbasaur.local/api/connection' => Http::response($this->closedConnectionResponse, 200),

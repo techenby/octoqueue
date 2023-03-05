@@ -10,7 +10,7 @@ use Laravel\Jetstream\Features;
 
 class UserFactory extends Factory
 {
-    public function definition()
+    public function definition(): array
     {
         return [
             'name' => $this->faker->name(),

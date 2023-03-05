@@ -15,7 +15,7 @@ class CreateTeamTest extends TestCase
     /**
      * @test
      */
-    public function teams_can_be_created()
+    public function teams_can_be_created(): void
     {
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 

@@ -16,7 +16,7 @@ class DeleteTeamTest extends TestCase
     /**
      * @test
      */
-    public function teams_can_be_deleted()
+    public function teams_can_be_deleted(): void
     {
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 
@@ -38,7 +38,7 @@ class DeleteTeamTest extends TestCase
     /**
      * @test
      */
-    public function personal_teams_cant_be_deleted()
+    public function personal_teams_cant_be_deleted(): void
     {
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 

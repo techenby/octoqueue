@@ -15,7 +15,7 @@ class UpdateTeamNameTest extends TestCase
     /**
      * @test
      */
-    public function team_names_can_be_updated()
+    public function team_names_can_be_updated(): void
     {
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 
