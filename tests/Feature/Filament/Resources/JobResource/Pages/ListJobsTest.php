@@ -7,7 +7,6 @@ use App\Models\Job;
 use App\Models\Material;
 use App\Models\Printer;
 use App\Models\Team;
-use App\Models\Tool;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;

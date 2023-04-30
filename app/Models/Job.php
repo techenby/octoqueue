@@ -113,17 +113,16 @@ class Job extends Model
 
         throw_if($materials->isEmpty(), \Exception::class, 'No materials found with this color');
 
-        $tools = Tool::query()
+        $printers = Printer::query()
+            ->where('status', 'operational')
             ->whereIn('material_id', $materials->pluck('id'))
-            ->whereIn('printer_id', $this->files->filter(fn ($file) => $file['type'] === 'existing')->pluck('data.printer'))
-            ->with('printer')
-            ->get()
-            ->filter(fn ($tool) => $tool->printer->status === 'operational');
-
-        throw_if($tools->isEmpty(), \Exception::class, 'No printers available');
+            ->whereIn('id', $this->files->filter(fn ($file) => $file['type'] === 'existing')->pluck('data.printer'))
+            ->get();
+            
+        throw_if($printers->isEmpty(), \Exception::class, 'No printers available');
 
         try {
-            $printer = $tools->first()->printer;
+            $printer = $printers->first();
             $file = $this->files->firstWhere('data.printer', $printer->id)['data']['file'];
 
             Http::octoPrint($printer)->post("/api/files/local/{$file}", [
@@ -132,8 +131,8 @@ class Job extends Model
             ]);
 
             $this->update([
-                'printer_id' => $tools->first()->printer_id,
-                'material_id' => $tools->first()->material_id,
+                'printer_id' => $printer->id,
+                'material_id' => $printer->material_id,
                 'started_at' => now(),
             ]);
 
