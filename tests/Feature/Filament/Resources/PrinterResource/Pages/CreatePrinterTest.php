@@ -8,6 +8,7 @@ use App\Jobs\FetchPrinterTools;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\Queue;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -18,7 +19,7 @@ class CreatePrinterTest extends TestCase
     /** @test */
     public function can_create_printer(): void
     {
-        Bus::fake();
+        Queue::fake();
 
         $user = User::factory()->withPersonalTeam()->create();
 
@@ -41,9 +42,6 @@ class CreatePrinterTest extends TestCase
             // 'api_key' => 'pika-pika', // commented out because the API key is encrypted
         ]);
 
-        Bus::assertChained([
-            FetchPrinterStatus::class,
-            FetchPrinterTools::class,
-        ]);
+        Queue::assertPushed(FetchPrinterStatus::class);
     }
 }

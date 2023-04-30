@@ -101,7 +101,7 @@ class JobTest extends TestCase
         ]);
 
         $team = Team::factory()->create();
-        $printer = Printer::factory()->for($team)->has(Tool::factory())->createQuietly([
+        $printer = Printer::factory()->for($team)->createQuietly([
             'url' => 'http://bulbasaur.local',
             'api_key' => 'TEST-API-KEY',
         ]);
@@ -130,7 +130,7 @@ class JobTest extends TestCase
         ]);
 
         $team = Team::factory()->create();
-        $printer = Printer::factory()->for($team)->has(Tool::factory())->createQuietly([
+        $printer = Printer::factory()->for($team)->createQuietly([
             'url' => 'http://bulbasaur.local',
             'api_key' => 'TEST-API-KEY',
         ]);
@@ -158,7 +158,7 @@ class JobTest extends TestCase
 
         $team = Team::factory()->create();
         $material = Material::factory()->for($team)->create(['color_hex' => '#FFFF00', 'color' => 'Yellow']);
-        [$printerA, $printerB] = Printer::factory()->for($team)->count(2)->has(Tool::factory())->createQuietly(['status' => 'operational']);
+        [$printerA, $printerB] = Printer::factory()->for($team)->count(2)->createQuietly(['status' => 'operational']);
         $printerA->tools->first()->update(['material_id' => $material->id]);
 
         $job = Job::factory()->for($team)->create([

@@ -75,7 +75,6 @@ class GeneralControlsTest extends TestCase
         $this->user = User::factory()->withPersonalTeam()->create();
         $this->printer = Printer::factory()
             ->for($this->user->currentTeam)
-            ->has(Tool::factory())
             ->createQuietly([
                 'url' => 'http://bulbasaur.local',
                 'api_key' => 'TEST-API-KEY',

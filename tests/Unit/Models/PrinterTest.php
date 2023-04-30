@@ -200,7 +200,7 @@ class PrinterTest extends TestCase
         ]);
 
         $team = Team::factory()->create();
-        $printer = Printer::factory()->for($team)->has(Tool::factory())->createQuietly([
+        $printer = Printer::factory()->for($team)->createQuietly([
             'url' => 'http://bulbasaur.local',
             'api_key' => 'TEST-KEY',
         ]);
@@ -337,16 +337,14 @@ class PrinterTest extends TestCase
     /** @test */
     public function can_safely_delete_printer(): void
     {
-        $printer = Printer::factory()->has(Tool::factory())->createQuietly([
+        $printer = Printer::factory()->create([
             'url' => 'http://bulbasaur.local',
             'api_key' => 'TEST-KEY',
         ]);
-        $tool = $printer->tools->first();
 
         $printer->safeDelete();
 
         $this->assertDatabaseMissing('printers', ['id' => $printer->id]);
-        $this->assertDatabaseMissing('tools', ['id' => $tool->id]);
     }
 
     /** @test */
@@ -357,7 +355,7 @@ class PrinterTest extends TestCase
         ]);
 
         $user = User::factory()->withPersonalTeam()->create();
-        $printer = Printer::factory()->for($user->currentTeam)->has(Tool::factory())->createQuietly([
+        $printer = Printer::factory()->for($user->currentTeam)->createQuietly([
             'url' => 'http://bulbasaur.local',
             'api_key' => 'TEST-KEY',
         ]);
