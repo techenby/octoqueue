@@ -11,33 +11,27 @@ class Materials extends Widget
 {
     public ?Model $record = null;
 
-    public $tools;
-
     protected static string $view = 'filament.resources.printer-resource.widgets.materials';
 
     protected $rules = [
-        'tools.*.material_id' => 'nullable',
+        'record.material_id' => 'nullable',
     ];
 
     public function mount()
     {
         parent::mount();
-
-        $this->tools = $this->record->tools;
     }
 
-    public function updatedTools($value, $key)
+    public function updatedRecord($value, $key)
     {
         $this->validate();
 
-        $tool = $this->tools[Str::before($key, '.')];
-
-        $tool->update([
+        $this->record->update([
             'material_id' => ($value === '') ? null : $value,
         ]);
 
         Notification::make()
-            ->title("{$tool->name} updated successfully.")
+            ->title("{$this->record->name} material updated successfully.")
             ->success()
             ->duration(5000)
             ->send();
