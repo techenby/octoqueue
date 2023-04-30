@@ -2,7 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\JobResource\Pages;
+use App\Filament\Resources\JobResource\Pages\CreateJob;
+use App\Filament\Resources\JobResource\Pages\EditJob;
+use App\Filament\Resources\JobResource\Pages\ListJobs;
 use App\Models\Job;
 use Closure;
 use Exception;
@@ -252,9 +254,9 @@ class JobResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListJobs::route('/'),
-            'create' => Pages\CreateJob::route('/create'),
-            'edit' => Pages\EditJob::route('/{record}/edit'),
+            'index' => ListJobs::route('/'),
+            'create' => CreateJob::route('/create'),
+            'edit' => EditJob::route('/{record}/edit'),
         ];
     }
 }

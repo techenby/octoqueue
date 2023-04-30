@@ -2,7 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\MaterialResource\Pages;
+use App\Filament\Resources\MaterialResource\Pages\CreateMaterial;
+use App\Filament\Resources\MaterialResource\Pages\EditMaterial;
+use App\Filament\Resources\MaterialResource\Pages\ListMaterials;
 use App\Models\Material;
 use App\Models\Printer;
 use Facades\App\Calculator;
@@ -191,9 +193,9 @@ class MaterialResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListMaterials::route('/'),
-            'create' => Pages\CreateMaterial::route('/create'),
-            'edit' => Pages\EditMaterial::route('/{record}/edit'),
+            'index' => ListMaterials::route('/'),
+            'create' => CreateMaterial::route('/create'),
+            'edit' => EditMaterial::route('/{record}/edit'),
         ];
     }
 
