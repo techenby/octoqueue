@@ -18,7 +18,7 @@ class InviteTeamMemberTest extends TestCase
     /**
      * @test
      */
-    public function team_members_can_be_invited_to_team(): void
+    public function team_members_can_be_invited_to_team()
     {
         if (! Features::sendsTeamInvitations()) {
             return $this->markTestSkipped('Team invitations not enabled.');
@@ -42,7 +42,7 @@ class InviteTeamMemberTest extends TestCase
     /**
      * @test
      */
-    public function team_member_invitations_can_be_cancelled(): void
+    public function team_member_invitations_can_be_cancelled()
     {
         if (! Features::sendsTeamInvitations()) {
             return $this->markTestSkipped('Team invitations not enabled.');

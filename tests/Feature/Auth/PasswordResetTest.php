@@ -16,7 +16,7 @@ class PasswordResetTest extends TestCase
     /**
      * @test
      */
-    public function reset_password_link_screen_can_be_rendered(): void
+    public function reset_password_link_screen_can_be_rendered()
     {
         if (! Features::enabled(Features::resetPasswords())) {
             return $this->markTestSkipped('Password updates are not enabled.');
@@ -30,7 +30,7 @@ class PasswordResetTest extends TestCase
     /**
      * @test
      */
-    public function reset_password_link_can_be_requested(): void
+    public function reset_password_link_can_be_requested()
     {
         if (! Features::enabled(Features::resetPasswords())) {
             return $this->markTestSkipped('Password updates are not enabled.');
@@ -50,7 +50,7 @@ class PasswordResetTest extends TestCase
     /**
      * @test
      */
-    public function reset_password_screen_can_be_rendered(): void
+    public function reset_password_screen_can_be_rendered()
     {
         if (! Features::enabled(Features::resetPasswords())) {
             return $this->markTestSkipped('Password updates are not enabled.');
@@ -76,7 +76,7 @@ class PasswordResetTest extends TestCase
     /**
      * @test
      */
-    public function password_can_be_reset_with_valid_token(): void
+    public function password_can_be_reset_with_valid_token()
     {
         if (! Features::enabled(Features::resetPasswords())) {
             return $this->markTestSkipped('Password updates are not enabled.');

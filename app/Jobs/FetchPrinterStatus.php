@@ -19,7 +19,7 @@ class FetchPrinterStatus implements ShouldQueue
     {
     }
 
-    public function handle(): void
+    public function handle()
     {
         if ($this->printer->url === null || $this->printer->api_key === null) {
             return $this->printer->updateQuietly([
