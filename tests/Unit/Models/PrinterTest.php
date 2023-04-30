@@ -167,7 +167,7 @@ class PrinterTest extends TestCase
     ];
 
     /** @test */
-    public function can_cancel_print()
+    public function can_cancel_print(): void
     {
         Queue::fake();
         Http::preventStrayRequests();
@@ -191,7 +191,7 @@ class PrinterTest extends TestCase
     }
 
     /** @test */
-    public function when_cancelling_job_is_marked_as_failed_and_duplicated()
+    public function when_cancelling_job_is_marked_as_failed_and_duplicated(): void
     {
         Queue::fake();
 
@@ -224,7 +224,7 @@ class PrinterTest extends TestCase
     }
 
     /** @test */
-    public function can_get_what_is_currently_printing()
+    public function can_get_what_is_currently_printing(): void
     {
         Http::fake([
             'bulbasaur.local/api/job' => Http::response($this->jobResponse),
@@ -242,7 +242,7 @@ class PrinterTest extends TestCase
     }
 
     /** @test */
-    public function can_get_files()
+    public function can_get_files(): void
     {
         Http::preventStrayRequests();
 
@@ -261,7 +261,7 @@ class PrinterTest extends TestCase
     }
 
     /** @test */
-    public function can_pause_print()
+    public function can_pause_print(): void
     {
         Queue::fake();
         Http::preventStrayRequests();
@@ -286,7 +286,7 @@ class PrinterTest extends TestCase
     }
 
     /** @test */
-    public function can_get_list_of_printable_files()
+    public function can_get_list_of_printable_files(): void
     {
         Http::preventStrayRequests();
 
@@ -310,7 +310,7 @@ class PrinterTest extends TestCase
     }
 
     /** @test */
-    public function can_resume_print()
+    public function can_resume_print(): void
     {
         Queue::fake();
         Http::preventStrayRequests();
@@ -335,7 +335,7 @@ class PrinterTest extends TestCase
     }
 
     /** @test */
-    public function can_safely_delete_printer()
+    public function can_safely_delete_printer(): void
     {
         $printer = Printer::factory()->has(Tool::factory())->createQuietly([
             'url' => 'http://bulbasaur.local',
@@ -350,7 +350,7 @@ class PrinterTest extends TestCase
     }
 
     /** @test */
-    public function can_save_currently_printing()
+    public function can_save_currently_printing(): void
     {
         Http::fake([
             'bulbasaur.local/api/job' => Http::response($this->jobResponse),
@@ -371,7 +371,7 @@ class PrinterTest extends TestCase
 
         $this->assertEquals('whistle_v2.gcode', $job->name);
         $this->assertEquals('#ffffff', $job->color_hex);
-        $this->assertEquals('whistle_v2.gcode', $job->files->first()['file']);
+        $this->assertEquals('whistle_v2.gcode', $job->files->first()['data']['file']);
         $this->assertEquals($material->id, $job->material_id);
         $this->assertEquals($printer->id, $job->printer_id);
         $this->assertEquals($printer->id, $job->printer_id);

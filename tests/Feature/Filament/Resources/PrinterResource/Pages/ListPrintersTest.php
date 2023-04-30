@@ -15,7 +15,7 @@ class ListPrintersTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function can_view_all_printers_for_team()
+    public function can_view_all_printers_for_team(): void
     {
         $user = User::factory()->withPersonalTeam()->create();
         $printers = Printer::factory()
@@ -29,7 +29,7 @@ class ListPrintersTest extends TestCase
     }
 
     /** @test */
-    public function cannot_view_all_printers_for_different_team()
+    public function cannot_view_all_printers_for_different_team(): void
     {
         $user = User::factory()->withPersonalTeam()->create();
         $printers = Printer::factory()->for(Team::factory())->count(5)->createQuietly();
@@ -40,7 +40,7 @@ class ListPrintersTest extends TestCase
     }
 
     /** @test */
-    public function can_bulk_delete()
+    public function can_bulk_delete(): void
     {
         $user = User::factory()->withPersonalTeam()->create();
         $printers = Printer::factory()->for($user->currentTeam)->count(5)->createQuietly();

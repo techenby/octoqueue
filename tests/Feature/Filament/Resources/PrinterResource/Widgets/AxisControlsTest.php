@@ -21,7 +21,7 @@ class AxisControlsTest extends TestCase
 
     public $user;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -43,7 +43,7 @@ class AxisControlsTest extends TestCase
     }
 
     /** @test */
-    public function can_move_x_positively()
+    public function can_move_x_positively(): void
     {
         Livewire::actingAs($this->user)
             ->test(AxisControls::class, ['record' => $this->printer])
@@ -61,7 +61,7 @@ class AxisControlsTest extends TestCase
     }
 
     /** @test */
-    public function can_move_x_negatively()
+    public function can_move_x_negatively(): void
     {
         Livewire::actingAs($this->user)
             ->test(AxisControls::class, ['record' => $this->printer])
@@ -79,7 +79,7 @@ class AxisControlsTest extends TestCase
     }
 
     /** @test */
-    public function can_move_y_positively()
+    public function can_move_y_positively(): void
     {
         Livewire::actingAs($this->user)
             ->test(AxisControls::class, ['record' => $this->printer])
@@ -97,7 +97,7 @@ class AxisControlsTest extends TestCase
     }
 
     /** @test */
-    public function can_move_y_negatively()
+    public function can_move_y_negatively(): void
     {
         Livewire::actingAs($this->user)
             ->test(AxisControls::class, ['record' => $this->printer])
@@ -115,7 +115,7 @@ class AxisControlsTest extends TestCase
     }
 
     /** @test */
-    public function can_move_z_positively()
+    public function can_move_z_positively(): void
     {
         Livewire::actingAs($this->user)
             ->test(AxisControls::class, ['record' => $this->printer])
@@ -133,7 +133,7 @@ class AxisControlsTest extends TestCase
     }
 
     /** @test */
-    public function can_move_z_negatively()
+    public function can_move_z_negatively(): void
     {
         Livewire::actingAs($this->user)
             ->test(AxisControls::class, ['record' => $this->printer])
@@ -151,7 +151,7 @@ class AxisControlsTest extends TestCase
     }
 
     /** @test */
-    public function can_home_x_and_y()
+    public function can_home_x_and_y(): void
     {
         Livewire::actingAs($this->user)
             ->test(AxisControls::class, ['record' => $this->printer])
@@ -166,7 +166,7 @@ class AxisControlsTest extends TestCase
     }
 
     /** @test */
-    public function can_home_z()
+    public function can_home_z(): void
     {
         Livewire::actingAs($this->user)
             ->test(AxisControls::class, ['record' => $this->printer])

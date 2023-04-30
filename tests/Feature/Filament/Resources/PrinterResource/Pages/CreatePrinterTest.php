@@ -16,7 +16,7 @@ class CreatePrinterTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function can_create_printer()
+    public function can_create_printer(): void
     {
         Bus::fake();
 

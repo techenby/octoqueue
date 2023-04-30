@@ -104,7 +104,7 @@ class EditJobTest extends TestCase
     ];
 
     /** @test */
-    public function can_edit_job()
+    public function can_edit_job(): void
     {
         Http::fake([
             'bulbasaur.local/*' => Http::response($this->filesResponse),

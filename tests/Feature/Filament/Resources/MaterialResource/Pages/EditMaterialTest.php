@@ -14,7 +14,7 @@ class EditMaterialTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function can_edit_material()
+    public function can_edit_material(): void
     {
         $user = User::factory()->withPersonalTeam()->create();
         $material = Material::factory()->for($user->currentTeam)->create([
@@ -41,7 +41,7 @@ class EditMaterialTest extends TestCase
     }
 
     /** @test */
-    public function can_add_weights()
+    public function can_add_weights(): void
     {
         $user = User::factory()->withPersonalTeam()->create();
         $material = Material::factory()->for($user->currentTeam)->create();

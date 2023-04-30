@@ -19,7 +19,7 @@ class FetchPrinterTools implements ShouldQueue, ShouldBeUnique
     {
     }
 
-    public function handle()
+    public function handle(): void
     {
         if (! in_array($this->printer->status, ['operational', 'printing'])) {
             return;

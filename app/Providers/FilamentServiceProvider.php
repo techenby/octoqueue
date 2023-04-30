@@ -8,12 +8,12 @@ use pxlrbt\FilamentEnvironmentIndicator\FilamentEnvironmentIndicator;
 
 class FilamentServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): void
     {
         //
     }
 
-    public function boot()
+    public function boot(): void
     {
         FilamentEnvironmentIndicator::configureUsing(function ($indicator) {
             $indicator->visible = fn () => auth()->user()?->hasRole('Super-Admin');

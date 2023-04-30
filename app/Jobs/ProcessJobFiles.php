@@ -19,7 +19,7 @@ class ProcessJobFiles implements ShouldQueue
     {
     }
 
-    public function handle()
+    public function handle(): void
     {
         if ($this->printJob->files === null || ! $this->printJob->files->contains('type', 'upload')) {
             return;

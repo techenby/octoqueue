@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class PrintTypeFactory extends Factory
 {
-    public function definition()
+    public function definition(): array
     {
         return [
             'team_id' => Team::factory(),

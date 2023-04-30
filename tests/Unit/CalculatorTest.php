@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 class CalculatorTest extends TestCase
 {
     /** @test */
-    public function can_get_length_from_grams()
+    public function can_get_length_from_grams(): void
     {
         $this->assertSame(332.6, (new Calculator())->gramsToLength('PLA', 1.75, 1000));
         $this->assertSame(399.76, (new Calculator())->gramsToLength('ABS', 1.75, 1000));
@@ -16,7 +16,7 @@ class CalculatorTest extends TestCase
     }
 
     /** @test */
-    public function can_get_grams_from_length()
+    public function can_get_grams_from_length(): void
     {
         $this->assertSame(1000.0, (new Calculator())->lengthToGrams('PLA', 1.75, 332.6));
         $this->assertSame(1000.0, (new Calculator())->lengthToGrams('ABS', 1.75, 399.76));

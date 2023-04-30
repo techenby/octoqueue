@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class JobFactory extends Factory
 {
-    public function definition()
+    public function definition(): array
     {
         return [
             'team_id' => Team::factory(),

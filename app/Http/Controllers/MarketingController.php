@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
+
 class MarketingController extends Controller
 {
-    public function welcome()
+    public function welcome(): View
     {
         return view('welcome');
     }
 
-    public function marketing()
+    public function marketing(): View
     {
         return view('marketing', [
             'features' => [

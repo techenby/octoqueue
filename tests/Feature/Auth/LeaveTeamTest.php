@@ -15,7 +15,7 @@ class LeaveTeamTest extends TestCase
     /**
      * @test
      */
-    public function users_can_leave_teams()
+    public function users_can_leave_teams(): void
     {
         $user = User::factory()->withPersonalTeam()->create();
 
@@ -26,7 +26,7 @@ class LeaveTeamTest extends TestCase
         $this->actingAs($otherUser);
 
         $component = Livewire::test(TeamMemberManager::class, ['team' => $user->currentTeam])
-                        ->call('leaveTeam');
+            ->call('leaveTeam');
 
         $this->assertCount(0, $user->currentTeam->fresh()->users);
     }
@@ -34,13 +34,13 @@ class LeaveTeamTest extends TestCase
     /**
      * @test
      */
-    public function team_owners_cant_leave_their_own_team()
+    public function team_owners_cant_leave_their_own_team(): void
     {
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 
         $component = Livewire::test(TeamMemberManager::class, ['team' => $user->currentTeam])
-                        ->call('leaveTeam')
-                        ->assertHasErrors(['team']);
+            ->call('leaveTeam')
+            ->assertHasErrors(['team']);
 
         $this->assertNotNull($user->currentTeam->fresh());
     }

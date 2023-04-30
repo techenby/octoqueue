@@ -62,7 +62,7 @@ class GeneralControlsTest extends TestCase
 
     public $user;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -84,7 +84,7 @@ class GeneralControlsTest extends TestCase
     }
 
     /** @test */
-    public function can_turn_motors_off()
+    public function can_turn_motors_off(): void
     {
         Livewire::actingAs($this->user)
             ->test(GeneralControls::class, ['record' => $this->printer])
@@ -98,7 +98,7 @@ class GeneralControlsTest extends TestCase
     }
 
     /** @test */
-    public function can_turn_fans_off()
+    public function can_turn_fans_off(): void
     {
         Livewire::actingAs($this->user)
             ->test(GeneralControls::class, ['record' => $this->printer])
@@ -112,7 +112,7 @@ class GeneralControlsTest extends TestCase
     }
 
     /** @test */
-    public function can_turn_fans_on()
+    public function can_turn_fans_on(): void
     {
         Livewire::actingAs($this->user)
             ->test(GeneralControls::class, ['record' => $this->printer])

@@ -20,10 +20,11 @@ class Job extends Model
     protected $guarded = ['id'];
 
     protected $casts = [
+        'started_at' => 'datetime',
+        'completed_at' => 'datetime',
+        'failed_at' => 'datetime',
         'files' => 'collection',
     ];
-
-    protected $dates = ['started_at', 'completed_at', 'failed_at'];
 
     protected static function booted()
     {

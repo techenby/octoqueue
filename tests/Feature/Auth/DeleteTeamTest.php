@@ -16,7 +16,7 @@ class DeleteTeamTest extends TestCase
     /**
      * @test
      */
-    public function teams_can_be_deleted()
+    public function teams_can_be_deleted(): void
     {
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 
@@ -29,7 +29,7 @@ class DeleteTeamTest extends TestCase
         );
 
         $component = Livewire::test(DeleteTeamForm::class, ['team' => $team->fresh()])
-                                ->call('deleteTeam');
+            ->call('deleteTeam');
 
         $this->assertNull($team->fresh());
         $this->assertCount(0, $otherUser->fresh()->teams);
@@ -38,13 +38,13 @@ class DeleteTeamTest extends TestCase
     /**
      * @test
      */
-    public function personal_teams_cant_be_deleted()
+    public function personal_teams_cant_be_deleted(): void
     {
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 
         $component = Livewire::test(DeleteTeamForm::class, ['team' => $user->currentTeam])
-                                ->call('deleteTeam')
-                                ->assertHasErrors(['team']);
+            ->call('deleteTeam')
+            ->assertHasErrors(['team']);
 
         $this->assertNotNull($user->currentTeam->fresh());
     }

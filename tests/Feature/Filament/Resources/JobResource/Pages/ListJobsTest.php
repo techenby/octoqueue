@@ -19,7 +19,7 @@ class ListJobsTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function can_view_all_jobs_for_team()
+    public function can_view_all_jobs_for_team(): void
     {
         $user = User::factory()->withPersonalTeam()->create();
         $jobs = Job::factory()->for($user->currentTeam)->count(5)->create();
@@ -30,7 +30,7 @@ class ListJobsTest extends TestCase
     }
 
     /** @test */
-    public function cannot_view_all_jobs_for_different_team()
+    public function cannot_view_all_jobs_for_different_team(): void
     {
         $user = User::factory()->withPersonalTeam()->create();
         $jobs = Job::factory()->for(Team::factory())->count(5)->create();
@@ -43,7 +43,7 @@ class ListJobsTest extends TestCase
     /** ACTIONS */
 
     /** @test */
-    public function can_bulk_delete()
+    public function can_bulk_delete(): void
     {
         $user = User::factory()->withPersonalTeam()->create();
         $jobs = Job::factory()->for($user->currentTeam)->count(5)->create();
@@ -56,7 +56,7 @@ class ListJobsTest extends TestCase
     }
 
     /** @test */
-    public function can_bulk_duplicate()
+    public function can_bulk_duplicate(): void
     {
         $user = User::factory()->withPersonalTeam()->create();
         $job = Job::factory()->for($user->currentTeam)->create([
@@ -83,7 +83,7 @@ class ListJobsTest extends TestCase
     }
 
     /** @test */
-    public function can_print_job()
+    public function can_print_job(): void
     {
         Http::fake();
 
@@ -110,7 +110,7 @@ class ListJobsTest extends TestCase
     }
 
     /** @test */
-    public function can_not_print_if_no_printers_available()
+    public function can_not_print_if_no_printers_available(): void
     {
         $user = User::factory()->withPersonalTeam()->create();
         $printer = Printer::factory()->for($user->currentTeam)->has(Tool::factory())->createQuietly(['status' => 'operational']);
@@ -131,7 +131,7 @@ class ListJobsTest extends TestCase
     }
 
     /** @test */
-    public function can_not_print_if_no_materials_found()
+    public function can_not_print_if_no_materials_found(): void
     {
         $user = User::factory()->withPersonalTeam()->create();
         $printer = Printer::factory()->for($user->currentTeam)->has(Tool::factory())->createQuietly(['status' => 'operational']);
@@ -151,7 +151,7 @@ class ListJobsTest extends TestCase
     }
 
     /** @test */
-    public function can_duplicate_job_number_of_times()
+    public function can_duplicate_job_number_of_times(): void
     {
         $user = User::factory()->withPersonalTeam()->create();
         $job = Job::factory()->for($user->currentTeam)->create([
