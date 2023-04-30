@@ -3,6 +3,7 @@
 namespace App\Filament\Widgets;
 
 use App\Models\Job;
+use Exception;
 use Filament\Notifications\Notification;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ActionGroup;
@@ -16,9 +17,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 class PrintQueue extends BaseWidget
 {
-    protected int|string|array $columnSpan = 2;
-
     protected static ?int $sort = 2;
+    protected int|string|array $columnSpan = 2;
 
     protected function getTableQuery(): Builder
     {
@@ -56,7 +56,7 @@ class PrintQueue extends BaseWidget
                 ->action(function (Job $record) {
                     try {
                         $record->print();
-                    } catch (\Exception $e) {
+                    } catch (Exception $e) {
                         Notification::make()
                             ->title($e->getMessage())
                             ->danger()

@@ -12,7 +12,7 @@
 
     $class = 'inline-flex items-center rounded border border-transparent px-2.5 py-1.5 text-xs font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2'
 @endphp
-@if($attributes->has('href'))
+@if ($attributes->has('href'))
 <a x-tooltip.raw="{{ $label }}" {{ $attributes->merge(['class' => $class . ' ' . $color]) }}>
     {{ $slot }}
     <span class="sr-only">{{ $label }}</span>

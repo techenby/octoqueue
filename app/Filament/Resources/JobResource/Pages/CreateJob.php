@@ -10,6 +10,16 @@ class CreateJob extends CreateRecord
 {
     protected static string $resource = JobResource::class;
 
+    public function getColorOptionsProperty()
+    {
+        return auth()->user()->currentTeam->materials->pluck('name', 'color_hex');
+    }
+
+    public function getPrintersProperty()
+    {
+        return auth()->user()->currentTeam->printers;
+    }
+
     protected function handleRecordCreation(array $data): Model
     {
         $model = static::getModel()::create(array_merge($data, [
@@ -25,15 +35,5 @@ class CreateJob extends CreateRecord
         }
 
         return $model;
-    }
-
-    public function getColorOptionsProperty()
-    {
-        return auth()->user()->currentTeam->materials->pluck('name', 'color_hex');
-    }
-
-    public function getPrintersProperty()
-    {
-        return auth()->user()->currentTeam->printers;
     }
 }

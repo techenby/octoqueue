@@ -21,7 +21,7 @@
                     </a>
                 </div>
             </li>
-            @foreach($breadcrumbs as $link)
+            @foreach ($breadcrumbs as $link)
             <li>
                 <div class="flex items-center">
                     <!-- Heroicon name: mini/chevron-right -->

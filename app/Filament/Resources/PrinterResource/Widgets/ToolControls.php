@@ -15,13 +15,13 @@ class ToolControls extends Widget implements HasForms
 {
     use InteractsWithForms;
 
+    protected static string $view = 'filament.resources.printer-resource.widgets.tool-controls';
+
     public ?Model $record = null;
 
     public $extrudeAmount = 5;
 
     public $sign = '+';
-
-    protected static string $view = 'filament.resources.printer-resource.widgets.tool-controls';
 
     public function extrude()
     {

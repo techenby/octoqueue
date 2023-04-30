@@ -10,13 +10,6 @@ class EditJob extends EditRecord
 {
     protected static string $resource = JobResource::class;
 
-    protected function getActions(): array
-    {
-        return [
-            Actions\DeleteAction::make(),
-        ];
-    }
-
     public function getColorOptionsProperty()
     {
         return auth()->user()->currentTeam->materials->pluck('name', 'color_hex');
@@ -25,5 +18,12 @@ class EditJob extends EditRecord
     public function getPrintersProperty()
     {
         return auth()->user()->currentTeam->printers;
+    }
+
+    protected function getActions(): array
+    {
+        return [
+            Actions\DeleteAction::make(),
+        ];
     }
 }

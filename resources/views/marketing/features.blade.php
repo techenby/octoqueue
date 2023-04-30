@@ -9,7 +9,7 @@
         <div x-data x-tabs class="grid items-center grid-cols-1 pt-10 mt-16 gap-y-2 sm:gap-y-6 md:mt-20 lg:grid-cols-12 lg:pt-0">
             <div x-tabs:list class="flex pb-4 -mx-4 overflow-x-auto sm:mx-0 sm:overflow-visible sm:pb-0 lg:col-span-5">
                 <div class="relative z-10 flex px-4 gap-x-4 whitespace-nowrap sm:mx-auto sm:px-0 lg:mx-0 lg:block lg:gap-x-0 lg:gap-y-1 lg:whitespace-normal">
-                    @foreach($features as $feature)
+                    @foreach ($features as $feature)
                     <div x-tabs:tab :class="$tab.isSelected ? 'bg-white lg:bg-white/10 lg:ring-1 lg:ring-inset lg:ring-white/10' : 'hover:bg-white/10 lg:hover:bg-white/5'"
                         class="relative px-4 py-1 rounded-full group lg:rounded-r-none lg:rounded-l-xl lg:p-6"
                     >
@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div x-tabs:panels class="lg:col-span-7">
-                @foreach($features as $feature)
+                @foreach ($features as $feature)
                 <div x-tabs:panel id="headlessui-tabs-panel-:R15a9m:" role="tabpanel" tabindex="0" aria-labelledby="headlessui-tabs-tab-:R33a9m:">
                     <div class="relative sm:px-6 lg:hidden">
                         <div class="absolute -inset-x-4 top-[-6.5rem] bottom-[-4.25rem] bg-white/10 ring-1 ring-inset ring-white/10 sm:inset-x-0 sm:rounded-t-xl"></div>

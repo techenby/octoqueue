@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\JobResource\Pages;
 use App\Models\Job;
 use Closure;
+use Exception;
 use Filament\Forms\Components\Builder as FormBuilder;
 use Filament\Forms\Components\Builder\Block;
 use Filament\Forms\Components\Card;
@@ -183,7 +184,7 @@ class JobResource extends Resource
                     ->action(function (Job $record) {
                         try {
                             $record->print();
-                        } catch (\Exception $e) {
+                        } catch (Exception $e) {
                             Notification::make()
                                 ->title($e->getMessage())
                                 ->danger()
@@ -195,7 +196,7 @@ class JobResource extends Resource
                     ->action(function (Job $record) {
                         try {
                             $record->markAsComplete();
-                        } catch (\Exception $e) {
+                        } catch (Exception $e) {
                             Notification::make()
                                 ->title($e->getMessage())
                                 ->danger()

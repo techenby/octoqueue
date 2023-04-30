@@ -10,7 +10,7 @@
             <div class="space-y-8">
                 @include('livewire.dashboard.connection-issues', ['printers' => $connectionIssues])
                 @include('livewire.dashboard.standby', ['printers' => $standby])
-                @if(! $missingMaterials->isEmpty())
+                @if (! $missingMaterials->isEmpty())
                     <livewire:bit.assign-material :tools="$missingMaterials" />
                 @endif
             </div>

@@ -132,7 +132,7 @@ class MaterialResource extends Resource
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('cost')
-                    ->formatStateUsing(fn (string $state) => "$$state")
+                    ->formatStateUsing(fn (string $state) => "${$state}")
                     ->searchable()
                     ->sortable()
                     ->toggleable(),
