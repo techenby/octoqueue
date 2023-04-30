@@ -5,7 +5,6 @@ namespace App\Filament\Resources\PrinterResource\Widgets;
 use Filament\Notifications\Notification;
 use Filament\Widgets\Widget;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class Materials extends Widget
 {

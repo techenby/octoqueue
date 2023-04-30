@@ -118,7 +118,7 @@ class Job extends Model
             ->whereIn('material_id', $materials->pluck('id'))
             ->whereIn('id', $this->files->filter(fn ($file) => $file['type'] === 'existing')->pluck('data.printer'))
             ->get();
-            
+
         throw_if($printers->isEmpty(), \Exception::class, 'No printers available');
 
         try {

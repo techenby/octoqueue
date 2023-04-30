@@ -24,7 +24,7 @@ class Printer extends Model
         static::created(function ($printer) {
             FetchPrinterStatus::dispatch($printer);
         });
-        
+
         static::updated(function ($printer) {
             FetchPrinterStatus::dispatch($printer);
         });

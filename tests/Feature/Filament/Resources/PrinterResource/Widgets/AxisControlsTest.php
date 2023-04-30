@@ -4,7 +4,6 @@ namespace Tests\Feature\Filament\Resources\PrinterResource;
 
 use App\Filament\Resources\PrinterResource\Widgets\AxisControls;
 use App\Models\Printer;
-use App\Models\Tool;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Client\Request;

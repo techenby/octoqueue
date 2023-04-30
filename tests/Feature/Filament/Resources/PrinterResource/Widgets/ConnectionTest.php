@@ -4,7 +4,6 @@ namespace Tests\Feature\Filament\Resources\PrinterResource\Widgets;
 
 use App\Filament\Resources\PrinterResource\Widgets\Connection;
 use App\Models\Printer;
-use App\Models\Tool;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Client\Request;

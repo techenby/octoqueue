@@ -8,7 +8,6 @@ use App\Models\Material;
 use App\Models\Printer;
 use App\Models\PrintType;
 use App\Models\Team;
-use App\Models\Tool;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Client\Request;
