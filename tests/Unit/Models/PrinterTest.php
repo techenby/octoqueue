@@ -371,7 +371,7 @@ class PrinterTest extends TestCase
 
         $this->assertEquals('whistle_v2.gcode', $job->name);
         $this->assertEquals('#ffffff', $job->color_hex);
-        $this->assertEquals('whistle_v2.gcode', $job->files->first()['file']);
+        $this->assertEquals('whistle_v2.gcode', $job->files->first()['data']['file']);
         $this->assertEquals($material->id, $job->material_id);
         $this->assertEquals($printer->id, $job->printer_id);
         $this->assertEquals($printer->id, $job->printer_id);
