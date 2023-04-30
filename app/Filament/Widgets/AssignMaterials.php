@@ -4,7 +4,6 @@ namespace App\Filament\Widgets;
 
 use App\Models\Material;
 use App\Models\Printer;
-use App\Models\Tool;
 use Filament\Tables\Columns\Layout\Grid;
 use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\SelectColumn;
