@@ -1,9 +1,7 @@
 <div class="flex items-center justify-between space-x-4">
     <div class="flex items-center space-x-4">
         <div>
-            @foreach($record->tools as $tool)
-            <x-icon.filament :x-tooltip.raw="$tool->name ?? '' .' - ' . $tool->material->name ?? ''" class="w-12 h-12 text-gray-900 dark:text-gray-200" :fill="$tool->material->color_hex ?? '#000000'" />
-            @endforeach
+            <x-icon.filament :x-tooltip.raw="$printer->material->name ?? ''" class="w-12 h-12 text-gray-900 dark:text-gray-200" :fill="$printer->material->color_hex ?? '#000000'" />
         </div>
         <div>
             <x-filament::header.heading>

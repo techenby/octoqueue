@@ -5,7 +5,6 @@ namespace Tests\Feature\Filament\Resources\PrinterResource\Pages;
 use App\Filament\Resources\PrinterResource\Pages\ViewPrinter;
 use App\Jobs\FetchPrinterStatus;
 use App\Models\Printer;
-use App\Models\Tool;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
@@ -146,7 +145,6 @@ class ViewPrinterTest extends TestCase
         $this->user = User::factory()->withPersonalTeam()->create();
         $this->printer = Printer::factory()
             ->for($this->user->currentTeam)
-            ->has(Tool::factory())
             ->createQuietly([
                 'url' => 'http://bulbasaur.local',
                 'api_key' => 'TEST-API-KEY',
@@ -184,6 +182,5 @@ class ViewPrinterTest extends TestCase
             ->callPageAction('delete');
 
         $this->assertDatabaseMissing('printers', ['id' => $this->printer->id]);
-        $this->assertDatabaseMissing('tools', ['printer_id' => $this->printer->id]);
     }
 }

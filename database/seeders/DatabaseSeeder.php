@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Tool;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 
@@ -32,7 +31,6 @@ class DatabaseSeeder extends Seeder
                 ['name' => 'Pikachu', 'model' => 'Ender 3 Pro', 'url' => 'http://pikachu.local', 'api_key' => '51F8861CE37E4E82AEE4780436EB5C28'],
                 ['name' => 'Eevee', 'model' => 'Ender 3', 'url' => 'http://eevee.local', 'api_key' => 'BF6DFF22198B43F8AC24FDDD38F964FC'],
             ))
-            ->has(Tool::factory())
             ->createQuietly();
 
         \App\Models\Material::factory()

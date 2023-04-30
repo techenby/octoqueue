@@ -3,12 +3,11 @@
 namespace App\Models;
 
 use App\Jobs\FetchPrinterStatus;
-use App\Jobs\FetchPrinterTools;
 use App\Traits\HasTeam;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Http;
 
 class Printer extends Model
@@ -23,23 +22,8 @@ class Printer extends Model
     protected static function booted()
     {
         static::created(function ($printer) {
-            Bus::chain([
-                new FetchPrinterStatus($printer),
-                new FetchPrinterTools($printer),
-            ])->dispatch();
+            FetchPrinterStatus::dispatch($printer);
         });
-
-        static::updated(function ($printer) {
-            Bus::chain([
-                new FetchPrinterStatus($printer),
-                new FetchPrinterTools($printer),
-            ])->dispatch();
-        });
-    }
-
-    public function jobs(): HasMany
-    {
-        return $this->hasMany(Job::class);
     }
 
     public function currentJob()
@@ -47,9 +31,14 @@ class Printer extends Model
         return $this->jobs()->whereNotNull('started_at')->whereNull('completed_at')->whereNull('failed_at');
     }
 
-    public function tools(): HasMany
+    public function jobs(): HasMany
     {
-        return $this->hasMany(Tool::class);
+        return $this->hasMany(Job::class);
+    }
+
+    public function material(): BelongsTo
+    {
+        return $this->belongsTo(Material::class);
     }
 
     public function getStatusColorAttribute()
@@ -145,8 +134,6 @@ class Printer extends Model
 
     public function safeDelete()
     {
-        $this->tools()->delete();
-
         $this->delete();
     }
 
@@ -159,9 +146,9 @@ class Printer extends Model
 
         return Job::create([
             'name' => $name,
-            'color_hex' => $this->tools()->first()->material->color_hex,
+            'color_hex' => $this->material->color_hex,
             'files' => [['type' => 'existing', 'data' => ['printer' => $this->id, 'file' => $name]]],
-            'material_id' => $this->tools()->first()->material_id,
+            'material_id' => $this->material_id,
             'printer_id' => $this->id,
             'print_type_id' => $user->currentTeam->printTypes()->orderBy('priority')->first()->id,
             'team_id' => $user->currentTeam->id,

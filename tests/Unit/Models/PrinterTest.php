@@ -8,7 +8,6 @@ use App\Models\Material;
 use App\Models\Printer;
 use App\Models\PrintType;
 use App\Models\Team;
-use App\Models\Tool;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Client\Request;
@@ -200,7 +199,7 @@ class PrinterTest extends TestCase
         ]);
 
         $team = Team::factory()->create();
-        $printer = Printer::factory()->for($team)->has(Tool::factory())->createQuietly([
+        $printer = Printer::factory()->for($team)->createQuietly([
             'url' => 'http://bulbasaur.local',
             'api_key' => 'TEST-KEY',
         ]);
@@ -337,16 +336,14 @@ class PrinterTest extends TestCase
     /** @test */
     public function can_safely_delete_printer(): void
     {
-        $printer = Printer::factory()->has(Tool::factory())->createQuietly([
+        $printer = Printer::factory()->create([
             'url' => 'http://bulbasaur.local',
             'api_key' => 'TEST-KEY',
         ]);
-        $tool = $printer->tools->first();
 
         $printer->safeDelete();
 
         $this->assertDatabaseMissing('printers', ['id' => $printer->id]);
-        $this->assertDatabaseMissing('tools', ['id' => $tool->id]);
     }
 
     /** @test */
@@ -357,14 +354,13 @@ class PrinterTest extends TestCase
         ]);
 
         $user = User::factory()->withPersonalTeam()->create();
-        $printer = Printer::factory()->for($user->currentTeam)->has(Tool::factory())->createQuietly([
-            'url' => 'http://bulbasaur.local',
-            'api_key' => 'TEST-KEY',
-        ]);
         $material = Material::factory()->for($user->currentTeam)->create([
             'color_hex' => '#ffffff',
         ]);
-        $printer->tools->first()->update(['material_id' => $material->id]);
+        $printer = Printer::factory()->for($user->currentTeam)->for($material)->createQuietly([
+            'url' => 'http://bulbasaur.local',
+            'api_key' => 'TEST-KEY',
+        ]);
         PrintType::factory()->for($user->currentTeam)->create();
 
         $job = $printer->saveCurrentlyPrinting($user);

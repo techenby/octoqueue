@@ -4,7 +4,6 @@ namespace Tests\Feature\Filament\Resources\PrinterResource\Widgets;
 
 use App\Filament\Resources\PrinterResource\Widgets\Connection;
 use App\Models\Printer;
-use App\Models\Tool;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Client\Request;
@@ -93,7 +92,6 @@ class ConnectionTest extends TestCase
         $this->user = User::factory()->withPersonalTeam()->create();
         $this->printer = Printer::factory()
             ->for($this->user->currentTeam)
-            ->has(Tool::factory())
             ->createQuietly([
                 'url' => 'http://bulbasaur.local',
                 'api_key' => 'TEST-API-KEY',

@@ -7,7 +7,6 @@ use App\Models\Job;
 use App\Models\Material;
 use App\Models\Printer;
 use App\Models\Team;
-use App\Models\Tool;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
@@ -88,9 +87,8 @@ class ListJobsTest extends TestCase
         Http::fake();
 
         $user = User::factory()->withPersonalTeam()->create();
-        $printer = Printer::factory()->for($user->currentTeam)->has(Tool::factory())->createQuietly(['status' => 'operational']);
         $material = Material::factory()->for($user->currentTeam)->create(['color_hex' => '#FFFF00']);
-        $printer->tools->first()->update(['material_id' => $material->id]);
+        $printer = Printer::factory()->for($user->currentTeam)->for($material)->createQuietly(['status' => 'operational']);
 
         $job = Job::factory()->for($user->currentTeam)->create([
             'name' => 'Rubber Ducky',
@@ -113,7 +111,7 @@ class ListJobsTest extends TestCase
     public function can_not_print_if_no_printers_available(): void
     {
         $user = User::factory()->withPersonalTeam()->create();
-        $printer = Printer::factory()->for($user->currentTeam)->has(Tool::factory())->createQuietly(['status' => 'operational']);
+        $printer = Printer::factory()->for($user->currentTeam)->createQuietly(['status' => 'operational']);
         Material::factory()->for($user->currentTeam)->create(['color_hex' => '#FFFF00']);
 
         $job = Job::factory()->for($user->currentTeam)->create([
@@ -134,7 +132,7 @@ class ListJobsTest extends TestCase
     public function can_not_print_if_no_materials_found(): void
     {
         $user = User::factory()->withPersonalTeam()->create();
-        $printer = Printer::factory()->for($user->currentTeam)->has(Tool::factory())->createQuietly(['status' => 'operational']);
+        $printer = Printer::factory()->for($user->currentTeam)->createQuietly(['status' => 'operational']);
 
         $job = Job::factory()->for($user->currentTeam)->create([
             'name' => 'Rubber Ducky',
