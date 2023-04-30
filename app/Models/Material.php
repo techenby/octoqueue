@@ -19,11 +19,6 @@ class Material extends Model
 
     protected $guarded = ['id'];
 
-    public function tool()
-    {
-        return $this->hasOne(Tool::class);
-    }
-
     public function getCurrentWeightAttribute()
     {
         if ($this->weights === null) {

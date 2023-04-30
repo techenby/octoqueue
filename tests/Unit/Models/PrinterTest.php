@@ -354,14 +354,13 @@ class PrinterTest extends TestCase
         ]);
 
         $user = User::factory()->withPersonalTeam()->create();
-        $printer = Printer::factory()->for($user->currentTeam)->createQuietly([
-            'url' => 'http://bulbasaur.local',
-            'api_key' => 'TEST-KEY',
-        ]);
         $material = Material::factory()->for($user->currentTeam)->create([
             'color_hex' => '#ffffff',
         ]);
-        $printer->tools->first()->update(['material_id' => $material->id]);
+        $printer = Printer::factory()->for($user->currentTeam)->for($material)->createQuietly([
+            'url' => 'http://bulbasaur.local',
+            'api_key' => 'TEST-KEY',
+        ]);
         PrintType::factory()->for($user->currentTeam)->create();
 
         $job = $printer->saveCurrentlyPrinting($user);

@@ -110,9 +110,9 @@ class Job extends Model
     public function print()
     {
         $materials = $this->team->materials()->where('color_hex', $this->color_hex)->get();
-
+        
         throw_if($materials->isEmpty(), \Exception::class, 'No materials found with this color');
-
+        
         $printers = Printer::query()
             ->where('status', 'operational')
             ->whereIn('material_id', $materials->pluck('id'))
