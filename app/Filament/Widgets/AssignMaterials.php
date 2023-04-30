@@ -18,10 +18,7 @@ class AssignMaterials extends BaseWidget
 
     protected function getTableQuery(): Builder
     {
-        $ids = Printer::forCurrentTeam()->select('id')->pluck('id');
-
-        return Tool::whereIn('printer_id', $ids)
-            ->whereNull('material_id');
+        return Printer::forCurrentTeam()->whereNull('material_id');
     }
 
     protected function getTableColumns(): array

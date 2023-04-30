@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\MaterialResource\Pages;
 use App\Models\Material;
+use App\Models\Printer;
 use Facades\App\Calculator;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\ColorPicker;
@@ -107,33 +108,24 @@ class MaterialResource extends Resource
                     ->searchable(['color', 'color_hex'])
                     ->sortable()
                     ->toggleable(),
-                TextColumn::make('tool.formattedName')
+                TextColumn::make('printer.name')
                     ->formatStateUsing(fn ($state) => $state === null ? 'Storage' : $state)
                     ->action(
                         Action::make('change_location')
                             ->action(function (Material $record, $data): void {
-                                if ($record->id !== $data['location']) {
-                                    // remove material from current tool
-                                    if ($record->tool !== null) {
-                                        DB::table('tools')
-                                            ->where('id', $record->tool->id)
-                                            ->update(['material_id' => null]);
-                                    }
-                                    // set material to new tool
-                                    if ($data['location'] !== '') {
-                                        DB::table('tools')
-                                            ->where('id', $data['location'])
-                                            ->update(['material_id' => $record->id]);
-                                    }
+                                // remove material from current printer
+                                if ($record->printer !== null) {
+                                    $record->printer->update(['material_id' => null]);
+                                }
+                                // set material to new tool
+                                if ($data['location'] !== '') {
+                                    Printer::where('id', $data['location'])->update(['material_id' => $record->id]);
                                 }
                             })
                             ->form([
                                 Select::make('location')
                                     ->placeholder('Storage')
-                                    ->options(auth()->user()->currentTeam->printers->load('tools')->flatMap(function ($printer) {
-                                        return $printer->tools
-                                            ->map(fn ($tool) => ['id' => $tool->id, 'name' => $printer->name . ' - ' . $tool->name]);
-                                    })->pluck('name', 'id')),
+                                    ->options(auth()->user()->currentTeam->printers->pluck('name', 'id')),
                             ]),
                     ),
                 TextColumn::make('brand')

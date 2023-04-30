@@ -7,6 +7,7 @@ use Facades\App\Calculator;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Material extends Model
@@ -18,6 +19,11 @@ class Material extends Model
     protected $casts = ['weights' => AsCollection::class];
 
     protected $guarded = ['id'];
+
+    public function printer(): HasOne
+    {
+        return $this->hasOne(Printer::class);
+    }
 
     public function getCurrentWeightAttribute()
     {
