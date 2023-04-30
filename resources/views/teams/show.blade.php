@@ -1,19 +1,15 @@
-<x-app-layout>
-    <x-layout.header :title="__('Team Settings')" />
+<x-filament::page>
+    @livewire('teams.update-team-name-form', ['team' => $record])
 
-    <x-ui.container>
-        @livewire('teams.update-team-name-form', ['team' => $team])
+    @livewire('teams.team-member-manager', ['team' => $record])
 
-        @livewire('teams.team-member-manager', ['team' => $team])
+    @livewire('teams.print-types', ['team' => $record])
 
-        @livewire('teams.print-types', ['team' => $team])
+    @if (Gate::check('delete', $record) && ! $record->personal_team)
+    <x-jet-section-border />
 
-        @if (Gate::check('delete', $team) && ! $team->personal_team)
-            <x-jet-section-border />
-
-            <div class="mt-10 sm:mt-0">
-                @livewire('teams.delete-team-form', ['team' => $team])
-            </div>
-        @endif
-    </x-ui.container>
-</x-app-layout>
+    <div class="mt-10 sm:mt-0">
+        @livewire('teams.delete-team-form', ['team' => $record])
+    </div>
+    @endif
+</x-filament::page>
