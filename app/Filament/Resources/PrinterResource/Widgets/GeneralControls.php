@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Http;
 class GeneralControls extends Widget
 {
     protected static string $view = 'filament.resources.printer-resource.widgets.general-controls';
+
     public ?Model $record = null;
 
     public function fansOff()

@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 class Temperatures extends Widget
 {
     protected static string $view = 'filament.resources.printer-resource.widgets.temperatures';
+
     public ?Model $record = null;
 
     public $temperatures = [];

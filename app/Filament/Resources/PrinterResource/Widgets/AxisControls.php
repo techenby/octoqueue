@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Http;
 class AxisControls extends Widget
 {
     protected static string $view = 'filament.resources.printer-resource.widgets.axis-controls';
+
     public ?Model $record = null;
 
     public $amount = 10;
