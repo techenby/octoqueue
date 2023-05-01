@@ -22,25 +22,6 @@ class ViewPrinter extends ViewRecord
 
     protected static string $view = 'filament.resources.printer-resource.pages.view-printer';
 
-    protected function getActions(): array
-    {
-        return [
-            Action::make('fetch_status')
-                ->action(fn () => FetchPrinterStatus::dispatch($this->record))
-                ->color('secondary'),
-            EditAction::make()
-                ->color('warning'),
-            Action::make('delete')
-                ->action(function () {
-                    $this->record->safeDelete();
-
-                    return redirect()->route('filament.resources.printers.index');
-                })
-                ->color('danger')
-                ->requiresConfirmation(),
-        ];
-    }
-
     public function getTitle(): string
     {
         return $this->record->name ?? 'View Printer';
@@ -61,6 +42,25 @@ class ViewPrinter extends ViewRecord
             Connection::class,
             GeneralControls::class,
             ToolControls::class,
+        ];
+    }
+
+    protected function getActions(): array
+    {
+        return [
+            Action::make('fetch_status')
+                ->action(fn () => FetchPrinterStatus::dispatch($this->record))
+                ->color('secondary'),
+            EditAction::make()
+                ->color('warning'),
+            Action::make('delete')
+                ->action(function () {
+                    $this->record->safeDelete();
+
+                    return redirect()->route('filament.resources.printers.index');
+                })
+                ->color('danger')
+                ->requiresConfirmation(),
         ];
     }
 

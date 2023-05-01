@@ -16,6 +16,8 @@ class Connection extends Widget implements HasForms
 {
     use InteractsWithForms;
 
+    protected static string $view = 'filament.resources.printer-resource.widgets.connection';
+
     public ?Model $record = null;
 
     public $autoconnect;
@@ -29,8 +31,6 @@ class Connection extends Widget implements HasForms
     public $printerProfile;
 
     public $save;
-
-    protected static string $view = 'filament.resources.printer-resource.widgets.connection';
 
     public function mount()
     {

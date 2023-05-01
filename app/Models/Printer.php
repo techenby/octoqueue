@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Jobs\FetchPrinterStatus;
 use App\Traits\HasTeam;
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -86,7 +87,7 @@ class Printer extends Model
                 ->json();
 
             return $results;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }

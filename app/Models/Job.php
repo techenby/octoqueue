@@ -111,7 +111,7 @@ class Job extends Model
     {
         $materials = $this->team->materials()->where('color_hex', $this->color_hex)->get();
 
-        throw_if($materials->isEmpty(), \Exception::class, 'No materials found with this color');
+        throw_if($materials->isEmpty(), Exception::class, 'No materials found with this color');
 
         $printers = Printer::query()
             ->where('status', 'operational')
@@ -119,7 +119,7 @@ class Job extends Model
             ->whereIn('id', $this->files->filter(fn ($file) => $file['type'] === 'existing')->pluck('data.printer'))
             ->get();
 
-        throw_if($printers->isEmpty(), \Exception::class, 'No printers available');
+        throw_if($printers->isEmpty(), Exception::class, 'No printers available');
 
         try {
             $printer = $printers->first();

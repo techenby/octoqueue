@@ -4,6 +4,10 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Material;
+use App\Models\Printer;
+use App\Models\PrintType;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 
@@ -18,13 +22,13 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
         ]);
 
-        $user = \App\Models\User::factory()->withPersonalTeam()->create([
+        $user = User::factory()->withPersonalTeam()->create([
             'name' => 'Andy Newhouse',
             'email' => 'hi@andymnewhouse.me',
         ]);
         $user->assignRole('Super-Admin');
 
-        \App\Models\Printer::factory()
+        Printer::factory()
             ->for($user->currentTeam)
             ->count(2)
             ->state(new Sequence(
@@ -33,7 +37,7 @@ class DatabaseSeeder extends Seeder
             ))
             ->createQuietly();
 
-        \App\Models\Material::factory()
+        Material::factory()
             ->for($user->currentTeam)
             ->count(3)
             ->state(new Sequence(
@@ -43,7 +47,7 @@ class DatabaseSeeder extends Seeder
             ))
             ->create();
 
-        \App\Models\PrintType::factory()
+        PrintType::factory()
             ->for($user->currentTeam)
             ->count(3)
             ->state(new Sequence(

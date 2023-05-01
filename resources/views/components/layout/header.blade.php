@@ -3,7 +3,7 @@
 <header class="bg-white shadow dark:bg-gray-850 dark:border-b dark:border-gray-700">
     <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="space-y-2">
-            @if($breadcrumbs)
+            @if ($breadcrumbs)
             <x-layout.breadcrumbs :breadcrumbs="$breadcrumbs" />
             @endif
             <div class="md:flex md:items-center md:justify-between">

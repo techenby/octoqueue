@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9673b711992a998d444fb3373dc7508c",
+    "content-hash": "1facf20cb95dd46620abdd6477729379",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -1200,16 +1200,16 @@
         },
         {
             "name": "filament/filament",
-            "version": "v2.17.30",
+            "version": "v2.17.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/app.git",
-                "reference": "eb19c51dda44ba10e5b230eb8470dfcfbbbbeba0"
+                "reference": "40c85b5a45456e6802edf99714e8baa8dbde7f27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/app/zipball/eb19c51dda44ba10e5b230eb8470dfcfbbbbeba0",
-                "reference": "eb19c51dda44ba10e5b230eb8470dfcfbbbbeba0",
+                "url": "https://api.github.com/repos/filamentphp/app/zipball/40c85b5a45456e6802edf99714e8baa8dbde7f27",
+                "reference": "40c85b5a45456e6802edf99714e8baa8dbde7f27",
                 "shasum": ""
             },
             "require": {
@@ -1259,20 +1259,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2023-04-27T13:44:27+00:00"
+            "time": "2023-04-30T16:44:29+00:00"
         },
         {
             "name": "filament/forms",
-            "version": "v2.17.30",
+            "version": "v2.17.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/forms.git",
-                "reference": "66c247d231a1c6a90eadefb0889aae0e0216952f"
+                "reference": "b486221ba0d9b23e36ccdcb3ca3b18e8f81cb6bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/forms/zipball/66c247d231a1c6a90eadefb0889aae0e0216952f",
-                "reference": "66c247d231a1c6a90eadefb0889aae0e0216952f",
+                "url": "https://api.github.com/repos/filamentphp/forms/zipball/b486221ba0d9b23e36ccdcb3ca3b18e8f81cb6bb",
+                "reference": "b486221ba0d9b23e36ccdcb3ca3b18e8f81cb6bb",
                 "shasum": ""
             },
             "require": {
@@ -1317,11 +1317,11 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2023-04-27T13:44:23+00:00"
+            "time": "2023-04-30T16:44:24+00:00"
         },
         {
             "name": "filament/notifications",
-            "version": "v2.17.30",
+            "version": "v2.17.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/notifications.git",
@@ -1374,16 +1374,16 @@
         },
         {
             "name": "filament/support",
-            "version": "v2.17.30",
+            "version": "v2.17.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/support.git",
-                "reference": "d99eb08d74c560d4fa6ffb79a805cc161834de7c"
+                "reference": "f35da7381871cbc3a5770fdc37ff2e8e18bd711f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/support/zipball/d99eb08d74c560d4fa6ffb79a805cc161834de7c",
-                "reference": "d99eb08d74c560d4fa6ffb79a805cc161834de7c",
+                "url": "https://api.github.com/repos/filamentphp/support/zipball/f35da7381871cbc3a5770fdc37ff2e8e18bd711f",
+                "reference": "f35da7381871cbc3a5770fdc37ff2e8e18bd711f",
                 "shasum": ""
             },
             "require": {
@@ -1420,20 +1420,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2023-04-17T13:08:52+00:00"
+            "time": "2023-04-30T16:44:24+00:00"
         },
         {
             "name": "filament/tables",
-            "version": "v2.17.30",
+            "version": "v2.17.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/tables.git",
-                "reference": "66daf83f779c7e1663e2aa86479d5d62a70909b8"
+                "reference": "6d8b937afaa207c9147a1364dba14799b738442c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/tables/zipball/66daf83f779c7e1663e2aa86479d5d62a70909b8",
-                "reference": "66daf83f779c7e1663e2aa86479d5d62a70909b8",
+                "url": "https://api.github.com/repos/filamentphp/tables/zipball/6d8b937afaa207c9147a1364dba14799b738442c",
+                "reference": "6d8b937afaa207c9147a1364dba14799b738442c",
                 "shasum": ""
             },
             "require": {
@@ -1476,7 +1476,7 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2023-04-27T22:37:57+00:00"
+            "time": "2023-04-30T16:44:29+00:00"
         },
         {
             "name": "fruitcake/php-cors",
@@ -9349,72 +9349,6 @@
             "time": "2021-10-08T21:21:46+00:00"
         },
         {
-            "name": "laravel/pint",
-            "version": "v1.10.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/pint.git",
-                "reference": "c7a01fa9bdd79819e7a2f1ba63ac1b02e6692dbc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/pint/zipball/c7a01fa9bdd79819e7a2f1ba63ac1b02e6692dbc",
-                "reference": "c7a01fa9bdd79819e7a2f1ba63ac1b02e6692dbc",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "ext-mbstring": "*",
-                "ext-tokenizer": "*",
-                "ext-xml": "*",
-                "php": "^8.1.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.16.0",
-                "illuminate/view": "^10.5.1",
-                "laravel-zero/framework": "^10.0.2",
-                "mockery/mockery": "^1.5.1",
-                "nunomaduro/larastan": "^2.5.1",
-                "nunomaduro/termwind": "^1.15.1",
-                "pestphp/pest": "^2.4.0"
-            },
-            "bin": [
-                "builds/pint"
-            ],
-            "type": "project",
-            "autoload": {
-                "psr-4": {
-                    "App\\": "app/",
-                    "Database\\Seeders\\": "database/seeders/",
-                    "Database\\Factories\\": "database/factories/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nuno Maduro",
-                    "email": "enunomaduro@gmail.com"
-                }
-            ],
-            "description": "An opinionated code formatter for PHP.",
-            "homepage": "https://laravel.com",
-            "keywords": [
-                "format",
-                "formatter",
-                "lint",
-                "linter",
-                "php"
-            ],
-            "support": {
-                "issues": "https://github.com/laravel/pint/issues",
-                "source": "https://github.com/laravel/pint"
-            },
-            "time": "2023-04-25T14:52:30+00:00"
-        },
-        {
             "name": "laravel/sail",
             "version": "v1.21.5",
             "source": {
@@ -11383,6 +11317,76 @@
                 }
             ],
             "time": "2021-07-28T10:34:58+00:00"
+        },
+        {
+            "name": "tightenco/duster",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tighten/duster.git",
+                "reference": "ae429dbee9e8efad32488fd4ed34d591ecedeec1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tighten/duster/zipball/ae429dbee9e8efad32488fd4ed34d591ecedeec1",
+                "reference": "ae429dbee9e8efad32488fd4ed34d591ecedeec1",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.16.0",
+                "laravel-zero/framework": "^10.0.0",
+                "laravel/pint": "^1.9",
+                "nunomaduro/termwind": "^1.15.1",
+                "spatie/invade": "^1.1",
+                "squizlabs/php_codesniffer": "^3.7",
+                "tightenco/tlint": "^8.0"
+            },
+            "bin": [
+                "builds/duster"
+            ],
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "App\\": "app/",
+                    "Database\\Seeders\\": "database/seeders/",
+                    "Database\\Factories\\": "database/factories/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Matt Stauffer",
+                    "email": "matt@tighten.com",
+                    "homepage": "https://tighten.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Anthony Clark",
+                    "email": "anthony@tighten.com",
+                    "homepage": "https://tighten.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Automatic configuration for Laravel apps to apply Tighten's standard linting & code standards.",
+            "homepage": "https://github.com/tighten/duster",
+            "keywords": [
+                "Code style",
+                "duster",
+                "laravel",
+                "php",
+                "tightenco"
+            ],
+            "support": {
+                "issues": "https://github.com/tighten/duster/issues",
+                "source": "https://github.com/tighten/duster"
+            },
+            "time": "2023-04-18T18:55:32+00:00"
         }
     ],
     "aliases": [],

@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Materials extends Widget
 {
-    public ?Model $record = null;
-
     protected static string $view = 'filament.resources.printer-resource.widgets.materials';
+
+    public ?Model $record = null;
 
     protected $rules = [
         'record.material_id' => 'nullable',
