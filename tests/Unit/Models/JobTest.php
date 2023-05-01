@@ -157,8 +157,8 @@ class JobTest extends TestCase
 
         $team = Team::factory()->create();
         $material = Material::factory()->for($team)->create(['color_hex' => '#FFFF00', 'color' => 'Yellow']);
-        [$printerA, $printerB] = Printer::factory()->for($team)->count(2)->createQuietly(['status' => 'operational']);
-        $printerA->update(['material_id' => $material->id]);
+        $printerA = Printer::factory()->for($team)->for($material)->createQuietly(['status' => 'operational']);
+        $printerB = Printer::factory()->for($team)->createQuietly(['status' => 'operational']);
 
         $job = Job::factory()->for($team)->create([
             'name' => 'Rubber Ducky',

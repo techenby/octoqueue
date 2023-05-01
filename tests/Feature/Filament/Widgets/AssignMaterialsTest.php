@@ -2,15 +2,11 @@
 
 namespace Tests\Feature\Filament\Widgets;
 
-use App\Filament\Resources\PrinterResource\Widgets\AxisControls;
 use App\Filament\Widgets\AssignMaterials;
 use App\Models\Material;
 use App\Models\Printer;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Http\Client\Request;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Queue;
 use Livewire\Livewire;
 use Tests\TestCase;
 
