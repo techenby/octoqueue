@@ -26,8 +26,8 @@ class AssignMaterials extends BaseWidget
             Grid::make(3)
                 ->schema([
                     Stack::make([
-                        TextColumn::make('printer.name')->weight('semibold'),
-                        TextColumn::make('name')->color('secondary'),
+                        TextColumn::make('name')->weight('semibold'),
+                        TextColumn::make('model')->color('secondary'),
                     ]),
                     SelectColumn::make('material_id')
                         ->label('Material')
