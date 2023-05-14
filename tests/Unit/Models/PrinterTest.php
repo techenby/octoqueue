@@ -219,7 +219,7 @@ class PrinterTest extends TestCase
         $printer->cancel();
 
         $this->assertNotNull($job->fresh()->failed_at);
-        $this->assertNotNull(Job::where('id', '<>', $job->id)->where('name', 'Whistle')->first());
+        $this->assertNotNull(Job::where('id', '<>', $job->id)->where('type', Job::class)->where('name', 'Whistle')->first());
     }
 
     /** @test */
