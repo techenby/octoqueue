@@ -66,7 +66,6 @@ class Job extends Model
     public function copy($colorHex = null)
     {
         $new = $this->replicate([
-            'user_id',
             'printer_id',
             'material_id',
             'started_at',
