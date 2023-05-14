@@ -17,7 +17,7 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => 'Dice Tray'
+            'name' => 'Dice Tray',
         ];
     }
 }

@@ -3,11 +3,9 @@
 namespace App\Filament\Resources\ProductResource\RelationManagers;
 
 use App\Filament\Resources\JobResource;
-use App\Models\Template;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
-use Filament\Tables;
 use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
@@ -64,6 +62,7 @@ class TemplatesRelationManager extends RelationManager
                                 'user_id' => auth()->id(),
                             ]));
                         }
+
                         return $model;
                     }),
             ])

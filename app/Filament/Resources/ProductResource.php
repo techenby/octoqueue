@@ -49,7 +49,7 @@ class ProductResource extends Resource
                     ->action(function (Product $record) {
                         $record->addToQueue();
                         Notification::make()
-                            ->title('Added Product to Queue') 
+                            ->title('Added Product to Queue')
                             ->success()
                             ->send();
                     }),
@@ -58,14 +58,14 @@ class ProductResource extends Resource
                 DeleteBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
-            TemplatesRelationManager::class
+            TemplatesRelationManager::class,
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -73,5 +73,5 @@ class ProductResource extends Resource
             'create' => Pages\CreateProduct::route('/create'),
             'edit' => Pages\EditProduct::route('/{record}/edit'),
         ];
-    }    
+    }
 }

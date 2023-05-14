@@ -20,7 +20,7 @@ class Product extends Model
     public function addToQueue()
     {
         $this->templates->each(function ($template) {
-            $data = Arr::only($template->toArray(), ["team_id", "print_type_id", "name", "color_hex", "files", "notes"]);
+            $data = Arr::only($template->toArray(), ['team_id', 'print_type_id', 'name', 'color_hex', 'files', 'notes']);
             Job::create(array_merge(['user_id' => auth()->id(), 'type' => Job::class], $data));
         });
     }
