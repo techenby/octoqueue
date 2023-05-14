@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Job;
 use App\Models\PrintType;
 use App\Models\Team;
 use App\Models\User;
@@ -12,6 +13,7 @@ class JobFactory extends Factory
     public function definition(): array
     {
         return [
+            'type' => Job::class,
             'team_id' => Team::factory(),
             'user_id' => User::factory(),
             'print_type_id' => PrintType::factory(),

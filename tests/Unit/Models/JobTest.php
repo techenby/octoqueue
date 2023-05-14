@@ -63,6 +63,7 @@ class JobTest extends TestCase
         $newJob = $job->copy();
 
         $this->assertEquals('#FFFF00', $newJob->color_hex);
+        $this->assertEquals(Job::class, $newJob->type);
         $this->assertNull($newJob->started_at);
         $this->assertNull($newJob->completed_at);
         $this->assertNull($newJob->printer_id);
@@ -86,6 +87,7 @@ class JobTest extends TestCase
         $newJob = $job->copy('#000000');
 
         $this->assertEquals('#000000', $newJob->color_hex);
+        $this->assertEquals(Job::class, $newJob->type);
         $this->assertNull($newJob->started_at);
         $this->assertNull($newJob->completed_at);
         $this->assertNull($newJob->printer_id);

@@ -3,6 +3,7 @@
 namespace Tests\Feature\Filament\Resources\JobResource\Pages;
 
 use App\Filament\Resources\JobResource\Pages\CreateJob;
+use App\Models\Job;
 use App\Models\Material;
 use App\Models\Printer;
 use App\Models\PrintType;
@@ -137,6 +138,7 @@ class CreateJobTest extends TestCase
             ->assertHasNoFormErrors();
 
         $this->assertDatabaseHas('jobs', [
+            'type' => Job::class,
             'team_id' => $user->currentTeam->id,
             'user_id' => $user->id,
             'name' => 'Whistle',

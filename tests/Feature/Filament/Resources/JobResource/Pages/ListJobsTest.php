@@ -75,6 +75,7 @@ class ListJobsTest extends TestCase
         $this->assertEquals('Rubber Ducky', $newJob->name);
         $this->assertEquals('#000000', $newJob->color_hex);
         $this->assertEquals('Should be cute', $newJob->notes);
+        $this->assertEquals(Job::class, $newJob->type);
         $this->assertNull($newJob->started_at);
         $this->assertNull($newJob->completed_at);
         $this->assertNull($newJob->failed_at);
@@ -163,6 +164,6 @@ class ListJobsTest extends TestCase
             ->callTableAction('duplicate', $job, ['times' => 5])
             ->assertHasNoTableActionErrors();
 
-        $this->assertCount(6, Job::whereTeamId($user->current_team_id)->where('name', 'Rubber Ducky')->where('color_hex', '#FFFF00')->get());
+        $this->assertCount(6, Job::whereTeamId($user->current_team_id)->where('type', Job::class)->where('name', 'Rubber Ducky')->where('color_hex', '#FFFF00')->get());
     }
 }

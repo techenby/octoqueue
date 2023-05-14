@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\JobResource\Pages;
 
 use App\Filament\Resources\JobResource;
+use App\Models\Job;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,6 +24,7 @@ class CreateJob extends CreateRecord
     protected function handleRecordCreation(array $data): Model
     {
         $model = static::getModel()::create(array_merge($data, [
+            'type' => Job::class,
             'team_id' => auth()->user()->currentTeam->id,
             'user_id' => auth()->id(),
         ]));
