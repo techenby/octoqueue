@@ -24,6 +24,7 @@ class PrintQueue extends BaseWidget
     protected function getTableQuery(): Builder
     {
         return Job::forCurrentTeam()
+            ->where('type', Job::class)
             ->whereNull('started_at')
             ->whereNull('failed_at')
             ->whereNull('completed_at');
