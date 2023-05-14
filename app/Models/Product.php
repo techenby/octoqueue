@@ -10,4 +10,9 @@ class Product extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function templates()
+    {
+        return $this->belongsToMany(Template::class);
+    }
 }

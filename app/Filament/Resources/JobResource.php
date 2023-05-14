@@ -241,6 +241,7 @@ class JobResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
+            ->whereType(Job::class)
             ->whereTeamId(auth()->user()->current_team_id ?? auth()->user()->currentTeam->id);
     }
 
