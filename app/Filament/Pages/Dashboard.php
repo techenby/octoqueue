@@ -27,8 +27,8 @@ class Dashboard extends Page
         return Filament::getWidgets();
     }
 
-    protected function getColumns(): int|array
+    protected function getColumns(): int|string|array
     {
-        return 3;
+        return 1;
     }
 }

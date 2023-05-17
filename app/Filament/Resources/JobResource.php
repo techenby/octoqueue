@@ -29,6 +29,7 @@ use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\ColorColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
@@ -146,6 +147,11 @@ class JobResource extends Resource
                     ->label('Color')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: false),
+                TextColumn::make('files')
+                    ->label('# Files')
+                    ->formatStateUsing(fn ($state) => count($state))
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->label('Created At')
                     ->since()
@@ -172,15 +178,39 @@ class JobResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: false),
             ])
             ->filters([
-                Filter::make('to_print')
-                    ->query(fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNull('started_at')->whereNull('failed_at')->whereNull('completed_at'))),
-                Filter::make('has_started')
-                    ->query(fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNotNull('started_at')->whereNull('failed_at')->whereNull('completed_at'))),
-                Filter::make('has_completed')
-                    ->query(fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNotNull('started_at')->whereNull('failed_at')->whereNotNull('completed_at'))),
-                Filter::make('has_failed')
-                    ->query(fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNotNull('started_at')->whereNotNull('failed_at')->whereNull('completed_at'))),
+                Filter::make('created_at')
+                    ->form([
+                        Select::make('status')
+                            ->options([
+                                'to_print' => 'To Print',
+                                'has_started' => 'Has Started',
+                                'has_completed' => 'Has Completed',
+                                'has_failed' => 'Has Failed',
+                            ]),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when($data['status'] === 'to_print',
+                                fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNull('started_at')->whereNull('failed_at')->whereNull('completed_at')),
+                            )
+                            ->when($data['status'] === 'has_started',
+                                fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNotNull('started_at')->whereNull('failed_at')->whereNull('completed_at')),
+                            )
+                            ->when($data['status'] === 'has_completed',
+                                fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNotNull('started_at')->whereNull('failed_at')->whereNotNull('completed_at')),
+                            )
+                            ->when($data['status'] === 'has_failed',
+                                fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNotNull('started_at')->whereNotNull('failed_at')->whereNull('completed_at')),
+                            );
+                    }),
+                SelectFilter::make('color_hex')
+                    ->label('Color')
+                    ->multiple()
+                    ->options(auth()->user()->currentTeam->materials->pluck('name', 'color_hex')),
+                SelectFilter::make('printType')->relationship('printType', 'name'),
+                SelectFilter::make('user')->relationship('user', 'name'),
             ])
+            ->defaultSort('created_at', 'desc')
             ->actions([
                 Action::make('print')
                     ->action(function (Job $record) {

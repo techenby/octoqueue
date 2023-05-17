@@ -20,8 +20,6 @@ class PrintQueue extends BaseWidget
 {
     protected static ?int $sort = 2;
 
-    protected int|string|array $columnSpan = 2;
-
     protected function getTableQuery(): Builder
     {
         return Job::forCurrentTeam()
@@ -67,7 +65,8 @@ class PrintQueue extends BaseWidget
                     }
                 }),
             ActionGroup::make([
-                EditAction::make(),
+                EditAction::make()
+                    ->url(fn (Job $record): string => route('filament.resources.jobs.edit', $record)),
                 DeleteAction::make(),
             ]),
         ];
