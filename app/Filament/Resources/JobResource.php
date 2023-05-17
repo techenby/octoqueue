@@ -181,6 +181,7 @@ class JobResource extends Resource
                 Filter::make('has_failed')
                     ->query(fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNotNull('started_at')->whereNotNull('failed_at')->whereNull('completed_at'))),
             ])
+            ->defaultSort('created_at', 'desc')
             ->actions([
                 Action::make('print')
                     ->action(function (Job $record) {
