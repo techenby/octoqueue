@@ -20,8 +20,6 @@ class PrintQueue extends BaseWidget
 {
     protected static ?int $sort = 2;
 
-    protected int|string|array $columnSpan = 2;
-
     protected function getTableQuery(): Builder
     {
         return Job::forCurrentTeam()

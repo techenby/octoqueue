@@ -29,6 +29,6 @@ class Dashboard extends Page
 
     protected function getColumns(): int | string | array
     {
-        return 2;
+        return 1;
     }
 }
