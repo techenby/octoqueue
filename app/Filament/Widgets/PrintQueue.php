@@ -65,7 +65,8 @@ class PrintQueue extends BaseWidget
                     }
                 }),
             ActionGroup::make([
-                EditAction::make(),
+                EditAction::make()
+                    ->url(fn (Job $record): string => route('filament.resources.jobs.edit', $record)),
                 DeleteAction::make(),
             ]),
         ];
