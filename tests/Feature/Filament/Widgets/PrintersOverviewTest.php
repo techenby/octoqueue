@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Filament\Widgets;
 
-use App\Filament\Widgets\AssignMaterials;
+use App\Filament\Widgets\PrintersOverview;
 use App\Models\Material;
 use App\Models\Printer;
 use App\Models\User;
@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class AssignMaterialsTest extends TestCase
+class PrintersOverviewTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -23,8 +23,8 @@ class AssignMaterialsTest extends TestCase
         $printerB = Printer::factory()->for($user->currentTeam)->createQuietly();
 
         Livewire::actingAs($user)
-            ->test(AssignMaterials::class)
+            ->test(PrintersOverview::class)
             ->assertCanSeeTableRecords([$printerB])
-            ->assertCanNotSeeTableRecords([$printerA]);
+            ->assertCanSeeTableRecords([$printerA]);
     }
 }
