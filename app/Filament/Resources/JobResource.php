@@ -147,6 +147,11 @@ class JobResource extends Resource
                     ->label('Color')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: false),
+                TextColumn::make('files')
+                    ->label('# Files')
+                    ->formatStateUsing(fn ($state) => count($state))
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->label('Created At')
                     ->since()
