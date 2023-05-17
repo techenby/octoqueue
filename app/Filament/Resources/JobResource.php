@@ -29,6 +29,7 @@ use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\ColorColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
@@ -197,6 +198,12 @@ class JobResource extends Resource
                                 fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNotNull('started_at')->whereNotNull('failed_at')->whereNull('completed_at')),
                             );
                     }),
+                SelectFilter::make('color_hex')
+                    ->label('Color')
+                    ->multiple()
+                    ->options(auth()->user()->currentTeam->materials->pluck('name', 'color_hex')),
+                SelectFilter::make('printType')->relationship('printType', 'name'),
+                SelectFilter::make('user')->relationship('user', 'name'),
             ])
             ->defaultSort('created_at', 'desc')
             ->actions([
