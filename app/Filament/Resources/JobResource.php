@@ -172,14 +172,31 @@ class JobResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: false),
             ])
             ->filters([
-                Filter::make('to_print')
-                    ->query(fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNull('started_at')->whereNull('failed_at')->whereNull('completed_at'))),
-                Filter::make('has_started')
-                    ->query(fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNotNull('started_at')->whereNull('failed_at')->whereNull('completed_at'))),
-                Filter::make('has_completed')
-                    ->query(fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNotNull('started_at')->whereNull('failed_at')->whereNotNull('completed_at'))),
-                Filter::make('has_failed')
-                    ->query(fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNotNull('started_at')->whereNotNull('failed_at')->whereNull('completed_at'))),
+                Filter::make('created_at')
+                    ->form([
+                        Select::make('status')
+                            ->options([
+                                'to_print' => 'To Print',
+                                'has_started' => 'Has Started',
+                                'has_completed' => 'Has Completed',
+                                'has_failed' => 'Has Failed',
+                            ]),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when($data['status'] === 'to_print',
+                                fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNull('started_at')->whereNull('failed_at')->whereNull('completed_at')),
+                            )
+                            ->when($data['status'] === 'has_started',
+                                fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNotNull('started_at')->whereNull('failed_at')->whereNull('completed_at')),
+                            )
+                            ->when($data['status'] === 'has_completed',
+                                fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNotNull('started_at')->whereNull('failed_at')->whereNotNull('completed_at')),
+                            )
+                            ->when($data['status'] === 'has_failed',
+                                fn (Builder $query): Builder => $query->orWhere(fn ($query) => $query->whereNotNull('started_at')->whereNotNull('failed_at')->whereNull('completed_at')),
+                            );
+                    }),
             ])
             ->defaultSort('created_at', 'desc')
             ->actions([
